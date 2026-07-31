@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
+import { parseRouteFromLocation, syncUrlWithRoute } from './utils/routing';
 import {
   SEED_DEVICE_MODELS,
   DEFAULT_PRICING_RULES,
@@ -42,9 +43,10 @@ import { MAJOR_MOBILE_BRANDS } from './data/brandsData';
 import { ShoppingBag, X, Trash2, ArrowRight, ShieldCheck, MapPin, Smartphone, Wrench, Leaf, PhoneCall } from 'lucide-react';
 
 export default function App() {
-  const [currentTab, setCurrentTab] = useState<TabType>('landing');
+  const initialRoute = parseRouteFromLocation();
+  const [currentTab, setCurrentTab] = useState<TabType>(initialRoute.tab);
   const [isAppFrame, setIsAppFrame] = useState<boolean>(false);
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>(initialRoute.searchQuery || '');
 
   // User & Auth State
   const [isAuthOpen, setIsAuthOpen] = useState<boolean>(false);
@@ -52,8 +54,35 @@ export default function App() {
 
   // Modals
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState<boolean>(false);
-  const [isLegalOpen, setIsLegalOpen] = useState<boolean>(false);
-  const [legalTab, setLegalTab] = useState<'privacy' | 'terms' | 'warranty' | 'returns'>('privacy');
+  const [isLegalOpen, setIsLegalOpen] = useState<boolean>(!!initialRoute.legalTab);
+  const [legalTab, setLegalTab] = useState<'privacy' | 'terms' | 'warranty' | 'returns'>(initialRoute.legalTab || 'privacy');
+
+  // Sync window URL when tab or search query changes
+  useEffect(() => {
+    syncUrlWithRoute(currentTab, searchQuery);
+  }, [currentTab, searchQuery]);
+
+  // Listen to hash and popstate changes (e.g. browser Back/Forward or new tab hash navigation)
+  useEffect(() => {
+    const handleRouteChanged = () => {
+      const route = parseRouteFromLocation();
+      setCurrentTab(route.tab);
+      if (route.searchQuery !== undefined) {
+        setSearchQuery(route.searchQuery);
+      }
+      if (route.legalTab) {
+        setLegalTab(route.legalTab);
+        setIsLegalOpen(true);
+      }
+    };
+
+    window.addEventListener('hashchange', handleRouteChanged);
+    window.addEventListener('popstate', handleRouteChanged);
+    return () => {
+      window.removeEventListener('hashchange', handleRouteChanged);
+      window.removeEventListener('popstate', handleRouteChanged);
+    };
+  }, []);
 
   // App Master Data State
   const [catalog, setCatalog] = useState<CatalogProduct[]>(SEED_CATALOG);
@@ -355,14 +384,14 @@ export default function App() {
             <div className="space-y-3">
               <h4 className="font-extrabold text-white text-xs uppercase tracking-wider font-mono drop-shadow-sm">Platform Services</h4>
               <ul className="space-y-2 text-slate-300 text-xs sm:text-sm font-medium">
-                <li><button onClick={() => setCurrentTab('sell')} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> Sell Phone (60s Quote)</button></li>
-                <li><button onClick={() => setCurrentTab('buy')} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> Buy Certified Pre-Owned</button></li>
-                <li><button onClick={() => setCurrentTab('repair')} className="hover:text-amber-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-amber-400">&bull;</span> 30-Min Doorstep Repair</button></li>
-                <li><button onClick={() => setCurrentTab('track')} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> Track Order &amp; Warranty</button></li>
-                <li><button onClick={() => setCurrentTab('how-it-works')} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> How Recell Works</button></li>
-                <li><button onClick={() => setCurrentTab('about')} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> About Us</button></li>
-                <li><button onClick={() => setCurrentTab('recycle')} className="hover:text-emerald-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-emerald-400">&bull;</span> E-Waste Recycle</button></li>
-                <li><button onClick={() => setCurrentTab('contact')} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> Contact Support</button></li>
+                <li><a href="#sell" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('sell'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> Sell Phone (60s Quote)</a></li>
+                <li><a href="#buy" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('buy'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> Buy Certified Pre-Owned</a></li>
+                <li><a href="#repair" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('repair'); } }} className="hover:text-amber-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-amber-400">&bull;</span> 30-Min Doorstep Repair</a></li>
+                <li><a href="#track" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('track'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> Track Order &amp; Warranty</a></li>
+                <li><a href="#how-it-works" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('how-it-works'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> How Recell Works</a></li>
+                <li><a href="#about" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('about'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> About Us</a></li>
+                <li><a href="#recycle" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('recycle'); } }} className="hover:text-emerald-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-emerald-400">&bull;</span> E-Waste Recycle</a></li>
+                <li><a href="#contact" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('contact'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> Contact Support</a></li>
               </ul>
             </div>
 
@@ -371,13 +400,14 @@ export default function App() {
               <h4 className="font-extrabold text-white text-xs uppercase tracking-wider font-mono drop-shadow-sm">15 Mobile Brands</h4>
               <div className="grid grid-cols-2 gap-1.5 text-xs text-slate-300 font-medium">
                 {MAJOR_MOBILE_BRANDS.slice(0, 10).map((b) => (
-                  <button 
+                  <a 
                     key={b.id} 
-                    onClick={() => handleSelectBrand(b.name)}
-                    className="hover:text-blue-400 text-left transition-colors truncate cursor-pointer py-0.5"
+                    href={`#buy?brand=${encodeURIComponent(b.name)}`}
+                    onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); handleSelectBrand(b.name); } }}
+                    className="hover:text-blue-400 text-left transition-colors truncate cursor-pointer py-0.5 block"
                   >
                     {b.name}
-                  </button>
+                  </a>
                 ))}
                 <button 
                   onClick={() => setIsMegaMenuOpen(true)}
@@ -392,11 +422,11 @@ export default function App() {
             <div className="space-y-3">
               <h4 className="font-extrabold text-white text-xs uppercase tracking-wider font-mono drop-shadow-sm">Legal &amp; Trust Policies</h4>
               <ul className="space-y-2 text-slate-300 text-xs sm:text-sm font-medium">
-                <li><button onClick={() => openLegalModal('privacy')} className="hover:text-amber-400 transition-colors cursor-pointer">Privacy &amp; Data Wipe Policy</button></li>
-                <li><button onClick={() => openLegalModal('terms')} className="hover:text-amber-400 transition-colors cursor-pointer">Terms &amp; Trade-In Guidelines</button></li>
-                <li><button onClick={() => openLegalModal('warranty')} className="hover:text-amber-400 transition-colors cursor-pointer">3-Month Recell Warranty</button></li>
-                <li><button onClick={() => openLegalModal('returns')} className="hover:text-amber-400 transition-colors cursor-pointer">7-Day Easy Return Policy</button></li>
-                <li><button onClick={() => setCurrentTab('recycle')} className="hover:text-emerald-400 transition-colors cursor-pointer">Green E-Waste Disposal</button></li>
+                <li><a href="#privacy" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); openLegalModal('privacy'); } }} className="hover:text-amber-400 transition-colors cursor-pointer block">Privacy &amp; Data Wipe Policy</a></li>
+                <li><a href="#terms" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); openLegalModal('terms'); } }} className="hover:text-amber-400 transition-colors cursor-pointer block">Terms &amp; Trade-In Guidelines</a></li>
+                <li><a href="#warranty" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); openLegalModal('warranty'); } }} className="hover:text-amber-400 transition-colors cursor-pointer block">3-Month Recell Warranty</a></li>
+                <li><a href="#returns" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); openLegalModal('returns'); } }} className="hover:text-amber-400 transition-colors cursor-pointer block">7-Day Easy Return Policy</a></li>
+                <li><a href="#recycle" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('recycle'); } }} className="hover:text-emerald-400 transition-colors cursor-pointer block">Green E-Waste Disposal</a></li>
               </ul>
             </div>
           </div>

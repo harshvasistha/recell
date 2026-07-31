@@ -44,25 +44,25 @@ export const Header: React.FC<HeaderProps> = ({
   const [activeDropdown, setActiveDropdown] = useState<'services' | 'buy' | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleBrandClick = (brandName: string, inNewTab = false) => {
+  const handleNavClick = (e: React.MouseEvent, tab: TabType) => {
+    if (e.metaKey || e.ctrlKey || e.button === 1) {
+      return;
+    }
+    e.preventDefault();
     setActiveDropdown(null);
     setMobileMenuOpen(false);
-    if (inNewTab) {
-      window.open(`#buy?brand=${encodeURIComponent(brandName)}`, '_blank');
-    } else {
-      onOpenBrand(brandName);
-    }
+    setCurrentTab(tab);
+    window.location.hash = tab;
   };
 
-  const handleTabClick = (tab: TabType, inNewTab = false) => {
+  const handleBrandClick = (e: React.MouseEvent, brandName: string) => {
+    if (e.metaKey || e.ctrlKey || e.button === 1) {
+      return;
+    }
+    e.preventDefault();
     setActiveDropdown(null);
     setMobileMenuOpen(false);
-    if (inNewTab) {
-      window.open(`#${tab}`, '_blank');
-    } else {
-      setCurrentTab(tab);
-      window.location.hash = tab;
-    }
+    onOpenBrand(brandName);
   };
 
   return (
@@ -130,9 +130,9 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Main Bar: Logo, Search, Cart & User Action */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
         {/* Brand Logo */}
-        <div onClick={() => handleTabClick('landing')} className="cursor-pointer">
+        <a href="#landing" onClick={(e) => handleNavClick(e, 'landing')} className="cursor-pointer">
           <RecellLogo variant="header" />
-        </div>
+        </a>
 
         {/* Search Bar */}
         <div className="hidden md:flex flex-1 max-w-sm relative">
@@ -196,8 +196,9 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="hidden lg:flex items-center gap-1 font-heading">
             {/* 1. Home */}
             <div className="flex items-center group">
-              <button
-                onClick={() => handleTabClick('landing')}
+              <a
+                href="#landing"
+                onClick={(e) => handleNavClick(e, 'landing')}
                 className={`px-3.5 py-2 rounded-xl font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                   currentTab === 'landing' 
                     ? 'bg-[#0052FF] text-white shadow-2xs' 
@@ -205,7 +206,7 @@ export const Header: React.FC<HeaderProps> = ({
                 }`}
               >
                 Home
-              </button>
+              </a>
               <a
                 href="#landing"
                 target="_blank"
@@ -264,41 +265,32 @@ export const Header: React.FC<HeaderProps> = ({
                     </a>
                   </div>
 
-                  {PLATFORM_FEATURES.slice(0, 6).map((feat) => (
-                    <div 
-                      key={feat.id}
-                      onClick={() => {
-                        setActiveDropdown(null);
-                        if (feat.id === 'f7') handleTabClick('repair');
-                        else if (feat.id === 'f8') handleTabClick('recycle');
-                        else if (feat.id === 'f3' || feat.id === 'f4') handleTabClick('track');
-                        else handleTabClick('sell');
-                      }}
-                      className="p-3 rounded-xl bg-slate-50 hover:bg-[#EFF6FF] border border-slate-100 hover:border-[#BFDBFE] transition-all cursor-pointer group flex items-start gap-3 relative"
-                    >
-                      <div className="w-8 h-8 rounded-lg bg-[#0052FF] text-white flex items-center justify-center shrink-0 font-bold">
-                        <Zap className="w-4 h-4" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <h4 className="font-bold text-slate-900 text-xs group-hover:text-[#0052FF] transition-colors font-heading">
-                            {feat.title}
-                          </h4>
-                          <a
-                            href={`#${feat.id === 'f7' ? 'repair' : feat.id === 'f8' ? 'recycle' : feat.id === 'f3' ? 'track' : 'sell'}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            title="Open section in new tab"
-                            className="text-slate-400 hover:text-[#0052FF] p-0.5"
-                          >
-                            <ExternalLink className="w-3 h-3" />
-                          </a>
+                  {PLATFORM_FEATURES.slice(0, 6).map((feat) => {
+                    const featTab: TabType = feat.id === 'f7' ? 'repair' : feat.id === 'f8' ? 'recycle' : (feat.id === 'f3' || feat.id === 'f4') ? 'track' : 'sell';
+                    return (
+                      <a 
+                        key={feat.id}
+                        href={`#${featTab}`}
+                        onClick={(e) => handleNavClick(e, featTab)}
+                        className="p-3 rounded-xl bg-slate-50 hover:bg-[#EFF6FF] border border-slate-100 hover:border-[#BFDBFE] transition-all cursor-pointer group flex items-start gap-3 relative"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-[#0052FF] text-white flex items-center justify-center shrink-0 font-bold">
+                          <Zap className="w-4 h-4" />
                         </div>
-                        <p className="text-[10px] text-slate-500 line-clamp-1 mt-0.5 font-sans">{feat.description}</p>
-                      </div>
-                    </div>
-                  ))}
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between">
+                            <h4 className="font-bold text-slate-900 text-xs group-hover:text-[#0052FF] transition-colors font-heading">
+                              {feat.title}
+                            </h4>
+                            <span className="text-slate-400 group-hover:text-[#0052FF] p-0.5">
+                              <ExternalLink className="w-3 h-3" />
+                            </span>
+                          </div>
+                          <p className="text-[10px] text-slate-500 line-clamp-1 mt-0.5 font-sans">{feat.description}</p>
+                        </div>
+                      </a>
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -310,8 +302,9 @@ export const Header: React.FC<HeaderProps> = ({
               onMouseLeave={() => setActiveDropdown(null)}
             >
               <div className="flex items-center group">
-                <button
-                  onClick={() => handleTabClick('buy')}
+                <a
+                  href="#buy"
+                  onClick={(e) => handleNavClick(e, 'buy')}
                   className={`px-3.5 py-2 rounded-xl font-bold transition-all flex items-center gap-1 cursor-pointer ${
                     currentTab === 'buy' || activeDropdown === 'buy'
                       ? 'bg-[#0052FF] text-white shadow-2xs'
@@ -320,7 +313,7 @@ export const Header: React.FC<HeaderProps> = ({
                 >
                   <span>Buy Phone</span>
                   <ChevronDown className="w-3.5 h-3.5 opacity-80" />
-                </button>
+                </a>
                 <a
                   href="#buy"
                   target="_blank"
@@ -353,8 +346,9 @@ export const Header: React.FC<HeaderProps> = ({
                   <div className="grid grid-cols-3 gap-2">
                     {MAJOR_MOBILE_BRANDS.map((brand) => (
                       <div key={brand.id} className="relative group/brand flex items-center">
-                        <button
-                          onClick={() => handleBrandClick(brand.name)}
+                        <a
+                          href={`#buy?brand=${encodeURIComponent(brand.name)}`}
+                          onClick={(e) => handleBrandClick(e, brand.name)}
                           className="w-full p-2.5 rounded-xl bg-slate-50 hover:bg-[#EFF6FF] border border-slate-100 hover:border-[#BFDBFE] text-left transition-all cursor-pointer group flex items-center justify-between"
                         >
                           <div className="flex items-center gap-2">
@@ -366,15 +360,6 @@ export const Header: React.FC<HeaderProps> = ({
                               <p className="text-[9px] text-emerald-600 font-bold font-mono">Buy From ₹{(brand.buyStartingFrom / 1000).toFixed(0)}k</p>
                             </div>
                           </div>
-                        </button>
-                        <a
-                          href={`#buy?brand=${encodeURIComponent(brand.name)}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          title={`Open ${brand.name} in new tab`}
-                          className="absolute right-1 top-1 text-slate-400 hover:text-[#0052FF] p-1 opacity-0 group-hover/brand:opacity-100 transition-opacity"
-                        >
-                          <ExternalLink className="w-2.5 h-2.5" />
                         </a>
                       </div>
                     ))}
@@ -385,8 +370,9 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* 4. Sell Phone */}
             <div className="flex items-center group">
-              <button
-                onClick={() => handleTabClick('sell')}
+              <a
+                href="#sell"
+                onClick={(e) => handleNavClick(e, 'sell')}
                 className={`px-3.5 py-2 rounded-xl font-bold transition-all flex items-center gap-1 cursor-pointer ${
                   currentTab === 'sell'
                     ? 'bg-slate-900 text-white shadow-2xs'
@@ -395,7 +381,7 @@ export const Header: React.FC<HeaderProps> = ({
               >
                 <Smartphone className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Sell Phone</span>
-              </button>
+              </a>
               <a
                 href="#sell"
                 target="_blank"
@@ -409,8 +395,9 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* 5. GET Repaired */}
             <div className="flex items-center group">
-              <button
-                onClick={() => handleTabClick('repair')}
+              <a
+                href="#repair"
+                onClick={(e) => handleNavClick(e, 'repair')}
                 className={`px-3.5 py-2 rounded-xl font-bold transition-all flex items-center gap-1 cursor-pointer ${
                   currentTab === 'repair'
                     ? 'bg-amber-600 text-white shadow-2xs'
@@ -419,7 +406,7 @@ export const Header: React.FC<HeaderProps> = ({
               >
                 <Wrench className="w-3.5 h-3.5 text-amber-500" />
                 <span>GET Repaired</span>
-              </button>
+              </a>
               <a
                 href="#repair"
                 target="_blank"
@@ -433,14 +420,15 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* 6. Contact Us */}
             <div className="flex items-center group">
-              <button
-                onClick={() => handleTabClick('contact')}
+              <a
+                href="#contact"
+                onClick={(e) => handleNavClick(e, 'contact')}
                 className={`px-3.5 py-2 rounded-xl font-semibold transition-all cursor-pointer ${
                   currentTab === 'contact' ? 'bg-[#EFF6FF] text-[#0052FF] font-bold border border-[#BFDBFE]' : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 Contact Us
-              </button>
+              </a>
               <a
                 href="#contact"
                 target="_blank"
@@ -454,14 +442,15 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* 7. About Us */}
             <div className="flex items-center group">
-              <button
-                onClick={() => handleTabClick('about')}
+              <a
+                href="#about"
+                onClick={(e) => handleNavClick(e, 'about')}
                 className={`px-3.5 py-2 rounded-xl font-semibold transition-all cursor-pointer ${
                   currentTab === 'about' ? 'bg-[#EFF6FF] text-[#0052FF] font-bold border border-[#BFDBFE]' : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 About Us
-              </button>
+              </a>
               <a
                 href="#about"
                 target="_blank"
@@ -476,13 +465,14 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Quick Track & Extra links on desktop right */}
           <div className="hidden lg:flex items-center gap-2 font-heading">
-            <button
-              onClick={() => handleTabClick('track')}
+            <a
+              href="#track"
+              onClick={(e) => handleNavClick(e, 'track')}
               className="text-[11px] font-bold text-slate-600 hover:text-slate-900 bg-white border border-slate-200 px-3 py-1.5 rounded-full flex items-center gap-1 cursor-pointer shadow-2xs"
             >
               <ShieldCheck className="w-3.5 h-3.5 text-[#0052FF]" />
               Track Order / Claim Warranty
-            </button>
+            </a>
             <a
               href="#track"
               target="_blank"
@@ -511,12 +501,13 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-bold font-heading">
             {/* Nav item 1 */}
             <div className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl">
-              <button
-                onClick={() => handleTabClick('landing')}
+              <a
+                href="#landing"
+                onClick={(e) => handleNavClick(e, 'landing')}
                 className="flex items-center gap-2 text-slate-900 font-bold w-full text-left cursor-pointer"
               >
                 <span>🏠 Home</span>
-              </button>
+              </a>
               <a href="#landing" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-[#0052FF]">
                 <ExternalLink className="w-4 h-4" />
               </a>
@@ -524,12 +515,13 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* Nav item 2 */}
             <div className="flex items-center justify-between p-3 bg-slate-900 text-white rounded-xl">
-              <button
-                onClick={() => handleTabClick('sell')}
+              <a
+                href="#sell"
+                onClick={(e) => handleNavClick(e, 'sell')}
                 className="flex items-center gap-2 font-bold w-full text-left cursor-pointer"
               >
                 <span>📱 Sell Phone (60s Quote)</span>
-              </button>
+              </a>
               <a href="#sell" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-white">
                 <ExternalLink className="w-4 h-4" />
               </a>
@@ -537,12 +529,13 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* Nav item 3 */}
             <div className="flex items-center justify-between p-3 bg-[#0052FF] text-white rounded-xl">
-              <button
-                onClick={() => handleTabClick('buy')}
+              <a
+                href="#buy"
+                onClick={(e) => handleNavClick(e, 'buy')}
                 className="flex items-center gap-2 font-bold w-full text-left cursor-pointer"
               >
                 <span>🛍️ Buy Refurbished</span>
-              </button>
+              </a>
               <a href="#buy" target="_blank" rel="noopener noreferrer" className="p-1 text-blue-200 hover:text-white">
                 <ExternalLink className="w-4 h-4" />
               </a>
@@ -550,12 +543,13 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* Nav item 4 */}
             <div className="flex items-center justify-between p-3 bg-amber-500 text-white rounded-xl">
-              <button
-                onClick={() => handleTabClick('repair')}
+              <a
+                href="#repair"
+                onClick={(e) => handleNavClick(e, 'repair')}
                 className="flex items-center gap-2 font-bold w-full text-left cursor-pointer"
               >
                 <span>🔧 GET Repaired</span>
-              </button>
+              </a>
               <a href="#repair" target="_blank" rel="noopener noreferrer" className="p-1 text-amber-100 hover:text-white">
                 <ExternalLink className="w-4 h-4" />
               </a>
@@ -563,12 +557,13 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* Nav item 5 */}
             <div className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl">
-              <button
-                onClick={() => handleTabClick('track')}
+              <a
+                href="#track"
+                onClick={(e) => handleNavClick(e, 'track')}
                 className="flex items-center gap-2 text-slate-900 font-bold w-full text-left cursor-pointer"
               >
                 <span>🛡️ Track &amp; Warranty</span>
-              </button>
+              </a>
               <a href="#track" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-[#0052FF]">
                 <ExternalLink className="w-4 h-4" />
               </a>
@@ -576,12 +571,13 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* Nav item 6 */}
             <div className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl">
-              <button
-                onClick={() => handleTabClick('about')}
+              <a
+                href="#about"
+                onClick={(e) => handleNavClick(e, 'about')}
                 className="flex items-center gap-2 text-slate-900 font-bold w-full text-left cursor-pointer"
               >
                 <span>ℹ️ About Us</span>
-              </button>
+              </a>
               <a href="#about" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-[#0052FF]">
                 <ExternalLink className="w-4 h-4" />
               </a>
@@ -589,12 +585,13 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* Nav item 7 */}
             <div className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl">
-              <button
-                onClick={() => handleTabClick('contact')}
+              <a
+                href="#contact"
+                onClick={(e) => handleNavClick(e, 'contact')}
                 className="flex items-center gap-2 text-slate-900 font-bold w-full text-left cursor-pointer"
               >
                 <span>📞 Contact Us</span>
-              </button>
+              </a>
               <a href="#contact" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-[#0052FF]">
                 <ExternalLink className="w-4 h-4" />
               </a>
@@ -616,13 +613,14 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block font-heading">Browse Phone Brands</span>
             <div className="grid grid-cols-3 gap-1.5 text-[11px]">
               {MAJOR_MOBILE_BRANDS.map((b) => (
-                <button
+                <a
                   key={b.id}
-                  onClick={() => handleBrandClick(b.name)}
-                  className="p-2 bg-slate-50 hover:bg-blue-50 border border-slate-100 rounded-lg font-mono font-bold text-slate-800 text-center truncate cursor-pointer"
+                  href={`#buy?brand=${encodeURIComponent(b.name)}`}
+                  onClick={(e) => handleBrandClick(e, b.name)}
+                  className="p-2 bg-slate-50 hover:bg-blue-50 border border-slate-100 rounded-lg font-mono font-bold text-slate-800 text-center truncate cursor-pointer block"
                 >
                   {b.name}
-                </button>
+                </a>
               ))}
             </div>
           </div>
