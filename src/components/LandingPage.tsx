@@ -420,9 +420,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </span>
             </div>
             
-            <h2 className="text-3xl sm:text-4xl font-black text-white font-heading drop-shadow-md">
-              Single-Section Sell Process &amp; Instant Quote Engine
-            </h2>
             <p className="text-sm sm:text-base text-slate-300 max-w-3xl leading-relaxed font-sans">
               Complete your 60-second device selection, functional condition check, physical defect inspection, and doorstep booking right here in one compartmentalized flow.
             </p>
@@ -651,7 +648,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-amber-400" />)}
             </div>
             <p className="text-xs sm:text-sm text-slate-800 leading-relaxed italic font-medium">
-              "Sold my iPhone 13 in Meerut Pincode 250101. The agent arrived in 2 hours, ran a quick hardware scan, and transferred ₹33,500 to my GPay right at my living room table!"
+              "Sold my iPhone 13 in Khekra Pincode 250101. The agent arrived in 2 hours, ran a quick hardware scan, and transferred ₹33,500 to my GPay right at my living room table!"
             </p>
             <div className="flex items-center gap-3 pt-2 border-t border-slate-200">
               <div className="w-9 h-9 rounded-full bg-[#0052FF] text-white font-black flex items-center justify-center text-xs font-heading shadow-xs">
@@ -659,7 +656,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </div>
               <div>
                 <p className="font-black text-sm text-slate-950 font-heading">Amit Sharma</p>
-                <p className="text-xs text-slate-700 font-semibold">Civil Lines, Meerut (250101)</p>
+                <p className="text-xs text-slate-700 font-semibold">Khekra, Baghpat (250101)</p>
               </div>
             </div>
           </div>

@@ -378,7 +378,7 @@ export default function App() {
               </p>
               <div className="flex items-center gap-2 text-blue-400 font-mono text-xs font-black drop-shadow-xs">
                 <MapPin className="w-4 h-4 text-blue-400 animate-pulse" />
-                <span>Meerut Hub (250101) &bull; 5km Radius Doorstep Active</span>
+                <span>Recell Store, Opp. Dr Jagpal Clinic, Khekra, Baghpat (250101) &bull; Doorstep Active</span>
               </div>
             </div>
 
@@ -442,7 +442,7 @@ export default function App() {
               <span>Shiprocket Partner</span>
             </div>
             <div className="text-slate-300 font-mono">
-              &copy; 2026 Recell Mobile Solutions &bull; Civil Lines, Meerut (250101), UP
+              &copy; 2026 Recell Mobile Solutions &bull; Recell Store, Opp. Dr Jagpal Clinic, Khekra, Baghpat 250101
             </div>
           </div>
         </div>
