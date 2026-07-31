@@ -1,0 +1,6 @@
+{
+  "name": "Recell - Mobile ReCommerce & Doorstep Tech",
+  "description": "Pan-India certified refurbished store, instant doorstep cash pickup & 60-second AI valuation, and 30-min doorstep repair platform.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

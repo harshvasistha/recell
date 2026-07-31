@@ -1,0 +1,505 @@
+import React, { useState } from 'react';
+import { CatalogProduct, BuyQuoteRequest, Order, RepairJob, PricingRules, ReturnRequest, WarrantyClaim } from '../types';
+import { Settings, ShoppingBag, Smartphone, Wrench, IndianRupee, ShieldCheck, Truck, Plus, Trash2, CheckCircle, Sliders, RefreshCw, UserCheck } from 'lucide-react';
+
+interface AdminDashboardProps {
+  catalog: CatalogProduct[];
+  setCatalog: React.Dispatch<React.SetStateAction<CatalogProduct[]>>;
+  buyRequests: BuyQuoteRequest[];
+  orders: Order[];
+  repairJobs: RepairJob[];
+  setRepairJobs: React.Dispatch<React.SetStateAction<RepairJob[]>>;
+  pricingRules: PricingRules;
+  setPricingRules: React.Dispatch<React.SetStateAction<PricingRules>>;
+  returnRequests: ReturnRequest[];
+  warrantyClaims: WarrantyClaim[];
+}
+
+export const AdminDashboard: React.FC<AdminDashboardProps> = ({
+  catalog,
+  setCatalog,
+  buyRequests,
+  orders,
+  repairJobs,
+  setRepairJobs,
+  pricingRules,
+  setPricingRules,
+  returnRequests,
+  warrantyClaims
+}) => {
+  const [activeTab, setActiveTab] = useState<'catalog' | 'buys' | 'pricing' | 'orders' | 'repairs' | 'claims'>('catalog');
+
+  // New Catalog Item Modal Form
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [newTitle, setNewTitle] = useState('Apple iPhone 13 (128GB) - Starlight');
+  const [newBrand, setNewBrand] = useState('Apple');
+  const [newModel, setNewModel] = useState('iPhone 13');
+  const [newStorage, setNewStorage] = useState('128GB');
+  const [newColor, setNewColor] = useState('Starlight');
+  const [newOrigPrice, setNewOrigPrice] = useState(59900);
+  const [newRefurbPrice, setNewRefurbPrice] = useState(38900);
+  const [newGrade, setNewGrade] = useState<'Like New' | 'Superb' | 'Good'>('Superb');
+  const [newBattery, setNewBattery] = useState(90);
+  const [newImei, setNewImei] = useState('359018273641029');
+  const [newImage, setNewImage] = useState('https://images.unsplash.com/photo-1632661674596-df8be070a5c5?auto=format&fit=crop&w=800&q=80');
+
+  // Pricing Rule Editor State
+  const [demand250101, setDemand250101] = useState(pricingRules.demandFactors.pincode250101Radius);
+  const [flawlessScreenMult, setFlawlessScreenMult] = useState(pricingRules.conditionMultipliers.screen.flawless);
+  const [minorScreenMult, setMinorScreenMult] = useState(pricingRules.conditionMultipliers.screen.minor_scratches);
+
+  const handleAddCatalogProduct = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (catalog.length >= 50) {
+      alert('Maximum 50 products catalog limit reached! Please remove an existing item before adding.');
+      return;
+    }
+
+    const newItem: CatalogProduct = {
+      id: `cat-${Date.now()}`,
+      title: newTitle,
+      brand: newBrand,
+      model: newModel,
+      storage: newStorage,
+      color: newColor,
+      originalPrice: Number(newOrigPrice),
+      refurbPrice: Number(newRefurbPrice),
+      conditionGrade: newGrade,
+      warrantyMonths: 3,
+      batteryHealthPercent: Number(newBattery),
+      images: [newImage],
+      inStock: true,
+      stockCount: 1,
+      serialImei: newImei,
+      inspectionPassed: true,
+      description: 'Certified 55-point inspected phone with 3-Month warranty card.',
+      boxChargerIncluded: true,
+      specs: {
+        screen: '6.1-inch Super Retina OLED',
+        processor: 'A15 Bionic',
+        ram: '4GB',
+        camera: '12MP Dual System'
+      }
+    };
+
+    setCatalog([newItem, ...catalog]);
+    setShowAddModal(false);
+  };
+
+  const handleRemoveProduct = (id: string) => {
+    setCatalog(catalog.filter(p => p.id !== id));
+  };
+
+  const handleUpdateRepairStatus = (jobId: string, newStatus: RepairJob['status']) => {
+    setRepairJobs(repairJobs.map(j => j.id === jobId ? { ...j, status: newStatus } : j));
+  };
+
+  const handleSavePricingRules = (e: React.FormEvent) => {
+    e.preventDefault();
+    setPricingRules({
+      ...pricingRules,
+      demandFactors: {
+        ...pricingRules.demandFactors,
+        pincode250101Radius: Number(demand250101)
+      },
+      conditionMultipliers: {
+        ...pricingRules.conditionMultipliers,
+        screen: {
+          ...pricingRules.conditionMultipliers.screen,
+          flawless: Number(flawlessScreenMult),
+          minor_scratches: Number(minorScreenMult)
+        }
+      }
+    });
+    alert('Valuation Engine Rules Updated Successfully!');
+  };
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 text-slate-900">
+      {/* Admin Suite Header */}
+      <div className="bg-white border border-slate-200 rounded-3xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-sm">
+        <div>
+          <span className="bg-indigo-50 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full border border-indigo-100 flex items-center gap-1 w-fit mb-2">
+            <Settings className="w-3.5 h-3.5 text-indigo-600" />
+            Central ReCommerce Admin Suite
+          </span>
+          <h1 className="text-2xl font-black text-slate-900">Platform Control Dashboard</h1>
+          <p className="text-xs text-slate-500 mt-0.5">
+            Catalog Limit: <strong className="text-emerald-600">{catalog.length} / 50 Max</strong> • Local Radius: <strong>Pincode 250101</strong>
+          </p>
+        </div>
+
+        {/* Quick Tabs */}
+        <div className="flex flex-wrap items-center gap-1.5 bg-slate-100 p-1.5 rounded-full border border-slate-200 text-xs font-semibold">
+          {[
+            { id: 'catalog', label: `Catalog (${catalog.length}/50)`, icon: ShoppingBag },
+            { id: 'buys', label: `Buy Requests (${buyRequests.length})`, icon: Smartphone },
+            { id: 'pricing', label: 'Pricing Rules', icon: Sliders },
+            { id: 'orders', label: `Orders (${orders.length})`, icon: Truck },
+            { id: 'repairs', label: `Repairs (${repairJobs.length})`, icon: Wrench },
+            { id: 'claims', label: `Claims (${returnRequests.length + warrantyClaims.length})`, icon: ShieldCheck }
+          ].map(tab => {
+            const Icon = tab.icon;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as any)}
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full transition-all ${
+                  activeTab === tab.id
+                    ? 'bg-indigo-600 text-white font-bold shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                }`}
+              >
+                <Icon className="w-3.5 h-3.5" />
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* TAB 1: CATALOG MANAGEMENT */}
+      {activeTab === 'catalog' && (
+        <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+            <div>
+              <h2 className="text-lg font-bold text-slate-900">Live Refurbished Catalog</h2>
+              <p className="text-xs text-slate-500">Manage up to 50 live items on pan-India storefront</p>
+            </div>
+
+            <button
+              onClick={() => setShowAddModal(true)}
+              className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-2.5 rounded-full text-xs flex items-center gap-2 shadow-sm transition-all"
+            >
+              <Plus className="w-4 h-4" />
+              Add Refurbished Product
+            </button>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs text-slate-700">
+              <thead className="bg-slate-50 text-slate-500 uppercase font-mono border-b border-slate-200">
+                <tr>
+                  <th className="p-3">Device & IMEI</th>
+                  <th className="p-3">Grade</th>
+                  <th className="p-3">Battery</th>
+                  <th className="p-3">Original Price</th>
+                  <th className="p-3">Refurb Price</th>
+                  <th className="p-3">Stock Status</th>
+                  <th className="p-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {catalog.map(item => (
+                  <tr key={item.id} className="hover:bg-slate-50/80 transition-colors">
+                    <td className="p-3 font-medium flex items-center gap-3">
+                      <img src={item.images[0]} alt="" className="w-10 h-10 object-cover rounded-xl bg-slate-100 border border-slate-200" />
+                      <div>
+                        <p className="text-slate-900 font-bold">{item.title}</p>
+                        <p className="text-[10px] text-slate-400 font-mono">IMEI: {item.serialImei}</p>
+                      </div>
+                    </td>
+                    <td className="p-3">
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-100">
+                        {item.conditionGrade}
+                      </span>
+                    </td>
+                    <td className="p-3 font-mono text-emerald-600 font-bold">{item.batteryHealthPercent}%</td>
+                    <td className="p-3 font-mono text-slate-400">₹{item.originalPrice.toLocaleString('en-IN')}</td>
+                    <td className="p-3 font-mono text-emerald-600 font-bold">₹{item.refurbPrice.toLocaleString('en-IN')}</td>
+                    <td className="p-3">
+                      <span className="text-[10px] bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">
+                        In Stock ({item.stockCount})
+                      </span>
+                    </td>
+                    <td className="p-3 text-right">
+                      <button
+                        onClick={() => handleRemoveProduct(item.id)}
+                        className="p-1.5 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-100 border border-rose-100 transition-colors"
+                        title="Delete Product"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 2: BUY REQUESTS & PICKUPS */}
+      {activeTab === 'buys' && (
+        <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-4">
+          <h2 className="text-lg font-bold text-slate-900">Local Sell Requests (Pincode 250101 Radius)</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {buyRequests.map(req => (
+              <div key={req.id} className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2 text-xs">
+                <div className="flex justify-between items-center">
+                  <span className="font-mono text-indigo-600 font-bold">{req.id}</span>
+                  <span className="bg-indigo-100 text-indigo-800 px-2.5 py-0.5 rounded-full font-bold text-[10px]">
+                    {req.status}
+                  </span>
+                </div>
+                <h3 className="font-bold text-slate-900 text-sm">{req.modelName}</h3>
+                <p className="text-slate-500">Seller: {req.sellerName} ({req.sellerPhone})</p>
+                <p className="text-slate-500">Address: {req.address} ({req.pincode})</p>
+                <div className="pt-2 border-t border-slate-200 flex justify-between font-bold">
+                  <span className="text-slate-400">Rough Quote:</span>
+                  <span className="text-emerald-600 font-mono">₹{req.roughQuoteMin.toLocaleString('en-IN')} - ₹{req.roughQuoteMax.toLocaleString('en-IN')}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* TAB 3: PRICING ENGINE RULE EDITOR */}
+      {activeTab === 'pricing' && (
+        <form onSubmit={handleSavePricingRules} className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-6">
+          <div>
+            <h2 className="text-lg font-bold text-slate-900">Dynamic Pricing Engine Rules</h2>
+            <p className="text-xs text-slate-500">Adjust multipliers & local demand factors. Changes apply live to rough quote calculations.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+            <div className="p-5 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
+              <label className="font-bold text-slate-900 block">1. Local Pincode 250101 Demand Multiplier</label>
+              <input
+                type="number"
+                step="0.01"
+                value={demand250101}
+                onChange={(e) => setDemand250101(Number(e.target.value))}
+                className="w-full bg-white border border-slate-200 rounded-xl p-2.5 text-slate-900 font-mono font-bold"
+              />
+              <p className="text-[11px] text-slate-500">e.g., 1.05 gives a 5% bonus quote for local high-demand town items.</p>
+            </div>
+
+            <div className="p-5 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
+              <label className="font-bold text-slate-900 block">2. Flawless Screen Multiplier</label>
+              <input
+                type="number"
+                step="0.01"
+                value={flawlessScreenMult}
+                onChange={(e) => setFlawlessScreenMult(Number(e.target.value))}
+                className="w-full bg-white border border-slate-200 rounded-xl p-2.5 text-slate-900 font-mono font-bold"
+              />
+              <p className="text-[11px] text-slate-500">1.0 = 100% of base value for scratchless screens.</p>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-full text-xs shadow-sm flex items-center gap-2 transition-all"
+          >
+            <RefreshCw className="w-4 h-4" />
+            Save & Update Valuation Rules
+          </button>
+        </form>
+      )}
+
+      {/* TAB 4: ORDERS & PAN-INDIA SHIPMENTS */}
+      {activeTab === 'orders' && (
+        <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-4">
+          <h2 className="text-lg font-bold text-slate-900">Pan-India Orders & Delhivery Express Tracking</h2>
+          <div className="space-y-3">
+            {orders.map(order => (
+              <div key={order.id} className="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-xs space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="font-mono font-bold text-indigo-600">{order.id}</span>
+                  <span className="bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold text-[10px]">{order.orderStatus}</span>
+                </div>
+                <p className="font-bold text-slate-900">{order.customerName} ({order.customerPhone})</p>
+                <p className="text-slate-500">Tracking: {order.courierPartner} - {order.trackingNumber}</p>
+                <p className="text-slate-500">Address: {order.shippingAddress}, {order.city} ({order.pincode})</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* TAB 5: REPAIR QUEUE & TECHNICIANS */}
+      {activeTab === 'repairs' && (
+        <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-4">
+          <h2 className="text-lg font-bold text-slate-900">In-House Repair Queue & Technician Workbench</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {repairJobs.map(job => (
+              <div key={job.id} className="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-xs space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="font-mono font-bold text-indigo-600">{job.id}</span>
+                  <span className="bg-purple-100 text-purple-800 px-2.5 py-0.5 rounded-full font-bold text-[10px]">{job.status}</span>
+                </div>
+                <h3 className="font-bold text-slate-900 text-sm">{job.deviceName}</h3>
+                <p className="text-slate-500">Defect: {job.defectSummary}</p>
+                <p className="text-slate-500">Assigned Tech: <strong>{job.technician}</strong></p>
+
+                <div className="flex items-center gap-2 pt-2 border-t border-slate-200">
+                  <span className="text-slate-500 font-medium">Change Status:</span>
+                  <select
+                    value={job.status}
+                    onChange={(e) => handleUpdateRepairStatus(job.id, e.target.value as any)}
+                    className="bg-white border border-slate-200 rounded-xl p-1.5 text-xs text-slate-900 font-bold"
+                  >
+                    <option value="Booked">Booked</option>
+                    <option value="Diagnosing">Diagnosing</option>
+                    <option value="Repairing">Repairing</option>
+                    <option value="QC Passed">QC Passed</option>
+                    <option value="Completed">Completed</option>
+                  </select>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* TAB 6: RETURNS & WARRANTY CLAIMS */}
+      {activeTab === 'claims' && (
+        <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-6">
+          <div className="space-y-3">
+            <h2 className="text-base font-bold text-slate-900">7-Day Return Requests</h2>
+            {returnRequests.map(ret => (
+              <div key={ret.id} className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 text-xs space-y-1">
+                <div className="flex justify-between font-bold text-emerald-700">
+                  <span>{ret.id} (Order: {ret.orderId})</span>
+                  <span>{ret.status}</span>
+                </div>
+                <p className="text-slate-900 font-medium">{ret.itemTitle} - Reason: {ret.reason}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="space-y-3 pt-4 border-t border-slate-100">
+            <h2 className="text-base font-bold text-slate-900">3-Month Warranty Claims</h2>
+            {warrantyClaims.map(war => (
+              <div key={war.id} className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 text-xs space-y-1">
+                <div className="flex justify-between font-bold text-indigo-700">
+                  <span>{war.id} (IMEI: {war.serialImei})</span>
+                  <span>{war.status}</span>
+                </div>
+                <p className="text-slate-900 font-medium">Customer: {war.customerName} ({war.customerPhone})</p>
+                <p className="text-slate-500">Issue: {war.issueType} - {war.issueDetails}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Add Product Modal */}
+      {showAddModal && (
+        <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-3xl max-w-lg w-full p-6 space-y-4 text-xs shadow-2xl text-slate-900">
+            <h3 className="text-base font-bold text-slate-900">Add Product to Store Catalog (Max 50)</h3>
+            <form onSubmit={handleAddCatalogProduct} className="space-y-3">
+              <div>
+                <label className="block text-slate-700 mb-1 font-bold">Title</label>
+                <input
+                  type="text"
+                  required
+                  value={newTitle}
+                  onChange={(e) => setNewTitle(e.target.value)}
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 font-medium"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-slate-700 mb-1 font-bold">Brand</label>
+                  <input
+                    type="text"
+                    required
+                    value={newBrand}
+                    onChange={(e) => setNewBrand(e.target.value)}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 font-medium"
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-700 mb-1 font-bold">Model</label>
+                  <input
+                    type="text"
+                    required
+                    value={newModel}
+                    onChange={(e) => setNewModel(e.target.value)}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 font-medium"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-slate-700 mb-1 font-bold">Original Price (₹)</label>
+                  <input
+                    type="number"
+                    required
+                    value={newOrigPrice}
+                    onChange={(e) => setNewOrigPrice(Number(e.target.value))}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 font-mono font-bold"
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-700 mb-1 font-bold">Refurb Price (₹)</label>
+                  <input
+                    type="number"
+                    required
+                    value={newRefurbPrice}
+                    onChange={(e) => setNewRefurbPrice(Number(e.target.value))}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 font-mono font-bold"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-slate-700 mb-1 font-bold">Condition Grade</label>
+                  <select
+                    value={newGrade}
+                    onChange={(e) => setNewGrade(e.target.value as any)}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 font-medium"
+                  >
+                    <option value="Like New">Like New</option>
+                    <option value="Superb">Superb</option>
+                    <option value="Good">Good</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-slate-700 mb-1 font-bold">Battery Health (%)</label>
+                  <input
+                    type="number"
+                    required
+                    value={newBattery}
+                    onChange={(e) => setNewBattery(Number(e.target.value))}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 font-mono font-bold"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block text-slate-700 mb-1 font-bold">Serial IMEI Number</label>
+                <input
+                  type="text"
+                  required
+                  value={newImei}
+                  onChange={(e) => setNewImei(e.target.value)}
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 font-mono font-bold"
+                />
+              </div>
+
+              <div className="flex justify-end gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setShowAddModal(false)}
+                  className="px-4 py-2 rounded-full border border-slate-200 text-slate-700 font-bold"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2 rounded-full"
+                >
+                  Add to Store Catalog
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
