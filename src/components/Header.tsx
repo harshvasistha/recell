@@ -52,7 +52,6 @@ export const Header: React.FC<HeaderProps> = ({
     setActiveDropdown(null);
     setMobileMenuOpen(false);
     setCurrentTab(tab);
-    window.location.hash = tab;
   };
 
   const handleBrandClick = (e: React.MouseEvent, brandName: string) => {
@@ -130,7 +129,7 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Main Bar: Logo, Search, Cart & User Action */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
         {/* Brand Logo */}
-        <a href="#landing" onClick={(e) => handleNavClick(e, 'landing')} className="cursor-pointer">
+        <a href="/" onClick={(e) => handleNavClick(e, 'landing')} className="cursor-pointer">
           <RecellLogo variant="header" />
         </a>
 
@@ -197,7 +196,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* 1. Home */}
             <div className="flex items-center group">
               <a
-                href="#landing"
+                href="/"
                 onClick={(e) => handleNavClick(e, 'landing')}
                 className={`px-3.5 py-2 rounded-xl font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                   currentTab === 'landing' 
@@ -208,7 +207,7 @@ export const Header: React.FC<HeaderProps> = ({
                 Home
               </a>
               <a
-                href="#landing"
+                href="/"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Open Home in new tab"
@@ -237,7 +236,7 @@ export const Header: React.FC<HeaderProps> = ({
                   <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
                 </button>
                 <a
-                  href="#how-it-works"
+                  href="/how-it-works"
                   target="_blank"
                   rel="noopener noreferrer"
                   title="Open Services in new tab"
@@ -256,7 +255,7 @@ export const Header: React.FC<HeaderProps> = ({
                       Recell ReCommerce &amp; Doorstep Tech Services
                     </span>
                     <a 
-                      href="#how-it-works"
+                      href="/how-it-works"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[11px] font-bold text-[#0052FF] hover:underline flex items-center gap-1 cursor-pointer"
@@ -270,7 +269,7 @@ export const Header: React.FC<HeaderProps> = ({
                     return (
                       <a 
                         key={feat.id}
-                        href={`#${featTab}`}
+                        href={`/${featTab}`}
                         onClick={(e) => handleNavClick(e, featTab)}
                         className="p-3 rounded-xl bg-slate-50 hover:bg-[#EFF6FF] border border-slate-100 hover:border-[#BFDBFE] transition-all cursor-pointer group flex items-start gap-3 relative"
                       >
@@ -303,7 +302,7 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <div className="flex items-center group">
                 <a
-                  href="#buy"
+                  href="/buy"
                   onClick={(e) => handleNavClick(e, 'buy')}
                   className={`px-3.5 py-2 rounded-xl font-bold transition-all flex items-center gap-1 cursor-pointer ${
                     currentTab === 'buy' || activeDropdown === 'buy'
@@ -315,7 +314,7 @@ export const Header: React.FC<HeaderProps> = ({
                   <ChevronDown className="w-3.5 h-3.5 opacity-80" />
                 </a>
                 <a
-                  href="#buy"
+                  href="/buy"
                   target="_blank"
                   rel="noopener noreferrer"
                   title="Open Buy catalog in new tab"
@@ -334,7 +333,7 @@ export const Header: React.FC<HeaderProps> = ({
                       Certified Pre-Owned Mobile Brands (3-Mo Warranty)
                     </span>
                     <a 
-                      href="#buy"
+                      href="/buy"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[11px] font-bold text-[#0052FF] hover:underline flex items-center gap-1 cursor-pointer"
@@ -347,7 +346,7 @@ export const Header: React.FC<HeaderProps> = ({
                     {MAJOR_MOBILE_BRANDS.map((brand) => (
                       <div key={brand.id} className="relative group/brand flex items-center">
                         <a
-                          href={`#buy?brand=${encodeURIComponent(brand.name)}`}
+                          href={`/buy?brand=${encodeURIComponent(brand.name)}`}
                           onClick={(e) => handleBrandClick(e, brand.name)}
                           className="w-full p-2.5 rounded-xl bg-slate-50 hover:bg-[#EFF6FF] border border-slate-100 hover:border-[#BFDBFE] text-left transition-all cursor-pointer group flex items-center justify-between"
                         >
@@ -371,7 +370,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* 4. Sell Phone */}
             <div className="flex items-center group">
               <a
-                href="#sell"
+                href="/sell"
                 onClick={(e) => handleNavClick(e, 'sell')}
                 className={`px-3.5 py-2 rounded-xl font-bold transition-all flex items-center gap-1 cursor-pointer ${
                   currentTab === 'sell'
@@ -383,7 +382,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <span>Sell Phone</span>
               </a>
               <a
-                href="#sell"
+                href="/sell"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Open Sell Phone in new tab"
@@ -396,7 +395,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* 5. GET Repaired */}
             <div className="flex items-center group">
               <a
-                href="#repair"
+                href="/repair"
                 onClick={(e) => handleNavClick(e, 'repair')}
                 className={`px-3.5 py-2 rounded-xl font-bold transition-all flex items-center gap-1 cursor-pointer ${
                   currentTab === 'repair'
@@ -408,7 +407,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <span>GET Repaired</span>
               </a>
               <a
-                href="#repair"
+                href="/repair"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Open Doorstep Repair in new tab"
@@ -421,7 +420,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* 6. Contact Us */}
             <div className="flex items-center group">
               <a
-                href="#contact"
+                href="/contact"
                 onClick={(e) => handleNavClick(e, 'contact')}
                 className={`px-3.5 py-2 rounded-xl font-semibold transition-all cursor-pointer ${
                   currentTab === 'contact' ? 'bg-[#EFF6FF] text-[#0052FF] font-bold border border-[#BFDBFE]' : 'text-slate-600 hover:text-slate-900'
@@ -430,7 +429,7 @@ export const Header: React.FC<HeaderProps> = ({
                 Contact Us
               </a>
               <a
-                href="#contact"
+                href="/contact"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Open Contact Us in new tab"
@@ -443,7 +442,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* 7. About Us */}
             <div className="flex items-center group">
               <a
-                href="#about"
+                href="/about"
                 onClick={(e) => handleNavClick(e, 'about')}
                 className={`px-3.5 py-2 rounded-xl font-semibold transition-all cursor-pointer ${
                   currentTab === 'about' ? 'bg-[#EFF6FF] text-[#0052FF] font-bold border border-[#BFDBFE]' : 'text-slate-600 hover:text-slate-900'
@@ -452,7 +451,7 @@ export const Header: React.FC<HeaderProps> = ({
                 About Us
               </a>
               <a
-                href="#about"
+                href="/about"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Open About Us in new tab"
@@ -466,7 +465,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Quick Track & Extra links on desktop right */}
           <div className="hidden lg:flex items-center gap-2 font-heading">
             <a
-              href="#track"
+              href="/track"
               onClick={(e) => handleNavClick(e, 'track')}
               className="text-[11px] font-bold text-slate-600 hover:text-slate-900 bg-white border border-slate-200 px-3 py-1.5 rounded-full flex items-center gap-1 cursor-pointer shadow-2xs"
             >
@@ -474,7 +473,7 @@ export const Header: React.FC<HeaderProps> = ({
               Track Order / Claim Warranty
             </a>
             <a
-              href="#track"
+              href="/track"
               target="_blank"
               rel="noopener noreferrer"
               title="Open Tracker in new tab"
@@ -502,13 +501,13 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Nav item 1 */}
             <div className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl">
               <a
-                href="#landing"
+                href="/"
                 onClick={(e) => handleNavClick(e, 'landing')}
                 className="flex items-center gap-2 text-slate-900 font-bold w-full text-left cursor-pointer"
               >
                 <span>🏠 Home</span>
               </a>
-              <a href="#landing" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-[#0052FF]">
+              <a href="/" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-[#0052FF]">
                 <ExternalLink className="w-4 h-4" />
               </a>
             </div>
@@ -516,13 +515,13 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Nav item 2 */}
             <div className="flex items-center justify-between p-3 bg-slate-900 text-white rounded-xl">
               <a
-                href="#sell"
+                href="/sell"
                 onClick={(e) => handleNavClick(e, 'sell')}
                 className="flex items-center gap-2 font-bold w-full text-left cursor-pointer"
               >
                 <span>📱 Sell Phone (60s Quote)</span>
               </a>
-              <a href="#sell" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-white">
+              <a href="/sell" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-white">
                 <ExternalLink className="w-4 h-4" />
               </a>
             </div>
@@ -530,13 +529,13 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Nav item 3 */}
             <div className="flex items-center justify-between p-3 bg-[#0052FF] text-white rounded-xl">
               <a
-                href="#buy"
+                href="/buy"
                 onClick={(e) => handleNavClick(e, 'buy')}
                 className="flex items-center gap-2 font-bold w-full text-left cursor-pointer"
               >
                 <span>🛍️ Buy Refurbished</span>
               </a>
-              <a href="#buy" target="_blank" rel="noopener noreferrer" className="p-1 text-blue-200 hover:text-white">
+              <a href="/buy" target="_blank" rel="noopener noreferrer" className="p-1 text-blue-200 hover:text-white">
                 <ExternalLink className="w-4 h-4" />
               </a>
             </div>
@@ -544,13 +543,13 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Nav item 4 */}
             <div className="flex items-center justify-between p-3 bg-amber-500 text-white rounded-xl">
               <a
-                href="#repair"
+                href="/repair"
                 onClick={(e) => handleNavClick(e, 'repair')}
                 className="flex items-center gap-2 font-bold w-full text-left cursor-pointer"
               >
                 <span>🔧 GET Repaired</span>
               </a>
-              <a href="#repair" target="_blank" rel="noopener noreferrer" className="p-1 text-amber-100 hover:text-white">
+              <a href="/repair" target="_blank" rel="noopener noreferrer" className="p-1 text-amber-100 hover:text-white">
                 <ExternalLink className="w-4 h-4" />
               </a>
             </div>
@@ -558,13 +557,13 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Nav item 5 */}
             <div className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl">
               <a
-                href="#track"
+                href="/track"
                 onClick={(e) => handleNavClick(e, 'track')}
                 className="flex items-center gap-2 text-slate-900 font-bold w-full text-left cursor-pointer"
               >
                 <span>🛡️ Track &amp; Warranty</span>
               </a>
-              <a href="#track" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-[#0052FF]">
+              <a href="/track" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-[#0052FF]">
                 <ExternalLink className="w-4 h-4" />
               </a>
             </div>
@@ -572,13 +571,13 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Nav item 6 */}
             <div className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl">
               <a
-                href="#about"
+                href="/about"
                 onClick={(e) => handleNavClick(e, 'about')}
                 className="flex items-center gap-2 text-slate-900 font-bold w-full text-left cursor-pointer"
               >
                 <span>ℹ️ About Us</span>
               </a>
-              <a href="#about" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-[#0052FF]">
+              <a href="/about" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-[#0052FF]">
                 <ExternalLink className="w-4 h-4" />
               </a>
             </div>
@@ -586,13 +585,13 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Nav item 7 */}
             <div className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl">
               <a
-                href="#contact"
+                href="/contact"
                 onClick={(e) => handleNavClick(e, 'contact')}
                 className="flex items-center gap-2 text-slate-900 font-bold w-full text-left cursor-pointer"
               >
                 <span>📞 Contact Us</span>
               </a>
-              <a href="#contact" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-[#0052FF]">
+              <a href="/contact" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-[#0052FF]">
                 <ExternalLink className="w-4 h-4" />
               </a>
             </div>
@@ -615,7 +614,7 @@ export const Header: React.FC<HeaderProps> = ({
               {MAJOR_MOBILE_BRANDS.map((b) => (
                 <a
                   key={b.id}
-                  href={`#buy?brand=${encodeURIComponent(b.name)}`}
+                  href={`/buy?brand=${encodeURIComponent(b.name)}`}
                   onClick={(e) => handleBrandClick(e, b.name)}
                   className="p-2 bg-slate-50 hover:bg-blue-50 border border-slate-100 rounded-lg font-mono font-bold text-slate-800 text-center truncate cursor-pointer block"
                 >

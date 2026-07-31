@@ -20,48 +20,63 @@ const VALID_TABS: TabType[] = [
   'admin'
 ];
 
+export function buildRouteUrl(
+  tab: TabType,
+  searchQuery?: string,
+  legalTab?: 'privacy' | 'terms' | 'warranty' | 'returns'
+): string {
+  if (legalTab) {
+    return `/${legalTab}`;
+  }
+
+  if (tab === 'landing') {
+    return '/';
+  }
+
+  let url = `/${tab}`;
+  if (tab === 'buy' && searchQuery) {
+    url += `?brand=${encodeURIComponent(searchQuery)}`;
+  }
+  return url;
+}
+
 export function parseRouteFromLocation(): RouteState {
   if (typeof window === 'undefined') {
     return { tab: 'landing' };
   }
 
+  // Handle legacy hash e.g. #sell or #buy?brand=Apple if opened from an old bookmark
   let hash = window.location.hash.replace(/^#\/?/, '');
-  let pathname = window.location.pathname.replace(/^\//, '');
-  let search = window.location.search;
-
-  // Handle case where query is appended inside hash e.g., #buy?brand=Apple
   if (hash.includes('?')) {
-    const parts = hash.split('?');
-    hash = parts[0];
-    if (!search) search = '?' + parts[1];
+    hash = hash.split('?')[0];
   }
 
+  // Extract clean pathname e.g. "/sell" -> "sell", "/" -> ""
+  const pathname = window.location.pathname.replace(/^\/+|\/+$/g, '');
+  const search = window.location.search;
   const searchParams = new URLSearchParams(search);
   const brandFromQuery = searchParams.get('brand') || searchParams.get('query') || searchParams.get('search');
   const tabFromQuery = searchParams.get('tab');
   const legalFromQuery = searchParams.get('legal') as 'privacy' | 'terms' | 'warranty' | 'returns' | null;
 
-  let matchedTab: TabType = 'landing';
+  // Active path segment
+  const activeRoute = pathname || hash;
 
-  // Check Hash first
-  if (VALID_TABS.includes(hash as TabType)) {
-    matchedTab = hash as TabType;
-  }
-  // Check Pathname second
-  else if (VALID_TABS.includes(pathname as TabType)) {
-    matchedTab = pathname as TabType;
-  }
-  // Check Query param third
-  else if (tabFromQuery && VALID_TABS.includes(tabFromQuery as TabType)) {
-    matchedTab = tabFromQuery as TabType;
-  }
-
-  // Handle aliases like #privacy, #terms, #warranty, #returns
-  if (['privacy', 'terms', 'warranty', 'returns'].includes(hash)) {
+  // Handle legal aliases /privacy, /terms, /warranty, /returns
+  if (['privacy', 'terms', 'warranty', 'returns'].includes(activeRoute)) {
     return {
       tab: 'landing',
-      legalTab: hash as 'privacy' | 'terms' | 'warranty' | 'returns'
+      legalTab: activeRoute as 'privacy' | 'terms' | 'warranty' | 'returns',
+      searchQuery: brandFromQuery || undefined,
     };
+  }
+
+  let matchedTab: TabType = 'landing';
+
+  if (VALID_TABS.includes(activeRoute as TabType)) {
+    matchedTab = activeRoute as TabType;
+  } else if (tabFromQuery && VALID_TABS.includes(tabFromQuery as TabType)) {
+    matchedTab = tabFromQuery as TabType;
   }
 
   return {
@@ -71,18 +86,21 @@ export function parseRouteFromLocation(): RouteState {
   };
 }
 
-export function buildRouteUrl(tab: TabType, searchQuery?: string): string {
-  let url = `#${tab}`;
-  if (tab === 'buy' && searchQuery) {
-    url += `?brand=${encodeURIComponent(searchQuery)}`;
-  }
-  return url;
-}
-
-export function syncUrlWithRoute(tab: TabType, searchQuery?: string) {
+export function syncUrlWithRoute(
+  tab: TabType,
+  searchQuery?: string,
+  legalTab?: 'privacy' | 'terms' | 'warranty' | 'returns',
+  push: boolean = false
+) {
   if (typeof window === 'undefined') return;
-  const targetUrl = buildRouteUrl(tab, searchQuery);
-  if (window.location.hash !== targetUrl) {
-    window.history.replaceState(null, '', targetUrl);
+  const targetUrl = buildRouteUrl(tab, searchQuery, legalTab);
+  const currentUrl = window.location.pathname + window.location.search;
+
+  if (currentUrl !== targetUrl || window.location.hash) {
+    if (push) {
+      window.history.pushState(null, '', targetUrl);
+    } else {
+      window.history.replaceState(null, '', targetUrl);
+    }
   }
 }

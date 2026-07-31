@@ -57,12 +57,12 @@ export default function App() {
   const [isLegalOpen, setIsLegalOpen] = useState<boolean>(!!initialRoute.legalTab);
   const [legalTab, setLegalTab] = useState<'privacy' | 'terms' | 'warranty' | 'returns'>(initialRoute.legalTab || 'privacy');
 
-  // Sync window URL when tab or search query changes
+  // Sync window URL when tab, searchQuery, or legalTab changes
   useEffect(() => {
-    syncUrlWithRoute(currentTab, searchQuery);
-  }, [currentTab, searchQuery]);
+    syncUrlWithRoute(currentTab, searchQuery, isLegalOpen ? legalTab : undefined);
+  }, [currentTab, searchQuery, isLegalOpen, legalTab]);
 
-  // Listen to hash and popstate changes (e.g. browser Back/Forward or new tab hash navigation)
+  // Listen to hash and popstate changes (e.g. browser Back/Forward or new tab navigation)
   useEffect(() => {
     const handleRouteChanged = () => {
       const route = parseRouteFromLocation();
@@ -73,6 +73,8 @@ export default function App() {
       if (route.legalTab) {
         setLegalTab(route.legalTab);
         setIsLegalOpen(true);
+      } else {
+        setIsLegalOpen(false);
       }
     };
 
@@ -384,14 +386,14 @@ export default function App() {
             <div className="space-y-3">
               <h4 className="font-extrabold text-white text-xs uppercase tracking-wider font-mono drop-shadow-sm">Platform Services</h4>
               <ul className="space-y-2 text-slate-300 text-xs sm:text-sm font-medium">
-                <li><a href="#sell" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('sell'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> Sell Phone (60s Quote)</a></li>
-                <li><a href="#buy" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('buy'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> Buy Certified Pre-Owned</a></li>
-                <li><a href="#repair" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('repair'); } }} className="hover:text-amber-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-amber-400">&bull;</span> 30-Min Doorstep Repair</a></li>
-                <li><a href="#track" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('track'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> Track Order &amp; Warranty</a></li>
-                <li><a href="#how-it-works" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('how-it-works'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> How Recell Works</a></li>
-                <li><a href="#about" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('about'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> About Us</a></li>
-                <li><a href="#recycle" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('recycle'); } }} className="hover:text-emerald-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-emerald-400">&bull;</span> E-Waste Recycle</a></li>
-                <li><a href="#contact" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('contact'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> Contact Support</a></li>
+                <li><a href="/sell" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('sell'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> Sell Phone (60s Quote)</a></li>
+                <li><a href="/buy" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('buy'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> Buy Certified Pre-Owned</a></li>
+                <li><a href="/repair" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('repair'); } }} className="hover:text-amber-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-amber-400">&bull;</span> 30-Min Doorstep Repair</a></li>
+                <li><a href="/track" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('track'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> Track Order &amp; Warranty</a></li>
+                <li><a href="/how-it-works" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('how-it-works'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> How Recell Works</a></li>
+                <li><a href="/about" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('about'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> About Us</a></li>
+                <li><a href="/recycle" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('recycle'); } }} className="hover:text-emerald-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-emerald-400">&bull;</span> E-Waste Recycle</a></li>
+                <li><a href="/contact" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('contact'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> Contact Support</a></li>
               </ul>
             </div>
 
@@ -402,7 +404,7 @@ export default function App() {
                 {MAJOR_MOBILE_BRANDS.slice(0, 10).map((b) => (
                   <a 
                     key={b.id} 
-                    href={`#buy?brand=${encodeURIComponent(b.name)}`}
+                    href={`/buy?brand=${encodeURIComponent(b.name)}`}
                     onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); handleSelectBrand(b.name); } }}
                     className="hover:text-blue-400 text-left transition-colors truncate cursor-pointer py-0.5 block"
                   >
@@ -422,11 +424,11 @@ export default function App() {
             <div className="space-y-3">
               <h4 className="font-extrabold text-white text-xs uppercase tracking-wider font-mono drop-shadow-sm">Legal &amp; Trust Policies</h4>
               <ul className="space-y-2 text-slate-300 text-xs sm:text-sm font-medium">
-                <li><a href="#privacy" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); openLegalModal('privacy'); } }} className="hover:text-amber-400 transition-colors cursor-pointer block">Privacy &amp; Data Wipe Policy</a></li>
-                <li><a href="#terms" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); openLegalModal('terms'); } }} className="hover:text-amber-400 transition-colors cursor-pointer block">Terms &amp; Trade-In Guidelines</a></li>
-                <li><a href="#warranty" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); openLegalModal('warranty'); } }} className="hover:text-amber-400 transition-colors cursor-pointer block">3-Month Recell Warranty</a></li>
-                <li><a href="#returns" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); openLegalModal('returns'); } }} className="hover:text-amber-400 transition-colors cursor-pointer block">7-Day Easy Return Policy</a></li>
-                <li><a href="#recycle" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('recycle'); } }} className="hover:text-emerald-400 transition-colors cursor-pointer block">Green E-Waste Disposal</a></li>
+                <li><a href="/privacy" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); openLegalModal('privacy'); } }} className="hover:text-amber-400 transition-colors cursor-pointer block">Privacy &amp; Data Wipe Policy</a></li>
+                <li><a href="/terms" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); openLegalModal('terms'); } }} className="hover:text-amber-400 transition-colors cursor-pointer block">Terms &amp; Trade-In Guidelines</a></li>
+                <li><a href="/warranty" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); openLegalModal('warranty'); } }} className="hover:text-amber-400 transition-colors cursor-pointer block">3-Month Recell Warranty</a></li>
+                <li><a href="/returns" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); openLegalModal('returns'); } }} className="hover:text-amber-400 transition-colors cursor-pointer block">7-Day Easy Return Policy</a></li>
+                <li><a href="/recycle" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('recycle'); } }} className="hover:text-emerald-400 transition-colors cursor-pointer block">Green E-Waste Disposal</a></li>
               </ul>
             </div>
           </div>
