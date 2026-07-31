@@ -419,7 +419,7 @@ export const SEED_BUY_REQUESTS: BuyQuoteRequest[] = [
     scheduledSlot: '02:00 PM - 04:00 PM',
     upiId: 'amitsharma@okicici',
     status: 'agent_inspecting',
-    assignedAgent: 'Agent Rajesh (Meerut Central Hub)',
+    assignedAgent: 'Agent Rajesh (Khekra, Baghpat Central Hub)',
     photos: [
       'https://images.unsplash.com/photo-1632661674596-df8be070a5c5?auto=format&fit=crop&w=600&q=80'
     ]
@@ -487,8 +487,8 @@ export const SEED_ORDERS: Order[] = [
     courierPartner: 'Delhivery Express',
     trackingNumber: 'DEL9201948102',
     trackingHistory: [
-      { time: '2026-07-29 15:00', status: 'Order Confirmed & Payment Verified', location: 'Recell Hub Meerut 250101' },
-      { time: '2026-07-30 09:30', status: '55-Point Inspection Passed & Sealed Box Packed', location: 'Meerut Dispatch Hub' },
+      { time: '2026-07-29 15:00', status: 'Order Confirmed & Payment Verified', location: 'Recell Hub Khekra, Baghpat 250101' },
+      { time: '2026-07-30 09:30', status: '55-Point Inspection Passed & Sealed Box Packed', location: 'Khekra, Baghpat Dispatch Hub' },
       { time: '2026-07-30 18:00', status: 'In Transit - Departure Scan', location: 'Delhi Air Cargo Hub' },
       { time: '2026-07-31 06:10', status: 'Arrived at Destination Sorting Center', location: 'Bengaluru Hub' }
     ],

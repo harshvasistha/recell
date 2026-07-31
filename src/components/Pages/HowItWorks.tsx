@@ -65,7 +65,7 @@ export const HowItWorks: React.FC<{ onNavigate: (tab: 'sell' | 'buy' | 'track') 
               </div>
               <h3 className="font-bold text-slate-900 text-base">Book Free Doorstep Pickup Slot</h3>
               <p className="text-xs text-slate-500 leading-relaxed">
-                Select your convenient date, time slot, and address in Meerut Pincode 250101 or surrounding radius. Our agent is assigned to visit your doorstep.
+                Select your convenient date, time slot, and address in Khekra, Baghpat Pincode 250101 or surrounding radius. Our agent is assigned to visit your doorstep.
               </p>
             </div>
 

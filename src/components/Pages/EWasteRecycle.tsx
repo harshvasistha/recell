@@ -77,7 +77,7 @@ export const EWasteRecycle: React.FC = () => {
             <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto" />
             <h3 className="text-lg font-bold text-emerald-900">Eco-Pickup Request Logged!</h3>
             <p className="text-xs text-emerald-700">
-              Thank you for keeping Meerut &amp; India clean! Our courier partner will collect your e-waste from Pincode {pincode}.
+              Thank you for keeping Khekra, Baghpat &amp; India clean! Our courier partner will collect your e-waste from Pincode {pincode}.
             </p>
           </div>
         ) : (

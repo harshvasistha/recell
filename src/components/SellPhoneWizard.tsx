@@ -98,7 +98,7 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
       brand: selectedModel.brand,
       sellerName: sellerName || 'Seller',
       sellerPhone: sellerPhone || '+91 98765 00000',
-      address: address || 'Meerut Cantonment, Local Address',
+      address: address || 'Khekra Main Market, Baghpat (250101)',
       pincode: answers.pincode,
       isLocalRadius: isLocal,
       conditionAnswers: answers,
@@ -108,7 +108,7 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
       scheduledSlot,
       upiId: upiId || 'seller@upi',
       status: 'pickup_scheduled',
-      assignedAgent: isLocal ? 'Agent Rajesh (Meerut 250101 Hub)' : 'Courier Pickup Desk',
+      assignedAgent: isLocal ? 'Agent Rajesh (Khekra 250101 Hub)' : 'Courier Pickup Desk',
       photos: photoList.length > 0 ? photoList : [selectedModel.imageUrl]
     };
 
@@ -128,7 +128,7 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
               Sell Your Phone in 60 Seconds
             </h1>
             <p className="text-sm text-slate-500 mt-1">
-              Serving <strong>Pincode 250101 (Meerut) &bull; 5km Radius</strong> — Instant UPI payout on doorstep physical verification.
+              Serving <strong>Pincode 250101 (Khekra, Baghpat) &bull; Doorstep Active</strong> — Instant UPI payout on doorstep physical verification.
             </p>
           </div>
           <span className="hidden sm:inline bg-indigo-50 text-indigo-700 border border-indigo-100 font-mono text-xs px-3.5 py-1 rounded-full font-bold">
@@ -588,7 +588,7 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
                 <input
                   type="text"
                   required
-                  placeholder="House/Shop No, Street, Landmark, Meerut Area..."
+                  placeholder="House/Shop No, Street, Landmark, Khekra Area..."
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                   className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"

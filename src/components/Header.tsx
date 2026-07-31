@@ -73,7 +73,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="animate-marquee-ltr text-xs sm:text-sm font-extrabold whitespace-nowrap flex items-center gap-12 text-slate-100">
             <div className="inline-flex items-center gap-2 text-slate-100 drop-shadow-sm">
               <MapPin className="w-4 h-4 text-[#0052FF] shrink-0 animate-pulse" />
-              <span>Doorstep Coverage: <strong className="text-white font-mono bg-blue-600/30 px-2 py-0.5 rounded-md border border-blue-500/40">Meerut 250101</strong> (Instant 2-Hour Pickup &amp; Spot UPI)</span>
+              <span>Doorstep Coverage: <strong className="text-white font-mono bg-blue-600/30 px-2 py-0.5 rounded-md border border-blue-500/40">Khekra 250101</strong> (Instant 2-Hour Pickup &amp; Spot UPI)</span>
             </div>
             <span className="text-slate-600 font-bold">&bull;</span>
             <button onClick={() => onOpenLegal('warranty')} className="inline-flex items-center gap-2 text-slate-100 hover:text-amber-400 transition-colors cursor-pointer drop-shadow-sm">
@@ -100,7 +100,7 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="text-slate-600 font-bold">&bull;</span>
             <div className="inline-flex items-center gap-2 text-slate-100 drop-shadow-sm">
               <MapPin className="w-4 h-4 text-[#0052FF] shrink-0 animate-pulse" />
-              <span>Doorstep Coverage: <strong className="text-white font-mono bg-blue-600/30 px-2 py-0.5 rounded-md border border-blue-500/40">Meerut 250101</strong> (Instant 2-Hour Pickup &amp; Spot UPI)</span>
+              <span>Doorstep Coverage: <strong className="text-white font-mono bg-blue-600/30 px-2 py-0.5 rounded-md border border-blue-500/40">Khekra 250101</strong> (Instant 2-Hour Pickup &amp; Spot UPI)</span>
             </div>
             <span className="text-slate-600 font-bold">&bull;</span>
             <button onClick={() => onOpenLegal('warranty')} className="inline-flex items-center gap-2 text-slate-100 hover:text-amber-400 transition-colors cursor-pointer drop-shadow-sm">

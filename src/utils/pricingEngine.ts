@@ -20,7 +20,7 @@ export interface QuoteBreakdown {
 export function isLocalPincode(pincode: string): boolean {
   if (!pincode) return false;
   const cleaned = pincode.trim();
-  // Check direct list or 250101 prefix or nearby Meerut district pincodes starting with 250
+  // Check direct list or 250101 prefix or nearby Khekra/Baghpat district pincodes starting with 250
   if (LOCAL_SERVICED_PINCODES.includes(cleaned)) return true;
   if (cleaned.startsWith('2501') || cleaned.startsWith('2500')) return true;
   return false;

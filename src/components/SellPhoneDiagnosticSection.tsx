@@ -79,6 +79,16 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
     }
   }, [selectedBrandFromHub]);
 
+  // Auto-clamp purchaseYear if selected model releaseYear is newer than chosen year
+  useEffect(() => {
+    if (selectedModel && selectedModel.releaseYear) {
+      const currentYearNum = Number(purchaseYear);
+      if (currentYearNum < selectedModel.releaseYear) {
+        setPurchaseYear(String(selectedModel.releaseYear));
+      }
+    }
+  }, [selectedModel]);
+
   // Helper to check if model brand matches selected brand name or alias
   const checkBrandMatch = (modelBrand: string, currentBrand: string) => {
     const mb = modelBrand.toLowerCase();
@@ -164,7 +174,7 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
       brand: brand,
       sellerName: sellerName || 'Seller',
       sellerPhone: sellerPhone || '+91 98765 43210',
-      address: address || 'Meerut Cantonment, Local Area',
+      address: address || 'Khekra Main Market, Baghpat (250101)',
       pincode: answers.pincode,
       isLocalRadius: isLocal,
       conditionAnswers: answers,
@@ -174,7 +184,7 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
       scheduledSlot,
       upiId: upiId || 'seller@upi',
       status: 'pickup_scheduled',
-      assignedAgent: isLocal ? 'Agent Rajesh (Meerut 250101 Hub)' : 'Courier Express Pickup Desk',
+      assignedAgent: isLocal ? 'Agent Rajesh (Khekra 250101 Hub)' : 'Courier Express Pickup Desk',
       photos: photoList.length > 0 ? photoList : [selectedModel.imageUrl]
     };
 
@@ -279,9 +289,14 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
 
           {/* Purchase Year Selection */}
           <div className="space-y-3 pt-2">
-            <h3 className="text-base font-bold text-slate-950 font-heading flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-[#0052FF]" />
-              2. Select Device Purchase / Manufacturing Year (2020 - 2026)
+            <h3 className="text-base font-bold text-slate-950 font-heading flex items-center justify-between flex-wrap gap-2">
+              <span className="flex items-center gap-2">
+                <Calendar className="w-4 h-4 text-[#0052FF]" />
+                2. Select Device Purchase / Manufacturing Year
+              </span>
+              <span className="text-xs font-semibold text-[#0052FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+                {selectedModel.name} Released in {selectedModel.releaseYear || 2020}
+              </span>
             </h3>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5">
@@ -293,26 +308,42 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
                 { year: '2022', label: '2022 Model', badge: '74% Value' },
                 { year: '2021', label: '2021 Model', badge: '65% Value' },
                 { year: '2020', label: '2020 Model', badge: '58% Value' }
-              ].map((y) => (
-                <button
-                  key={y.year}
-                  onClick={() => setPurchaseYear(y.year)}
-                  className={`p-3 rounded-2xl border text-left transition-all cursor-pointer font-sans ${
-                    purchaseYear === y.year
-                      ? 'bg-slate-950 text-white border-slate-950 shadow-md ring-2 ring-blue-500/20'
-                      : 'bg-white border-slate-300 text-slate-900 hover:bg-slate-100 hover:border-slate-400'
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="font-extrabold text-sm">{y.year}</span>
-                  </div>
-                  <span className={`text-[10px] inline-block mt-1 font-extrabold px-2 py-0.5 rounded-full ${
-                    purchaseYear === y.year ? 'bg-emerald-400 text-slate-950' : 'bg-slate-200 text-slate-900'
-                  }`}>
-                    {y.badge}
-                  </span>
-                </button>
-              ))}
+              ].map((y) => {
+                const yearNum = Number(y.year);
+                const minReleaseYear = selectedModel.releaseYear || 2020;
+                const isInvalidYear = yearNum < minReleaseYear;
+
+                return (
+                  <button
+                    key={y.year}
+                    disabled={isInvalidYear}
+                    onClick={() => {
+                      if (!isInvalidYear) setPurchaseYear(y.year);
+                    }}
+                    title={isInvalidYear ? `${selectedModel.name} was launched in ${minReleaseYear}` : `Select ${y.year}`}
+                    className={`p-3 rounded-2xl border text-left transition-all font-sans ${
+                      isInvalidYear
+                        ? 'bg-slate-100/70 border-slate-200 text-slate-400 opacity-50 cursor-not-allowed'
+                        : purchaseYear === y.year
+                        ? 'bg-slate-950 text-white border-slate-950 shadow-md ring-2 ring-blue-500/20 cursor-pointer'
+                        : 'bg-white border-slate-300 text-slate-900 hover:bg-slate-100 hover:border-slate-400 cursor-pointer'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-extrabold text-sm">{y.year}</span>
+                    </div>
+                    <span className={`text-[10px] inline-block mt-1 font-extrabold px-2 py-0.5 rounded-full ${
+                      isInvalidYear
+                        ? 'bg-slate-200 text-slate-500'
+                        : purchaseYear === y.year
+                        ? 'bg-emerald-400 text-slate-950'
+                        : 'bg-slate-200 text-slate-900'
+                    }`}>
+                      {isInvalidYear ? `Launched ${minReleaseYear}` : y.badge}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
@@ -730,7 +761,7 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
               </div>
               {quoteBreakdown.localDemandBonus > 0 && (
                 <div className="flex justify-between py-1 border-b border-slate-200">
-                  <span className="text-emerald-700 font-bold">Meerut 250101 Doorstep Bonus</span>
+                  <span className="text-emerald-700 font-bold">Khekra 250101 Doorstep Bonus</span>
                   <span className="font-mono font-bold text-emerald-600">+₹{quoteBreakdown.localDemandBonus}</span>
                 </div>
               )}
@@ -818,7 +849,7 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
                   <input
                     type="text"
                     required
-                    placeholder="House/Flat No., Street, Landmark, Meerut Area..."
+                    placeholder="House/Flat No., Street, Landmark, Khekra Area..."
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                     className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-3.5 py-2.5 text-xs text-slate-900 focus:ring-2 focus:ring-[#0052FF]"

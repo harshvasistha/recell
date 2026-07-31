@@ -648,7 +648,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-amber-400" />)}
             </div>
             <p className="text-xs sm:text-sm text-slate-800 leading-relaxed italic font-medium">
-              "Sold my iPhone 13 in Khekra Pincode 250101. The agent arrived in 2 hours, ran a quick hardware scan, and transferred ₹33,500 to my GPay right at my living room table!"
+              "Visited Recell Store opposite Dr. Jagpal Clinic in Khekra to sell my iPhone 13. The staff completed a 2-minute diagnostic scan and transferred ₹33,500 to my GPay right at the counter!"
             </p>
             <div className="flex items-center gap-3 pt-2 border-t border-slate-200">
               <div className="w-9 h-9 rounded-full bg-[#0052FF] text-white font-black flex items-center justify-center text-xs font-heading shadow-xs">
@@ -656,7 +656,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </div>
               <div>
                 <p className="font-black text-sm text-slate-950 font-heading">Amit Sharma</p>
-                <p className="text-xs text-slate-700 font-semibold">Khekra, Baghpat (250101)</p>
+                <p className="text-xs text-slate-700 font-semibold">Opp. Dr. Jagpal Clinic, Khekra (250101)</p>
               </div>
             </div>
           </div>
@@ -666,15 +666,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-amber-400" />)}
             </div>
             <p className="text-xs sm:text-sm text-slate-800 leading-relaxed italic font-medium">
-              "Bought a certified refurbished Samsung Galaxy S23 Ultra. Phone looks brand new with 95% battery health. Delhivery express delivered it to Bengaluru in 2 days with 3-Month warranty card."
+              "Bought a certified pre-owned Samsung Galaxy S23 Ultra directly from Recell Khekra Store. Pristine phone with 95% battery health, original accessories &amp; 3-Month warranty card."
             </p>
             <div className="flex items-center gap-3 pt-2 border-t border-slate-200">
               <div className="w-9 h-9 rounded-full bg-emerald-600 text-white font-black flex items-center justify-center text-xs font-heading shadow-xs">
-                KM
+                VT
               </div>
               <div>
-                <p className="font-black text-sm text-slate-950 font-heading">Karan Malhotra</p>
-                <p className="text-xs text-slate-700 font-semibold">Koramangala, Bengaluru</p>
+                <p className="font-black text-sm text-slate-950 font-heading">Vikas Tyagi</p>
+                <p className="text-xs text-slate-700 font-semibold">Main Market, Khekra (250101)</p>
               </div>
             </div>
           </div>
@@ -684,15 +684,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-amber-400" />)}
             </div>
             <p className="text-xs sm:text-sm text-slate-800 leading-relaxed italic font-medium">
-              "Booked doorstep screen replacement for my OnePlus 11. Technician arrived at my office with ESD tools and fixed it in 25 minutes. 100% genuine screen quality!"
+              "Booked doorstep pickup in Khekra for selling my old phone. The agent arrived at my house within 45 minutes, verified condition, and paid spot cash. Highly recommended!"
             </p>
             <div className="flex items-center gap-3 pt-2 border-t border-slate-200">
               <div className="w-9 h-9 rounded-full bg-purple-600 text-white font-black flex items-center justify-center text-xs font-heading shadow-xs">
-                PV
+                RC
               </div>
               <div>
-                <p className="font-black text-sm text-slate-950 font-heading">Pooja Verma</p>
-                <p className="text-xs text-slate-700 font-semibold">Shastri Nagar, Meerut</p>
+                <p className="font-black text-sm text-slate-950 font-heading">Rohit Chaudhary</p>
+                <p className="text-xs text-slate-700 font-semibold">Railway Road, Khekra (250101)</p>
               </div>
             </div>
           </div>

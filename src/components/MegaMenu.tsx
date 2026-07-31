@@ -258,7 +258,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
                 className="p-5 rounded-2xl bg-slate-50 border border-slate-200 cursor-pointer hover:border-slate-300 transition-all space-y-2"
               >
                 <h3 className="font-bold text-slate-900 text-sm">Customer Support & Helpdesk</h3>
-                <p className="text-xs text-slate-500">Connect via WhatsApp, phone hotline, or visit our central Meerut 250101 hub.</p>
+                <p className="text-xs text-slate-500">Connect via WhatsApp, phone hotline, or visit our central Khekra 250101 hub.</p>
               </div>
             </div>
           )}
@@ -268,7 +268,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
         <div className="p-4 bg-slate-100 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-600 gap-2">
           <div className="flex items-center gap-2">
             <Truck className="w-4 h-4 text-indigo-600" />
-            <span>Serving Meerut Pincode 250101 &amp; Pan-India via Delhivery &amp; Shiprocket</span>
+            <span>Serving Khekra Pincode 250101 &amp; Pan-India via Delhivery &amp; Shiprocket</span>
           </div>
           <button
             onClick={onClose}

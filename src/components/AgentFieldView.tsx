@@ -64,7 +64,7 @@ export const AgentFieldView: React.FC<AgentFieldViewProps> = ({
           </span>
           <h1 className="text-2xl font-black text-slate-900">Doorstep Verification & Instant UPI Payout</h1>
           <p className="text-xs text-slate-500 mt-1">
-            Agent Assigned: <strong>Agent Rajesh (Meerut 250101 Central Hub)</strong>
+            Agent Assigned: <strong>Agent Rajesh (Khekra 250101 Central Hub)</strong>
           </p>
         </div>
 

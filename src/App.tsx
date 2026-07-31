@@ -38,6 +38,7 @@ import { ContactUs } from './components/Pages/ContactUs';
 import { MegaMenu } from './components/MegaMenu';
 import { LegalModal } from './components/Legal/LegalModal';
 import { AuthModal } from './components/AuthModal';
+import { WhatsAppChatWidget } from './components/WhatsAppChatWidget';
 import { RecellLogo } from './components/RecellLogo';
 import { MAJOR_MOBILE_BRANDS } from './data/brandsData';
 import { ShoppingBag, X, Trash2, ArrowRight, ShieldCheck, MapPin, Smartphone, Wrench, Leaf, PhoneCall } from 'lucide-react';
@@ -548,6 +549,9 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* Custom WhatsApp Floating Chatbox */}
+      <WhatsAppChatWidget />
     </div>
   );
 }

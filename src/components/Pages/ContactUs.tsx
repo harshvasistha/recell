@@ -13,7 +13,7 @@ export const ContactUs: React.FC = () => {
     e.preventDefault();
     setSent(true);
 
-    // Trigger mailto link to deliver the contact info directly to harsh.vasistha@gmail.com
+    // Trigger mailto link to deliver contact info directly to Scorpiontraders007@gmail.com
     const emailSubject = encodeURIComponent(`[Recell Inquiry] ${subject} - ${name}`);
     const emailBody = encodeURIComponent(
       `Support Inquiry Details:\n` +
@@ -26,7 +26,7 @@ export const ContactUs: React.FC = () => {
       `Sent from Recell Web Contact Form`
     );
 
-    const mailtoUrl = `mailto:harsh.vasistha@gmail.com?subject=${emailSubject}&body=${emailBody}`;
+    const mailtoUrl = `mailto:Scorpiontraders007@gmail.com?subject=${emailSubject}&body=${emailBody}`;
     window.location.href = mailtoUrl;
   };
 
@@ -39,7 +39,7 @@ export const ContactUs: React.FC = () => {
         </span>
         <h1 className="text-3xl sm:text-4xl font-black text-slate-900 font-heading">We are Here to Help</h1>
         <p className="text-xs sm:text-sm text-slate-500 max-w-xl mx-auto">
-          Have a question about your doorstep payout, tracking an order, or claiming your 3-Month Warranty? Get in touch with our team.
+          Have a question about your doorstep payout, device repair, or tracking an order? Get in touch with our team.
         </p>
       </div>
 
@@ -49,13 +49,13 @@ export const ContactUs: React.FC = () => {
           <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs space-y-2">
             <div className="flex items-center gap-2 text-indigo-600 font-bold text-sm">
               <Mail className="w-4 h-4 text-[#0052FF]" />
-              <span>Direct Email Support</span>
+              <span>Primary Email Support</span>
             </div>
             <a
-              href="mailto:harsh.vasistha@gmail.com"
+              href="mailto:Scorpiontraders007@gmail.com"
               className="text-xs font-mono font-bold text-[#0052FF] hover:underline block break-all"
             >
-              harsh.vasistha@gmail.com
+              Scorpiontraders007@gmail.com
             </a>
             <p className="text-[11px] text-slate-500">Inquiries delivered directly to management</p>
           </div>
@@ -65,18 +65,20 @@ export const ContactUs: React.FC = () => {
               <Phone className="w-4 h-4" />
               <span>Customer Helpline</span>
             </div>
-            <p className="text-sm font-mono font-bold text-slate-900">+91 (121) 250-1010</p>
+            <a href="tel:9557342655" className="text-sm font-mono font-bold text-slate-900 hover:text-[#0052FF] block">
+              +91 9557342655
+            </a>
             <p className="text-xs text-slate-500">Mon - Sat: 9:00 AM - 8:00 PM IST</p>
           </div>
 
           <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs space-y-2">
             <div className="flex items-center gap-2 text-emerald-600 font-bold text-sm">
-              <MessageSquare className="w-4 h-4" />
+              <MessageSquare className="w-4 h-4 text-emerald-600" />
               <span>Instant WhatsApp Support</span>
             </div>
-            <p className="text-xs font-semibold text-slate-800">Chat with Recell Agent</p>
+            <p className="text-xs font-bold text-slate-800 font-mono">+91 9557342655</p>
             <a
-              href="https://wa.me/919876543210"
+              href="https://wa.me/919557342655?text=Hello%20Recell%20Store%2C%20I%20have%20an%20inquiry"
               target="_blank"
               rel="noreferrer"
               className="text-xs text-emerald-600 font-bold underline block"
@@ -100,7 +102,7 @@ export const ContactUs: React.FC = () => {
         <div className="md:col-span-2 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xs space-y-6">
           <div>
             <h2 className="text-lg font-bold text-slate-900 font-heading">Send Us a Direct Message</h2>
-            <p className="text-xs text-slate-500">Submitting this form delivers your message directly to <strong>harsh.vasistha@gmail.com</strong></p>
+            <p className="text-xs text-slate-500">Submitting this form delivers your message directly to <strong>Scorpiontraders007@gmail.com</strong></p>
           </div>
 
           {sent ? (
@@ -108,7 +110,7 @@ export const ContactUs: React.FC = () => {
               <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto" />
               <h3 className="text-lg font-bold text-emerald-900 font-heading">Message Delivered!</h3>
               <p className="text-xs text-emerald-800 leading-relaxed font-medium">
-                Your message has been formatted and dispatched to <strong>harsh.vasistha@gmail.com</strong>.
+                Your message has been formatted and dispatched to <strong>Scorpiontraders007@gmail.com</strong>.
               </p>
               <p className="text-[11px] text-emerald-700">
                 Our support team will respond to <strong>{email}</strong> shortly.
@@ -116,7 +118,7 @@ export const ContactUs: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setSent(false)}
-                className="mt-2 text-xs font-bold text-emerald-700 underline"
+                className="mt-2 text-xs font-bold text-emerald-700 underline cursor-pointer"
               >
                 Send Another Message
               </button>
@@ -156,7 +158,7 @@ export const ContactUs: React.FC = () => {
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    placeholder="+91 98765 43210"
+                    placeholder="+91 9557342655"
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-slate-900 font-medium focus:ring-2 focus:ring-[#0052FF] outline-none"
                   />
                 </div>
@@ -169,7 +171,7 @@ export const ContactUs: React.FC = () => {
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-semibold text-slate-900 focus:ring-2 focus:ring-[#0052FF] outline-none"
                   >
                     <option value="Order & Trade-in Query">Order &amp; Trade-in Query</option>
-                    <option value="3-Month Warranty Claim">3-Month Warranty Claim</option>
+                    <option value="Doorstep Mobile Repair">Doorstep Mobile Repair</option>
                     <option value="7-Day Return Request">7-Day Return Request</option>
                     <option value="Bulk B2B Device Supply">Bulk B2B Device Supply</option>
                     <option value="General Inquiry">General Inquiry</option>
@@ -191,14 +193,14 @@ export const ContactUs: React.FC = () => {
 
               <div className="p-3 bg-blue-50 border border-blue-100 rounded-xl text-[11px] text-blue-900 font-medium flex items-center gap-2">
                 <Send className="w-4 h-4 text-[#0052FF] shrink-0" />
-                <span>Message will be transmitted directly to <strong>harsh.vasistha@gmail.com</strong></span>
+                <span>Message will be transmitted directly to <strong>Scorpiontraders007@gmail.com</strong></span>
               </div>
 
               <button
                 type="submit"
                 className="w-full bg-[#0052FF] hover:bg-blue-700 text-white font-bold py-3.5 rounded-full text-xs shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer font-heading"
               >
-                Submit to harsh.vasistha@gmail.com
+                Send Message
                 <ChevronRight className="w-4 h-4" />
               </button>
             </form>
@@ -208,4 +210,3 @@ export const ContactUs: React.FC = () => {
     </div>
   );
 };
-
