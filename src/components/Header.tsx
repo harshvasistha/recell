@@ -5,7 +5,7 @@ import { BrandLogo } from './BrandLogo';
 import { 
   Smartphone, ShoppingBag, ShieldCheck, Wrench, Search, 
   ChevronDown, User, Grid, Sparkles, MapPin, SmartphoneCharging, 
-  Zap, ExternalLink, X, RotateCcw, Lock
+  Zap, ExternalLink, X, RotateCcw, Lock, Menu
 } from 'lucide-react';
 
 export type TabType = 'landing' | 'sell' | 'buy' | 'track' | 'repair' | 'about' | 'how-it-works' | 'recycle' | 'contact' | 'agent' | 'admin';
@@ -127,13 +127,13 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Main Bar: Logo, Search, Cart & User Action */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex items-center justify-between gap-3">
         {/* Brand Logo */}
         <a href="/" onClick={(e) => handleNavClick(e, 'landing')} className="cursor-pointer">
           <RecellLogo variant="header" />
         </a>
 
-        {/* Search Bar */}
+        {/* Desktop Search Bar */}
         <div className="hidden md:flex flex-1 max-w-sm relative">
           <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
@@ -146,11 +146,11 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Right Header Actions */}
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2">
           {/* Cart Icon */}
           <button
             onClick={openCart}
-            className="relative p-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 transition-colors border border-slate-200 shadow-2xs cursor-pointer"
+            className="relative p-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 transition-colors border border-slate-200 shadow-2xs cursor-pointer min-h-[40px] min-w-[40px] flex items-center justify-center"
             title="View Cart"
           >
             <ShoppingBag className="w-4 h-4 text-slate-800" />
@@ -170,21 +170,36 @@ export const Header: React.FC<HeaderProps> = ({
           ) : (
             <button
               onClick={onOpenAuth}
-              className="bg-[#0052FF] hover:bg-[#0043CC] text-white font-bold px-4 py-2 rounded-full text-xs shadow-md shadow-blue-500/20 transition-all flex items-center gap-1.5 cursor-pointer font-heading"
+              className="bg-[#0052FF] hover:bg-[#0043CC] text-white font-bold px-3.5 py-2 rounded-full text-xs shadow-md shadow-blue-500/20 transition-all flex items-center gap-1.5 cursor-pointer font-heading"
             >
               <User className="w-3.5 h-3.5" />
-              <span>Register / Sign In</span>
+              <span className="hidden sm:inline">Register / Sign In</span>
+              <span className="sm:hidden text-[11px]">Sign In</span>
             </button>
           )}
 
           {/* Mobile Drawer Hamburger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 cursor-pointer"
+            className="lg:hidden p-2.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 cursor-pointer min-h-[40px] min-w-[40px] flex items-center justify-center"
             aria-label="Toggle navigation menu"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5 text-slate-900" /> : <Grid className="w-5 h-5 text-slate-900" />}
+            {mobileMenuOpen ? <X className="w-5 h-5 text-slate-900" /> : <Menu className="w-5 h-5 text-slate-900" />}
           </button>
+        </div>
+      </div>
+
+      {/* Mobile Search Bar - Prominent for Mobile Users */}
+      <div className="md:hidden px-4 pb-2.5">
+        <div className="relative">
+          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <input
+            type="text"
+            placeholder="Search iPhone, Samsung, Redmi models..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full bg-slate-100 border border-slate-200 rounded-full pl-9 pr-4 py-2 text-xs text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#0052FF] focus:bg-white transition-all font-medium"
+          />
         </div>
       </div>
 
@@ -610,15 +625,16 @@ export const Header: React.FC<HeaderProps> = ({
 
           <div className="pt-3 border-t border-slate-100 space-y-2">
             <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block font-heading">Browse Phone Brands</span>
-            <div className="grid grid-cols-3 gap-1.5 text-[11px]">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[11px]">
               {MAJOR_MOBILE_BRANDS.map((b) => (
                 <a
                   key={b.id}
                   href={`/buy?brand=${encodeURIComponent(b.name)}`}
                   onClick={(e) => handleBrandClick(e, b.name)}
-                  className="p-2 bg-slate-50 hover:bg-blue-50 border border-slate-100 rounded-lg font-mono font-bold text-slate-800 text-center truncate cursor-pointer block"
+                  className="p-2.5 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 rounded-xl font-heading font-bold text-slate-800 flex items-center gap-2 truncate cursor-pointer transition-all shadow-2xs"
                 >
-                  {b.name}
+                  <BrandLogo brandId={b.id} brandName={b.name} size="sm" />
+                  <span className="truncate">{b.name}</span>
                 </a>
               ))}
             </div>

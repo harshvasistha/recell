@@ -203,7 +203,7 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
           <div className="space-y-2 max-w-2xl">
             <span className="bg-[#0052FF] text-white text-xs font-mono font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5 shadow-md">
               <Zap className="w-4 h-4 text-amber-400" />
-              Dynamic Pricing &amp; Hardware Diagnostic Engine
+              Instant Phone Price Valuation
             </span>
             <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight font-heading">
               Sell Old Phone &amp; Claim Spot Cash
@@ -405,7 +405,7 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
         </motion.div>
       )}
 
-      {/* STEP 2: HARDWARE DIAGNOSTIC ENGINE QUESTIONNAIRE */}
+      {/* STEP 2: PHONE CONDITION CHECKLIST */}
       {activeStep === 2 && (
         <motion.div 
           initial={{ opacity: 0, y: 15 }}
@@ -415,7 +415,7 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
             <div>
               <span className="text-[10px] text-[#0052FF] font-bold font-mono uppercase tracking-wider block">Step 2 of 5</span>
-              <h3 className="text-lg sm:text-xl font-black text-slate-900 font-heading">Hardware Diagnostic Audit Checklist</h3>
+              <h3 className="text-lg sm:text-xl font-black text-slate-900 font-heading">Phone Condition Checklist</h3>
             </div>
             <div className="bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl text-xs font-heading">
               <span className="text-slate-400">Selected Device: </span>
@@ -737,14 +737,14 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
               <span>Rough Estimate vs. Final Doorstep Payout Notice</span>
             </div>
             <p className="text-xs leading-relaxed font-sans text-amber-900">
-              This estimate is calculated via our dynamic pricing engine based on your inputs. <strong>Our certified pickup guy will conduct a quick 2-minute physical hardware diagnostic inspection at your doorstep to provide the exact guaranteed payout</strong>. Money is transferred straight to your GPay / UPI before taking the phone!
+              This estimate is calculated based on your inputs. <strong>Our certified pickup agent will conduct a quick physical condition check at your doorstep to confirm the exact payout</strong>. Money is transferred straight to your GPay / UPI before taking the phone!
             </p>
           </div>
 
           {/* Detailed Itemized Calculation Breakdown */}
           <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-3 font-sans">
             <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider border-b border-slate-200 pb-2 font-heading">
-              Dynamic Pricing Engine Breakdown
+              Price Estimate Breakdown
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
               <div className="flex justify-between py-1 border-b border-slate-200">

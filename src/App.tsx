@@ -39,6 +39,7 @@ import { MegaMenu } from './components/MegaMenu';
 import { LegalModal } from './components/Legal/LegalModal';
 import { AuthModal } from './components/AuthModal';
 import { WhatsAppChatWidget } from './components/WhatsAppChatWidget';
+import { MobileBottomNav } from './components/MobileBottomNav';
 import { RecellLogo } from './components/RecellLogo';
 import { MAJOR_MOBILE_BRANDS } from './data/brandsData';
 import { ShoppingBag, X, Trash2, ArrowRight, ShieldCheck, MapPin, Smartphone, Wrench, Leaf, PhoneCall } from 'lucide-react';
@@ -318,7 +319,7 @@ export default function App() {
   );
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 font-sans selection:bg-[#0052FF] selection:text-white flex flex-col justify-between">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 font-sans selection:bg-[#0052FF] selection:text-white flex flex-col justify-between pb-16 lg:pb-0">
       <div>
         {isAppFrame ? (
           <CapacitorAppWrapper onExit={() => setIsAppFrame(false)}>
@@ -549,6 +550,17 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* Mobile App-Style Bottom Navigation Bar */}
+      <MobileBottomNav
+        currentTab={currentTab}
+        setCurrentTab={setCurrentTab}
+        cartCount={cart.length}
+        openCart={() => setIsCartOpen(true)}
+        onOpenMegaMenu={() => setIsMegaMenuOpen(true)}
+        onOpenAuth={() => setIsAuthOpen(true)}
+        user={user}
+      />
 
       {/* Custom WhatsApp Floating Chatbox */}
       <WhatsAppChatWidget />

@@ -156,7 +156,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
 
                     <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
                       <div>
-                        <span className="text-slate-400 block text-[9px] uppercase font-bold">Trade-in From</span>
+                        <span className="text-slate-400 block text-[9px] uppercase font-bold">Starts At</span>
                         <span className="font-mono font-bold text-emerald-600">₹{brand.sellStartingFrom.toLocaleString('en-IN')}</span>
                       </div>
                       <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all" />

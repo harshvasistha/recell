@@ -43,7 +43,7 @@ export const WhatsAppChatWidget: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-5 right-5 z-50 font-sans">
+    <div className="fixed bottom-20 sm:bottom-5 right-3 sm:right-5 z-50 font-sans">
       {/* Expanded Chat Box */}
       {isOpen ? (
         <div className="bg-white border border-slate-200 rounded-3xl shadow-2xl w-80 sm:w-96 overflow-hidden flex flex-col transition-all duration-300 animate-fadeIn border-t-4 border-t-emerald-500">

@@ -205,11 +205,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="flex flex-wrap items-center gap-3 pt-2"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-2"
             >
               <button
                 onClick={onStartSell}
-                className="bg-slate-950 hover:bg-slate-900 text-white font-black px-7 py-4 rounded-full text-sm sm:text-base shadow-lg hover:shadow-2xl transition-all flex items-center gap-2.5 group cursor-pointer font-heading"
+                className="w-full sm:w-auto bg-slate-950 hover:bg-slate-900 text-white font-black px-6 py-3.5 sm:py-4 rounded-2xl sm:rounded-full text-sm sm:text-base shadow-lg hover:shadow-2xl transition-all flex items-center justify-center gap-2.5 group cursor-pointer font-heading min-h-[48px]"
               >
                 <Smartphone className="w-5 h-5 text-emerald-400" />
                 Sell Old Phone (60s Quote)
@@ -218,16 +218,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
               <button
                 onClick={onStartBuy}
-                className="bg-[#0052FF] hover:bg-[#0043CC] text-white font-black px-7 py-4 rounded-full text-sm sm:text-base shadow-lg shadow-blue-500/25 hover:shadow-2xl transition-all flex items-center gap-2.5 group cursor-pointer font-heading"
+                className="w-full sm:w-auto bg-[#0052FF] hover:bg-[#0043CC] text-white font-black px-6 py-3.5 sm:py-4 rounded-2xl sm:rounded-full text-sm sm:text-base shadow-lg shadow-blue-500/25 hover:shadow-2xl transition-all flex items-center justify-center gap-2.5 group cursor-pointer font-heading min-h-[48px]"
               >
                 <ShieldCheck className="w-5 h-5" />
-                Buy Refurbished Phones
+                Buy Refurbished
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
 
               <button
                 onClick={onOpenRepair}
-                className="bg-white border-2 border-slate-300 hover:bg-slate-100 text-slate-900 font-black px-6 py-4 rounded-full text-sm sm:text-base shadow-md transition-all flex items-center gap-2 cursor-pointer font-heading"
+                className="w-full sm:w-auto bg-white border-2 border-slate-300 hover:bg-slate-100 text-slate-900 font-black px-5 py-3.5 sm:py-4 rounded-2xl sm:rounded-full text-sm sm:text-base shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer font-heading min-h-[48px]"
               >
                 <Wrench className="w-5 h-5 text-amber-600" />
                 30-Min Doorstep Repair
@@ -336,7 +336,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
       </section>
 
-      {/* 2. ALL 15 MAJOR MOBILE BRANDS GRID */}
+      {/* 2. MOBILES WE SELL SECTION */}
       <motion.section 
         initial={{ opacity: 0, y: 35 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -346,51 +346,132 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       >
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
           <div>
-            <span className="bg-indigo-50 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full border border-indigo-100 font-heading">
-              Complete Category Directory
+            <span className="bg-emerald-50 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full border border-emerald-200 font-heading">
+              Certified Pre-Owned Inventory
             </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1 font-heading">15 Major Mobile Brand Hubs</h2>
-            <p className="text-xs text-slate-500 mt-0.5">Check instant trade-in prices or buy certified pre-owned devices across all top brands.</p>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1 font-heading">Buy Refurbished Phones</h2>
+            <p className="text-xs text-slate-500 mt-0.5">Grade A+ certified smartphones with 55-point hardware inspection &amp; 3-month warranty.</p>
           </div>
 
           <button
             onClick={onStartBuy}
             className="text-xs font-bold text-[#0052FF] hover:underline flex items-center gap-1 cursor-pointer font-heading"
           >
-            Explore Full Brand Catalog &rarr;
+            Browse Full Store Catalog &rarr;
           </button>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-          {MAJOR_MOBILE_BRANDS.map((brand) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          {[
+            {
+              id: 'm-ip15pm',
+              name: 'iPhone 15 Pro Max',
+              variant: '256GB - Natural Titanium',
+              originalPrice: 159900,
+              sellPrice: 94500,
+              grade: 'Superb',
+              battery: '94%',
+              img: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80',
+              brand: 'Apple'
+            },
+            {
+              id: 'm-ip14',
+              name: 'iPhone 14',
+              variant: '128GB - Midnight Black',
+              originalPrice: 69900,
+              sellPrice: 48999,
+              grade: 'Superb',
+              battery: '91%',
+              img: 'https://images.unsplash.com/photo-1663499482523-1c0c1bae4ce1?auto=format&fit=crop&w=800&q=80',
+              brand: 'Apple'
+            },
+            {
+              id: 'm-s23u',
+              name: 'Galaxy S23 Ultra',
+              variant: '256GB - Botanic Green',
+              originalPrice: 124999,
+              sellPrice: 68500,
+              grade: 'Like New',
+              battery: '95%',
+              img: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80',
+              brand: 'Samsung'
+            },
+            {
+              id: 'm-op12r',
+              name: 'OnePlus 12R 5G',
+              variant: '256GB - Cool Blue',
+              originalPrice: 39999,
+              sellPrice: 30999,
+              grade: 'Like New',
+              battery: '98%',
+              img: 'https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=800&q=80',
+              brand: 'OnePlus'
+            },
+            {
+              id: 'm-px8a',
+              name: 'Pixel 8a 5G',
+              variant: '128GB - Aloe Green',
+              originalPrice: 52999,
+              sellPrice: 31500,
+              grade: 'Superb',
+              battery: '96%',
+              img: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=80',
+              brand: 'Google'
+            },
+            {
+              id: 'm-rmn13p',
+              name: 'Redmi Note 13 Pro+',
+              variant: '256GB - Fusion Purple',
+              originalPrice: 33999,
+              sellPrice: 21999,
+              grade: 'Superb',
+              battery: '93%',
+              img: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80',
+              brand: 'Xiaomi'
+            }
+          ].map((phone) => (
             <motion.div
-              key={brand.id}
-              whileHover={{ scale: 1.04 }}
-              onClick={() => {
-                setSelectedBrandForSell(brand.name);
-                const el = document.getElementById('sell-diagnostic-section');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="p-5 rounded-3xl bg-white border border-slate-300 hover:border-[#0052FF] shadow-sm hover:shadow-xl transition-all cursor-pointer group flex flex-col justify-between"
+              key={phone.id}
+              whileHover={{ y: -4 }}
+              onClick={onStartBuy}
+              className="p-4 rounded-3xl bg-white border border-slate-300 hover:border-[#0052FF] shadow-sm hover:shadow-xl transition-all cursor-pointer group flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center gap-3 mb-3">
-                  <BrandLogo brandId={brand.id} brandName={brand.name} size="lg" />
-                  <div>
-                    <span className="font-heading text-sm sm:text-base font-black text-slate-950 group-hover:text-[#0052FF] transition-colors block">
-                      {brand.name}
-                    </span>
-                    <span className="text-[10px] bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded-full inline-block mt-0.5">
-                      Top Rated Brand
-                    </span>
-                  </div>
+                <div className="relative rounded-2xl overflow-hidden bg-slate-100 mb-3 aspect-4/3">
+                  <img
+                    src={phone.img}
+                    alt={phone.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <span className="absolute top-2 left-2 bg-slate-950/80 backdrop-blur-md text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase font-mono">
+                    Grade {phone.grade}
+                  </span>
+                  <span className="absolute bottom-2 right-2 bg-emerald-500 text-slate-950 text-[9px] font-black px-2 py-0.5 rounded-full font-mono">
+                    {phone.battery} Batt
+                  </span>
                 </div>
-                <p className="text-xs text-slate-700 font-medium line-clamp-2 leading-snug">{brand.tagline}</p>
+
+                <span className="text-[10px] text-indigo-600 font-extrabold uppercase tracking-wider block font-heading">
+                  {phone.brand}
+                </span>
+                <h3 className="font-heading text-sm font-black text-slate-950 group-hover:text-[#0052FF] transition-colors leading-snug">
+                  {phone.name}
+                </h3>
+                <p className="text-[11px] text-slate-500 font-medium truncate mt-0.5">{phone.variant}</p>
               </div>
 
               <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-xs">
-                <span className="text-slate-600 font-bold">Trade-In From</span>
-                <span className="font-mono font-extrabold text-emerald-700 text-sm">₹{brand.sellStartingFrom.toLocaleString('en-IN')}</span>
+                <div>
+                  <span className="text-[10px] text-slate-400 line-through block font-mono">
+                    ₹{phone.originalPrice.toLocaleString('en-IN')}
+                  </span>
+                  <span className="font-mono font-black text-[#0052FF] text-sm">
+                    ₹{phone.sellPrice.toLocaleString('en-IN')}
+                  </span>
+                </div>
+                <span className="bg-blue-50 text-[#0052FF] font-bold text-[10px] px-2.5 py-1 rounded-full group-hover:bg-[#0052FF] group-hover:text-white transition-colors">
+                  Buy
+                </span>
               </div>
             </motion.div>
           ))}
@@ -448,64 +529,39 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       >
         <div className="text-center space-y-2 max-w-2xl mx-auto">
           <span className="bg-indigo-100 text-indigo-900 text-xs font-black px-4 py-1.5 rounded-full border border-indigo-200 uppercase tracking-wider inline-block font-heading shadow-xs">
-            Architected for Complete Trust
+            Built for Complete Trust
           </span>
-          <h2 className="text-3xl sm:text-4xl font-black text-slate-950 font-heading drop-shadow-sm">Why India Swaps Phones on Recell</h2>
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-950 font-heading drop-shadow-sm">Why Customers Trust Recell Store</h2>
           <p className="text-sm sm:text-base text-slate-800 font-medium">
-            Powered by algorithmic 32-point diagnostics, doorstep spot UPI transfers, and military-grade data sanitization.
+            Fast 60-second quotes, instant GPay &amp; cash transfers at doorstep, and 100% data privacy protection.
           </p>
         </div>
 
         {/* Bento Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-          {/* Bento Item 1 (Large - 7 cols) */}
+          {/* Bento Item 1 (Full Width - 12 cols) */}
           <motion.div 
             whileHover={{ y: -4 }}
-            className="md:col-span-7 p-6 sm:p-8 bg-slate-950 text-white rounded-3xl space-y-6 shadow-xl relative overflow-hidden flex flex-col justify-between"
+            className="md:col-span-12 p-6 sm:p-8 bg-slate-950 text-white rounded-3xl space-y-6 shadow-xl relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
           >
-            <div className="space-y-3 z-10">
+            <div className="space-y-3 z-10 max-w-xl">
               <span className="bg-emerald-500/20 text-emerald-300 text-xs font-black px-3 py-1 rounded-full border border-emerald-500/40 inline-flex items-center gap-1.5 shadow-xs">
                 <Zap className="w-4 h-4 text-emerald-400" />
-                60-Second Valuation Engine
+                Instant Price Valuation
               </span>
-              <h3 className="text-2xl sm:text-3xl font-black text-white font-heading drop-shadow-md">32-Point Diagnostic Inspection Checklist</h3>
-              <p className="text-sm sm:text-base text-slate-200 max-w-md leading-relaxed font-sans">
-                Screen glass, display touch matrices, camera sensors, earpiece mesh, battery health %, and motherboard circuits tested transparently at your doorstep.
+              <h3 className="text-2xl sm:text-3xl font-black text-white font-heading drop-shadow-md">Complete Mobile Inspection Checklist</h3>
+              <p className="text-sm sm:text-base text-slate-200 leading-relaxed font-sans">
+                Screen glass, display touch, camera, speakers, battery health, and body condition verified transparently right in front of you.
               </p>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs z-10">
-              {['Display Touch', 'Camera OIS', 'Battery Health', 'Microphone', 'Charging Port', 'IMEI Verification'].map((item, idx) => (
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs z-10 w-full md:w-auto">
+              {['Display Touch', 'Camera & OIS', 'Battery Health', 'Microphone', 'Charging Port', 'IMEI Check'].map((item, idx) => (
                 <div key={idx} className="p-3 bg-slate-900 border border-slate-700 rounded-xl flex items-center gap-2 shadow-xs">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span className="font-extrabold text-white text-xs">{item}</span>
                 </div>
               ))}
-            </div>
-          </motion.div>
-
-          {/* Bento Item 2 (5 cols) */}
-          <motion.div 
-            whileHover={{ y: -4 }}
-            className="md:col-span-5 p-6 sm:p-8 bg-gradient-to-br from-[#0052FF] to-blue-900 text-white rounded-3xl space-y-6 shadow-xl flex flex-col justify-between"
-          >
-            <div className="space-y-3">
-              <span className="bg-white/20 text-white text-xs font-black px-3 py-1 rounded-full border border-white/30 inline-flex items-center gap-1.5 shadow-xs">
-                <Banknote className="w-4 h-4 text-emerald-300" />
-                Zero Delay Payout
-              </span>
-              <h3 className="text-2xl sm:text-3xl font-black font-heading drop-shadow-md">Spot Doorstep Cash &amp; UPI Transfer</h3>
-              <p className="text-sm text-blue-100 leading-relaxed font-sans">
-                Money hits your GPay, PhonePe, Paytm, or Bank account before our field agent leaves your house. Zero waiting or delayed cheques.
-              </p>
-            </div>
-
-            <div className="p-4 bg-slate-950/40 backdrop-blur-md rounded-2xl border border-white/20 font-mono text-xs flex justify-between items-center shadow-md">
-              <div>
-                <span className="text-xs text-blue-200 block uppercase font-extrabold">Total Payouts Processed</span>
-                <span className="text-2xl font-black text-emerald-300 drop-shadow-sm">₹12,48,90,000+</span>
-              </div>
-              <span className="text-xs bg-emerald-400 text-slate-950 font-black px-3 py-1 rounded-full shadow-xs">100% Verified</span>
             </div>
           </motion.div>
 
@@ -599,7 +655,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <tbody className="divide-y divide-slate-200">
               <tr>
                 <td className="p-4 font-black text-slate-950">Valuation Method</td>
-                <td className="p-4 font-black text-[#0052FF] bg-blue-50/70">Algorithmic 32-Point Diagnostic Engine</td>
+                <td className="p-4 font-black text-[#0052FF] bg-blue-50/70">Transparent Mobile Checklist Inspection</td>
                 <td className="p-4 text-slate-700 font-medium">Arbitrary verbal negotiation &amp; price cutting</td>
               </tr>
               <tr>
