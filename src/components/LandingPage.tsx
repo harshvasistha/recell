@@ -492,10 +492,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           
           <div className="space-y-3 mb-8 relative z-10 border-b border-slate-800 pb-6">
             <div className="flex flex-wrap items-center gap-3">
-              <span className="bg-[#0052FF] text-white text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5 font-heading shadow-md">
-                <Zap className="w-4 h-4 text-amber-300" />
-                Instant Doorstep Valuation Engine
-              </span>
               <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-extrabold px-3 py-1 rounded-full font-mono">
                 Spot UPI Payouts Verified
               </span>
