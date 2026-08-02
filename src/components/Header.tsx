@@ -500,144 +500,207 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </nav>
 
-      {/* Mobile Responsive Hamburger Drawer Menu */}
+      {/* Mobile Responsive Hamburger Drawer Menu / Overlay */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-slate-200 p-4 space-y-4 animate-in slide-in-from-top duration-200 shadow-2xl">
-          <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-            <span className="font-heading font-black text-xs text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
-              <Sparkles className="w-4 h-4 text-[#0052FF]" /> Main Navigation
-            </span>
-            <span className="text-[10px] bg-blue-50 text-[#0052FF] font-mono px-2 py-0.5 rounded-full font-bold">
-              Open in app or new tab
-            </span>
-          </div>
+        <div className="lg:hidden fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-md flex flex-col justify-end sm:justify-start animate-fadeIn">
+          {/* Backdrop click to close */}
+          <div className="flex-1" onClick={() => setMobileMenuOpen(false)}></div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-bold font-heading">
-            {/* Nav item 1 */}
-            <div className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl">
-              <a
-                href="/"
-                onClick={(e) => handleNavClick(e, 'landing')}
-                className="flex items-center gap-2 text-slate-900 font-bold w-full text-left cursor-pointer"
-              >
-                <span>🏠 Home</span>
-              </a>
-              <a href="/" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-[#0052FF]">
-                <ExternalLink className="w-4 h-4" />
-              </a>
-            </div>
+          {/* Drawer Content Card */}
+          <div className="bg-white rounded-t-3xl sm:rounded-b-3xl max-h-[85vh] overflow-y-auto p-5 space-y-5 shadow-2xl border-t sm:border border-slate-200/80 animate-in slide-in-from-bottom sm:slide-in-from-top duration-300 max-w-lg mx-auto w-full">
+            {/* Header with Title and Explicit Close Button */}
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#0052FF] flex items-center justify-center font-black">
+                  <Sparkles className="w-4 h-4 text-[#0052FF]" />
+                </div>
+                <div>
+                  <h3 className="font-heading font-black text-sm text-slate-900 uppercase tracking-wider">
+                    Recell Store Menu
+                  </h3>
+                  <p className="text-[10px] text-slate-500 font-medium">
+                    Khekra, Baghpat &bull; +91 9557342655
+                  </p>
+                </div>
+              </div>
 
-            {/* Nav item 2 */}
-            <div className="flex items-center justify-between p-3 bg-slate-900 text-white rounded-xl">
-              <a
-                href="/sell"
-                onClick={(e) => handleNavClick(e, 'sell')}
-                className="flex items-center gap-2 font-bold w-full text-left cursor-pointer"
-              >
-                <span>📱 Sell Phone (60s Quote)</span>
-              </a>
-              <a href="/sell" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-white">
-                <ExternalLink className="w-4 h-4" />
-              </a>
-            </div>
-
-            {/* Nav item 3 */}
-            <div className="flex items-center justify-between p-3 bg-[#0052FF] text-white rounded-xl">
-              <a
-                href="/buy"
-                onClick={(e) => handleNavClick(e, 'buy')}
-                className="flex items-center gap-2 font-bold w-full text-left cursor-pointer"
-              >
-                <span>🛍️ Buy Refurbished</span>
-              </a>
-              <a href="/buy" target="_blank" rel="noopener noreferrer" className="p-1 text-blue-200 hover:text-white">
-                <ExternalLink className="w-4 h-4" />
-              </a>
-            </div>
-
-            {/* Nav item 4 */}
-            <div className="flex items-center justify-between p-3 bg-amber-500 text-white rounded-xl">
-              <a
-                href="/repair"
-                onClick={(e) => handleNavClick(e, 'repair')}
-                className="flex items-center gap-2 font-bold w-full text-left cursor-pointer"
-              >
-                <span>🔧 GET Repaired</span>
-              </a>
-              <a href="/repair" target="_blank" rel="noopener noreferrer" className="p-1 text-amber-100 hover:text-white">
-                <ExternalLink className="w-4 h-4" />
-              </a>
-            </div>
-
-            {/* Nav item 5 */}
-            <div className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl">
-              <a
-                href="/track"
-                onClick={(e) => handleNavClick(e, 'track')}
-                className="flex items-center gap-2 text-slate-900 font-bold w-full text-left cursor-pointer"
-              >
-                <span>🛡️ Track &amp; Warranty</span>
-              </a>
-              <a href="/track" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-[#0052FF]">
-                <ExternalLink className="w-4 h-4" />
-              </a>
-            </div>
-
-            {/* Nav item 6 */}
-            <div className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl">
-              <a
-                href="/about"
-                onClick={(e) => handleNavClick(e, 'about')}
-                className="flex items-center gap-2 text-slate-900 font-bold w-full text-left cursor-pointer"
-              >
-                <span>ℹ️ About Us</span>
-              </a>
-              <a href="/about" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-[#0052FF]">
-                <ExternalLink className="w-4 h-4" />
-              </a>
-            </div>
-
-            {/* Nav item 7 */}
-            <div className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl">
-              <a
-                href="/contact"
-                onClick={(e) => handleNavClick(e, 'contact')}
-                className="flex items-center gap-2 text-slate-900 font-bold w-full text-left cursor-pointer"
-              >
-                <span>📞 Contact Us</span>
-              </a>
-              <a href="/contact" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-[#0052FF]">
-                <ExternalLink className="w-4 h-4" />
-              </a>
-            </div>
-
-            {/* Nav item 8: Register */}
-            <div className="flex items-center justify-between p-3 bg-[#EFF6FF] border border-[#BFDBFE] rounded-xl text-[#0052FF]">
+              {/* Close Button */}
               <button
-                onClick={() => { setMobileMenuOpen(false); onOpenAuth(); }}
-                className="flex items-center gap-2 font-bold w-full text-left cursor-pointer"
+                onClick={() => setMobileMenuOpen(false)}
+                className="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-3 py-1.5 rounded-full text-xs flex items-center gap-1.5 transition-all border border-slate-200 cursor-pointer"
+                aria-label="Close menu"
               >
-                <span>👤 Register / Account</span>
+                <X className="w-4 h-4 text-slate-700" />
+                <span className="font-heading text-[11px]">Close</span>
               </button>
-              <User className="w-4 h-4" />
             </div>
-          </div>
 
-          <div className="pt-3 border-t border-slate-100 space-y-2">
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block font-heading">Browse Phone Brands</span>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[11px]">
-              {MAJOR_MOBILE_BRANDS.map((b) => (
-                <a
-                  key={b.id}
-                  href={`/buy?brand=${encodeURIComponent(b.name)}`}
-                  onClick={(e) => handleBrandClick(e, b.name)}
-                  className="p-2.5 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 rounded-xl font-heading font-bold text-slate-800 flex items-center gap-2 truncate cursor-pointer transition-all shadow-2xs"
+            {/* User Account Bar */}
+            {user ? (
+              <div className="p-3 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-full bg-[#0052FF] text-white font-black flex items-center justify-center font-heading text-sm">
+                    {user.name.charAt(0).toUpperCase()}
+                  </div>
+                  <div>
+                    <p className="font-heading font-black text-xs text-slate-900">{user.name}</p>
+                    <p className="text-[10px] text-slate-500 font-mono">{user.phone}</p>
+                  </div>
+                </div>
+                {user.role === 'admin' && (
+                  <button
+                    onClick={() => { setMobileMenuOpen(false); setCurrentTab('admin'); }}
+                    className="bg-slate-950 text-amber-400 font-bold text-[10px] px-2.5 py-1 rounded-full border border-amber-400/40"
+                  >
+                    Admin Portal
+                  </button>
+                )}
+              </div>
+            ) : (
+              <div className="p-3 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-200/80 rounded-2xl flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <User className="w-5 h-5 text-[#0052FF]" />
+                  <span className="text-xs font-bold text-slate-800">Welcome to Recell</span>
+                </div>
+                <button
+                  onClick={() => { setMobileMenuOpen(false); onOpenAuth(); }}
+                  className="bg-[#0052FF] text-white font-extrabold text-xs px-3.5 py-1.5 rounded-full shadow-xs hover:bg-blue-700 transition-all font-heading"
                 >
-                  <BrandLogo brandId={b.id} brandName={b.name} size="sm" />
-                  <span className="truncate">{b.name}</span>
+                  Sign In / Register
+                </button>
+              </div>
+            )}
+
+            {/* Quick Navigation Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-bold font-heading">
+              {/* Home */}
+              <div className="flex items-center justify-between p-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-2xl transition-all">
+                <a
+                  href="/"
+                  onClick={(e) => handleNavClick(e, 'landing')}
+                  className="flex items-center gap-2.5 text-slate-900 font-bold w-full text-left cursor-pointer"
+                >
+                  <span className="text-base">🏠</span>
+                  <span>Home Page</span>
                 </a>
-              ))}
+                <a href="/" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-[#0052FF]">
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+
+              {/* Sell Phone */}
+              <div className="flex items-center justify-between p-3 bg-slate-950 text-white rounded-2xl shadow-sm">
+                <a
+                  href="/sell"
+                  onClick={(e) => handleNavClick(e, 'sell')}
+                  className="flex items-center gap-2.5 font-bold w-full text-left cursor-pointer"
+                >
+                  <span className="text-base">📱</span>
+                  <div>
+                    <span className="block font-black text-white">Sell Old Phone</span>
+                    <span className="text-[9px] text-emerald-400 font-normal">60-sec instant quote</span>
+                  </div>
+                </a>
+                <a href="/sell" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-white">
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+
+              {/* Buy Refurbished */}
+              <div className="flex items-center justify-between p-3 bg-[#0052FF] text-white rounded-2xl shadow-sm">
+                <a
+                  href="/buy"
+                  onClick={(e) => handleNavClick(e, 'buy')}
+                  className="flex items-center gap-2.5 font-bold w-full text-left cursor-pointer"
+                >
+                  <span className="text-base">🛍️</span>
+                  <div>
+                    <span className="block font-black text-white">Buy Refurbished</span>
+                    <span className="text-[9px] text-blue-200 font-normal">Grade A+ certified</span>
+                  </div>
+                </a>
+                <a href="/buy" target="_blank" rel="noopener noreferrer" className="p-1 text-blue-200 hover:text-white">
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+
+              {/* Doorstep Repair */}
+              <div className="flex items-center justify-between p-3 bg-amber-500 text-slate-950 rounded-2xl shadow-sm">
+                <a
+                  href="/repair"
+                  onClick={(e) => handleNavClick(e, 'repair')}
+                  className="flex items-center gap-2.5 font-black w-full text-left cursor-pointer"
+                >
+                  <span className="text-base">🔧</span>
+                  <div>
+                    <span className="block font-black">Doorstep Repair</span>
+                    <span className="text-[9px] text-slate-900 font-bold">₹0 Pickup Fee</span>
+                  </div>
+                </a>
+                <a href="/repair" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-900/60 hover:text-slate-950">
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+
+              {/* Track Order */}
+              <div className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-2xl">
+                <a
+                  href="/track"
+                  onClick={(e) => handleNavClick(e, 'track')}
+                  className="flex items-center gap-2.5 text-slate-900 font-bold w-full text-left cursor-pointer"
+                >
+                  <span className="text-base">🛡️</span>
+                  <span>Track &amp; Warranty</span>
+                </a>
+                <a href="/track" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-[#0052FF]">
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+
+              {/* Contact & Support */}
+              <div className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-2xl">
+                <a
+                  href="/contact"
+                  onClick={(e) => handleNavClick(e, 'contact')}
+                  className="flex items-center gap-2.5 text-slate-900 font-bold w-full text-left cursor-pointer"
+                >
+                  <span className="text-base">📞</span>
+                  <span>Helpline &amp; Store Location</span>
+                </a>
+                <a href="/contact" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-[#0052FF]">
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
             </div>
+
+            {/* Mobile Brand Logos Catalog */}
+            <div className="pt-3 border-t border-slate-100 space-y-2.5">
+              <span className="text-[11px] font-extrabold text-slate-500 uppercase tracking-wider block font-heading">
+                Browse Popular Brands
+              </span>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[11px]">
+                {MAJOR_MOBILE_BRANDS.map((b) => (
+                  <a
+                    key={b.id}
+                    href={`/buy?brand=${encodeURIComponent(b.name)}`}
+                    onClick={(e) => handleBrandClick(e, b.name)}
+                    className="p-2.5 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 rounded-xl font-heading font-bold text-slate-800 flex items-center gap-2.5 truncate cursor-pointer transition-all shadow-2xs group"
+                  >
+                    <BrandLogo brandId={b.id} brandName={b.name} size="sm" />
+                    <span className="truncate group-hover:text-[#0052FF]">{b.name}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Bottom Explicit Dismiss / Close Button */}
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-extrabold py-3 rounded-2xl text-xs flex items-center justify-center gap-2 transition-all border border-slate-200 cursor-pointer font-heading"
+            >
+              <X className="w-4 h-4 text-slate-700" />
+              Close Navigation Menu
+            </button>
           </div>
         </div>
       )}
