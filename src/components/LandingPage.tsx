@@ -695,7 +695,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           <span className="bg-amber-100 text-amber-900 text-xs font-black px-4 py-1.5 rounded-full border border-amber-200 font-heading shadow-xs">
             Verified Customer Reviews
           </span>
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-950 font-heading drop-shadow-sm">Over 50,000 Happy Phone Swappers</h2>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-950 font-heading drop-shadow-sm">Over 5,000 Happy Phone buyers from the outlet store</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
