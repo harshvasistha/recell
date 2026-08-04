@@ -32,25 +32,16 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
     chargingPortWorking: true,
     boxIncluded: true,
     chargerIncluded: true,
-    pincode: '250101',
+    pincode: '',
     photos: {}
   });
-
-  // Photo uploads simulation state
-  const [photos, setPhotos] = useState<{
-    front?: string;
-    back?: string;
-    screenOn?: string;
-    chargingPort?: string;
-    damage?: string;
-  }>({});
 
   // Seller details state
   const [sellerName, setSellerName] = useState<string>('');
   const [sellerPhone, setSellerPhone] = useState<string>('');
   const [address, setAddress] = useState<string>('');
   const [upiId, setUpiId] = useState<string>('');
-  const [scheduledDate, setScheduledDate] = useState<string>('2026-08-01');
+  const [scheduledDate, setScheduledDate] = useState<string>('');
   const [scheduledSlot, setScheduledSlot] = useState<string>('02:00 PM - 04:00 PM');
 
   // Request state after creation
@@ -65,20 +56,6 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
     return matchesBrand && matchesSearch;
   });
 
-  const handlePhotoUploadSim = (type: 'front' | 'back' | 'screenOn' | 'chargingPort' | 'damage') => {
-    // Simulated upload URLs with high resolution phone condition photos
-    const samplePhotos: Record<string, string> = {
-      front: 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=600&q=80',
-      back: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80',
-      screenOn: 'https://images.unsplash.com/photo-1632661674596-df8be070a5c5?auto=format&fit=crop&w=600&q=80',
-      chargingPort: 'https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=600&q=80',
-      damage: 'https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=600&q=80'
-    };
-    const newPhotos = { ...photos, [type]: samplePhotos[type] };
-    setPhotos(newPhotos);
-    setAnswers({ ...answers, photos: newPhotos });
-  };
-
   const currentQuoteBreakdown = selectedModel
     ? calculateRoughQuote(selectedModel.baseMarketPrice, answers, pricingRules)
     : null;
@@ -88,33 +65,32 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
     if (!selectedModel || !currentQuoteBreakdown) return;
 
     const isLocal = isLocalPincode(answers.pincode);
-    const photoList = Object.values(photos).filter(Boolean) as string[];
 
     const newReq: BuyQuoteRequest = {
-      id: `REQ-${answers.pincode}-${Math.floor(100 + Math.random() * 900)}`,
+      id: `REQ-${answers.pincode || '250101'}-${Math.floor(100 + Math.random() * 900)}`,
       date: new Date().toISOString(),
       modelId: selectedModel.id,
       modelName: `${selectedModel.brand} ${selectedModel.name} (${selectedModel.variant})`,
       brand: selectedModel.brand,
       sellerName: sellerName || 'Seller',
       sellerPhone: sellerPhone || '+91 98765 00000',
-      address: address || 'Khekra Main Market, Baghpat (250101)',
-      pincode: answers.pincode,
+      address: address || 'Khekra Area',
+      pincode: answers.pincode || '250101',
       isLocalRadius: isLocal,
       conditionAnswers: answers,
       roughQuoteMin: currentQuoteBreakdown.roughQuoteMin,
       roughQuoteMax: currentQuoteBreakdown.roughQuoteMax,
-      scheduledDate,
+      scheduledDate: scheduledDate || new Date().toISOString().split('T')[0],
       scheduledSlot,
       upiId: upiId || 'seller@upi',
       status: 'pickup_scheduled',
-      assignedAgent: isLocal ? 'Agent Rajesh (Khekra 250101 Hub)' : 'Courier Pickup Desk',
-      photos: photoList.length > 0 ? photoList : [selectedModel.imageUrl]
+      assignedAgent: isLocal ? 'Agent Rajesh (Khekra Hub)' : 'Courier Pickup Desk',
+      photos: [selectedModel.imageUrl]
     };
 
     setCreatedRequest(newReq);
     onSubmitBuyRequest(newReq);
-    setStep(5); // Confirmation step
+    setStep(4); // Confirmation step
   };
 
   return (
@@ -132,12 +108,12 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
             </p>
           </div>
           <span className="hidden sm:inline bg-indigo-50 text-indigo-700 border border-indigo-100 font-mono text-xs px-3.5 py-1 rounded-full font-bold">
-            Step {step} of 5
+            Step {step} of 4
           </span>
         </div>
 
         {/* Step Indicator Pills */}
-        <div className="grid grid-cols-5 gap-2 pt-3 border-t border-slate-100 text-center text-xs">
+        <div className="grid grid-cols-4 gap-2 pt-3 border-t border-slate-100 text-center text-xs">
           <div className={`py-2 rounded-xl font-bold transition-all ${step >= 1 ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-100 text-slate-400'}`}>
             1. Model
           </div>
@@ -145,13 +121,10 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
             2. Condition
           </div>
           <div className={`py-2 rounded-xl font-bold transition-all ${step >= 3 ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-100 text-slate-400'}`}>
-            3. Photos
+            3. Estimated Quote
           </div>
           <div className={`py-2 rounded-xl font-bold transition-all ${step >= 4 ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-100 text-slate-400'}`}>
-            4. Quote
-          </div>
-          <div className={`py-2 rounded-xl font-bold transition-all ${step >= 5 ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-100 text-slate-400'}`}>
-            5. Schedule
+            4. Schedule Pickup
           </div>
         </div>
       </div>
@@ -404,89 +377,15 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
               onClick={() => setStep(3)}
               className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-full flex items-center gap-2 shadow-sm text-xs transition-all"
             >
-              Upload Device Photos
+              Calculate Estimated Quote
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </div>
       )}
 
-      {/* STEP 3: PHOTO UPLOADS */}
-      {step === 3 && selectedModel && (
-        <div className="bg-white border border-slate-200 rounded-3xl p-6 text-slate-900 shadow-sm space-y-6">
-          <div>
-            <h2 className="text-xl font-bold flex items-center gap-2">
-              <Camera className="w-5 h-5 text-indigo-600" />
-              Required Device Photos (3-5 Shots)
-            </h2>
-            <p className="text-slate-500 text-sm mt-1">
-              Upload or snap photos of your device. These help our doorstep agent verify condition instantly before visiting.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {[
-              { id: 'front', title: '1. Front Screen Shot', req: true },
-              { id: 'back', title: '2. Back Body Shot', req: true },
-              { id: 'screenOn', title: '3. Display Screen ON', req: true },
-              { id: 'chargingPort', title: '4. Charging Port Close-up', req: false },
-              { id: 'damage', title: '5. Scratches / Dents Close-up', req: false }
-            ].map((shot) => {
-              const photoUrl = (photos as any)[shot.id];
-              return (
-                <div key={shot.id} className="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col justify-between space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-slate-800">{shot.title}</span>
-                    {shot.req && <span className="text-[10px] bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-full font-bold">Required</span>}
-                  </div>
-
-                  {photoUrl ? (
-                    <div className="relative group rounded-xl overflow-hidden border border-emerald-500 h-36">
-                      <img src={photoUrl} alt={shot.title} className="w-full h-full object-cover" />
-                      <div className="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <button
-                          onClick={() => handlePhotoUploadSim(shot.id as any)}
-                          className="text-xs bg-white text-slate-900 px-3 py-1.5 rounded-full font-bold shadow-md"
-                        >
-                          Retake
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => handlePhotoUploadSim(shot.id as any)}
-                      className="h-36 rounded-xl border-2 border-dashed border-slate-300 hover:border-indigo-600 hover:bg-indigo-50/50 flex flex-col items-center justify-center gap-2 text-slate-500 transition-all"
-                    >
-                      <Upload className="w-5 h-5 text-indigo-600" />
-                      <span className="text-xs font-bold">Click to Upload / Snap</span>
-                    </button>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-            <button
-              onClick={() => setStep(2)}
-              className="px-5 py-2.5 rounded-full border border-slate-200 text-slate-700 hover:bg-slate-100 text-xs font-bold"
-            >
-              Back
-            </button>
-            <button
-              onClick={() => setStep(4)}
-              className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-full flex items-center gap-2 shadow-sm text-xs transition-all"
-            >
-              Calculate Rough Quote
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* STEP 4: ROUGH QUOTE DISPLAY */}
-      {step === 4 && selectedModel && currentQuoteBreakdown && (
+      {/* STEP 3: ROUGH QUOTE & SCHEDULE PICKUP */}
+      {step === 3 && selectedModel && currentQuoteBreakdown && (
         <div className="bg-white border border-slate-200 rounded-3xl p-6 text-slate-900 shadow-sm space-y-6">
           {/* Quote Card Banner */}
           <div className="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-sm">
@@ -636,7 +535,7 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
             <div className="flex items-center justify-between pt-4 border-t border-slate-100">
               <button
                 type="button"
-                onClick={() => setStep(3)}
+                onClick={() => setStep(2)}
                 className="px-5 py-2.5 rounded-full border border-slate-200 text-slate-700 hover:bg-slate-100 text-xs font-bold"
               >
                 Back
@@ -653,8 +552,8 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
         </div>
       )}
 
-      {/* STEP 5: CONFIRMATION & AGENT FIELD LINK */}
-      {step === 5 && createdRequest && (
+      {/* STEP 4: CONFIRMATION & AGENT FIELD LINK */}
+      {step === 4 && createdRequest && (
         <div className="bg-white border border-slate-200 rounded-3xl p-8 text-slate-900 text-center space-y-6 shadow-sm">
           <div className="w-16 h-16 bg-emerald-50 border-2 border-emerald-500 rounded-full flex items-center justify-center mx-auto text-emerald-600">
             <Check className="w-8 h-8" />

@@ -21,14 +21,14 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
   const [step, setStep] = useState<'shipping' | 'payment' | 'success'>('shipping');
 
-  // Customer Form
-  const [customerName, setCustomerName] = useState('Rahul Sharma');
-  const [customerPhone, setCustomerPhone] = useState('+91 98765 12345');
-  const [customerEmail, setCustomerEmail] = useState('rahul.s@gmail.com');
-  const [address, setAddress] = useState('Flat 301, Tower B, Green Acres');
-  const [pincode, setPincode] = useState('110001');
-  const [city, setCity] = useState('New Delhi');
-  const [state, setState] = useState('Delhi');
+  // Customer Form - empty defaults
+  const [customerName, setCustomerName] = useState('');
+  const [customerPhone, setCustomerPhone] = useState('');
+  const [customerEmail, setCustomerEmail] = useState('');
+  const [address, setAddress] = useState('');
+  const [pincode, setPincode] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
 
   // Payment choice
   const [paymentMethod, setPaymentMethod] = useState<'Razorpay UPI' | 'Razorpay Card' | 'COD (Deposit Paid)'>('Razorpay UPI');

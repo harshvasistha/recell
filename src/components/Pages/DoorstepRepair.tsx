@@ -8,7 +8,7 @@ export const DoorstepRepair: React.FC = () => {
   const [customInstruction, setCustomInstruction] = useState('');
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
-  const [pincode, setPincode] = useState('250101');
+  const [pincode, setPincode] = useState('');
   const [booked, setBooked] = useState(false);
 
   // Minimum starting price per repair type

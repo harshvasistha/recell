@@ -1,31 +1,33 @@
 import React, { useState } from 'react';
 import { Order, ReturnRequest, WarrantyClaim } from '../types';
-import { Search, Truck, ShieldCheck, RefreshCw, CheckCircle2, Clock, Wrench, AlertCircle, MapPin, ArrowRight } from 'lucide-react';
+import { Search, Truck, ShieldCheck, RefreshCw, CheckCircle2, Clock, Wrench, AlertCircle, MapPin, ArrowRight, BadgeCheck, Smartphone, Mail } from 'lucide-react';
 
 interface TrackOrderAndWarrantyProps {
   orders: Order[];
   onSubmitReturn: (req: ReturnRequest) => void;
   onSubmitWarranty: (claim: WarrantyClaim) => void;
+  user?: { name: string; phone: string; role: string; email?: string } | null;
 }
 
 export const TrackOrderAndWarranty: React.FC<TrackOrderAndWarrantyProps> = ({
   orders,
   onSubmitReturn,
-  onSubmitWarranty
+  onSubmitWarranty,
+  user
 }) => {
-  const [searchOrderId, setSearchOrderId] = useState<string>('ORD-IN-80249');
-  const [foundOrder, setFoundOrder] = useState<Order | null>(orders[0] || null);
+  const [searchOrderId, setSearchOrderId] = useState<string>('');
+  const [foundOrder, setFoundOrder] = useState<Order | null>(null);
 
-  // Return Form State
+  // Return Form State - clean defaults
   const [showReturnModal, setShowReturnModal] = useState(false);
-  const [returnReason, setReturnReason] = useState('Changed mind within 7-day window');
-  const [returnDetails, setReturnDetails] = useState('Device in original state, requesting refund.');
+  const [returnReason, setReturnReason] = useState('');
+  const [returnDetails, setReturnDetails] = useState('');
   const [returnSubmitted, setReturnSubmitted] = useState(false);
 
-  // Warranty Claim Form State
+  // Warranty Claim Form State - clean defaults
   const [showWarrantyModal, setShowWarrantyModal] = useState(false);
   const [issueType, setIssueType] = useState<WarrantyClaim['issueType']>('Battery Fault');
-  const [issueDetails, setIssueDetails] = useState('Battery drains quickly after 20 minutes of usage.');
+  const [issueDetails, setIssueDetails] = useState('');
   const [warrantySubmitted, setWarrantySubmitted] = useState(false);
 
   const handleSearchOrder = (e: React.FormEvent) => {
@@ -81,6 +83,48 @@ export const TrackOrderAndWarranty: React.FC<TrackOrderAndWarrantyProps> = ({
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8 space-y-8 text-slate-900">
+      {/* User Profile Dashboard Card (if logged in) */}
+      {user && (
+        <div className="bg-slate-950 text-white border border-slate-800 rounded-3xl p-6 shadow-xl relative overflow-hidden">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 relative z-10">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-[#0052FF] text-white font-black text-xl flex items-center justify-center shadow-lg shadow-blue-500/30 border border-blue-400/30">
+                {user.name.charAt(0).toUpperCase()}
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-xl font-black text-white">{user.name}</h2>
+                  <span className="bg-emerald-500/20 text-emerald-300 text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-emerald-500/30 flex items-center gap-1">
+                    <BadgeCheck className="w-3 h-3 text-emerald-400" />
+                    Verified User Profile
+                  </span>
+                </div>
+                <div className="flex flex-wrap items-center gap-4 text-xs text-slate-300 mt-1 font-mono">
+                  <span className="flex items-center gap-1">
+                    <Smartphone className="w-3.5 h-3.5 text-[#0052FF]" />
+                    {user.phone}
+                  </span>
+                  {user.email && (
+                    <span className="flex items-center gap-1">
+                      <Mail className="w-3.5 h-3.5 text-blue-400" />
+                      {user.email}
+                    </span>
+                  )}
+                  <span className="bg-slate-800 px-2 py-0.5 rounded text-[11px] font-bold text-slate-200">
+                    Role: {user.role.toUpperCase()}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 text-xs font-mono bg-slate-900/80 px-4 py-2 rounded-2xl border border-slate-800 text-slate-300">
+              <MapPin className="w-4 h-4 text-emerald-400 animate-pulse" />
+              <span>Doorstep Hub: <strong>Khekra 250101</strong></span>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Header Banner */}
       <div className="bg-white border border-slate-200 rounded-3xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
         <div>

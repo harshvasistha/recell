@@ -36,10 +36,10 @@ import { DoorstepRepair } from './components/Pages/DoorstepRepair';
 import { EWasteRecycle } from './components/Pages/EWasteRecycle';
 import { ContactUs } from './components/Pages/ContactUs';
 import { OpenBoxMobiles } from './components/Pages/OpenBoxMobiles';
+import { AuthModal } from './components/AuthModal';
 import { saveOrderToDB, saveSellRequestToDB } from './lib/dbService';
 import { MegaMenu } from './components/MegaMenu';
 import { LegalModal } from './components/Legal/LegalModal';
-import { AuthModal } from './components/AuthModal';
 import { WhatsAppChatWidget } from './components/WhatsAppChatWidget';
 import { MobileBottomNav } from './components/MobileBottomNav';
 import { RecellLogo } from './components/RecellLogo';
@@ -291,6 +291,7 @@ export default function App() {
           orders={orders}
           onSubmitReturn={handleNewReturn}
           onSubmitWarranty={handleNewWarranty}
+          user={user}
         />
       )}
 
@@ -474,7 +475,10 @@ export default function App() {
       <AuthModal
         isOpen={isAuthOpen}
         onClose={() => setIsAuthOpen(false)}
-        onSuccess={(userData) => setUser(userData)}
+        onSuccess={(userData) => {
+          setUser(userData);
+          setCurrentTab('track');
+        }}
       />
 
       {/* Directory Mega Menu */}
@@ -506,6 +510,16 @@ export default function App() {
         isOpen={isCheckoutOpen}
         onClose={() => setIsCheckoutOpen(false)}
         onOrderCreated={handleOrderCreated}
+      />
+
+      {/* User Authentication & Profile Modal */}
+      <AuthModal
+        isOpen={isAuthOpen}
+        onClose={() => setIsAuthOpen(false)}
+        onSuccess={(userData) => {
+          setUser(userData);
+          setCurrentTab('track');
+        }}
       />
 
       {/* Cart Drawer */}
