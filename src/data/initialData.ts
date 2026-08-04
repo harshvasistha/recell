@@ -383,6 +383,130 @@ export const SEED_CATALOG: CatalogProduct[] = [
       ram: '8GB RAM',
       camera: '200MP OIS Ultra-Clear Camera'
     }
+  },
+  {
+    id: 'cat-ob-1',
+    title: 'Apple iPhone 15 Pro Max (256GB) - Natural Titanium [Open Box 6 Days Old]',
+    brand: 'Apple',
+    model: 'iPhone 15 Pro Max',
+    storage: '256GB',
+    color: 'Natural Titanium',
+    originalPrice: 159900,
+    refurbPrice: 104999,
+    conditionGrade: 'Open Box (5-10 Days)',
+    warrantyMonths: 11,
+    batteryHealthPercent: 100,
+    images: [
+      'https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80'
+    ],
+    inStock: true,
+    stockCount: 2,
+    serialImei: '359012849201948',
+    inspectionPassed: true,
+    description: 'Open Box Delivery Mobile — only 6 days old! Customer unboxed and preferred Android. 100% brand new condition, zero scratches, 100% battery health. Comes with original Apple seal box, bill, C-to-C braided cable, and 11 Months Official Apple India Warranty.',
+    boxChargerIncluded: true,
+    isOpenBox: true,
+    openBoxAgeDays: 6,
+    brandWarrantyMonths: 11,
+    specs: {
+      screen: '6.7-inch Super Retina XDR OLED 120Hz ProMotion',
+      processor: 'A17 Pro Chip (3nm)',
+      ram: '8GB RAM',
+      camera: '48MP Main + 5x Telephoto + 12MP Ultrawide'
+    }
+  },
+  {
+    id: 'cat-ob-2',
+    title: 'Samsung Galaxy S24 Ultra 5G (256GB) - Titanium Gray [Open Box 8 Days Old]',
+    brand: 'Samsung',
+    model: 'Galaxy S24 Ultra',
+    storage: '256GB',
+    color: 'Titanium Gray',
+    originalPrice: 129999,
+    refurbPrice: 82500,
+    conditionGrade: 'Open Box (5-10 Days)',
+    warrantyMonths: 11,
+    batteryHealthPercent: 100,
+    images: [
+      'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80'
+    ],
+    inStock: true,
+    stockCount: 1,
+    serialImei: '358102948102938',
+    inspectionPassed: true,
+    description: 'Open Box Delivery Smartphone — 8 days old! Unopened accessories, S-Pen unused, Galaxy AI unlocked. Includes original tax invoice with 11 Months Samsung Official Warranty.',
+    boxChargerIncluded: true,
+    isOpenBox: true,
+    openBoxAgeDays: 8,
+    brandWarrantyMonths: 11,
+    specs: {
+      screen: '6.8-inch Dynamic AMOLED 2X 2600 nits Peak',
+      processor: 'Snapdragon 8 Gen 3 for Galaxy',
+      ram: '12GB RAM',
+      camera: '200MP Quad Camera with Galaxy AI'
+    }
+  },
+  {
+    id: 'cat-ob-3',
+    title: 'OnePlus 12 5G (256GB) - Silky Black [Open Box 5 Days Old]',
+    brand: 'OnePlus',
+    model: 'OnePlus 12 5G',
+    storage: '256GB',
+    color: 'Silky Black',
+    originalPrice: 64999,
+    refurbPrice: 46999,
+    conditionGrade: 'Open Box (5-10 Days)',
+    warrantyMonths: 11,
+    batteryHealthPercent: 100,
+    images: [
+      'https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=800&q=80'
+    ],
+    inStock: true,
+    stockCount: 2,
+    serialImei: '869018273641029',
+    inspectionPassed: true,
+    description: 'Open Box Delivery Mobile — 5 days old! Zero usage marks, 100W SuperVOOC charger in pristine plastic wrapping. Full 11.5 months OnePlus India warranty.',
+    boxChargerIncluded: true,
+    isOpenBox: true,
+    openBoxAgeDays: 5,
+    brandWarrantyMonths: 11,
+    specs: {
+      screen: '6.82-inch 2K 120Hz ProXDR Display',
+      processor: 'Snapdragon 8 Gen 3',
+      ram: '12GB RAM',
+      camera: '50MP Sony LYT-808 + 64MP Periscope'
+    }
+  },
+  {
+    id: 'cat-ob-4',
+    title: 'Google Pixel 8a 5G (128GB) - Aloe Green [Open Box 7 Days Old]',
+    brand: 'Google',
+    model: 'Pixel 8a 5G',
+    storage: '128GB',
+    color: 'Aloe Green',
+    originalPrice: 52999,
+    refurbPrice: 33500,
+    conditionGrade: 'Open Box (5-10 Days)',
+    warrantyMonths: 11,
+    batteryHealthPercent: 100,
+    images: [
+      'https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=80'
+    ],
+    inStock: true,
+    stockCount: 1,
+    serialImei: '354091827301928',
+    inspectionPassed: true,
+    description: 'Open Box Delivery Mobile — 7 days old! Fresh out of box for display video recording. 100% brand original, Tensor G3 processor, original cable & Quick Switch Adapter included.',
+    boxChargerIncluded: true,
+    isOpenBox: true,
+    openBoxAgeDays: 7,
+    brandWarrantyMonths: 11,
+    specs: {
+      screen: '6.1-inch Actua 120Hz OLED',
+      processor: 'Google Tensor G3 + Titan M2',
+      ram: '8GB RAM',
+      camera: '64MP Dual Rear Camera with Magic Editor'
+    }
   }
 ];
 

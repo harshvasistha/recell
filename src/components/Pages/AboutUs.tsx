@@ -75,7 +75,7 @@ export const AboutUs: React.FC<{ onStartSelling: () => void }> = ({ onStartSelli
         <div className="space-y-3">
           <span className="bg-emerald-500/20 text-emerald-300 text-xs font-bold px-3 py-1 rounded-full border border-emerald-500/30 flex items-center gap-1.5 w-fit">
             <MapPin className="w-3.5 h-3.5 text-emerald-400" />
-            Central Hub: Recell Store, Opp. Dr Jagpal Clinic, Khekra, Baghpat (250101), UP
+            Central Hub: Recell store, Pathsala road, Khekra, Baghpat, U.P., 250101
           </span>
           <h2 className="text-2xl font-black">Same-Day Doorstep Pickup &amp; Express Delivery</h2>
           <p className="text-xs text-slate-300 max-w-xl">

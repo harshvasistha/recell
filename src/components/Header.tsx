@@ -8,7 +8,7 @@ import {
   Zap, ExternalLink, X, RotateCcw, Lock, Menu
 } from 'lucide-react';
 
-export type TabType = 'landing' | 'sell' | 'buy' | 'track' | 'repair' | 'about' | 'how-it-works' | 'recycle' | 'contact' | 'agent' | 'admin';
+export type TabType = 'landing' | 'sell' | 'buy' | 'open-box' | 'track' | 'repair' | 'about' | 'how-it-works' | 'recycle' | 'contact' | 'agent' | 'admin';
 
 interface HeaderProps {
   currentTab: TabType;
@@ -382,6 +382,31 @@ export const Header: React.FC<HeaderProps> = ({
               )}
             </div>
 
+            {/* Open Box Mobiles (5-10 Days Old) */}
+            <div className="flex items-center group">
+              <a
+                href="/open-box"
+                onClick={(e) => handleNavClick(e, 'open-box')}
+                className={`px-3 py-2 rounded-xl font-extrabold transition-all flex items-center gap-1 cursor-pointer ${
+                  currentTab === 'open-box'
+                    ? 'bg-amber-500 text-slate-950 shadow-xs'
+                    : 'bg-amber-400/10 text-amber-700 hover:bg-amber-400/20 border border-amber-300/60'
+                }`}
+              >
+                <Sparkles className="w-3.5 h-3.5 text-amber-600 animate-pulse" />
+                <span>Open Box (5-10 Days)</span>
+              </a>
+              <a
+                href="/open-box"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Open Open Box Mobiles in new tab"
+                className="opacity-0 group-hover:opacity-100 p-1 text-slate-400 hover:text-[#0052FF] transition-opacity"
+              >
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+
             {/* 4. Sell Phone */}
             <div className="flex items-center group">
               <a
@@ -620,6 +645,24 @@ export const Header: React.FC<HeaderProps> = ({
                   </div>
                 </a>
                 <a href="/buy" target="_blank" rel="noopener noreferrer" className="p-1 text-blue-200 hover:text-white">
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+
+              {/* Open Box Delivery Phones */}
+              <div className="flex items-center justify-between p-3 bg-amber-500 text-slate-950 rounded-2xl shadow-sm border border-amber-400">
+                <a
+                  href="/open-box"
+                  onClick={(e) => handleNavClick(e, 'open-box')}
+                  className="flex items-center gap-2.5 font-bold w-full text-left cursor-pointer"
+                >
+                  <span className="text-base">✨</span>
+                  <div>
+                    <span className="block font-black text-slate-950">Open Box Delivery</span>
+                    <span className="text-[9px] text-slate-900 font-semibold">5-10 days old &bull; 11M Warranty</span>
+                  </div>
+                </a>
+                <a href="/open-box" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-900 hover:text-slate-950">
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               </div>

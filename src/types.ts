@@ -63,7 +63,7 @@ export interface CatalogProduct {
   color: string;
   originalPrice: number;
   refurbPrice: number;
-  conditionGrade: 'Like New' | 'Superb' | 'Good';
+  conditionGrade: 'Like New' | 'Superb' | 'Good' | 'Open Box (5-10 Days)';
   warrantyMonths: number;
   batteryHealthPercent: number;
   images: string[];
@@ -73,6 +73,9 @@ export interface CatalogProduct {
   inspectionPassed: boolean;
   description: string;
   boxChargerIncluded: boolean;
+  isOpenBox?: boolean;
+  openBoxAgeDays?: number; // e.g. 5 to 10 days old
+  brandWarrantyMonths?: number; // Official remaining brand warranty
   specs: {
     screen: string;
     processor: string;

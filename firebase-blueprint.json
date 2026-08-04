@@ -1,0 +1,75 @@
+{
+  "entities": {
+    "users": {
+      "title": "Users",
+      "description": "User account details and profiles",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "address": { "type": "string" },
+        "role": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["uid", "phone"]
+    },
+    "orders": {
+      "title": "Orders",
+      "description": "Customer purchase orders for refurbished and open box phones",
+      "type": "object",
+      "properties": {
+        "orderId": { "type": "string" },
+        "userId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "customerPhone": { "type": "string" },
+        "address": { "type": "string" },
+        "items": { "type": "array" },
+        "totalAmount": { "type": "number" },
+        "paymentStatus": { "type": "string" },
+        "paymentMethod": { "type": "string" },
+        "razorpayOrderId": { "type": "string" },
+        "razorpayPaymentId": { "type": "string" },
+        "orderType": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["orderId", "customerName", "customerPhone", "totalAmount"]
+    },
+    "sell_requests": {
+      "title": "Sell Requests",
+      "description": "Doorstep pickup requests to sell old phones",
+      "type": "object",
+      "properties": {
+        "requestId": { "type": "string" },
+        "userId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "customerPhone": { "type": "string" },
+        "address": { "type": "string" },
+        "deviceModel": { "type": "string" },
+        "estimatedPayout": { "type": "number" },
+        "conditionDetails": { "type": "object" },
+        "preferredSlot": { "type": "string" },
+        "pickupStatus": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["requestId", "customerName", "customerPhone", "deviceModel", "estimatedPayout"]
+    },
+    "payments": {
+      "title": "Payments",
+      "description": "Razorpay transaction and payment records",
+      "type": "object",
+      "properties": {
+        "paymentId": { "type": "string" },
+        "orderId": { "type": "string" },
+        "amount": { "type": "number" },
+        "status": { "type": "string" },
+        "razorpayPaymentId": { "type": "string" },
+        "customerPhone": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["paymentId", "amount", "status"]
+    }
+  }
+}

@@ -336,6 +336,145 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
       </section>
 
+      {/* 2B. OPEN BOX DELIVERY MOBILES SECTION */}
+      <motion.section 
+        initial={{ opacity: 0, y: 35 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.5 }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6"
+      >
+        <div className="bg-gradient-to-r from-amber-500/10 via-amber-400/5 to-slate-900/5 p-6 rounded-3xl border border-amber-300/60 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="bg-amber-400 text-slate-950 text-[11px] font-black px-3 py-0.5 rounded-full uppercase tracking-wider font-heading inline-flex items-center gap-1">
+                <Sparkles className="w-3.5 h-3.5" />
+                5 to 10 Days Old Devices
+              </span>
+              <span className="bg-emerald-500/10 text-emerald-700 text-xs font-extrabold px-2.5 py-0.5 rounded-full font-mono border border-emerald-300">
+                11-12 Months Official Brand Warranty
+              </span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-950 font-heading">
+              Open Box Delivery Phones
+            </h2>
+            <p className="text-xs text-slate-700 font-medium max-w-2xl">
+              100% brand original smartphones unboxed only 5 to 10 days ago. Comes with <strong>Original Bill, Box, Cable</strong> and <strong>Full Brand Manufacturer Warranty</strong> at 25% to 35% discount!
+            </p>
+          </div>
+
+          <button
+            onClick={() => {
+              const openBoxNav = document.querySelector('a[href="/open-box"]') as HTMLElement;
+              if (openBoxNav) openBoxNav.click();
+              else onStartBuy();
+            }}
+            className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-5 py-3 rounded-2xl text-xs flex items-center gap-2 shadow-md shrink-0 transition-all cursor-pointer font-heading"
+          >
+            Explore Open Box Mobiles &rarr;
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
+          {[
+            {
+              id: 'ob-ip15pm',
+              name: 'iPhone 15 Pro Max [Open Box 6 Days]',
+              variant: '256GB - Natural Titanium',
+              originalPrice: 159900,
+              sellPrice: 104999,
+              age: '6 Days Old',
+              warranty: '11M Official Apple Warranty',
+              img: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80',
+              brand: 'Apple'
+            },
+            {
+              id: 'ob-s24u',
+              name: 'Galaxy S24 Ultra [Open Box 8 Days]',
+              variant: '256GB - Titanium Gray',
+              originalPrice: 129999,
+              sellPrice: 82500,
+              age: '8 Days Old',
+              warranty: '11M Samsung India Warranty',
+              img: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80',
+              brand: 'Samsung'
+            },
+            {
+              id: 'ob-op12',
+              name: 'OnePlus 12 5G [Open Box 5 Days]',
+              variant: '256GB - Silky Black',
+              originalPrice: 64999,
+              sellPrice: 46999,
+              age: '5 Days Old',
+              warranty: '11.5M OnePlus Warranty',
+              img: 'https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=800&q=80',
+              brand: 'OnePlus'
+            },
+            {
+              id: 'ob-px8a',
+              name: 'Google Pixel 8a [Open Box 7 Days]',
+              variant: '128GB - Aloe Green',
+              originalPrice: 52999,
+              sellPrice: 33500,
+              age: '7 Days Old',
+              warranty: '11M Google Warranty',
+              img: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=80',
+              brand: 'Google'
+            }
+          ].map((item) => (
+            <motion.div
+              key={item.id}
+              whileHover={{ y: -4 }}
+              onClick={() => {
+                const openBoxNav = document.querySelector('a[href="/open-box"]') as HTMLElement;
+                if (openBoxNav) openBoxNav.click();
+                else onStartBuy();
+              }}
+              className="p-4 rounded-3xl bg-white border border-slate-200 hover:border-amber-500 shadow-xs hover:shadow-xl transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden"
+            >
+              <div>
+                <div className="relative rounded-2xl overflow-hidden bg-slate-100 mb-3 aspect-4/3">
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <span className="absolute top-2 left-2 bg-amber-400 text-slate-950 text-[9px] font-black px-2.5 py-0.5 rounded-full uppercase font-mono shadow-xs">
+                    {item.age}
+                  </span>
+                  <span className="absolute bottom-2 right-2 bg-slate-950/80 backdrop-blur-md text-emerald-400 text-[9px] font-bold px-2 py-0.5 rounded-full font-mono">
+                    100% Batt
+                  </span>
+                </div>
+
+                <span className="text-[10px] font-black text-amber-600 uppercase tracking-wider block font-heading">
+                  Open Box Delivery
+                </span>
+                <h3 className="font-heading font-black text-xs text-slate-900 group-hover:text-amber-600 transition-colors line-clamp-1 mt-0.5">
+                  {item.name}
+                </h3>
+                <p className="text-[10px] text-slate-500 font-medium truncate mt-0.5">{item.variant}</p>
+                <p className="text-[10px] text-emerald-700 font-extrabold mt-1">{item.warranty}</p>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                <div>
+                  <span className="text-[10px] text-slate-400 line-through block font-mono">
+                    ₹{item.originalPrice.toLocaleString('en-IN')}
+                  </span>
+                  <span className="font-mono font-black text-[#0052FF] text-sm">
+                    ₹{item.sellPrice.toLocaleString('en-IN')}
+                  </span>
+                </div>
+                <span className="bg-amber-400 text-slate-950 font-black text-[10px] px-3 py-1.5 rounded-full shadow-xs group-hover:bg-amber-500 font-heading">
+                  View Open Box
+                </span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.section>
+
       {/* 2. MOBILES WE SELL SECTION */}
       <motion.section 
         initial={{ opacity: 0, y: 35 }}
@@ -700,7 +839,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-amber-400" />)}
             </div>
             <p className="text-xs sm:text-sm text-slate-800 leading-relaxed italic font-medium">
-              "Visited Recell Store opposite Dr. Jagpal Clinic in Khekra to sell my iPhone 13. The staff completed a 2-minute diagnostic scan and transferred ₹33,500 to my GPay right at the counter!"
+              "Visited Recell store on Pathsala road in Khekra to sell my iPhone 13. The staff completed a 2-minute diagnostic scan and transferred ₹33,500 to my GPay right at the counter!"
             </p>
             <div className="flex items-center gap-3 pt-2 border-t border-slate-200">
               <div className="w-9 h-9 rounded-full bg-[#0052FF] text-white font-black flex items-center justify-center text-xs font-heading shadow-xs">
@@ -708,7 +847,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </div>
               <div>
                 <p className="font-black text-sm text-slate-950 font-heading">Amit Sharma</p>
-                <p className="text-xs text-slate-700 font-semibold">Opp. Dr. Jagpal Clinic, Khekra (250101)</p>
+                <p className="text-xs text-slate-700 font-semibold">Pathsala Road, Khekra (250101)</p>
               </div>
             </div>
           </div>

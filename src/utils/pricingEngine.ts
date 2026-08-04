@@ -79,6 +79,10 @@ export function calculateRoughQuote(
   const localBonusAmount = Math.round(netPrice * (demandMult - 1.0));
   netPrice = netPrice * demandMult;
 
+  // Apply mandatory 20% reduction to rough estimate buy quotes as requested
+  const ROUGH_QUOTE_DISCOUNT_FACTOR = 0.80;
+  netPrice = netPrice * ROUGH_QUOTE_DISCOUNT_FACTOR;
+
   const estimated = Math.round(netPrice / 100) * 100; // Round to nearest 100
   const minQuote = Math.round((estimated * 0.95) / 100) * 100;
   const maxQuote = Math.round((estimated * 1.05) / 100) * 100;

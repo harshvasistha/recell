@@ -78,7 +78,7 @@ export const WhatsAppChatWidget: React.FC = () => {
 
           {/* Subheader */}
           <div className="bg-emerald-50 border-b border-emerald-100 px-4 py-2 text-[11px] text-emerald-900 flex items-center justify-between font-medium">
-            <span>Opposite Dr. Jagpal Clinic, Khekra</span>
+            <span>Pathsala Road, Khekra, Baghpat</span>
             <span className="bg-emerald-200/80 text-emerald-950 font-mono font-bold px-2 py-0.5 rounded-md">
               250101
             </span>

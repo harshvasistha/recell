@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { CatalogProduct, Order } from '../types';
 import { X, ShieldCheck, Check, CreditCard, QrCode, Truck, Lock, IndianRupee, SmartphoneCharging } from 'lucide-react';
+import { openRazorpayCheckout } from '../lib/razorpay';
+import { savePaymentRecord } from '../lib/dbService';
 
 interface CheckoutModalProps {
   items: CatalogProduct[];
@@ -40,49 +42,77 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     e.preventDefault();
     setIsProcessing(true);
 
-    setTimeout(() => {
-      const orderId = `ORD-IN-${Math.floor(80000 + Math.random() * 9999)}`;
-      const now = new Date();
-      const returnExpiry = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-      const warrantyExpiry = new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    openRazorpayCheckout({
+      amount: totalAmount,
+      name: 'Recell Mobile Store',
+      description: `Purchase of ${items.length} Mobile Device(s)`,
+      prefill: {
+        name: customerName,
+        phone: customerPhone,
+        email: customerEmail
+      },
+      onSuccess: (paymentRes) => {
+        const orderId = `ORD-IN-${Math.floor(80000 + Math.random() * 9999)}`;
+        const now = new Date();
+        const returnExpiry = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+        const warrantyExpiry = new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
-      const newOrder: Order = {
-        id: orderId,
-        date: now.toISOString(),
-        customerName,
-        customerPhone,
-        customerEmail,
-        shippingAddress: address,
-        pincode,
-        city,
-        state,
-        items: items.map(item => ({
-          productId: item.id,
-          title: item.title,
-          refurbPrice: item.refurbPrice,
-          image: item.images[0],
-          serialImei: item.serialImei,
-          warrantyMonths: item.warrantyMonths
-        })),
-        totalAmount,
-        paymentMethod,
-        paymentStatus: 'Paid',
-        orderStatus: 'Confirmed',
-        courierPartner: 'Delhivery Express',
-        trackingNumber: `DEL${Math.floor(100000000 + Math.random() * 900000000)}`,
-        trackingHistory: [
-          { time: now.toLocaleString('en-IN'), status: 'Order Confirmed & Payment Verified via Razorpay', location: 'RePhone Central Warehouse' },
-          { time: 'Pending', status: '55-Point Inspection Re-Verification & Sealed Box Pack', location: 'Dispatch Hub' }
-        ],
-        returnWindowExpiry: returnExpiry,
-        warrantyExpiry: warrantyExpiry
-      };
+        const newOrder: Order = {
+          id: orderId,
+          date: now.toISOString(),
+          customerName,
+          customerPhone,
+          customerEmail,
+          shippingAddress: address,
+          pincode,
+          city,
+          state,
+          items: items.map(item => ({
+            productId: item.id,
+            title: item.title,
+            refurbPrice: item.refurbPrice,
+            image: item.images[0],
+            serialImei: item.serialImei,
+            warrantyMonths: item.warrantyMonths
+          })),
+          totalAmount,
+          paymentMethod,
+          paymentStatus: 'Paid',
+          orderStatus: 'Confirmed',
+          courierPartner: 'Delhivery Express',
+          trackingNumber: `DEL${Math.floor(100000000 + Math.random() * 900000000)}`,
+          trackingHistory: [
+            { time: now.toLocaleString('en-IN'), status: `Order Confirmed & Razorpay Payment (${paymentRes.razorpay_payment_id}) Verified`, location: 'Recell Central Hub, Khekra' },
+            { time: 'Pending', status: '55-Point Diagnostic Verification & Sealed Packing', location: 'Pathsala Road Dispatch Center' }
+          ],
+          returnWindowExpiry: returnExpiry,
+          warrantyExpiry: warrantyExpiry
+        };
 
-      setCreatedOrder(newOrder);
-      onOrderCreated(newOrder);
-      setIsProcessing(false);
-      setStep('success');
-    }, 1500);
+        // Log payment record in Firestore
+        savePaymentRecord({
+          paymentId: paymentRes.razorpay_payment_id,
+          orderId: orderId,
+          amount: totalAmount,
+          customerName,
+          customerPhone,
+          paymentMethod: `${paymentMethod} (${paymentRes.method})`,
+          status: 'SUCCESS',
+          razorpayPaymentId: paymentRes.razorpay_payment_id,
+          razorpayOrderId: paymentRes.razorpay_order_id,
+          createdAt: now.toISOString()
+        });
+
+        setCreatedOrder(newOrder);
+        onOrderCreated(newOrder);
+        setIsProcessing(false);
+        setStep('success');
+      },
+      onFailure: (err) => {
+        setIsProcessing(false);
+        console.warn('Payment failed or cancelled:', err);
+      }
+    });
   };
 
   return (

@@ -62,23 +62,23 @@ export const ContactUs: React.FC = () => {
 
           <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs space-y-2">
             <div className="flex items-center gap-2 text-indigo-600 font-bold text-sm">
-              <Phone className="w-4 h-4" />
-              <span>Customer Helpline</span>
+              <Phone className="w-4 h-4 text-[#0052FF]" />
+              <span>Customer Care Helpline</span>
             </div>
-            <a href="tel:9557342655" className="text-sm font-mono font-bold text-slate-900 hover:text-[#0052FF] block">
-              +91 9557342655
+            <a href="tel:9310552055" className="text-base font-mono font-black text-[#0052FF] hover:underline block">
+              +91 9310552055
             </a>
-            <p className="text-xs text-slate-500">Mon - Sat: 9:00 AM - 8:00 PM IST</p>
+            <p className="text-[11px] text-slate-500 font-medium">Toll-Free Customer Care &bull; Mon - Sat: 9:00 AM - 8:00 PM</p>
           </div>
 
           <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs space-y-2">
             <div className="flex items-center gap-2 text-emerald-600 font-bold text-sm">
               <MessageSquare className="w-4 h-4 text-emerald-600" />
-              <span>Instant WhatsApp Support</span>
+              <span>Instant WhatsApp &amp; Support</span>
             </div>
-            <p className="text-xs font-bold text-slate-800 font-mono">+91 9557342655</p>
+            <p className="text-xs font-bold text-slate-800 font-mono">+91 9310552055 / +91 9557342655</p>
             <a
-              href="https://wa.me/919557342655?text=Hello%20Recell%20Store%2C%20I%20have%20an%20inquiry"
+              href="https://wa.me/919310552055?text=Hello%20Recell%20Store%2C%20I%20have%20an%20inquiry"
               target="_blank"
               rel="noreferrer"
               className="text-xs text-emerald-600 font-bold underline block"
@@ -90,10 +90,10 @@ export const ContactUs: React.FC = () => {
           <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs space-y-2">
             <div className="flex items-center gap-2 text-indigo-600 font-bold text-sm">
               <MapPin className="w-4 h-4 text-rose-600" />
-              <span>Store Address</span>
+              <span>Physical Store Address</span>
             </div>
-            <p className="text-xs text-slate-800 leading-relaxed font-bold font-heading">
-              Recell Store, Opposite to Dr Jagpal Clinic, Khekra, Baghpat - 250101
+            <p className="text-xs text-slate-900 leading-relaxed font-black font-heading">
+              Recell store, Pathsala road, Khekra, Baghpat, U.P., 250101
             </p>
           </div>
         </div>

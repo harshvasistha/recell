@@ -35,6 +35,8 @@ import { HowItWorks } from './components/Pages/HowItWorks';
 import { DoorstepRepair } from './components/Pages/DoorstepRepair';
 import { EWasteRecycle } from './components/Pages/EWasteRecycle';
 import { ContactUs } from './components/Pages/ContactUs';
+import { OpenBoxMobiles } from './components/Pages/OpenBoxMobiles';
+import { saveOrderToDB, saveSellRequestToDB } from './lib/dbService';
 import { MegaMenu } from './components/MegaMenu';
 import { LegalModal } from './components/Legal/LegalModal';
 import { AuthModal } from './components/AuthModal';
@@ -142,6 +144,7 @@ export default function App() {
   // Handlers for data updates
   const handleNewBuyRequest = (req: BuyQuoteRequest) => {
     setBuyRequests([req, ...buyRequests]);
+    saveSellRequestToDB(req);
   };
 
   const handleUpdateBuyRequest = (updatedReq: BuyQuoteRequest, sendToRepair: boolean) => {
@@ -206,6 +209,7 @@ export default function App() {
   const handleOrderCreated = (order: Order) => {
     setOrders([order, ...orders]);
     setCart([]);
+    saveOrderToDB(order);
   };
 
   const handleNewReturn = (req: ReturnRequest) => {
@@ -269,6 +273,16 @@ export default function App() {
           onSelectProduct={(product) => setSelectedProduct(product)}
           onAddToCart={handleAddToCart}
           onQuickBuy={handleQuickBuy}
+        />
+      )}
+
+      {currentTab === 'open-box' && (
+        <OpenBoxMobiles
+          catalog={catalog}
+          onSelectProduct={(product) => {
+            setSelectedProduct(product);
+          }}
+          onOpenAuth={() => setIsAuthOpen(true)}
         />
       )}
 
@@ -378,9 +392,15 @@ export default function App() {
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-sm font-sans font-medium">
                 India's transparent mobile ReCommerce platform. Get 60-second AI trade-in quotes, instant doorstep spot UPI cash, 32-point diagnostic checks, and 3-Month warranted certified pre-owned devices.
               </p>
-              <div className="flex items-center gap-2 text-blue-400 font-mono text-xs font-black drop-shadow-xs">
-                <MapPin className="w-4 h-4 text-blue-400 animate-pulse" />
-                <span>Recell Store, Opp. Dr Jagpal Clinic, Khekra, Baghpat (250101) &bull; Doorstep Active</span>
+              <div className="flex flex-col gap-1 text-blue-400 font-mono text-xs font-black drop-shadow-xs">
+                <div className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-blue-400 animate-pulse shrink-0" />
+                  <span>Recell store, Pathsala road, Khekra, Baghpat, U.P., 250101</span>
+                </div>
+                <div className="flex items-center gap-2 text-emerald-400">
+                  <PhoneCall className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>Customer Helpline: +91 9310552055</span>
+                </div>
               </div>
             </div>
 
@@ -444,7 +464,7 @@ export default function App() {
               <span>Shiprocket Partner</span>
             </div>
             <div className="text-slate-300 font-mono">
-              &copy; 2026 Recell Mobile Solutions &bull; Recell Store, Opp. Dr Jagpal Clinic, Khekra, Baghpat 250101
+              &copy; 2026 Recell Mobile Solutions &bull; Recell store, Pathsala road, Khekra, Baghpat, U.P., 250101 &bull; Helpline: 9310552055
             </div>
           </div>
         </div>
