@@ -661,6 +661,12 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
                   <span className="font-mono font-bold text-emerald-600">+₹{quoteBreakdown.localDemandBonus}</span>
                 </div>
               )}
+              {quoteBreakdown.fifteenPercentDeduction > 0 && (
+                <div className="flex justify-between py-1 border-b border-slate-200">
+                  <span className="text-amber-700 font-bold">Diagnostic Rough Estimate Deduction (-15%)</span>
+                  <span className="font-mono font-bold text-amber-600">-₹{quoteBreakdown.fifteenPercentDeduction.toLocaleString('en-IN')}</span>
+                </div>
+              )}
             </div>
 
             {quoteBreakdown.deductions.length > 0 && (

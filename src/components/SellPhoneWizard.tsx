@@ -434,6 +434,12 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
                   <span className="font-mono font-bold text-emerald-600">+₹{currentQuoteBreakdown.localDemandBonus}</span>
                 </div>
               )}
+              {currentQuoteBreakdown.fifteenPercentDeduction > 0 && (
+                <div className="flex justify-between py-1 border-b border-slate-200">
+                  <span className="text-amber-700 font-bold">Diagnostic Rough Estimate Deduction (-15%)</span>
+                  <span className="font-mono font-bold text-amber-600">-₹{currentQuoteBreakdown.fifteenPercentDeduction.toLocaleString('en-IN')}</span>
+                </div>
+              )}
             </div>
 
             {currentQuoteBreakdown.deductions.length > 0 && (

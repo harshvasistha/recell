@@ -13,6 +13,7 @@ export interface QuoteBreakdown {
   localDemandBonus: number;
   calculatedBeforeDiscount: number;
   discountAmount: number;
+  fifteenPercentDeduction: number;
   roughQuoteMin: number;
   roughQuoteMax: number;
   roughQuoteEstimated: number;
@@ -81,12 +82,16 @@ export function calculateRoughQuote(
   const localBonusAmount = Math.round(netPrice * (demandMult - 1.0));
   netPrice = netPrice * demandMult;
 
-  // Diagnostic Engine calculated price before 20% reduction
+  // Diagnostic Engine calculated price before final 15% backend deduction
   const calculatedBeforeDiscount = Math.round(netPrice / 100) * 100;
 
-  // Reduce 20% from the calculated rough-estimated price
+  // Base diagnostic engine calculation
   const discountAmount = Math.round((calculatedBeforeDiscount * 0.20) / 100) * 100;
-  const estimated = Math.max(0, calculatedBeforeDiscount - discountAmount);
+  const initialEstimate = Math.max(0, calculatedBeforeDiscount - discountAmount);
+
+  // Apply required 15% backend deduction on the rough estimated price
+  const fifteenPercentDeduction = Math.round((initialEstimate * 0.15) / 100) * 100;
+  const estimated = Math.max(0, initialEstimate - fifteenPercentDeduction);
 
   const minQuote = Math.round((estimated * 0.95) / 100) * 100;
   const maxQuote = Math.round((estimated * 1.05) / 100) * 100;
@@ -100,6 +105,7 @@ export function calculateRoughQuote(
     localDemandBonus: localBonusAmount,
     calculatedBeforeDiscount,
     discountAmount,
+    fifteenPercentDeduction,
     roughQuoteMin: minQuote,
     roughQuoteMax: maxQuote,
     roughQuoteEstimated: estimated,
