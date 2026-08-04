@@ -513,8 +513,11 @@ export default function App() {
         onClose={() => setIsAuthOpen(false)}
         onSuccess={(userData) => {
           setUser(userData);
-          setIsProfileOpen(true);
+          setIsAuthOpen(false);
         }}
+        user={user}
+        onSignOut={() => setUser(null)}
+        onNavigateToTrack={() => setCurrentTab('track')}
       />
 
       <UserProfileModal

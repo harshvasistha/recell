@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, User, Smartphone, Mail, MapPin, BadgeCheck, ShieldCheck, LogOut, PackageCheck, Clock, ExternalLink } from 'lucide-react';
+import { X, User, Smartphone, Mail, MapPin, BadgeCheck, ShieldCheck, LogOut, PackageCheck, Clock, ExternalLink, ArrowLeft } from 'lucide-react';
 
 interface UserProfileModalProps {
   isOpen: boolean;
@@ -124,7 +124,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                 onClose();
                 onOpenTrackOrders();
               }}
-              className="w-full bg-[#0052FF] hover:bg-[#0043CC] text-white font-bold py-3 rounded-2xl text-xs flex items-center justify-center gap-2 shadow-md cursor-pointer transition-all"
+              className="w-full bg-[#0052FF] hover:bg-[#0043CC] text-white font-bold py-3 rounded-2xl text-xs flex items-center justify-center gap-2 shadow-md cursor-pointer transition-all font-heading"
             >
               <PackageCheck className="w-4 h-4" />
               View Orders &amp; Doorstep Trackers
@@ -132,11 +132,19 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
             </button>
 
             <button
+              onClick={onClose}
+              className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 rounded-2xl text-xs flex items-center justify-center gap-2 border border-slate-300 cursor-pointer transition-all font-heading"
+            >
+              <ArrowLeft className="w-4 h-4 text-slate-500" />
+              Close Profile &amp; Return to Dashboard
+            </button>
+
+            <button
               onClick={() => {
                 onSignOut();
                 onClose();
               }}
-              className="w-full bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold py-2.5 rounded-2xl text-xs flex items-center justify-center gap-2 border border-rose-200 cursor-pointer transition-all"
+              className="w-full bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold py-2.5 rounded-2xl text-xs flex items-center justify-center gap-2 border border-rose-200 cursor-pointer transition-all font-heading"
             >
               <LogOut className="w-4 h-4" />
               Sign Out from Account
