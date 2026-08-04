@@ -6,7 +6,7 @@ import { SEED_DEVICE_MODELS, DEFAULT_PRICING_RULES } from '../data/initialData';
 import { calculateRoughQuote, isLocalPincode } from '../utils/pricingEngine';
 import { ConditionAnswers, BuyQuoteRequest, DeviceModel } from '../types';
 import { 
-  Smartphone, Check, AlertCircle, Camera, Upload, Calendar, 
+  Smartphone, Check, AlertCircle, Calendar, 
   Clock, MapPin, IndianRupee, Sparkles, ShieldCheck, ArrowRight, 
   ArrowLeft, Zap, Info, Banknote, User, Phone, CheckCircle2, RotateCcw
 } from 'lucide-react';
@@ -24,7 +24,7 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
   onNavigateToAgent,
   onNavigateToTrack
 }) => {
-  // Step State
+  // Step State (1: Brand/Year, 2: Hardware Audit, 3: Rough Quote, 4: Book Pickup)
   const [activeStep, setActiveStep] = useState<number>(1);
 
   // Selected Brand & Model & Purchase Year
@@ -47,15 +47,6 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
     pincode: '250101',
     photos: {}
   });
-
-  // Photo uploads state
-  const [photos, setPhotos] = useState<{
-    front?: string;
-    back?: string;
-    screenOn?: string;
-    chargingPort?: string;
-    damage?: string;
-  }>({});
 
   // Seller & Doorstep details
   const [sellerName, setSellerName] = useState<string>('');
@@ -127,20 +118,6 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
     return matchBrand && matchSearch;
   });
 
-  // Simulated photo upload
-  const handlePhotoUploadSim = (type: 'front' | 'back' | 'screenOn' | 'chargingPort' | 'damage') => {
-    const samplePhotos: Record<string, string> = {
-      front: 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=600&q=80',
-      back: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80',
-      screenOn: 'https://images.unsplash.com/photo-1632661674596-df8be070a5c5?auto=format&fit=crop&w=600&q=80',
-      chargingPort: 'https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=600&q=80',
-      damage: 'https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=600&q=80'
-    };
-    const updated = { ...photos, [type]: samplePhotos[type] };
-    setPhotos(updated);
-    setAnswers({ ...answers, photos: updated });
-  };
-
   // Purchase year adjustment factor
   const getYearFactor = () => {
     if (purchaseYear === '2026') return 1.05;
@@ -164,7 +141,6 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
     if (!selectedModel || !quoteBreakdown) return;
 
     const isLocal = isLocalPincode(answers.pincode);
-    const photoList = Object.values(photos).filter(Boolean) as string[];
 
     const newReq: BuyQuoteRequest = {
       id: `REQ-${answers.pincode}-${Math.floor(100 + Math.random() * 900)}`,
@@ -185,14 +161,14 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
       upiId: upiId || 'seller@upi',
       status: 'pickup_scheduled',
       assignedAgent: isLocal ? 'Agent Rajesh (Khekra 250101 Hub)' : 'Courier Express Pickup Desk',
-      photos: photoList.length > 0 ? photoList : [selectedModel.imageUrl]
+      photos: [selectedModel.imageUrl]
     };
 
     setCreatedRequest(newReq);
     if (onSubmitBuyRequest) {
       onSubmitBuyRequest(newReq);
     }
-    setActiveStep(5); // Show confirmation step
+    setActiveStep(4); // Show confirmation step
   };
 
   return (
@@ -221,18 +197,17 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
         </div>
 
         {/* Dynamic Interactive Wizard Steps Header */}
-        <div className="grid grid-cols-5 gap-1.5 sm:gap-3 pt-6 mt-6 border-t border-slate-800 text-center text-xs font-heading font-bold relative z-10">
+        <div className="grid grid-cols-4 gap-2 sm:gap-3 pt-6 mt-6 border-t border-slate-800 text-center text-xs font-heading font-bold relative z-10">
           {[
             { num: 1, title: '1. Brand & Year' },
             { num: 2, title: '2. Hardware Audit' },
-            { num: 3, title: '3. Device Photos' },
-            { num: 4, title: '4. Rough Quote' },
-            { num: 5, title: '5. Book Pickup' }
+            { num: 3, title: '3. Rough Quote' },
+            { num: 4, title: '4. Book Pickup' }
           ].map((s) => (
             <button
               key={s.num}
               onClick={() => {
-                if (s.num <= activeStep || activeStep === 5) setActiveStep(s.num);
+                if (s.num <= activeStep || activeStep === 4) setActiveStep(s.num);
               }}
               className={`py-2.5 px-1 rounded-xl text-[11px] sm:text-xs transition-all cursor-pointer ${
                 activeStep === s.num
@@ -608,85 +583,6 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
               onClick={() => setActiveStep(3)}
               className="bg-[#0052FF] hover:bg-[#0043CC] text-white font-bold px-7 py-3 rounded-full flex items-center gap-2 shadow-md text-xs transition-all font-heading cursor-pointer"
             >
-              Attach Photos for Inspection
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-        </motion.div>
-      )}
-
-      {/* STEP 3: DEVICE PHOTOS ATTACHMENT */}
-      {activeStep === 3 && (
-        <motion.div 
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6"
-        >
-          <div className="space-y-1">
-            <span className="text-[10px] text-[#0052FF] font-bold font-mono uppercase tracking-wider block">Step 3 of 5</span>
-            <h3 className="text-lg sm:text-xl font-black text-slate-900 font-heading flex items-center gap-2">
-              <Camera className="w-5 h-5 text-[#0052FF]" />
-              Attach Device Diagnostic Photos
-            </h3>
-            <p className="text-xs text-slate-500">
-              Snap or attach photos of your device. These allow our field agent to verify physical state before doorstep arrival.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {[
-              { id: 'front', title: '1. Front Screen Shot', req: true },
-              { id: 'back', title: '2. Back Body Panel', req: true },
-              { id: 'screenOn', title: '3. Display Screen Turned ON', req: true },
-              { id: 'chargingPort', title: '4. Charging Port Close-up', req: false },
-              { id: 'damage', title: '5. Scratches / Dents Close-up', req: false }
-            ].map((shot) => {
-              const photoUrl = (photos as any)[shot.id];
-              return (
-                <div key={shot.id} className="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col justify-between space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-slate-900 font-heading">{shot.title}</span>
-                    {shot.req && <span className="text-[9px] bg-blue-50 text-[#0052FF] font-mono px-2 py-0.5 rounded-full font-bold">Required</span>}
-                  </div>
-
-                  {photoUrl ? (
-                    <div className="relative group rounded-xl overflow-hidden border border-emerald-500 h-32">
-                      <img src={photoUrl} alt={shot.title} className="w-full h-full object-cover" />
-                      <div className="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <button
-                          onClick={() => handlePhotoUploadSim(shot.id as any)}
-                          className="text-xs bg-white text-slate-900 px-3 py-1 rounded-full font-bold shadow-md cursor-pointer"
-                        >
-                          Retake Shot
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => handlePhotoUploadSim(shot.id as any)}
-                      className="h-32 rounded-xl border-2 border-dashed border-slate-300 hover:border-[#0052FF] hover:bg-blue-50/50 flex flex-col items-center justify-center gap-2 text-slate-500 transition-all cursor-pointer"
-                    >
-                      <Upload className="w-5 h-5 text-[#0052FF]" />
-                      <span className="text-xs font-bold font-heading">Attach / Sample Shot</span>
-                    </button>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-            <button
-              onClick={() => setActiveStep(2)}
-              className="px-5 py-2.5 rounded-full border border-slate-200 text-slate-700 hover:bg-slate-100 text-xs font-bold font-heading cursor-pointer"
-            >
-              Back
-            </button>
-            <button
-              onClick={() => setActiveStep(4)}
-              className="bg-[#0052FF] hover:bg-[#0043CC] text-white font-bold px-7 py-3 rounded-full flex items-center gap-2 shadow-md text-xs transition-all font-heading cursor-pointer"
-            >
               Calculate Dynamic Rough Estimate
               <ArrowRight className="w-4 h-4" />
             </button>
@@ -694,8 +590,8 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
         </motion.div>
       )}
 
-      {/* STEP 4: DYNAMIC ROUGH ESTIMATE BREAKDOWN & TRANSPARENT NOTE */}
-      {activeStep === 4 && quoteBreakdown && (
+      {/* STEP 3: DYNAMIC ROUGH ESTIMATE BREAKDOWN & TRANSPARENT NOTE */}
+      {activeStep === 3 && quoteBreakdown && (
         <motion.div 
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -730,7 +626,7 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
             </div>
           </div>
 
-          {/* CRITICAL TRANSPARENT NOTE (AS REQUESTED IN PROMPT) */}
+          {/* CRITICAL TRANSPARENT NOTE */}
           <div className="p-4 sm:p-5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 space-y-2">
             <div className="flex items-center gap-2 font-bold text-xs font-heading text-amber-950">
               <Info className="w-5 h-5 text-amber-600 shrink-0" />
@@ -783,13 +679,13 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
 
           <div className="flex items-center justify-between pt-4 border-t border-slate-100">
             <button
-              onClick={() => setActiveStep(3)}
+              onClick={() => setActiveStep(2)}
               className="px-5 py-2.5 rounded-full border border-slate-200 text-slate-700 hover:bg-slate-100 text-xs font-bold font-heading cursor-pointer"
             >
               Back
             </button>
             <button
-              onClick={() => setActiveStep(5)}
+              onClick={() => setActiveStep(4)}
               className="bg-[#0052FF] hover:bg-[#0043CC] text-white font-bold px-7 py-3 rounded-full flex items-center gap-2 shadow-md text-xs transition-all font-heading cursor-pointer"
             >
               Proceed to Doorstep Pickup Booking
@@ -799,8 +695,8 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
         </motion.div>
       )}
 
-      {/* STEP 5: DOORSTEP PICKUP BOOKING FORM & CONFIRMATION */}
-      {activeStep === 5 && (
+      {/* STEP 4: DOORSTEP PICKUP BOOKING FORM & CONFIRMATION */}
+      {activeStep === 4 && (
         <motion.div 
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -809,7 +705,7 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
           {!createdRequest ? (
             <form onSubmit={handleScheduleSubmit} className="space-y-5">
               <div className="space-y-1">
-                <span className="text-[10px] text-[#0052FF] font-bold font-mono uppercase tracking-wider block">Step 5 of 5</span>
+                <span className="text-[10px] text-[#0052FF] font-bold font-mono uppercase tracking-wider block">Step 4 of 4</span>
                 <h3 className="text-xl font-black text-slate-900 font-heading flex items-center gap-2">
                   <Calendar className="w-5 h-5 text-[#0052FF]" />
                   Schedule Doorstep Pickup &amp; Spot UPI Payout
@@ -897,7 +793,7 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
               <div className="flex items-center justify-between pt-4 border-t border-slate-100">
                 <button
                   type="button"
-                  onClick={() => setActiveStep(4)}
+                  onClick={() => setActiveStep(3)}
                   className="px-5 py-2.5 rounded-full border border-slate-200 text-slate-700 hover:bg-slate-100 text-xs font-bold font-heading cursor-pointer"
                 >
                   Back

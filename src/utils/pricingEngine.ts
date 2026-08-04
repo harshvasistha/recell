@@ -11,6 +11,8 @@ export interface QuoteBreakdown {
     amount: number;
   }[];
   localDemandBonus: number;
+  calculatedBeforeDiscount: number;
+  discountAmount: number;
   roughQuoteMin: number;
   roughQuoteMax: number;
   roughQuoteEstimated: number;
@@ -79,11 +81,13 @@ export function calculateRoughQuote(
   const localBonusAmount = Math.round(netPrice * (demandMult - 1.0));
   netPrice = netPrice * demandMult;
 
-  // Apply mandatory 20% reduction to rough estimate buy quotes as requested
-  const ROUGH_QUOTE_DISCOUNT_FACTOR = 0.80;
-  netPrice = netPrice * ROUGH_QUOTE_DISCOUNT_FACTOR;
+  // Diagnostic Engine calculated price before 20% reduction
+  const calculatedBeforeDiscount = Math.round(netPrice / 100) * 100;
 
-  const estimated = Math.round(netPrice / 100) * 100; // Round to nearest 100
+  // Reduce 20% from the calculated rough-estimated price
+  const discountAmount = Math.round((calculatedBeforeDiscount * 0.20) / 100) * 100;
+  const estimated = Math.max(0, calculatedBeforeDiscount - discountAmount);
+
   const minQuote = Math.round((estimated * 0.95) / 100) * 100;
   const maxQuote = Math.round((estimated * 1.05) / 100) * 100;
 
@@ -94,6 +98,8 @@ export function calculateRoughQuote(
     batteryMultiplier: batteryMult,
     deductions: deductionsList,
     localDemandBonus: localBonusAmount,
+    calculatedBeforeDiscount,
+    discountAmount,
     roughQuoteMin: minQuote,
     roughQuoteMax: maxQuote,
     roughQuoteEstimated: estimated,

@@ -448,6 +448,32 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
                 </div>
               </div>
             )}
+
+            {/* Diagnostic Calculation & 20% Reduction Summary */}
+            <div className="mt-3 pt-3 border-t-2 border-indigo-100 bg-white p-3 rounded-xl space-y-2">
+              <div className="flex justify-between items-center text-xs">
+                <span className="text-slate-600 font-medium">Diagnostic Calculator Rough Estimated Price:</span>
+                <span className="font-mono font-bold text-slate-800 text-sm">
+                  ₹{currentQuoteBreakdown.calculatedBeforeDiscount.toLocaleString('en-IN')}
+                </span>
+              </div>
+
+              <div className="flex justify-between items-center text-xs">
+                <span className="text-rose-600 font-semibold flex items-center gap-1">
+                  Safety &amp; Margin Adjustment (-20% Reduction):
+                </span>
+                <span className="font-mono font-bold text-rose-600">
+                  -₹{currentQuoteBreakdown.discountAmount.toLocaleString('en-IN')}
+                </span>
+              </div>
+
+              <div className="flex justify-between items-center text-xs pt-2 border-t border-slate-100">
+                <span className="text-emerald-700 font-black uppercase tracking-wider">Final Rough-Estimated Doorstep Price:</span>
+                <span className="font-mono font-black text-emerald-600 text-base">
+                  ₹{currentQuoteBreakdown.roughQuoteEstimated.toLocaleString('en-IN')}
+                </span>
+              </div>
+            </div>
           </div>
 
           {/* Schedule Doorstep Form */}
