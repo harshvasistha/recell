@@ -37,6 +37,7 @@ import { EWasteRecycle } from './components/Pages/EWasteRecycle';
 import { ContactUs } from './components/Pages/ContactUs';
 import { OpenBoxMobiles } from './components/Pages/OpenBoxMobiles';
 import { AuthModal } from './components/AuthModal';
+import { UserProfileModal } from './components/UserProfileModal';
 import { saveOrderToDB, saveSellRequestToDB } from './lib/dbService';
 import { MegaMenu } from './components/MegaMenu';
 import { LegalModal } from './components/Legal/LegalModal';
@@ -54,7 +55,8 @@ export default function App() {
 
   // User & Auth State
   const [isAuthOpen, setIsAuthOpen] = useState<boolean>(false);
-  const [user, setUser] = useState<{ name: string; phone: string; role: string } | null>(null);
+  const [isProfileOpen, setIsProfileOpen] = useState<boolean>(false);
+  const [user, setUser] = useState<{ name: string; phone: string; role: string; email?: string; pincode?: string } | null>(null);
 
   // Modals
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState<boolean>(false);
@@ -292,6 +294,7 @@ export default function App() {
           onSubmitReturn={handleNewReturn}
           onSubmitWarranty={handleNewWarranty}
           user={user}
+          onOpenProfile={() => setIsProfileOpen(true)}
         />
       )}
 
@@ -351,6 +354,7 @@ export default function App() {
               onOpenLegal={openLegalModal}
               onOpenBrand={handleSelectBrand}
               onOpenAuth={() => setIsAuthOpen(true)}
+              onOpenProfile={() => setIsProfileOpen(true)}
               user={user}
             />
             {renderMainContent()}
@@ -370,6 +374,7 @@ export default function App() {
               onOpenLegal={openLegalModal}
               onOpenBrand={handleSelectBrand}
               onOpenAuth={() => setIsAuthOpen(true)}
+              onOpenProfile={() => setIsProfileOpen(true)}
               user={user}
             />
             {renderMainContent()}
@@ -471,16 +476,6 @@ export default function App() {
         </div>
       </motion.footer>
 
-      {/* Auth / Register Modal */}
-      <AuthModal
-        isOpen={isAuthOpen}
-        onClose={() => setIsAuthOpen(false)}
-        onSuccess={(userData) => {
-          setUser(userData);
-          setCurrentTab('track');
-        }}
-      />
-
       {/* Directory Mega Menu */}
       <MegaMenu
         isOpen={isMegaMenuOpen}
@@ -518,8 +513,16 @@ export default function App() {
         onClose={() => setIsAuthOpen(false)}
         onSuccess={(userData) => {
           setUser(userData);
-          setCurrentTab('track');
+          setIsProfileOpen(true);
         }}
+      />
+
+      <UserProfileModal
+        isOpen={isProfileOpen}
+        onClose={() => setIsProfileOpen(false)}
+        user={user}
+        onSignOut={() => setUser(null)}
+        onOpenTrackOrders={() => setCurrentTab('track')}
       />
 
       {/* Cart Drawer */}
@@ -593,6 +596,7 @@ export default function App() {
         openCart={() => setIsCartOpen(true)}
         onOpenMegaMenu={() => setIsMegaMenuOpen(true)}
         onOpenAuth={() => setIsAuthOpen(true)}
+        onOpenProfile={() => setIsProfileOpen(true)}
         user={user}
       />
 

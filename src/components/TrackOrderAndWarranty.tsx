@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import { Order, ReturnRequest, WarrantyClaim } from '../types';
-import { Search, Truck, ShieldCheck, RefreshCw, CheckCircle2, Clock, Wrench, AlertCircle, MapPin, ArrowRight, BadgeCheck, Smartphone, Mail } from 'lucide-react';
+import { Search, Truck, ShieldCheck, RefreshCw, CheckCircle2, Clock, Wrench, AlertCircle, MapPin, ArrowRight, BadgeCheck, Smartphone, Mail, User } from 'lucide-react';
 
 interface TrackOrderAndWarrantyProps {
   orders: Order[];
   onSubmitReturn: (req: ReturnRequest) => void;
   onSubmitWarranty: (claim: WarrantyClaim) => void;
   user?: { name: string; phone: string; role: string; email?: string } | null;
+  onOpenProfile?: () => void;
 }
 
 export const TrackOrderAndWarranty: React.FC<TrackOrderAndWarrantyProps> = ({
   orders,
   onSubmitReturn,
   onSubmitWarranty,
-  user
+  user,
+  onOpenProfile
 }) => {
   const [searchOrderId, setSearchOrderId] = useState<string>('');
   const [foundOrder, setFoundOrder] = useState<Order | null>(null);
@@ -117,9 +119,21 @@ export const TrackOrderAndWarranty: React.FC<TrackOrderAndWarrantyProps> = ({
               </div>
             </div>
 
-            <div className="flex items-center gap-2 text-xs font-mono bg-slate-900/80 px-4 py-2 rounded-2xl border border-slate-800 text-slate-300">
-              <MapPin className="w-4 h-4 text-emerald-400 animate-pulse" />
-              <span>Doorstep Hub: <strong>Khekra 250101</strong></span>
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="flex items-center gap-2 text-xs font-mono bg-slate-900/80 px-4 py-2 rounded-2xl border border-slate-800 text-slate-300">
+                <MapPin className="w-4 h-4 text-emerald-400 animate-pulse" />
+                <span>Doorstep Hub: <strong>Khekra 250101</strong></span>
+              </div>
+
+              {onOpenProfile && (
+                <button
+                  onClick={onOpenProfile}
+                  className="bg-[#0052FF] hover:bg-[#0043CC] text-white font-bold px-4 py-2 rounded-2xl text-xs flex items-center gap-1.5 shadow-md cursor-pointer transition-all"
+                >
+                  <User className="w-3.5 h-3.5" />
+                  <span>View Profile &amp; Logout</span>
+                </button>
+              )}
             </div>
           </div>
         </div>

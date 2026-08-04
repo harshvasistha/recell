@@ -9,6 +9,7 @@ interface MobileBottomNavProps {
   openCart: () => void;
   onOpenMegaMenu: () => void;
   onOpenAuth: () => void;
+  onOpenProfile?: () => void;
   user: { name: string; phone: string; role: string } | null;
 }
 
@@ -19,6 +20,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   openCart,
   onOpenMegaMenu,
   onOpenAuth,
+  onOpenProfile,
   user
 }) => {
   const navItems = [
@@ -51,10 +53,10 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
       color: 'text-amber-600'
     },
     {
-      id: 'track' as TabType,
-      label: 'Track/More',
-      icon: ShieldCheck,
-      badge: null,
+      id: user ? ('profile' as any) : ('track' as TabType),
+      label: user ? 'Account' : 'Track/More',
+      icon: user ? User : ShieldCheck,
+      badge: user ? user.name.split(' ')[0] : null,
       color: 'text-blue-600'
     }
   ];
@@ -70,7 +72,10 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
             <button
               key={item.id}
               onClick={() => {
-                if (item.id === 'buy' && cartCount > 0 && isActive) {
+                if ((item.id as string) === 'profile') {
+                  if (onOpenProfile) onOpenProfile();
+                  else onOpenAuth();
+                } else if (item.id === 'buy' && cartCount > 0 && isActive) {
                   openCart();
                 } else {
                   setCurrentTab(item.id);

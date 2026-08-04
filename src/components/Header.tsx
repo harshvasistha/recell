@@ -23,7 +23,8 @@ interface HeaderProps {
   onOpenLegal: (tab?: 'privacy' | 'terms' | 'warranty' | 'returns') => void;
   onOpenBrand: (brandName: string) => void;
   onOpenAuth: () => void;
-  user: { name: string; phone: string; role: string } | null;
+  onOpenProfile?: () => void;
+  user: { name: string; phone: string; role: string; email?: string; pincode?: string } | null;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -39,6 +40,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenLegal,
   onOpenBrand,
   onOpenAuth,
+  onOpenProfile,
   user
 }) => {
   const [activeDropdown, setActiveDropdown] = useState<'services' | 'buy' | null>(null);
@@ -163,9 +165,27 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* User Account / Register Button */}
           {user ? (
-            <div className="hidden sm:flex items-center gap-2 bg-[#EFF6FF] border border-[#BFDBFE] px-3 py-1.5 rounded-full text-xs font-bold text-[#0052FF] font-heading">
-              <User className="w-3.5 h-3.5 text-[#0052FF]" />
-              <span className="truncate max-w-[100px]">{user.name}</span>
+            <div className="flex items-center gap-1.5">
+              {/* Desktop User Profile Button */}
+              <button
+                onClick={() => onOpenProfile ? onOpenProfile() : onOpenAuth()}
+                className="hidden sm:flex items-center gap-2 bg-[#EFF6FF] hover:bg-blue-100 border border-[#BFDBFE] px-3.5 py-1.5 rounded-full text-xs font-bold text-[#0052FF] font-heading cursor-pointer transition-all shadow-2xs group"
+                title="Click to view profile & account details"
+              >
+                <User className="w-3.5 h-3.5 text-[#0052FF] group-hover:scale-110 transition-transform" />
+                <span className="truncate max-w-[120px]">{user.name}</span>
+                <span className="text-[10px] bg-[#0052FF] text-white px-2 py-0.5 rounded-full font-mono">Profile</span>
+              </button>
+
+              {/* Mobile User Profile Quick Button */}
+              <button
+                onClick={() => onOpenProfile ? onOpenProfile() : onOpenAuth()}
+                className="sm:hidden flex items-center gap-1 bg-[#EFF6FF] hover:bg-blue-100 border border-[#BFDBFE] px-2.5 py-1.5 rounded-full text-xs font-bold text-[#0052FF] font-heading cursor-pointer transition-all shadow-2xs"
+                title="View Profile"
+              >
+                <User className="w-3.5 h-3.5 text-[#0052FF]" />
+                <span className="truncate max-w-[70px] text-[11px]">{user.name}</span>
+              </button>
             </div>
           ) : (
             <button
@@ -562,9 +582,12 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* User Account Bar */}
             {user ? (
-              <div className="p-3 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl flex items-center justify-between">
+              <div 
+                onClick={() => { setMobileMenuOpen(false); if (onOpenProfile) onOpenProfile(); else onOpenAuth(); }}
+                className="p-3 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl flex items-center justify-between cursor-pointer hover:bg-blue-100/50 transition-all"
+              >
                 <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-full bg-[#0052FF] text-white font-black flex items-center justify-center font-heading text-sm">
+                  <div className="w-9 h-9 rounded-full bg-[#0052FF] text-white font-black flex items-center justify-center font-heading text-sm shadow-sm">
                     {user.name.charAt(0).toUpperCase()}
                   </div>
                   <div>
@@ -572,13 +595,17 @@ export const Header: React.FC<HeaderProps> = ({
                     <p className="text-[10px] text-slate-500 font-mono">{user.phone}</p>
                   </div>
                 </div>
-                {user.role === 'admin' && (
+                {user.role === 'admin' ? (
                   <button
-                    onClick={() => { setMobileMenuOpen(false); setCurrentTab('admin'); }}
-                    className="bg-slate-950 text-amber-400 font-bold text-[10px] px-2.5 py-1 rounded-full border border-amber-400/40"
+                    onClick={(e) => { e.stopPropagation(); setMobileMenuOpen(false); setCurrentTab('admin'); }}
+                    className="bg-slate-950 text-amber-400 font-bold text-[10px] px-2.5 py-1 rounded-full border border-amber-400/40 cursor-pointer"
                   >
                     Admin Portal
                   </button>
+                ) : (
+                  <span className="text-[10px] bg-blue-100 text-[#0052FF] font-bold px-2.5 py-1 rounded-full font-heading">
+                    View Profile
+                  </span>
                 )}
               </div>
             ) : (
