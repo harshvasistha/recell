@@ -35,7 +35,7 @@ export const WhatsAppChatWidget: React.FC = () => {
 
     // Open WhatsApp after brief delay
     const encodedMsg = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/919557342655?text=${encodedMsg}`;
+    const whatsappUrl = `https://wa.me/919310552055?text=${encodedMsg}`;
 
     setTimeout(() => {
       window.open(whatsappUrl, '_blank');
@@ -63,7 +63,7 @@ export const WhatsAppChatWidget: React.FC = () => {
                 </h3>
                 <p className="text-[11px] text-emerald-400 font-mono font-medium flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                  +91 9557342655 &bull; Online
+                  +91 9310552055 &bull; Online
                 </p>
               </div>
             </div>
@@ -153,7 +153,7 @@ export const WhatsAppChatWidget: React.FC = () => {
         <button
           onClick={() => setIsOpen(true)}
           className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold p-3.5 sm:px-4 sm:py-3.5 rounded-full shadow-2xl flex items-center gap-2.5 transition-all duration-300 hover:scale-105 cursor-pointer ring-4 ring-emerald-600/20 group"
-          title="Chat on WhatsApp +91 9557342655"
+          title="Chat on WhatsApp +91 9310552055"
         >
           <div className="relative">
             <MessageCircle className="w-6 h-6 fill-white stroke-emerald-600" />
@@ -163,7 +163,7 @@ export const WhatsAppChatWidget: React.FC = () => {
             WhatsApp Help
           </span>
           <span className="text-[10px] bg-emerald-700 font-mono px-2 py-0.5 rounded-full hidden lg:inline">
-            9557342655
+            9310552055
           </span>
         </button>
       )}

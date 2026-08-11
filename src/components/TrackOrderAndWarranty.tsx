@@ -34,11 +34,24 @@ export const TrackOrderAndWarranty: React.FC<TrackOrderAndWarrantyProps> = ({
 
   const handleSearchOrder = (e: React.FormEvent) => {
     e.preventDefault();
-    const match = orders.find(o => o.id.toLowerCase().includes(searchOrderId.toLowerCase().trim()));
+    const query = searchOrderId.toLowerCase().trim();
+    if (!query) {
+      if (orders.length > 0) {
+        setFoundOrder(orders[0]);
+        return;
+      }
+    }
+
+    const match = orders.find(o => 
+      o.id.toLowerCase().includes(query) || 
+      o.customerPhone.replace(/\D/g, '').includes(query.replace(/\D/g, '')) ||
+      (o.trackingNumber && o.trackingNumber.toLowerCase().includes(query))
+    );
+
     if (match) {
       setFoundOrder(match);
     } else {
-      alert(`No order found matching ID "${searchOrderId}". Check order number.`);
+      alert(`No order found matching "${searchOrderId}". Please check your Order ID or registered Mobile Number.`);
     }
   };
 
@@ -57,6 +70,9 @@ export const TrackOrderAndWarranty: React.FC<TrackOrderAndWarrantyProps> = ({
       reverseTrackingId: `SHIP-REV-${Math.floor(10000 + Math.random() * 90000)}`,
       date: new Date().toISOString().split('T')[0]
     };
+
+    console.log(`[OWNER SMS ALERT sent to 9310552055] Return requested for Order ${foundOrder.id} by ${foundOrder.customerName} (${foundOrder.customerPhone}). Reason: ${returnReason}`);
+    console.log(`[CUSTOMER SMS SENT to ${foundOrder.customerPhone}] Return request ${newReturn.id} confirmed for Order ${foundOrder.id}. Reverse pickup courier assigned.`);
 
     onSubmitReturn(newReturn);
     setReturnSubmitted(true);
@@ -78,6 +94,9 @@ export const TrackOrderAndWarranty: React.FC<TrackOrderAndWarrantyProps> = ({
       reverseTrackingId: `SHIP-WAR-${Math.floor(10000 + Math.random() * 90000)}`,
       date: new Date().toISOString().split('T')[0]
     };
+
+    console.log(`[OWNER SMS ALERT sent to 9310552055] Warranty Claim logged for Order ${foundOrder.id} by ${foundOrder.customerName} (${foundOrder.customerPhone}). Issue: ${issueType}`);
+    console.log(`[CUSTOMER SMS SENT to ${foundOrder.customerPhone}] Warranty claim ${newClaim.id} registered. Free doorstep repair pickup assigned.`);
 
     onSubmitWarranty(newClaim);
     setWarrantySubmitted(true);

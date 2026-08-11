@@ -77,18 +77,48 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             )}
 
             {/* Serial / IMEI Verification Card */}
-            <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs space-y-1.5">
+            <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs space-y-2">
               <div className="flex justify-between items-center text-slate-400">
                 <span>Certified IMEI Serial:</span>
                 <span className="font-mono font-bold text-emerald-400">{product.serialImei}</span>
               </div>
               <div className="flex justify-between items-center text-slate-400">
-                <span>Grade Condition:</span>
-                <span className="font-bold text-white">{product.conditionGrade}</span>
+                <span>Grade Classification:</span>
+                <span className="font-bold font-heading text-blue-400">{product.conditionGrade}</span>
               </div>
+
+              {/* Grade Specific Explanation Box */}
+              <div className="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] leading-snug text-slate-300">
+                {product.conditionGrade === 'Grade A' && (
+                  <p className="text-emerald-400 font-medium">
+                    <strong className="text-white font-bold">Grade A:</strong> Under official service center warranty ({product.brandWarrantyMonths || product.warrantyMonths || 6} months remaining). 100% original parts.
+                  </p>
+                )}
+                {product.conditionGrade === 'Grade A1' && (
+                  <p className="text-blue-400 font-medium">
+                    <strong className="text-white font-bold">Grade A1:</strong> New condition mobile phone with {product.warrantyMonths} Months ReCell warranty. 100% original untampered hardware.
+                  </p>
+                )}
+                {product.conditionGrade === 'Grade B' && (
+                  <p className="text-amber-400 font-medium">
+                    <strong className="text-white font-bold">Grade B:</strong> Minor rough cosmetic condition (light frame scuffs), <span className="underline font-bold text-white">NEVER REPAIRED</span>. Includes {product.warrantyMonths} Months ReCell warranty.
+                  </p>
+                )}
+                {product.conditionGrade === 'Grade B1' && (
+                  <p className="text-purple-400 font-medium">
+                    <strong className="text-white font-bold">Grade B1 (Budget):</strong> Certified Repaired phone (Folder/screen, jack, mic, speaker). 100% functional pass, no warranty, lowest budget price.
+                  </p>
+                )}
+                {!['Grade A', 'Grade A1', 'Grade B', 'Grade B1'].includes(product.conditionGrade) && (
+                  <p className="text-slate-300">
+                    <strong className="text-white font-bold">{product.conditionGrade}:</strong> Certified 55-point inspected pre-owned device with {product.warrantyMonths} Months warranty.
+                  </p>
+                )}
+              </div>
+
               <div className="flex justify-between items-center text-slate-400">
                 <span>Battery Health:</span>
-                <span className="font-bold text-emerald-400">{product.batteryHealthPercent}% Original Health</span>
+                <span className="font-bold text-emerald-400">{product.batteryHealthPercent}% Health Pass</span>
               </div>
             </div>
           </div>

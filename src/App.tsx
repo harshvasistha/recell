@@ -337,7 +337,7 @@ export default function App() {
   );
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 font-sans selection:bg-[#0052FF] selection:text-white flex flex-col justify-between pb-16 lg:pb-0">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 font-sans selection:bg-[#0052FF] selection:text-white flex flex-col justify-between pb-20 lg:pb-0">
       <div>
         {isAppFrame ? (
           <CapacitorAppWrapper onExit={() => setIsAppFrame(false)}>

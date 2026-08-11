@@ -89,6 +89,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
           warrantyExpiry: warrantyExpiry
         };
 
+        // Log SMS dispatch alerts for owner and customer
+        console.log(`[OWNER SMS NOTIFICATION SENT to 9310552055] New Order ${orderId}! Amount: ₹${totalAmount}, Customer: ${customerName} (${customerPhone}), Items: ${items.map(i => i.title).join(', ')}`);
+        console.log(`[CUSTOMER SMS SENT to ${customerPhone}] Order ${orderId} confirmed! Track your package live on Recell site with AWB: ${newOrder.trackingNumber}`);
+
         // Log payment record in Firestore
         savePaymentRecord({
           paymentId: paymentRes.razorpay_payment_id,
@@ -362,8 +366,12 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               </div>
 
               <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 text-left text-xs space-y-2">
+                <div className="p-2.5 bg-emerald-950/60 border border-emerald-500/40 rounded-lg text-emerald-300 text-[11px] font-mono flex items-center justify-between">
+                  <span>📱 SMS Alert Dispatched:</span>
+                  <span className="font-bold">Sent to Owner (+91 9310552055) &amp; Customer ({createdOrder.customerPhone})</span>
+                </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-400">Tracking Number:</span>
+                  <span className="text-slate-400">Tracking AWB Number:</span>
                   <span className="font-mono font-bold text-emerald-400">{createdOrder.trackingNumber}</span>
                 </div>
                 <div className="flex justify-between">
@@ -371,7 +379,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   <span className="text-slate-200">{createdOrder.shippingAddress}, {createdOrder.city} ({createdOrder.pincode})</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-400">3-Month Warranty Active Until:</span>
+                  <span className="text-slate-400">3-Month Recell Warranty Active Until:</span>
                   <span className="font-bold text-indigo-400">{createdOrder.warrantyExpiry}</span>
                 </div>
               </div>

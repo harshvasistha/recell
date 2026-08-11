@@ -200,37 +200,49 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               Experience zero-renege doorstep cash trade-ins, instant spot UPI payouts, 32-point hardware checks, and certified refurbished phones with 3-Month Recell warranty.
             </motion.p>
 
-            {/* Quick Action Buttons */}
+            {/* Quick Action Buttons (4 Categories) */}
             <motion.div 
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-2"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 pt-2"
             >
               <button
                 onClick={onStartSell}
-                className="w-full sm:w-auto bg-slate-950 hover:bg-slate-900 text-white font-black px-6 py-3.5 sm:py-4 rounded-2xl sm:rounded-full text-sm sm:text-base shadow-lg hover:shadow-2xl transition-all flex items-center justify-center gap-2.5 group cursor-pointer font-heading min-h-[48px]"
+                className="w-full bg-slate-950 hover:bg-slate-900 text-white font-black px-4 py-3.5 rounded-2xl text-xs sm:text-sm shadow-lg hover:shadow-2xl transition-all flex items-center justify-center gap-2 group cursor-pointer font-heading min-h-[48px]"
               >
-                <Smartphone className="w-5 h-5 text-emerald-400" />
-                Sell Old Phone (60s Quote)
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <Smartphone className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Sell Old Phone (60s)</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform shrink-0" />
               </button>
 
               <button
                 onClick={onStartBuy}
-                className="w-full sm:w-auto bg-[#0052FF] hover:bg-[#0043CC] text-white font-black px-6 py-3.5 sm:py-4 rounded-2xl sm:rounded-full text-sm sm:text-base shadow-lg shadow-blue-500/25 hover:shadow-2xl transition-all flex items-center justify-center gap-2.5 group cursor-pointer font-heading min-h-[48px]"
+                className="w-full bg-[#0052FF] hover:bg-[#0043CC] text-white font-black px-4 py-3.5 rounded-2xl text-xs sm:text-sm shadow-lg shadow-blue-500/25 hover:shadow-2xl transition-all flex items-center justify-center gap-2 group cursor-pointer font-heading min-h-[48px]"
               >
-                <ShieldCheck className="w-5 h-5" />
-                Buy Refurbished
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ShieldCheck className="w-4 h-4 shrink-0" />
+                <span>Buy Refurbished</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform shrink-0" />
+              </button>
+
+              <button
+                onClick={() => {
+                  const openBoxNav = document.querySelector('a[href="/open-box"]') as HTMLElement;
+                  if (openBoxNav) openBoxNav.click();
+                  else onStartBuy();
+                }}
+                className="w-full bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black px-4 py-3.5 rounded-2xl text-xs sm:text-sm shadow-md hover:shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer font-heading min-h-[48px] border border-amber-300"
+              >
+                <Zap className="w-4 h-4 text-slate-950 fill-amber-300 shrink-0" />
+                <span>Open Box Mobiles &amp; Chargers</span>
               </button>
 
               <button
                 onClick={onOpenRepair}
-                className="w-full sm:w-auto bg-white border-2 border-slate-300 hover:bg-slate-100 text-slate-900 font-black px-5 py-3.5 sm:py-4 rounded-2xl sm:rounded-full text-sm sm:text-base shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer font-heading min-h-[48px]"
+                className="w-full bg-white border-2 border-slate-300 hover:bg-slate-100 text-slate-900 font-black px-4 py-3.5 rounded-2xl text-xs sm:text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer font-heading min-h-[48px]"
               >
-                <Wrench className="w-5 h-5 text-amber-600" />
-                30-Min Doorstep Repair
+                <Wrench className="w-4 h-4 text-amber-600 shrink-0" />
+                <span>30-Min Doorstep Repair</span>
               </button>
             </motion.div>
 
@@ -336,7 +348,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
       </section>
 
-      {/* 2B. OPEN BOX DELIVERY MOBILES SECTION */}
+      {/* 2B. OPEN BOX DELIVERY MOBILES & CHARGERS HIGHLIGHTED SECTION */}
       <motion.section 
         initial={{ opacity: 0, y: 35 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -344,22 +356,22 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         transition={{ duration: 0.5 }}
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6"
       >
-        <div className="bg-gradient-to-r from-amber-500/10 via-amber-400/5 to-slate-900/5 p-6 rounded-3xl border border-amber-300/60 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <span className="bg-amber-400 text-slate-950 text-[11px] font-black px-3 py-0.5 rounded-full uppercase tracking-wider font-heading inline-flex items-center gap-1">
-                <Sparkles className="w-3.5 h-3.5" />
-                5 to 10 Days Old Devices
+        <div className="bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-slate-950 p-6 sm:p-8 rounded-3xl shadow-xl border-2 border-amber-300 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <div className="space-y-2">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="bg-slate-950 text-amber-300 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider font-heading inline-flex items-center gap-1.5 shadow-md">
+                <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
+                ⚡ SPECIAL OPEN BOX CATEGORY
               </span>
-              <span className="bg-emerald-500/10 text-emerald-700 text-xs font-extrabold px-2.5 py-0.5 rounded-full font-mono border border-emerald-300">
-                11-12 Months Official Brand Warranty
+              <span className="bg-slate-950/80 text-white text-xs font-extrabold px-3 py-1 rounded-full font-mono border border-amber-300/40">
+                5-10 Days Customer Returns &bull; 100% Genuine
               </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-950 font-heading">
-              Open Box Delivery Phones
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-950 font-heading tracking-tight">
+              Open Box Chargers &amp; Smartphones
             </h2>
-            <p className="text-xs text-slate-700 font-medium max-w-2xl">
-              100% brand original smartphones unboxed only 5 to 10 days ago. Comes with <strong>Original Bill, Box, Cable</strong> and <strong>Full Brand Manufacturer Warranty</strong> at 25% to 35% discount!
+            <p className="text-sm text-slate-900 font-bold max-w-3xl leading-relaxed">
+              Genuine fast charging adapters (20W Apple, 25W/45W Samsung, 80W OnePlus, 67W Xiaomi) &amp; flagship smartphones unboxed only 5-10 days ago. Includes <strong>Original Box, Tax Invoice, Cable &amp; Official Brand Warranty</strong> at up to 60% discount!
             </p>
           </div>
 
@@ -369,14 +381,51 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               if (openBoxNav) openBoxNav.click();
               else onStartBuy();
             }}
-            className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-5 py-3 rounded-2xl text-xs flex items-center gap-2 shadow-md shrink-0 transition-all cursor-pointer font-heading"
+            className="bg-slate-950 hover:bg-slate-900 text-amber-300 font-black px-6 py-4 rounded-2xl text-sm flex items-center gap-2.5 shadow-2xl shrink-0 transition-all cursor-pointer font-heading border border-amber-400/40 hover:scale-105"
           >
-            Explore Open Box Mobiles &rarr;
+            <span>Explore All Open Box Deals &rarr;</span>
           </button>
         </div>
 
+        {/* Featured Open Box Chargers & Mobiles Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
           {[
+            {
+              id: 'chg-app-20w',
+              name: 'Apple Original 20W USB-C Adapter [Open Box]',
+              variant: 'Type-C Fast Charger &bull; 6 Days Old',
+              originalPrice: 1900,
+              sellPrice: 1199,
+              age: '6 Days Old',
+              warranty: '6M Brand Warranty',
+              img: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=80',
+              brand: 'Apple',
+              badge: '⚡ CHARGER BESTSELLER'
+            },
+            {
+              id: 'chg-sam-45w',
+              name: 'Samsung 45W Super Fast Charger 2.0 [Open Box]',
+              variant: 'Includes 5A Type-C Cable &bull; 8 Days Old',
+              originalPrice: 2999,
+              sellPrice: 1499,
+              age: '8 Days Old',
+              warranty: '10M Samsung Warranty',
+              img: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=80',
+              brand: 'Samsung',
+              badge: '⚡ 45W ULTRA FAST'
+            },
+            {
+              id: 'chg-op-80w',
+              name: 'OnePlus 80W SUPERVOOC Power Adapter [Open Box]',
+              variant: 'Full Retail Box &bull; 7 Days Old',
+              originalPrice: 2499,
+              sellPrice: 1299,
+              age: '7 Days Old',
+              warranty: '8M OnePlus Warranty',
+              img: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=80',
+              brand: 'OnePlus',
+              badge: '⚡ 80W SUPERVOOC'
+            },
             {
               id: 'ob-ip15pm',
               name: 'iPhone 15 Pro Max [Open Box 6 Days]',
@@ -386,91 +435,61 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               age: '6 Days Old',
               warranty: '11M Official Apple Warranty',
               img: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80',
-              brand: 'Apple'
-            },
-            {
-              id: 'ob-s24u',
-              name: 'Galaxy S24 Ultra [Open Box 8 Days]',
-              variant: '256GB - Titanium Gray',
-              originalPrice: 129999,
-              sellPrice: 82500,
-              age: '8 Days Old',
-              warranty: '11M Samsung India Warranty',
-              img: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80',
-              brand: 'Samsung'
-            },
-            {
-              id: 'ob-op12',
-              name: 'OnePlus 12 5G [Open Box 5 Days]',
-              variant: '256GB - Silky Black',
-              originalPrice: 64999,
-              sellPrice: 46999,
-              age: '5 Days Old',
-              warranty: '11.5M OnePlus Warranty',
-              img: 'https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=800&q=80',
-              brand: 'OnePlus'
-            },
-            {
-              id: 'ob-px8a',
-              name: 'Google Pixel 8a [Open Box 7 Days]',
-              variant: '128GB - Aloe Green',
-              originalPrice: 52999,
-              sellPrice: 33500,
-              age: '7 Days Old',
-              warranty: '11M Google Warranty',
-              img: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=80',
-              brand: 'Google'
+              brand: 'Apple',
+              badge: '✨ OPEN BOX MOBILE'
             }
           ].map((item) => (
-            <motion.div
+            <div 
               key={item.id}
-              whileHover={{ y: -4 }}
-              onClick={() => {
-                const openBoxNav = document.querySelector('a[href="/open-box"]') as HTMLElement;
-                if (openBoxNav) openBoxNav.click();
-                else onStartBuy();
-              }}
-              className="p-4 rounded-3xl bg-white border border-slate-200 hover:border-amber-500 shadow-xs hover:shadow-xl transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden"
+              onClick={onStartBuy}
+              className="bg-white rounded-3xl p-4 border border-amber-200/80 hover:border-amber-500 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col justify-between group relative overflow-hidden"
             >
-              <div>
-                <div className="relative rounded-2xl overflow-hidden bg-slate-100 mb-3 aspect-4/3">
-                  <img
-                    src={item.img}
-                    alt={item.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <span className="absolute top-2 left-2 bg-amber-400 text-slate-950 text-[9px] font-black px-2.5 py-0.5 rounded-full uppercase font-mono shadow-xs">
-                    {item.age}
-                  </span>
-                  <span className="absolute bottom-2 right-2 bg-slate-950/80 backdrop-blur-md text-emerald-400 text-[9px] font-bold px-2 py-0.5 rounded-full font-mono">
-                    100% Batt
-                  </span>
-                </div>
-
-                <span className="text-[10px] font-black text-amber-600 uppercase tracking-wider block font-heading">
-                  Open Box Delivery
+              {/* Top Highlight Badge */}
+              <div className="absolute top-3 left-3 z-10">
+                <span className="bg-slate-950 text-amber-300 text-[10px] font-black px-2.5 py-0.5 rounded-full font-heading shadow-md">
+                  {item.badge}
                 </span>
-                <h3 className="font-heading font-black text-xs text-slate-900 group-hover:text-amber-600 transition-colors line-clamp-1 mt-0.5">
-                  {item.name}
-                </h3>
-                <p className="text-[10px] text-slate-500 font-medium truncate mt-0.5">{item.variant}</p>
-                <p className="text-[10px] text-emerald-700 font-extrabold mt-1">{item.warranty}</p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+              <div>
+                <div className="relative h-44 bg-amber-50/50 rounded-2xl overflow-hidden mb-3">
+                  <img 
+                    src={item.img} 
+                    alt={item.name} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                  />
+                  <div className="absolute bottom-2 right-2 bg-amber-500 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded-full shadow-sm font-mono">
+                    {item.age}
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <h3 className="font-extrabold text-sm text-slate-900 group-hover:text-amber-600 transition-colors line-clamp-1 font-heading">
+                    {item.name}
+                  </h3>
+                  <p className="text-[11px] text-slate-500 font-medium line-clamp-1">
+                    {item.variant}
+                  </p>
+                  <p className="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-md inline-block">
+                    {item.warranty}
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-3 mt-3 border-t border-slate-100 flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] text-slate-400 line-through block font-mono">
-                    ₹{item.originalPrice.toLocaleString('en-IN')}
-                  </span>
-                  <span className="font-mono font-black text-[#0052FF] text-sm">
+                  <span className="text-lg font-black text-slate-900 font-mono">
                     ₹{item.sellPrice.toLocaleString('en-IN')}
                   </span>
+                  <span className="text-xs text-slate-400 line-through ml-1.5 font-mono">
+                    ₹{item.originalPrice.toLocaleString('en-IN')}
+                  </span>
                 </div>
-                <span className="bg-amber-400 text-slate-950 font-black text-[10px] px-3 py-1.5 rounded-full shadow-xs group-hover:bg-amber-500 font-heading">
-                  View Open Box
-                </span>
+                <button className="bg-amber-500 group-hover:bg-amber-400 text-slate-950 text-xs font-black px-3 py-1.5 rounded-xl shadow-xs transition-colors font-heading">
+                  Buy Now
+                </button>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </motion.section>

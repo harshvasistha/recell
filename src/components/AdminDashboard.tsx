@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CatalogProduct, BuyQuoteRequest, Order, RepairJob, PricingRules, ReturnRequest, WarrantyClaim } from '../types';
-import { Settings, ShoppingBag, Smartphone, Wrench, IndianRupee, ShieldCheck, Truck, Plus, Trash2, CheckCircle, Sliders, RefreshCw, UserCheck } from 'lucide-react';
+import { Settings, ShoppingBag, Smartphone, Wrench, IndianRupee, ShieldCheck, Truck, Plus, Trash2, CheckCircle, Sliders, RefreshCw, UserCheck, Upload, Download, FileText, Info, HelpCircle, Cloud } from 'lucide-react';
+import { GoogleDriveImportModal } from './GoogleDriveImportModal';
 
 interface AdminDashboardProps {
   catalog: CatalogProduct[];
@@ -29,7 +30,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<'catalog' | 'buys' | 'pricing' | 'orders' | 'repairs' | 'claims'>('catalog');
 
-  // New Catalog Item Modal Form
+  // Single Catalog Item Modal Form
   const [showAddModal, setShowAddModal] = useState(false);
   const [newTitle, setNewTitle] = useState('Apple iPhone 13 (128GB) - Starlight');
   const [newBrand, setNewBrand] = useState('Apple');
@@ -38,10 +39,17 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const [newColor, setNewColor] = useState('Starlight');
   const [newOrigPrice, setNewOrigPrice] = useState(59900);
   const [newRefurbPrice, setNewRefurbPrice] = useState(38900);
-  const [newGrade, setNewGrade] = useState<'Like New' | 'Superb' | 'Good'>('Superb');
+  const [newGrade, setNewGrade] = useState<'Grade A' | 'Grade A1' | 'Grade B' | 'Grade B1' | 'Open Box (5-10 Days)' | 'Like New' | 'Superb' | 'Good'>('Grade A1');
   const [newBattery, setNewBattery] = useState(90);
   const [newImei, setNewImei] = useState('359018273641029');
   const [newImage, setNewImage] = useState('https://images.unsplash.com/photo-1632661674596-df8be070a5c5?auto=format&fit=crop&w=800&q=80');
+
+  // Bulk CSV Upload & Paste Modal
+  const [showBulkUploadModal, setShowBulkUploadModal] = useState(false);
+  const [showDriveImportModal, setShowDriveImportModal] = useState(false);
+  const [bulkCsvText, setBulkCsvText] = useState('');
+  const [bulkUploadMsg, setBulkUploadMsg] = useState('');
+  const [showGradingGuide, setShowGradingGuide] = useState(false);
 
   // Pricing Rule Editor State
   const [demand250101, setDemand250101] = useState(pricingRules.demandFactors.pincode250101Radius);
@@ -50,8 +58,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
   const handleAddCatalogProduct = (e: React.FormEvent) => {
     e.preventDefault();
-    if (catalog.length >= 50) {
-      alert('Maximum 50 products catalog limit reached! Please remove an existing item before adding.');
+    if (catalog.length >= 100) {
+      alert('Maximum 100 products catalog limit reached! Please remove an existing item before adding.');
       return;
     }
 
@@ -84,6 +92,144 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
     setCatalog([newItem, ...catalog]);
     setShowAddModal(false);
+  };
+
+  const handleDownloadSampleCsv = () => {
+    const csvHeader = "Title,Brand,Model,Storage,Color,OriginalPrice,RefurbPrice,ConditionGrade,BatteryHealth,SerialIMEI,ImageUrl,Description\n";
+    const sampleRows = [
+      'Apple iPhone 14 (128GB) - Blue [Grade A],Apple,iPhone 14,128GB,Blue,69900,48900,Grade A,96,359018273641011,https://images.unsplash.com/photo-1663499482523-1c0c1bae4ce1?auto=format&fit=crop&w=800&q=80,Grade A: Mobile phone under service center warranty with original parts.',
+      'Samsung Galaxy S23 5G (256GB) - Black [Grade A1],Samsung,Galaxy S23,256GB,Phantom Black,74900,42900,Grade A1,94,359018273641022,https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80,Grade A1: New Condition mobile phone with 3-Month ReCell warranty.',
+      'iPhone 13 (128GB) - Starlight [Grade B],Apple,iPhone 13,128GB,Starlight,59900,34900,Grade B,86,359018273641033,https://images.unsplash.com/photo-1632661674596-df8be070a5c5?auto=format&fit=crop&w=800&q=80,Grade B: Minor rough cosmetic condition never repaired with ReCell warranty.',
+      'OnePlus 11R 5G (128GB) - Silver [Grade B1],OnePlus,11R,128GB,Silver,39900,22900,Grade B1,88,359018273641044,https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=800&q=80,Grade B1: Repaired phone (Folder/Jack/Mic replaced) no warranty lowest price.'
+    ].join('\n');
+
+    const blob = new Blob([csvHeader + sampleRows], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'recell_products_template.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const parseAndAddCsvProducts = (rawText: string) => {
+    setBulkUploadMsg('');
+    const lines = rawText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+    if (lines.length === 0) {
+      setBulkUploadMsg('Please paste CSV text or upload a valid CSV file.');
+      return;
+    }
+
+    const newProducts: CatalogProduct[] = [];
+    // Check if line 0 is header
+    const startIndex = lines[0].toLowerCase().startsWith('title') ? 1 : 0;
+
+    for (let i = startIndex; i < lines.length; i++) {
+      const parts = lines[i].split(',').map(p => p.trim().replace(/^["']|["']$/g, ''));
+      if (parts.length < 5) continue;
+
+      const title = parts[0] || 'Refurbished Smartphone';
+      const brand = parts[1] || 'Brand';
+      const model = parts[2] || 'Model';
+      const storage = parts[3] || '128GB';
+      const color = parts[4] || 'Standard';
+      const originalPrice = Number(parts[5]) || 40000;
+      const refurbPrice = Number(parts[6]) || 25000;
+      
+      let rawGrade = parts[7] || 'Grade A1';
+      let conditionGrade: CatalogProduct['conditionGrade'] = 'Grade A1';
+      const lower = rawGrade.toLowerCase();
+      if (lower.includes('grade a1') || lower === 'a1') {
+        conditionGrade = 'Grade A1';
+      } else if (lower.includes('grade a') || lower === 'a') {
+        conditionGrade = 'Grade A';
+      } else if (lower.includes('grade b1') || lower === 'b1') {
+        conditionGrade = 'Grade B1';
+      } else if (lower.includes('grade b') || lower === 'b') {
+        conditionGrade = 'Grade B';
+      } else if (lower.includes('like new')) {
+        conditionGrade = 'Grade A1';
+      } else if (lower.includes('good')) {
+        conditionGrade = 'Grade B';
+      } else if (lower.includes('open box')) {
+        conditionGrade = 'Open Box (5-10 Days)';
+      }
+
+      const batteryHealthPercent = Number(parts[8]) || 88;
+      const serialImei = parts[9] || `3590${Math.floor(10000000000 + Math.random() * 90000000000)}`;
+      const imageUrl = parts[10] && parts[10].startsWith('http') 
+        ? parts[10] 
+        : 'https://images.unsplash.com/photo-1632661674596-df8be070a5c5?auto=format&fit=crop&w=800&q=80';
+      const description = parts[11] || `Certified 55-Point Inspected device. Grade ${conditionGrade}. Includes charger and warranty.`;
+
+      newProducts.push({
+        id: `cat-csv-${Date.now()}-${i}`,
+        title,
+        brand,
+        model,
+        storage,
+        color,
+        originalPrice,
+        refurbPrice,
+        conditionGrade,
+        warrantyMonths: 3,
+        batteryHealthPercent,
+        images: [imageUrl],
+        inStock: true,
+        stockCount: 1,
+        serialImei,
+        inspectionPassed: true,
+        description,
+        boxChargerIncluded: true,
+        specs: {
+          screen: '6.1-inch High Refresh Rate Display',
+          processor: 'High Performance Octa-Core',
+          ram: '6GB / 8GB',
+          camera: 'Pro Multi-Camera System'
+        }
+      });
+    }
+
+    if (newProducts.length === 0) {
+      setBulkUploadMsg('Could not parse any valid product rows. Please check CSV format.');
+      return;
+    }
+
+    setCatalog(prev => [...newProducts, ...prev]);
+    setBulkUploadMsg(`Successfully uploaded ${newProducts.length} product(s) to live store catalog!`);
+    setBulkCsvText('');
+    setTimeout(() => {
+      setShowBulkUploadModal(false);
+      setBulkUploadMsg('');
+    }, 1800);
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const text = event.target?.result as string;
+      if (text) {
+        parseAndAddCsvProducts(text);
+      }
+    };
+    reader.readAsText(file);
+  };
+
+  const handlePhotoFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      if (event.target?.result) {
+        setNewImage(event.target.result as string);
+      }
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleRemoveProduct = (id: string) => {
@@ -163,17 +309,116 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
             <div>
-              <h2 className="text-lg font-bold text-slate-900">Live Refurbished Catalog</h2>
-              <p className="text-xs text-slate-500">Manage up to 50 live items on pan-India storefront</p>
+              <h2 className="text-lg font-bold text-slate-900">Live Refurbished &amp; Open-Box Catalog</h2>
+              <p className="text-xs text-slate-500">Manage up to 100 live items on pan-India storefront</p>
             </div>
 
-            <button
-              onClick={() => setShowAddModal(true)}
-              className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-2.5 rounded-full text-xs flex items-center gap-2 shadow-sm transition-all"
-            >
-              <Plus className="w-4 h-4" />
-              Add Refurbished Product
-            </button>
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                onClick={() => {
+                  if (window.confirm("Are you sure you want to clear all products from the storefront catalog? This will empty the current list.")) {
+                    setCatalog([]);
+                  }
+                }}
+                className="bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold px-3.5 py-2 rounded-full text-xs flex items-center gap-1.5 border border-rose-200 transition-all cursor-pointer"
+                title="Wipe and clean all items currently listed on storefront"
+              >
+                <Trash2 className="w-3.5 h-3.5 text-rose-600" />
+                <span>Clear Catalog ({catalog.length})</span>
+              </button>
+
+              <button
+                onClick={handleDownloadSampleCsv}
+                className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3.5 py-2 rounded-full text-xs flex items-center gap-1.5 border border-slate-200 transition-all cursor-pointer"
+                title="Download sample CSV template for bulk product import"
+              >
+                <Download className="w-3.5 h-3.5 text-slate-500" />
+                <span>CSV Template</span>
+              </button>
+
+              <button
+                onClick={() => setShowDriveImportModal(true)}
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded-full text-xs flex items-center gap-1.5 shadow-sm transition-all cursor-pointer font-heading"
+                title="Directly import mobile phone photos & descriptions from Google Drive"
+              >
+                <Cloud className="w-3.5 h-3.5 text-white" />
+                <span>Import from Google Drive</span>
+              </button>
+
+              <button
+                onClick={() => setShowBulkUploadModal(true)}
+                className="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold px-3.5 py-2 rounded-full text-xs flex items-center gap-1.5 border border-indigo-200 transition-all cursor-pointer"
+              >
+                <Upload className="w-3.5 h-3.5 text-indigo-600" />
+                <span>Bulk CSV Upload</span>
+              </button>
+
+              <button
+                onClick={() => setShowAddModal(true)}
+                className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2 rounded-full text-xs flex items-center gap-2 shadow-sm transition-all cursor-pointer"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Add Product</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Physical & Technical Grading System Explainer Card */}
+          <div className="bg-blue-50/60 border border-blue-200 rounded-2xl p-4 text-xs text-slate-700 space-y-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 font-bold text-blue-900 text-sm font-heading">
+                <ShieldCheck className="w-4 h-4 text-[#0052FF]" />
+                <span>Recell Standardised Physical &amp; Technical Grading Matrix</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowGradingGuide(!showGradingGuide)}
+                className="text-xs text-[#0052FF] font-bold hover:underline cursor-pointer flex items-center gap-1"
+              >
+                <HelpCircle className="w-3.5 h-3.5" />
+                <span>{showGradingGuide ? 'Hide Grading Details' : 'View Full Grading Rules'}</span>
+              </button>
+            </div>
+
+            <p className="text-slate-600">
+              All inventory uploaded is categorized according to strict physical condition (body, screen, back glass) and technical inspection (55-point diagnostic check, original OEM parts, battery health %).
+            </p>
+
+            {showGradingGuide && (
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-3 pt-3 border-t border-blue-200/60 font-medium">
+                <div className="bg-white p-3 rounded-xl border border-blue-100 space-y-1">
+                  <span className="bg-emerald-100 text-emerald-800 text-[10px] font-black px-2 py-0.5 rounded-md uppercase">
+                    Grade A
+                  </span>
+                  <p className="font-bold text-slate-900 text-[11px]">Official Center Warranty</p>
+                  <p className="text-[10px] text-slate-500">Mobile phone under active brand warranty from official service center. 100% original.</p>
+                </div>
+
+                <div className="bg-white p-3 rounded-xl border border-blue-100 space-y-1">
+                  <span className="bg-blue-100 text-blue-800 text-[10px] font-black px-2 py-0.5 rounded-md uppercase">
+                    Grade A1
+                  </span>
+                  <p className="font-bold text-slate-900 text-[11px]">New Condition + ReCell Warranty</p>
+                  <p className="text-[10px] text-slate-500">Like New phone with ReCell warranty. Pristine condition, zero functional or cosmetic issues.</p>
+                </div>
+
+                <div className="bg-white p-3 rounded-xl border border-blue-100 space-y-1">
+                  <span className="bg-amber-100 text-amber-800 text-[10px] font-black px-2 py-0.5 rounded-md uppercase">
+                    Grade B
+                  </span>
+                  <p className="font-bold text-slate-900 text-[11px]">Minor Scuffs + Never Repaired</p>
+                  <p className="text-[10px] text-slate-500">Minor rough cosmetic marks, 100% NEVER REPAIRED, includes ReCell warranty.</p>
+                </div>
+
+                <div className="bg-white p-3 rounded-xl border border-blue-100 space-y-1">
+                  <span className="bg-purple-100 text-purple-800 text-[10px] font-black px-2 py-0.5 rounded-md uppercase">
+                    Grade B1 (Budget)
+                  </span>
+                  <p className="font-bold text-slate-900 text-[11px]">Repaired Parts + No Warranty</p>
+                  <p className="text-[10px] text-slate-500">Repaired phone (Folder screen/jack/mic/speaker replaced). Fully tested, lowest price.</p>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="overflow-x-auto">
@@ -386,11 +631,119 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         </div>
       )}
 
-      {/* Add Product Modal */}
+      {/* Bulk CSV Upload Modal */}
+      {showBulkUploadModal && (
+        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white border border-slate-200 rounded-3xl max-w-2xl w-full p-6 space-y-5 text-xs shadow-2xl text-slate-900">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div className="flex items-center gap-2">
+                <Upload className="w-5 h-5 text-[#0052FF]" />
+                <div>
+                  <h3 className="text-base font-bold text-slate-900 font-heading">Bulk Upload Products (CSV or Paste)</h3>
+                  <p className="text-[11px] text-slate-500">Add multiple devices with physical &amp; technical state grading at once</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowBulkUploadModal(false)}
+                className="p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors"
+              >
+                ✕
+              </button>
+            </div>
+
+            {bulkUploadMsg && (
+              <div className={`p-3.5 rounded-2xl text-xs font-bold flex items-center gap-2 ${
+                bulkUploadMsg.includes('Successfully') 
+                  ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' 
+                  : 'bg-rose-50 text-rose-800 border border-rose-200'
+              }`}>
+                {bulkUploadMsg.includes('Successfully') ? (
+                  <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                ) : (
+                  <Info className="w-4 h-4 text-rose-600 shrink-0" />
+                )}
+                <span>{bulkUploadMsg}</span>
+              </div>
+            )}
+
+            {/* Step 1: Download CSV template */}
+            <div className="p-4 bg-slate-50 border border-slate-200 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div>
+                <p className="font-bold text-slate-900 flex items-center gap-1.5 text-xs">
+                  <FileText className="w-4 h-4 text-[#0052FF]" />
+                  Need the exact CSV format?
+                </p>
+                <p className="text-[11px] text-slate-500 mt-0.5">
+                  Download our pre-formatted spreadsheet template containing sample grades, prices, and IMEI fields.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={handleDownloadSampleCsv}
+                className="bg-white hover:bg-slate-100 text-slate-800 font-bold px-4 py-2 rounded-xl border border-slate-300 text-xs shadow-xs transition-all flex items-center gap-1.5 shrink-0 cursor-pointer"
+              >
+                <Download className="w-3.5 h-3.5 text-[#0052FF]" />
+                <span>Download Sample CSV</span>
+              </button>
+            </div>
+
+            {/* Step 2: Upload CSV File OR Paste Raw CSV */}
+            <div className="space-y-3">
+              <div>
+                <label className="block text-slate-700 font-bold mb-1">Method 1: Upload CSV File</label>
+                <input
+                  type="file"
+                  accept=".csv,.txt"
+                  onChange={handleFileUpload}
+                  className="block w-full text-xs text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-50 file:text-[#0052FF] hover:file:bg-blue-100 border border-slate-200 rounded-2xl p-1 bg-slate-50/50 cursor-pointer"
+                />
+              </div>
+
+              <div className="relative flex py-1 items-center">
+                <div className="flex-grow border-t border-slate-200"></div>
+                <span className="shrink mx-3 text-[10px] uppercase font-mono font-bold text-slate-400">OR PASTE CSV ROWS BELOW</span>
+                <div className="flex-grow border-t border-slate-200"></div>
+              </div>
+
+              <div>
+                <label className="block text-slate-700 font-bold mb-1">Method 2: Paste Raw CSV Data</label>
+                <textarea
+                  rows={5}
+                  value={bulkCsvText}
+                  onChange={(e) => setBulkCsvText(e.target.value)}
+                  placeholder={`Title,Brand,Model,Storage,Color,OriginalPrice,RefurbPrice,ConditionGrade,BatteryHealth,SerialIMEI\niPhone 14,Apple,iPhone 14,128GB,Blue,69900,42900,Like New,96,359018273641011`}
+                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-3 text-xs font-mono text-slate-900 focus:ring-2 focus:ring-[#0052FF] outline-none"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+              <button
+                type="button"
+                onClick={() => setShowBulkUploadModal(false)}
+                className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-bold hover:bg-slate-50 transition-all cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => parseAndAddCsvProducts(bulkCsvText)}
+                disabled={!bulkCsvText.trim()}
+                className="bg-[#0052FF] hover:bg-[#0043CC] disabled:opacity-40 text-white font-bold px-5 py-2.5 rounded-xl text-xs flex items-center gap-2 shadow-md transition-all cursor-pointer font-heading"
+              >
+                <Upload className="w-4 h-4" />
+                <span>Parse &amp; Add Products to Store</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Single Add Product Modal */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white border border-slate-200 rounded-3xl max-w-lg w-full p-6 space-y-4 text-xs shadow-2xl text-slate-900">
-            <h3 className="text-base font-bold text-slate-900">Add Product to Store Catalog (Max 50)</h3>
+            <h3 className="text-base font-bold text-slate-900 font-heading">Add Product to Store Catalog</h3>
             <form onSubmit={handleAddCatalogProduct} className="space-y-3">
               <div>
                 <label className="block text-slate-700 mb-1 font-bold">Title</label>
@@ -448,15 +801,17 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-slate-700 mb-1 font-bold">Condition Grade</label>
+                  <label className="block text-slate-700 mb-1 font-bold">Physical &amp; Tech Grade</label>
                   <select
                     value={newGrade}
                     onChange={(e) => setNewGrade(e.target.value as any)}
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 font-medium"
                   >
-                    <option value="Like New">Like New</option>
-                    <option value="Superb">Superb</option>
-                    <option value="Good">Good</option>
+                    <option value="Grade A">Grade A: Official Service Center Warranty</option>
+                    <option value="Grade A1">Grade A1: New Condition + ReCell Warranty</option>
+                    <option value="Grade B">Grade B: Minor Scuffs (Never Repaired) + ReCell Warranty</option>
+                    <option value="Grade B1">Grade B1: Repaired Phone (Folder/Jack/Mic) - No Warranty</option>
+                    <option value="Open Box (5-10 Days)">Open Box (5-10 Days Demo Unit)</option>
                   </select>
                 </div>
                 <div>
@@ -481,6 +836,30 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 />
               </div>
 
+              <div>
+                <label className="block text-slate-700 mb-1 font-bold">Product Photo (URL or Upload Image File)</label>
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="text"
+                    value={newImage}
+                    onChange={(e) => setNewImage(e.target.value)}
+                    placeholder="https://... image link or select file"
+                    className="flex-1 bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 font-mono text-xs"
+                  />
+                  <label className="bg-indigo-50 hover:bg-indigo-100 text-[#0052FF] font-bold px-3.5 py-2.5 rounded-xl border border-indigo-200 cursor-pointer shrink-0 text-xs flex items-center gap-1.5 transition-colors">
+                    <Upload className="w-3.5 h-3.5" />
+                    <span>Upload File</span>
+                    <input type="file" accept="image/*" onChange={handlePhotoFileUpload} className="hidden" />
+                  </label>
+                </div>
+                {newImage && (
+                  <div className="mt-2 flex items-center gap-2 bg-slate-50 p-2 rounded-xl border border-slate-200">
+                    <img src={newImage} alt="Preview" className="w-10 h-10 rounded-lg object-cover border border-slate-200" />
+                    <span className="text-[11px] text-slate-600 font-medium truncate">Product photo loaded &amp; ready</span>
+                  </div>
+                )}
+              </div>
+
               <div className="flex justify-end gap-2 pt-2">
                 <button
                   type="button"
@@ -491,7 +870,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 </button>
                 <button
                   type="submit"
-                  className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2 rounded-full"
+                  className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2 rounded-full font-heading cursor-pointer"
                 >
                   Add to Store Catalog
                 </button>
@@ -500,6 +879,16 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           </div>
         </div>
       )}
+
+      {/* Google Drive Direct Importer Modal */}
+      <GoogleDriveImportModal
+        isOpen={showDriveImportModal}
+        onClose={() => setShowDriveImportModal(false)}
+        onImportProducts={(importedProducts) => {
+          setCatalog(prev => [...importedProducts, ...prev]);
+          alert(`Successfully imported ${importedProducts.length} mobile phone photos & listings from Google Drive!`);
+        }}
+      />
     </div>
   );
 };

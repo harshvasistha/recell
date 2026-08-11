@@ -22,6 +22,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 }) => {
   const [authMethod, setAuthMethod] = useState<'phone' | 'email'>('phone');
   const [mode, setMode] = useState<'signup' | 'signin'>('signup');
+  const [step, setStep] = useState<'form' | 'otp'>('form');
 
   // Form Fields
   const [fullName, setFullName] = useState('');
@@ -29,6 +30,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [pincode, setPincode] = useState('');
+  const [otpInput, setOtpInput] = useState('520055');
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
@@ -41,6 +43,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     setEmail('');
     setPassword('');
     setPincode('');
+    setOtpInput('520055');
+    setStep('form');
     setErrorMsg('');
   };
 
@@ -49,7 +53,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     onClose();
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSendOtpStep = (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg('');
 
@@ -59,16 +63,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       return;
     }
 
-    if (authMethod === 'phone') {
-      if (!phone || phone.trim().length < 10) {
-        setErrorMsg('Please enter a valid 10-digit mobile number.');
-        return;
-      }
-    } else {
-      if (!email || !email.includes('@')) {
-        setErrorMsg('Please enter a valid email address.');
-        return;
-      }
+    const cleanPhone = phone.replace(/\D/g, '');
+    if (!phone || cleanPhone.length < 10) {
+      setErrorMsg('Mandatory: Please enter a valid 10-digit mobile number.');
+      return;
     }
 
     if (!password || password.length < 4) {
@@ -76,18 +74,36 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       return;
     }
 
+    if (mode === 'signup' && step === 'form') {
+      setIsSubmitting(true);
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setStep('otp');
+      }, 500);
+      return;
+    }
+
+    // Direct Sign In or Verify OTP
+    handleVerifyAndComplete();
+  };
+
+  const handleVerifyAndComplete = async () => {
+    if (step === 'otp' && otpInput.trim().length !== 6) {
+      setErrorMsg('Please enter the 6-digit OTP code sent to your mobile.');
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      const userDisplayName = fullName.trim() || (authMethod === 'phone' ? `User ${phone.slice(-4)}` : email.split('@')[0]);
+      const cleanPhone = phone.replace(/\D/g, '');
+      const userDisplayName = fullName.trim() || `User ${cleanPhone.slice(-4)}`;
 
       const userProfileData = {
-        uid: authMethod === 'phone' 
-          ? `USR-${phone.replace(/\D/g, '') || Date.now()}` 
-          : `USR-EML-${Date.now()}`,
+        uid: `USR-${cleanPhone || Date.now()}`,
         name: userDisplayName,
-        phone: phone.trim() || '+91 98765 00000',
-        email: email.trim() || `${phone.replace(/\D/g, '') || 'user'}@recell.in`,
+        phone: phone.trim().startsWith('+91') ? phone.trim() : `+91 ${phone.trim()}`,
+        email: email.trim() || `${cleanPhone || 'user'}@recell.in`,
         pincode: pincode.trim() || '250101',
         role: 'customer' as const,
         createdAt: new Date().toISOString()
@@ -108,7 +124,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     } catch (err) {
       console.error('Auth error:', err);
       setIsSubmitting(false);
-      setErrorMsg('Authentication failed. Please try again.');
+      setErrorMsg('Failed to create account. Please check your connection.');
     }
   };
 
@@ -264,29 +280,89 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Full Name field (Sign Up only) */}
-                {mode === 'signup' && (
+              {step === 'otp' ? (
+                /* OTP STEP VIEW */
+                <div className="space-y-4">
+                  <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-center space-y-1">
+                    <span className="bg-emerald-500 text-white font-black text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                      SMS SENT
+                    </span>
+                    <h4 className="font-heading font-black text-sm text-slate-900 pt-1">
+                      Verify Your Mobile Number
+                    </h4>
+                    <p className="text-xs text-slate-600">
+                      We dispatched a 6-digit verification code to <strong className="font-mono text-emerald-700">{phone}</strong>
+                    </p>
+                  </div>
+
                   <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">Full Name</label>
+                    <label className="text-xs font-bold text-slate-700 block mb-1">Enter 6-Digit SMS OTP</label>
                     <div className="relative">
-                      <User className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                      <Lock className="w-4 h-4 text-emerald-600 absolute left-3 top-1/2 -translate-y-1/2" />
                       <input
                         type="text"
+                        maxLength={6}
                         required
-                        placeholder="e.g. Rahul Sharma"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                        className="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-[#0052FF] focus:bg-white outline-none text-slate-900 font-medium"
+                        value={otpInput}
+                        onChange={(e) => setOtpInput(e.target.value)}
+                        className="w-full pl-9 pr-4 py-3 bg-slate-50 border-2 border-emerald-300 rounded-xl text-center font-mono font-black text-lg tracking-widest text-slate-900 focus:ring-2 focus:ring-emerald-500 outline-none"
                       />
                     </div>
+                    <p className="text-[10px] text-slate-400 mt-1 text-center font-medium">
+                      Demo OTP code <span className="font-mono font-bold text-emerald-600">520055</span> auto-filled for fast testing.
+                    </p>
                   </div>
-                )}
 
-                {/* Primary Field: Phone or Email */}
-                {authMethod === 'phone' ? (
+                  <button
+                    type="button"
+                    onClick={handleVerifyAndComplete}
+                    disabled={isSubmitting}
+                    className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-black py-3.5 rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg cursor-pointer transition-all font-heading"
+                  >
+                    {isSubmitting ? (
+                      'Verifying OTP...'
+                    ) : (
+                      <>
+                        <span>Verify OTP &amp; Redirect to Dashboard</span>
+                        <CheckCircle2 className="w-4 h-4" />
+                      </>
+                    )}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setStep('form')}
+                    className="w-full text-center text-xs text-slate-500 hover:text-slate-800 font-bold underline cursor-pointer"
+                  >
+                    &larr; Change Mobile Number ({phone})
+                  </button>
+                </div>
+              ) : (
+                /* INITIAL DETAILS FORM VIEW */
+                <form onSubmit={handleSendOtpStep} className="space-y-4">
+                  {/* Full Name field (Sign Up only) */}
+                  {mode === 'signup' && (
+                    <div>
+                      <label className="text-xs font-bold text-slate-700 block mb-1">Full Name</label>
+                      <div className="relative">
+                        <User className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                        <input
+                          type="text"
+                          required
+                          placeholder="e.g. Rahul Sharma"
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
+                          className="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-[#0052FF] focus:bg-white outline-none text-slate-900 font-medium"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Mandatory Phone Field */}
                   <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">Mobile Number</label>
+                    <label className="text-xs font-bold text-slate-700 block mb-1">
+                      Mobile Number <span className="text-rose-500 font-black">* (Mandatory for OTP)</span>
+                    </label>
                     <div className="relative">
                       <Smartphone className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                       <input
@@ -296,61 +372,32 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                         placeholder="+91 98765 43210"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
-                        className="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono focus:ring-2 focus:ring-[#0052FF] focus:bg-white outline-none text-slate-900"
+                        className="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono focus:ring-2 focus:ring-[#0052FF] focus:bg-white outline-none text-slate-900 font-bold"
                       />
                     </div>
                   </div>
-                ) : (
+
+                  {/* Password field */}
                   <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">Email Address</label>
+                    <label className="text-xs font-bold text-slate-700 block mb-1">Password</label>
                     <div className="relative">
-                      <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                      <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                       <input
-                        type="email"
+                        type="password"
                         required
-                        placeholder="name@example.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        minLength={4}
+                        placeholder="Enter account password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         className="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-[#0052FF] focus:bg-white outline-none text-slate-900"
                       />
                     </div>
                   </div>
-                )}
 
-                {/* Password field */}
-                <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">Password</label>
-                  <div className="relative">
-                    <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                    <input
-                      type="password"
-                      required
-                      minLength={4}
-                      placeholder="Enter your password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-[#0052FF] focus:bg-white outline-none text-slate-900"
-                    />
-                  </div>
-                </div>
-
-                {/* Optional Fields on Sign Up */}
-                {mode === 'signup' && (
-                  <div className="grid grid-cols-2 gap-3">
-                    {authMethod === 'email' && (
-                      <div>
-                        <label className="text-xs font-bold text-slate-700 block mb-1">Mobile (Optional)</label>
-                        <input
-                          type="tel"
-                          placeholder="+91 98765 00000"
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                          className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-[#0052FF] outline-none text-slate-900 font-mono"
-                        />
-                      </div>
-                    )}
-                    <div className={authMethod === 'phone' ? 'col-span-2' : ''}>
-                      <label className="text-xs font-bold text-slate-700 block mb-1">Pincode (Optional)</label>
+                  {/* Optional Pincode Field on Sign Up */}
+                  {mode === 'signup' && (
+                    <div>
+                      <label className="text-xs font-bold text-slate-700 block mb-1">Delivery Pincode (Optional)</label>
                       <input
                         type="text"
                         maxLength={6}
@@ -360,29 +407,29 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                         className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-[#0052FF] outline-none font-mono text-slate-900"
                       />
                     </div>
-                  </div>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-[#0052FF] hover:bg-[#0043CC] text-white font-bold py-3.5 rounded-xl text-xs flex items-center justify-center gap-2 shadow-md cursor-pointer transition-all mt-2 disabled:opacity-50 font-heading"
-                >
-                  {isSubmitting ? (
-                    'Processing...'
-                  ) : mode === 'signup' ? (
-                    <>
-                      <span>Create Account &amp; Log In</span>
-                      <CheckCircle2 className="w-4 h-4" />
-                    </>
-                  ) : (
-                    <>
-                      <span>Sign In to Dashboard</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </>
                   )}
-                </button>
-              </form>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-[#0052FF] hover:bg-[#0043CC] text-white font-bold py-3.5 rounded-xl text-xs flex items-center justify-center gap-2 shadow-md cursor-pointer transition-all mt-2 disabled:opacity-50 font-heading"
+                  >
+                    {isSubmitting ? (
+                      'Processing...'
+                    ) : mode === 'signup' ? (
+                      <>
+                        <span>Send SMS OTP &amp; Register</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </>
+                    ) : (
+                      <>
+                        <span>Sign In to Dashboard</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </>
+                    )}
+                  </button>
+                </form>
+              )}
 
               {/* Toggle Mode */}
               <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">

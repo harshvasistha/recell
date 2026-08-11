@@ -19,15 +19,17 @@ export const Storefront: React.FC<StorefrontProps> = ({
 }) => {
   const [selectedBrand, setSelectedBrand] = useState<string>('All');
   const [selectedCondition, setSelectedCondition] = useState<string>('All');
+  const [isOpenBoxOnly, setIsOpenBoxOnly] = useState<boolean>(false);
   const [sortBy, setSortBy] = useState<'featured' | 'price_low' | 'price_high' | 'battery'>('featured');
 
   const filteredProducts = catalog.filter(p => {
     const matchesBrand = selectedBrand === 'All' || p.brand.toLowerCase() === selectedBrand.toLowerCase();
     const matchesCondition = selectedCondition === 'All' || p.conditionGrade === selectedCondition;
+    const matchesOpenBox = !isOpenBoxOnly || p.isOpenBox || p.category === 'Open Box Chargers' || p.title.toLowerCase().includes('open box') || p.title.toLowerCase().includes('charger');
     const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           p.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           p.model.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesBrand && matchesCondition && matchesSearch;
+    return matchesBrand && matchesCondition && matchesOpenBox && matchesSearch;
   }).sort((a, b) => {
     if (sortBy === 'price_low') return a.refurbPrice - b.refurbPrice;
     if (sortBy === 'price_high') return b.refurbPrice - a.refurbPrice;
@@ -36,7 +38,7 @@ export const Storefront: React.FC<StorefrontProps> = ({
   });
 
   const brands = ['All', 'Apple', 'Samsung', 'OnePlus', 'Google', 'Xiaomi'];
-  const conditions = ['All', 'Like New', 'Superb', 'Good'];
+  const conditions = ['All', 'Grade A', 'Grade A1', 'Grade B', 'Grade B1', 'Open Box (5-10 Days)', 'Like New', 'Superb', 'Good'];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
@@ -134,9 +136,12 @@ export const Storefront: React.FC<StorefrontProps> = ({
           {brands.map(b => (
             <button
               key={b}
-              onClick={() => setSelectedBrand(b)}
+              onClick={() => {
+                setSelectedBrand(b);
+                setIsOpenBoxOnly(false);
+              }}
               className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
-                selectedBrand === b
+                selectedBrand === b && !isOpenBoxOnly
                   ? 'bg-slate-900 text-white shadow-sm'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
@@ -144,6 +149,19 @@ export const Storefront: React.FC<StorefrontProps> = ({
               {b}
             </button>
           ))}
+
+          {/* Highlighted Open Box Category Filter */}
+          <button
+            onClick={() => setIsOpenBoxOnly(!isOpenBoxOnly)}
+            className={`px-4 py-1.5 rounded-full text-xs font-black transition-all flex items-center gap-1.5 border-2 ${
+              isOpenBoxOnly
+                ? 'bg-amber-500 text-slate-950 border-amber-300 shadow-md scale-105'
+                : 'bg-amber-100/80 text-amber-900 border-amber-300/80 hover:bg-amber-200'
+            }`}
+          >
+            <Zap className="w-3.5 h-3.5 text-slate-950 fill-amber-300" />
+            <span>⚡ Open Box Chargers &amp; Tech</span>
+          </button>
         </div>
 
         {/* Condition Grade and Sorting */}
@@ -221,12 +239,18 @@ export const Storefront: React.FC<StorefrontProps> = ({
 
                   {/* Condition Grade Pill */}
                   <div className="absolute top-3 right-3 z-10">
-                    <span className={`text-[10px] font-bold px-3 py-0.5 rounded-full shadow-sm ${
-                      product.conditionGrade === 'Like New'
+                    <span className={`text-[10px] font-black px-3 py-1 rounded-full shadow-md font-heading ${
+                      product.conditionGrade === 'Grade A'
+                        ? 'bg-emerald-600 text-white border border-emerald-400'
+                        : product.conditionGrade === 'Grade A1'
+                        ? 'bg-[#0052FF] text-white border border-blue-400'
+                        : product.conditionGrade === 'Grade B'
+                        ? 'bg-amber-500 text-slate-950 font-bold border border-amber-300'
+                        : product.conditionGrade === 'Grade B1'
+                        ? 'bg-purple-700 text-white border border-purple-400'
+                        : product.conditionGrade === 'Like New' || product.conditionGrade === 'Open Box (5-10 Days)'
                         ? 'bg-indigo-600 text-white'
-                        : product.conditionGrade === 'Superb'
-                        ? 'bg-slate-900 text-white'
-                        : 'bg-emerald-600 text-white'
+                        : 'bg-slate-900 text-white'
                     }`}>
                       {product.conditionGrade}
                     </span>

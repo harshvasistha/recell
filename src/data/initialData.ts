@@ -38,6 +38,15 @@ export const SEED_DEVICE_MODELS: DeviceModel[] = [
   { id: 'm-ap-11pro', brand: 'Apple', name: 'iPhone 11 Pro', variant: '128GB', baseMarketPrice: 27000, imageUrl: 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80', releaseYear: 2020 },
   { id: 'm-ap-11', brand: 'Apple', name: 'iPhone 11', variant: '128GB', baseMarketPrice: 21000, imageUrl: 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80', releaseYear: 2020, popular: true },
   { id: 'm-ap-se3', brand: 'Apple', name: 'iPhone SE (3rd Gen 2022)', variant: '128GB', baseMarketPrice: 19500, imageUrl: 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80', releaseYear: 2022 },
+  { id: 'm-ap-se2', brand: 'Apple', name: 'iPhone SE (2nd Gen 2020)', variant: '64GB / 128GB', baseMarketPrice: 13500, imageUrl: 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80', releaseYear: 2020 },
+  
+  { id: 'm-ap-xsmax', brand: 'Apple', name: 'iPhone XS Max', variant: '64GB / 256GB', baseMarketPrice: 22000, imageUrl: 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80', releaseYear: 2018 },
+  { id: 'm-ap-xs', brand: 'Apple', name: 'iPhone XS', variant: '64GB / 256GB', baseMarketPrice: 18500, imageUrl: 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80', releaseYear: 2018 },
+  { id: 'm-ap-xr', brand: 'Apple', name: 'iPhone XR', variant: '64GB / 128GB', baseMarketPrice: 16000, imageUrl: 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80', releaseYear: 2018, popular: true },
+  
+  { id: 'm-ap-x', brand: 'Apple', name: 'iPhone X', variant: '64GB / 256GB', baseMarketPrice: 15000, imageUrl: 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80', releaseYear: 2017 },
+  { id: 'm-ap-8p', brand: 'Apple', name: 'iPhone 8 Plus', variant: '64GB / 256GB', baseMarketPrice: 12500, imageUrl: 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80', releaseYear: 2017 },
+  { id: 'm-ap-8', brand: 'Apple', name: 'iPhone 8', variant: '64GB / 128GB', baseMarketPrice: 10500, imageUrl: 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80', releaseYear: 2017 },
 
   // SAMSUNG (S SERIES, Z FOLD/FLIP, A SERIES, M SERIES)
   { id: 'm-sam-s26u', brand: 'Samsung', name: 'Galaxy S26 Ultra 5G', variant: '256GB / 512GB', baseMarketPrice: 110000, imageUrl: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80', releaseYear: 2026, popular: true },
@@ -216,296 +225,189 @@ export const DEFAULT_PRICING_RULES: PricingRules = {
 
 export const SEED_CATALOG: CatalogProduct[] = [
   {
-    id: 'cat-1',
-    title: 'Apple iPhone 14 (128GB) - Midnight',
+    id: 'chg-app-20w',
+    title: 'Apple Original 20W USB-C Power Adapter (Open Box)',
     brand: 'Apple',
-    model: 'iPhone 14',
-    storage: '128GB',
-    color: 'Midnight Black',
-    originalPrice: 69900,
-    refurbPrice: 48999,
-    conditionGrade: 'Superb',
-    warrantyMonths: 3,
-    batteryHealthPercent: 91,
-    images: [
-      'https://images.unsplash.com/photo-1663499482523-1c0c1bae4ce1?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80'
-    ],
-    inStock: true,
-    stockCount: 1,
-    serialImei: '358921104829102',
-    inspectionPassed: true,
-    description: 'Certified 55-point inspected. Zero visible scratches on screen, minor hair-line mark on camera ring. Original battery health at 91%. Comes with Recell 3-Month warranty card and high-speed braided USB-C cable.',
-    boxChargerIncluded: true,
-    specs: {
-      screen: '6.1-inch Super Retina XDR OLED',
-      processor: 'A15 Bionic chip',
-      ram: '6GB RAM',
-      camera: 'Dual 12MP System with Photonic Engine'
-    }
-  },
-  {
-    id: 'cat-2',
-    title: 'Samsung Galaxy S23 Ultra 5G (256GB) - Green',
-    brand: 'Samsung',
-    model: 'Galaxy S23 Ultra',
-    storage: '256GB',
-    color: 'Botanic Green',
-    originalPrice: 124999,
-    refurbPrice: 68500,
-    conditionGrade: 'Like New',
-    warrantyMonths: 3,
-    batteryHealthPercent: 95,
-    images: [
-      'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80'
-    ],
-    inStock: true,
-    stockCount: 1,
-    serialImei: '357102948201948',
-    inspectionPassed: true,
-    description: 'Mint condition S23 Ultra with S-Pen intact. Pristine AMOLED 120Hz display with zero burn-in. Includes original Samsung 25W fast charger & box.',
-    boxChargerIncluded: true,
-    specs: {
-      screen: '6.8-inch Dynamic AMOLED 2X 120Hz',
-      processor: 'Snapdragon 8 Gen 2 for Galaxy',
-      ram: '12GB RAM',
-      camera: '200MP Quad Camera with 100x Space Zoom'
-    }
-  },
-  {
-    id: 'cat-3',
-    title: 'Apple iPhone 13 (128GB) - Starlight',
-    brand: 'Apple',
-    model: 'iPhone 13',
-    storage: '128GB',
-    color: 'Starlight White',
-    originalPrice: 59900,
-    refurbPrice: 38499,
-    conditionGrade: 'Good',
-    warrantyMonths: 3,
-    batteryHealthPercent: 86,
-    images: [
-      'https://images.unsplash.com/photo-1632661674596-df8be070a5c5?auto=format&fit=crop&w=800&q=80'
-    ],
-    inStock: true,
-    stockCount: 1,
-    serialImei: '351029384756102',
-    inspectionPassed: true,
-    description: 'Fully functional, tested and certified. Tiny paint chip on bottom edge, screen is 100% scratch-free under tempered glass. Battery checked & optimized.',
-    boxChargerIncluded: false,
-    specs: {
-      screen: '6.1-inch Super Retina XDR',
-      processor: 'A15 Bionic chip',
-      ram: '4GB RAM',
-      camera: '12MP Dual Camera with Cinematic mode'
-    }
-  },
-  {
-    id: 'cat-4',
-    title: 'OnePlus 11 5G (256GB) - Titan Black',
-    brand: 'OnePlus',
-    model: 'OnePlus 11 5G',
-    storage: '256GB',
-    color: 'Titan Black',
-    originalPrice: 61999,
-    refurbPrice: 34999,
-    conditionGrade: 'Superb',
-    warrantyMonths: 3,
-    batteryHealthPercent: 93,
-    images: [
-      'https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=800&q=80'
-    ],
-    inStock: true,
-    stockCount: 1,
-    serialImei: '864920194830192',
-    inspectionPassed: true,
-    description: 'Blazing fast Snapdragon 8 Gen 2 performer. Includes original 100W SuperVOOC charger for 0-100% in 25 mins. Hasselblad camera tuned.',
-    boxChargerIncluded: true,
-    specs: {
-      screen: '6.7-inch 2K 120Hz Fluid AMOLED',
-      processor: 'Snapdragon 8 Gen 2',
-      ram: '16GB RAM',
-      camera: '50MP Hasselblad Triple Camera'
-    }
-  },
-  {
-    id: 'cat-5',
-    title: 'Google Pixel 7a 5G (128GB) - Sea Blue',
-    brand: 'Google',
-    model: 'Pixel 7a 5G',
-    storage: '128GB',
-    color: 'Sea Light Blue',
-    originalPrice: 43999,
-    refurbPrice: 23999,
-    conditionGrade: 'Superb',
-    warrantyMonths: 3,
-    batteryHealthPercent: 90,
-    images: [
-      'https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=80'
-    ],
-    inStock: true,
-    stockCount: 1,
-    serialImei: '354091827364102',
-    inspectionPassed: true,
-    description: 'Clean Android experience with computational photography brilliance. Tested & verified battery and wireless charging module.',
-    boxChargerIncluded: true,
-    specs: {
-      screen: '6.1-inch 90Hz OLED',
-      processor: 'Google Tensor G2',
-      ram: '8GB RAM',
-      camera: '64MP Main + 13MP Ultrawide with Magic Eraser'
-    }
-  },
-  {
-    id: 'cat-6',
-    title: 'Redmi Note 13 Pro 5G (256GB) - Coral Purple',
-    brand: 'Xiaomi',
-    model: 'Redmi Note 13 Pro 5G',
-    storage: '256GB',
-    color: 'Coral Purple',
-    originalPrice: 28999,
-    refurbPrice: 16800,
-    conditionGrade: 'Like New',
-    warrantyMonths: 3,
-    batteryHealthPercent: 97,
-    images: [
-      'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80'
-    ],
-    inStock: true,
-    stockCount: 1,
-    serialImei: '862049182730192',
-    inspectionPassed: true,
-    description: '200MP OIS Camera with 1.5K 120Hz curved AMOLED. Barely used device bought in 2024, traded in for iPhone upgrade.',
-    boxChargerIncluded: true,
-    specs: {
-      screen: '6.67-inch 1.5K AMOLED 120Hz',
-      processor: 'Snapdragon 7s Gen 2',
-      ram: '8GB RAM',
-      camera: '200MP OIS Ultra-Clear Camera'
-    }
-  },
-  {
-    id: 'cat-ob-1',
-    title: 'Apple iPhone 15 Pro Max (256GB) - Natural Titanium [Open Box 6 Days Old]',
-    brand: 'Apple',
-    model: 'iPhone 15 Pro Max',
-    storage: '256GB',
-    color: 'Natural Titanium',
-    originalPrice: 159900,
-    refurbPrice: 104999,
+    model: '20W USB-C Charger',
+    storage: 'Universal',
+    color: 'White',
+    originalPrice: 1900,
+    refurbPrice: 1199,
     conditionGrade: 'Open Box (5-10 Days)',
-    warrantyMonths: 11,
+    warrantyMonths: 6,
     batteryHealthPercent: 100,
     images: [
-      'https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80'
+      'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=80'
     ],
     inStock: true,
-    stockCount: 2,
-    serialImei: '359012849201948',
+    stockCount: 15,
+    serialImei: 'CHG-APP-20W-9081',
     inspectionPassed: true,
-    description: 'Open Box Delivery Mobile — only 6 days old! Customer unboxed and preferred Android. 100% brand new condition, zero scratches, 100% battery health. Comes with original Apple seal box, bill, C-to-C braided cable, and 11 Months Official Apple India Warranty.',
+    description: '100% Genuine Apple 20W Fast Charging Adapter in Open Box condition (7 days customer return). Ideal for iPhone 12, 13, 14, 15, 16 series. Tested for voltage and safety standard.',
     boxChargerIncluded: true,
     isOpenBox: true,
     openBoxAgeDays: 6,
-    brandWarrantyMonths: 11,
+    brandWarrantyMonths: 6,
     specs: {
-      screen: '6.7-inch Super Retina XDR OLED 120Hz ProMotion',
-      processor: 'A17 Pro Chip (3nm)',
-      ram: '8GB RAM',
-      camera: '48MP Main + 5x Telephoto + 12MP Ultrawide'
+      screen: '20W USB Power Delivery',
+      processor: 'Smart Thermal Cutoff IC',
+      ram: 'Type-C Output Port',
+      camera: 'BIS Certified India Plug'
     }
   },
   {
-    id: 'cat-ob-2',
-    title: 'Samsung Galaxy S24 Ultra 5G (256GB) - Titanium Gray [Open Box 8 Days Old]',
+    id: 'chg-sam-25w',
+    title: 'Samsung Original 25W Super Fast Charger (Open Box)',
     brand: 'Samsung',
-    model: 'Galaxy S24 Ultra',
-    storage: '256GB',
-    color: 'Titanium Gray',
-    originalPrice: 129999,
-    refurbPrice: 82500,
+    model: '25W USB-C Super Fast Charger',
+    storage: 'Universal',
+    color: 'Black',
+    originalPrice: 1699,
+    refurbPrice: 899,
     conditionGrade: 'Open Box (5-10 Days)',
-    warrantyMonths: 11,
+    warrantyMonths: 6,
     batteryHealthPercent: 100,
     images: [
-      'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80'
+      'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=80'
     ],
     inStock: true,
-    stockCount: 1,
-    serialImei: '358102948102938',
+    stockCount: 20,
+    serialImei: 'CHG-SAM-25W-1092',
     inspectionPassed: true,
-    description: 'Open Box Delivery Smartphone — 8 days old! Unopened accessories, S-Pen unused, Galaxy AI unlocked. Includes original tax invoice with 11 Months Samsung Official Warranty.',
-    boxChargerIncluded: true,
-    isOpenBox: true,
-    openBoxAgeDays: 8,
-    brandWarrantyMonths: 11,
-    specs: {
-      screen: '6.8-inch Dynamic AMOLED 2X 2600 nits Peak',
-      processor: 'Snapdragon 8 Gen 3 for Galaxy',
-      ram: '12GB RAM',
-      camera: '200MP Quad Camera with Galaxy AI'
-    }
-  },
-  {
-    id: 'cat-ob-3',
-    title: 'OnePlus 12 5G (256GB) - Silky Black [Open Box 5 Days Old]',
-    brand: 'OnePlus',
-    model: 'OnePlus 12 5G',
-    storage: '256GB',
-    color: 'Silky Black',
-    originalPrice: 64999,
-    refurbPrice: 46999,
-    conditionGrade: 'Open Box (5-10 Days)',
-    warrantyMonths: 11,
-    batteryHealthPercent: 100,
-    images: [
-      'https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=800&q=80'
-    ],
-    inStock: true,
-    stockCount: 2,
-    serialImei: '869018273641029',
-    inspectionPassed: true,
-    description: 'Open Box Delivery Mobile — 5 days old! Zero usage marks, 100W SuperVOOC charger in pristine plastic wrapping. Full 11.5 months OnePlus India warranty.',
+    description: 'Original Samsung 25W Type-C Super Fast Charger. Open box unit with official brand warranty. Supports PPS technology for Galaxy S, A, M series.',
     boxChargerIncluded: true,
     isOpenBox: true,
     openBoxAgeDays: 5,
-    brandWarrantyMonths: 11,
+    brandWarrantyMonths: 6,
     specs: {
-      screen: '6.82-inch 2K 120Hz ProXDR Display',
-      processor: 'Snapdragon 8 Gen 3',
-      ram: '12GB RAM',
-      camera: '50MP Sony LYT-808 + 64MP Periscope'
+      screen: '25W USB-C PPS Super Fast',
+      processor: 'Power Delivery 3.0',
+      ram: 'Type-C Port',
+      camera: 'Original Retail Box'
     }
   },
   {
-    id: 'cat-ob-4',
-    title: 'Google Pixel 8a 5G (128GB) - Aloe Green [Open Box 7 Days Old]',
-    brand: 'Google',
-    model: 'Pixel 8a 5G',
+    id: 'chg-sam-45w',
+    title: 'Samsung 45W Super Fast Charger 2.0 with C-to-C Cable (Open Box)',
+    brand: 'Samsung',
+    model: '45W Super Fast Charger 2.0',
+    storage: 'Universal',
+    color: 'Black',
+    originalPrice: 2999,
+    refurbPrice: 1499,
+    conditionGrade: 'Open Box (5-10 Days)',
+    warrantyMonths: 10,
+    batteryHealthPercent: 100,
+    images: [
+      'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=80'
+    ],
+    inStock: true,
+    stockCount: 12,
+    serialImei: 'CHG-SAM-45W-8871',
+    inspectionPassed: true,
+    description: 'Ultra-fast 45W Samsung Adapter with 5A Type-C braided cable. Open Box (8 days old) with 10 months remaining official Samsung warranty. Charges S23/S24/S25 Ultra in 45 mins.',
+    boxChargerIncluded: true,
+    isOpenBox: true,
+    openBoxAgeDays: 8,
+    brandWarrantyMonths: 10,
+    specs: {
+      screen: '45W Ultra Fast PPS 2.0',
+      processor: '5A Braided Type-C Cable',
+      ram: '5A Heavy Duty Rating',
+      camera: 'Full Box Packaging'
+    }
+  },
+  {
+    id: 'chg-op-80w',
+    title: 'OnePlus SUPERVOOC 80W Power Adapter (Open Box)',
+    brand: 'OnePlus',
+    model: '80W SUPERVOOC Fast Charger',
+    storage: 'Universal',
+    color: 'White',
+    originalPrice: 2499,
+    refurbPrice: 1299,
+    conditionGrade: 'Open Box (5-10 Days)',
+    warrantyMonths: 8,
+    batteryHealthPercent: 100,
+    images: [
+      'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=80'
+    ],
+    inStock: true,
+    stockCount: 10,
+    serialImei: 'CHG-OP-80W-7712',
+    inspectionPassed: true,
+    description: 'Genuine OnePlus 80W SUPERVOOC Power Adapter in pristine Open Box condition. Charges OnePlus 10, 11, 12, Nord 3/4 to 100% in under 30 minutes.',
+    boxChargerIncluded: true,
+    isOpenBox: true,
+    openBoxAgeDays: 7,
+    brandWarrantyMonths: 8,
+    specs: {
+      screen: '80W SUPERVOOC Flash Charge',
+      processor: 'Dual Chip Safety Management',
+      ram: 'Red Signature Type-A/C Port',
+      camera: 'BIS Certified'
+    }
+  },
+  {
+    id: 'chg-xi-67w',
+    title: 'Xiaomi SonicCharge 67W Turbo Charger with 6A Cable (Open Box)',
+    brand: 'Xiaomi',
+    model: '67W Turbo Fast Charger',
+    storage: 'Universal',
+    color: 'White',
+    originalPrice: 1999,
+    refurbPrice: 999,
+    conditionGrade: 'Open Box (5-10 Days)',
+    warrantyMonths: 6,
+    batteryHealthPercent: 100,
+    images: [
+      'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=80'
+    ],
+    inStock: true,
+    stockCount: 14,
+    serialImei: 'CHG-XI-67W-4412',
+    inspectionPassed: true,
+    description: 'Original Mi / Xiaomi 67W SonicCharge adapter in Open Box condition. Includes 6A Type-C orange pin heavy-duty cable for Redmi Note series & Xiaomi flagships.',
+    boxChargerIncluded: true,
+    isOpenBox: true,
+    openBoxAgeDays: 6,
+    brandWarrantyMonths: 6,
+    specs: {
+      screen: '67W Turbo SonicCharge',
+      processor: '6A High-Current Cable',
+      ram: 'Type-A to Type-C',
+      camera: 'Over-voltage Protection'
+    }
+  },
+  {
+    id: 'p-ob-ip15pro',
+    title: 'iPhone 15 Pro (128GB) - Open Box (7 Days Old)',
+    brand: 'Apple',
+    model: 'iPhone 15 Pro',
     storage: '128GB',
-    color: 'Aloe Green',
-    originalPrice: 52999,
-    refurbPrice: 33500,
+    color: 'Natural Titanium',
+    originalPrice: 134900,
+    refurbPrice: 89900,
     conditionGrade: 'Open Box (5-10 Days)',
     warrantyMonths: 11,
     batteryHealthPercent: 100,
     images: [
-      'https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=80'
+      'https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80'
     ],
     inStock: true,
-    stockCount: 1,
-    serialImei: '354091827301928',
+    stockCount: 2,
+    serialImei: '354890112849102',
     inspectionPassed: true,
-    description: 'Open Box Delivery Mobile — 7 days old! Fresh out of box for display video recording. 100% brand original, Tensor G3 processor, original cable & Quick Switch Adapter included.',
+    description: 'Open Box iPhone 15 Pro (7 days customer seal open). 100% Battery health, 11 months official Apple India warranty remaining. Comes with original box & USB-C braided cable.',
     boxChargerIncluded: true,
     isOpenBox: true,
     openBoxAgeDays: 7,
     brandWarrantyMonths: 11,
     specs: {
-      screen: '6.1-inch Actua 120Hz OLED',
-      processor: 'Google Tensor G3 + Titan M2',
+      screen: '6.1" Super Retina XDR ProMotion 120Hz',
+      processor: 'A17 Pro 3nm Chip',
       ram: '8GB RAM',
-      camera: '64MP Dual Rear Camera with Magic Editor'
+      camera: '48MP Main + 3x Telephoto + Ultra Wide'
     }
   }
 ];

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { RecellLogo } from './RecellLogo';
 import { MAJOR_MOBILE_BRANDS, PLATFORM_FEATURES } from '../data/brandsData';
 import { BrandLogo } from './BrandLogo';
 import { 
   Smartphone, ShoppingBag, ShieldCheck, Wrench, Search, 
   ChevronDown, User, Grid, Sparkles, MapPin, SmartphoneCharging, 
-  Zap, ExternalLink, X, RotateCcw, Lock, Menu
+  Zap, ExternalLink, X, RotateCcw, Lock, Menu, ArrowRight
 } from 'lucide-react';
 
 export type TabType = 'landing' | 'sell' | 'buy' | 'open-box' | 'track' | 'repair' | 'about' | 'how-it-works' | 'recycle' | 'contact' | 'agent' | 'admin';
@@ -545,234 +546,206 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </nav>
 
-      {/* Mobile Responsive Hamburger Drawer Menu / Overlay */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-md flex flex-col justify-end sm:justify-start animate-fadeIn">
-          {/* Backdrop click to close */}
-          <div className="flex-1" onClick={() => setMobileMenuOpen(false)}></div>
-
-          {/* Drawer Content Card */}
-          <div className="bg-white rounded-t-3xl sm:rounded-b-3xl max-h-[85vh] overflow-y-auto p-5 space-y-5 shadow-2xl border-t sm:border border-slate-200/80 animate-in slide-in-from-bottom sm:slide-in-from-top duration-300 max-w-lg mx-auto w-full">
-            {/* Header with Title and Explicit Close Button */}
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#0052FF] flex items-center justify-center font-black">
-                  <Sparkles className="w-4 h-4 text-[#0052FF]" />
+      {/* Mobile Responsive Full-Screen Hamburger Menu Overlay mounted at document.body */}
+      {mobileMenuOpen && createPortal(
+        <div className="fixed inset-0 z-[999999] bg-slate-950 text-white w-full h-full min-h-screen overflow-y-auto p-5 sm:p-8 animate-fadeIn flex flex-col justify-between">
+          <div className="space-y-6 max-w-2xl mx-auto w-full pb-8">
+            {/* Header Bar with Title & Close Button */}
+            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#0052FF] to-blue-400 text-white flex items-center justify-center font-black shadow-lg">
+                  <Sparkles className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-heading font-black text-sm text-slate-900 uppercase tracking-wider">
-                    Recell Store Menu
+                  <h3 className="font-heading font-black text-lg text-white uppercase tracking-wider">
+                    Recell Store
                   </h3>
-                  <p className="text-[10px] text-slate-500 font-medium">
-                    Khekra, Baghpat &bull; +91 9557342655
+                  <p className="text-xs text-emerald-400 font-mono font-medium">
+                    Owner Helpline &bull; +91 9310552055
                   </p>
                 </div>
               </div>
 
-              {/* Close Button */}
+              {/* Big Close Button */}
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-3 py-1.5 rounded-full text-xs flex items-center gap-1.5 transition-all border border-slate-200 cursor-pointer"
+                className="bg-slate-800 hover:bg-slate-700 text-white font-bold p-2.5 rounded-full text-xs flex items-center gap-2 transition-all border border-slate-700 cursor-pointer shadow-lg active:scale-95"
                 aria-label="Close menu"
               >
-                <X className="w-4 h-4 text-slate-700" />
-                <span className="font-heading text-[11px]">Close</span>
+                <X className="w-6 h-6 text-slate-200" />
               </button>
             </div>
+
+            {/* Mobile Search Bar */}
+            <form onSubmit={(e) => { e.preventDefault(); setMobileMenuOpen(false); setCurrentTab('buy'); }} className="relative">
+              <input
+                type="text"
+                placeholder="Search iPhone, Charger, Samsung, IMEI..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-slate-900 border border-slate-700 rounded-2xl py-3 pl-11 pr-4 text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0052FF]"
+              />
+              <Search className="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
+            </form>
 
             {/* User Account Bar */}
             {user ? (
               <div 
                 onClick={() => { setMobileMenuOpen(false); if (onOpenProfile) onOpenProfile(); else onOpenAuth(); }}
-                className="p-3 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl flex items-center justify-between cursor-pointer hover:bg-blue-100/50 transition-all"
+                className="p-4 bg-gradient-to-r from-blue-900/60 to-indigo-900/60 border border-blue-500/40 rounded-2xl flex items-center justify-between cursor-pointer hover:bg-blue-900/80 transition-all shadow-md"
               >
-                <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-full bg-[#0052FF] text-white font-black flex items-center justify-center font-heading text-sm shadow-sm">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-[#0052FF] text-white font-black flex items-center justify-center font-heading text-base shadow-sm">
                     {user.name.charAt(0).toUpperCase()}
                   </div>
                   <div>
-                    <p className="font-heading font-black text-xs text-slate-900">{user.name}</p>
-                    <p className="text-[10px] text-slate-500 font-mono">{user.phone}</p>
+                    <p className="font-heading font-black text-sm text-white">{user.name}</p>
+                    <p className="text-xs text-blue-200 font-mono">{user.phone}</p>
                   </div>
                 </div>
                 {user.role === 'admin' ? (
                   <button
                     onClick={(e) => { e.stopPropagation(); setMobileMenuOpen(false); setCurrentTab('admin'); }}
-                    className="bg-slate-950 text-amber-400 font-bold text-[10px] px-2.5 py-1 rounded-full border border-amber-400/40 cursor-pointer"
+                    className="bg-amber-500 text-slate-950 font-black text-xs px-3 py-1.5 rounded-full border border-amber-300 cursor-pointer shadow-sm"
                   >
                     Admin Portal
                   </button>
                 ) : (
-                  <span className="text-[10px] bg-blue-100 text-[#0052FF] font-bold px-2.5 py-1 rounded-full font-heading">
-                    View Profile
+                  <span className="text-xs bg-blue-500 text-white font-bold px-3 py-1.5 rounded-full font-heading shadow-xs">
+                    View Account
                   </span>
                 )}
               </div>
             ) : (
-              <div className="p-3 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-200/80 rounded-2xl flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <User className="w-5 h-5 text-[#0052FF]" />
-                  <span className="text-xs font-bold text-slate-800">Welcome to Recell</span>
+              <div className="p-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl flex items-center justify-between shadow-xl">
+                <div>
+                  <h4 className="font-black text-sm font-heading">Welcome to Recell Store</h4>
+                  <p className="text-xs text-blue-100">Sign in with Mobile OTP to view orders &amp; instant quotes</p>
                 </div>
                 <button
                   onClick={() => { setMobileMenuOpen(false); onOpenAuth(); }}
-                  className="bg-[#0052FF] text-white font-extrabold text-xs px-3.5 py-1.5 rounded-full shadow-xs hover:bg-blue-700 transition-all font-heading"
+                  className="bg-white text-[#0052FF] font-black text-xs px-4 py-2.5 rounded-xl shadow-md hover:bg-blue-50 transition-all font-heading shrink-0 cursor-pointer"
                 >
-                  Sign In / Register
+                  Register / Sign In
                 </button>
               </div>
             )}
 
-            {/* Quick Navigation Cards Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-bold font-heading">
-              {/* Home */}
-              <div className="flex items-center justify-between p-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-2xl transition-all">
-                <a
-                  href="/"
-                  onClick={(e) => handleNavClick(e, 'landing')}
-                  className="flex items-center gap-2.5 text-slate-900 font-bold w-full text-left cursor-pointer"
-                >
-                  <span className="text-base">🏠</span>
-                  <span>Home Page</span>
-                </a>
-                <a href="/" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-[#0052FF]">
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
+            {/* Highlighed OPEN BOX Category Spotlight */}
+            <div 
+              onClick={(e) => handleNavClick(e, 'open-box')}
+              className="p-4 bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-slate-950 rounded-2xl shadow-xl border-2 border-amber-300 cursor-pointer transform hover:scale-[1.01] transition-all flex items-center justify-between"
+            >
+              <div className="space-y-0.5">
+                <span className="bg-slate-950 text-amber-300 text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-block">
+                  ⚡ HIGHLY RECOMMENDED
+                </span>
+                <h4 className="text-lg font-black font-heading tracking-tight text-slate-950">
+                  Open Box Chargers &amp; Phones
+                </h4>
+                <p className="text-xs font-bold text-slate-900">
+                  5-10 Days Customer Returns &bull; Up to 60% OFF Original Price
+                </p>
               </div>
-
-              {/* Sell Phone */}
-              <div className="flex items-center justify-between p-3 bg-slate-950 text-white rounded-2xl shadow-sm">
-                <a
-                  href="/sell"
-                  onClick={(e) => handleNavClick(e, 'sell')}
-                  className="flex items-center gap-2.5 font-bold w-full text-left cursor-pointer"
-                >
-                  <span className="text-base">📱</span>
-                  <div>
-                    <span className="block font-black text-white">Sell Old Phone</span>
-                    <span className="text-[9px] text-emerald-400 font-normal">60-sec instant quote</span>
-                  </div>
-                </a>
-                <a href="/sell" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-white">
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-              </div>
-
-              {/* Buy Refurbished */}
-              <div className="flex items-center justify-between p-3 bg-[#0052FF] text-white rounded-2xl shadow-sm">
-                <a
-                  href="/buy"
-                  onClick={(e) => handleNavClick(e, 'buy')}
-                  className="flex items-center gap-2.5 font-bold w-full text-left cursor-pointer"
-                >
-                  <span className="text-base">🛍️</span>
-                  <div>
-                    <span className="block font-black text-white">Buy Refurbished</span>
-                    <span className="text-[9px] text-blue-200 font-normal">Grade A+ certified</span>
-                  </div>
-                </a>
-                <a href="/buy" target="_blank" rel="noopener noreferrer" className="p-1 text-blue-200 hover:text-white">
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-              </div>
-
-              {/* Open Box Delivery Phones */}
-              <div className="flex items-center justify-between p-3 bg-amber-500 text-slate-950 rounded-2xl shadow-sm border border-amber-400">
-                <a
-                  href="/open-box"
-                  onClick={(e) => handleNavClick(e, 'open-box')}
-                  className="flex items-center gap-2.5 font-bold w-full text-left cursor-pointer"
-                >
-                  <span className="text-base">✨</span>
-                  <div>
-                    <span className="block font-black text-slate-950">Open Box Delivery</span>
-                    <span className="text-[9px] text-slate-900 font-semibold">5-10 days old &bull; 11M Warranty</span>
-                  </div>
-                </a>
-                <a href="/open-box" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-900 hover:text-slate-950">
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-              </div>
-
-              {/* Doorstep Repair */}
-              <div className="flex items-center justify-between p-3 bg-amber-500 text-slate-950 rounded-2xl shadow-sm">
-                <a
-                  href="/repair"
-                  onClick={(e) => handleNavClick(e, 'repair')}
-                  className="flex items-center gap-2.5 font-black w-full text-left cursor-pointer"
-                >
-                  <span className="text-base">🔧</span>
-                  <div>
-                    <span className="block font-black">Doorstep Repair</span>
-                    <span className="text-[9px] text-slate-900 font-bold">₹0 Pickup Fee</span>
-                  </div>
-                </a>
-                <a href="/repair" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-900/60 hover:text-slate-950">
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-              </div>
-
-              {/* Track Order */}
-              <div className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-2xl">
-                <a
-                  href="/track"
-                  onClick={(e) => handleNavClick(e, 'track')}
-                  className="flex items-center gap-2.5 text-slate-900 font-bold w-full text-left cursor-pointer"
-                >
-                  <span className="text-base">🛡️</span>
-                  <span>Track &amp; Warranty</span>
-                </a>
-                <a href="/track" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-[#0052FF]">
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-              </div>
-
-              {/* Contact & Support */}
-              <div className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-2xl">
-                <a
-                  href="/contact"
-                  onClick={(e) => handleNavClick(e, 'contact')}
-                  className="flex items-center gap-2.5 text-slate-900 font-bold w-full text-left cursor-pointer"
-                >
-                  <span className="text-base">📞</span>
-                  <span>Helpline &amp; Store Location</span>
-                </a>
-                <a href="/contact" target="_blank" rel="noopener noreferrer" className="p-1 text-slate-400 hover:text-[#0052FF]">
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-              </div>
+              <ArrowRight className="w-6 h-6 text-slate-950 shrink-0" />
             </div>
 
-            {/* Mobile Brand Logos Catalog */}
-            <div className="pt-3 border-t border-slate-100 space-y-2.5">
-              <span className="text-[11px] font-extrabold text-slate-500 uppercase tracking-wider block font-heading">
-                Browse Popular Brands
+            {/* Main Navigation Links Grid */}
+            <div className="grid grid-cols-2 gap-3 text-xs font-bold font-heading">
+              <a
+                href="/"
+                onClick={(e) => handleNavClick(e, 'landing')}
+                className="p-3.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-2xl flex items-center gap-3 text-white transition-all"
+              >
+                <span className="text-xl">🏠</span>
+                <div>
+                  <span className="block font-black text-sm">Home Page</span>
+                  <span className="text-[10px] text-slate-400 font-normal">Main storefront</span>
+                </div>
+              </a>
+
+              <a
+                href="/buy"
+                onClick={(e) => handleNavClick(e, 'buy')}
+                className="p-3.5 bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/40 rounded-2xl flex items-center gap-3 text-white transition-all"
+              >
+                <span className="text-xl">🛍️</span>
+                <div>
+                  <span className="block font-black text-sm text-blue-200">Buy Refurbished</span>
+                  <span className="text-[10px] text-blue-300 font-normal">Grade A+ Certified</span>
+                </div>
+              </a>
+
+              <a
+                href="/sell"
+                onClick={(e) => handleNavClick(e, 'sell')}
+                className="p-3.5 bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-500/40 rounded-2xl flex items-center gap-3 text-white transition-all"
+              >
+                <span className="text-xl">📱</span>
+                <div>
+                  <span className="block font-black text-sm text-emerald-300">Sell Old Phone</span>
+                  <span className="text-[10px] text-emerald-400 font-normal">60-sec instant quote</span>
+                </div>
+              </a>
+
+              <a
+                href="/repair"
+                onClick={(e) => handleNavClick(e, 'repair')}
+                className="p-3.5 bg-amber-950/40 hover:bg-amber-900/60 border border-amber-500/40 rounded-2xl flex items-center gap-3 text-white transition-all"
+              >
+                <span className="text-xl">🔧</span>
+                <div>
+                  <span className="block font-black text-sm text-amber-300">Doorstep Repair</span>
+                  <span className="text-[10px] text-amber-400 font-normal">₹0 Pickup Fee</span>
+                </div>
+              </a>
+
+              <a
+                href="/track"
+                onClick={(e) => handleNavClick(e, 'track')}
+                className="p-3.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-2xl flex items-center gap-3 text-white transition-all col-span-2"
+              >
+                <span className="text-xl">🛡️</span>
+                <div>
+                  <span className="block font-black text-sm">Order Tracking &amp; Warranty Claim</span>
+                  <span className="text-[10px] text-slate-400 font-normal">Live status &amp; owner SMS updates</span>
+                </div>
+              </a>
+            </div>
+
+            {/* Popular Brands Grid */}
+            <div className="space-y-3 pt-2">
+              <span className="text-xs font-black text-slate-400 uppercase tracking-wider block font-heading">
+                Browse Mobiles by Brand
               </span>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[11px]">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
                 {MAJOR_MOBILE_BRANDS.map((b) => (
                   <a
                     key={b.id}
                     href={`/buy?brand=${encodeURIComponent(b.name)}`}
                     onClick={(e) => handleBrandClick(e, b.name)}
-                    className="p-2.5 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 rounded-xl font-heading font-bold text-slate-800 flex items-center gap-2.5 truncate cursor-pointer transition-all shadow-2xs group"
+                    className="p-3 bg-slate-900 hover:bg-blue-900/40 border border-slate-800 hover:border-blue-500/50 rounded-xl font-heading font-bold text-slate-200 flex items-center gap-3 truncate cursor-pointer transition-all group"
                   >
                     <BrandLogo brandId={b.id} brandName={b.name} size="sm" />
-                    <span className="truncate group-hover:text-[#0052FF]">{b.name}</span>
+                    <span className="truncate group-hover:text-white">{b.name}</span>
                   </a>
                 ))}
               </div>
             </div>
+          </div>
 
-            {/* Bottom Explicit Dismiss / Close Button */}
+          {/* Full Screen Footer Dismiss Bar */}
+          <div className="pt-6 mt-6 border-t border-slate-800 max-w-2xl mx-auto w-full flex items-center justify-between text-xs text-slate-400 pb-12">
+            <span>Pathsala Road, Khekra, Baghpat &bull; 9310552055</span>
             <button
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-extrabold py-3 rounded-2xl text-xs flex items-center justify-center gap-2 transition-all border border-slate-200 cursor-pointer font-heading"
+              className="bg-slate-800 hover:bg-slate-700 text-white font-extrabold px-5 py-2.5 rounded-xl border border-slate-700 cursor-pointer transition-all active:scale-95"
             >
-              <X className="w-4 h-4 text-slate-700" />
-              Close Navigation Menu
+              Close Menu
             </button>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </header>
   );
