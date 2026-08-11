@@ -40,7 +40,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
     },
     {
       id: 'buy' as TabType,
-      label: 'Buy CPO',
+      label: 'Buy',
       icon: ShoppingBag,
       badge: cartCount > 0 ? `${cartCount}` : null,
       color: 'text-indigo-600'
