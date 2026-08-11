@@ -129,221 +129,167 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
   return (
     <div className="space-y-12 pb-16 text-slate-900 overflow-hidden font-sans">
-      {/* 0. ANIMATED FEATURE CARDS MARQUEE (EXPANDED SIZE BOX FORMAT WITH HIGH-RES IMAGES & OVERLAY TEXT AT REDUCED SPEED) */}
-      <section className="w-full bg-slate-950 border-b border-slate-800 py-6 overflow-hidden relative shadow-xl">
-        <div className="animate-marquee-ltr flex items-center gap-5">
-          {featureCards.concat(featureCards).concat(featureCards).map((card, idx) => (
+      {/* 1. HERO SECTION WITH CLEAN SPACIOUS WHITE CANVAS */}
+      <section className="relative pt-6 sm:pt-12 pb-12 sm:pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="text-center max-w-4xl mx-auto space-y-6">
+          {/* Subtle Platform Tag */}
+          <motion.div 
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 text-[#0052FF] text-xs font-bold px-4 py-2 rounded-full shadow-xs"
+          >
+            <Sparkles className="w-4 h-4 text-[#0052FF]" />
+            <span>India's Premier Mobile ReCommerce Platform</span>
+            <span className="bg-[#0052FF] text-white text-[10px] px-2.5 py-0.5 rounded-full font-mono font-bold">250101 Active</span>
+          </motion.div>
+
+          {/* Clean Display Title */}
+          <motion.h1 
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.08] font-heading"
+          >
+            Sell Old Phone in <span className="text-[#0052FF]">60 Seconds</span> <br className="hidden sm:inline" />
+            or Buy Certified Pre-Owned
+          </motion.h1>
+
+          {/* Clean Subtitle */}
+          <motion.p 
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15 }}
+            className="text-base sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed font-normal"
+          >
+            Zero-renege doorstep cash trade-ins, instant spot UPI payouts, 32-point hardware diagnostic checks, and 3-month Recell warranty.
+          </motion.p>
+
+          {/* Quick Action Hub: 4 Clean, Roomy Cards */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pt-6 text-left"
+          >
+            {/* Card 1: Sell Old Phone */}
             <div 
-              key={idx} 
-              className="relative w-[340px] sm:w-[440px] h-60 sm:h-64 rounded-3xl overflow-hidden border border-slate-800 hover:border-[#0052FF] shrink-0 shadow-xl group transition-all cursor-pointer"
+              onClick={onStartSell}
+              className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs hover:shadow-xl hover:border-slate-900 transition-all duration-300 cursor-pointer group flex flex-col justify-between space-y-4"
             >
-              {/* Background High-Res Feature Image */}
-              <img 
-                src={card.img} 
-                alt={card.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
-              />
-              {/* Dark Gradient Overlay for High Contrast Text */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/20 p-5 flex flex-col justify-between text-white">
-                <div className="flex items-center justify-between">
-                  <span className={`${card.badgeBg} text-white font-mono font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider shadow-md`}>
-                    {card.badge}
-                  </span>
-                  <span className="text-xs text-slate-200 font-mono font-bold bg-black/50 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
-                    Recell Pro Certified
-                  </span>
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-2xl bg-slate-950 text-emerald-400 flex items-center justify-center shadow-md">
+                  <Smartphone className="w-6 h-6" />
                 </div>
-                <div className="space-y-1.5">
-                  <h4 className="font-black text-lg sm:text-xl text-white group-hover:text-[#0052FF] transition-colors line-clamp-1">
-                    {card.title}
-                  </h4>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-snug line-clamp-2">
-                    {card.desc}
+                <div>
+                  <span className="text-[11px] font-bold text-emerald-600 uppercase tracking-wider block font-mono">60s Valuation</span>
+                  <h3 className="font-extrabold text-slate-900 text-lg group-hover:text-[#0052FF] transition-colors font-heading">
+                    Sell Old Phone
+                  </h3>
+                  <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                    Get an instant AI price quote and book free doorstep cash pickup.
                   </p>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 1. HERO SECTION WITH RICH HERO IMAGERY & ANIMATION */}
-      <section className="relative pt-4 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          {/* Left Text Column */}
-          <div className="lg:col-span-7 space-y-6">
-            <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 bg-[#EFF6FF] border border-[#BFDBFE] text-[#0052FF] text-xs font-bold px-3.5 py-1.5 rounded-full shadow-2xs"
-            >
-              <Sparkles className="w-4 h-4 text-[#0052FF] animate-pulse" />
-              <span>India's Premier Mobile ReCommerce Platform</span>
-              <span className="bg-[#0052FF] text-white text-[10px] px-2 py-0.5 rounded-full font-mono">250101 Active</span>
-            </motion.div>
-
-            <motion.h1 
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-950 tracking-tight leading-[1.1] font-heading drop-shadow-sm"
-            >
-              Sell Old Phone in <span className="text-[#0052FF] underline decoration-[#BFDBFE]">60 Seconds</span> or Buy Certified Pre-Owned
-            </motion.h1>
-
-            <motion.p 
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-base sm:text-lg text-slate-800 max-w-2xl leading-relaxed font-medium"
-            >
-              Experience zero-renege doorstep cash trade-ins, instant spot UPI payouts, 32-point hardware checks, and certified refurbished phones with 3-Month Recell warranty.
-            </motion.p>
-
-            {/* Quick Action Buttons (4 Categories) */}
-            <motion.div 
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 pt-2"
-            >
-              <button
-                onClick={onStartSell}
-                className="w-full bg-slate-950 hover:bg-slate-900 text-white font-black px-4 py-3.5 rounded-2xl text-xs sm:text-sm shadow-lg hover:shadow-2xl transition-all flex items-center justify-center gap-2 group cursor-pointer font-heading min-h-[48px]"
-              >
-                <Smartphone className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Sell Old Phone (60s)</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform shrink-0" />
-              </button>
-
-              <button
-                onClick={onStartBuy}
-                className="w-full bg-[#0052FF] hover:bg-[#0043CC] text-white font-black px-4 py-3.5 rounded-2xl text-xs sm:text-sm shadow-lg shadow-blue-500/25 hover:shadow-2xl transition-all flex items-center justify-center gap-2 group cursor-pointer font-heading min-h-[48px]"
-              >
-                <ShieldCheck className="w-4 h-4 shrink-0" />
-                <span>Buy Refurbished</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform shrink-0" />
-              </button>
-
-              <button
-                onClick={() => {
-                  const openBoxNav = document.querySelector('a[href="/open-box"]') as HTMLElement;
-                  if (openBoxNav) openBoxNav.click();
-                  else onStartBuy();
-                }}
-                className="w-full bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black px-4 py-3.5 rounded-2xl text-xs sm:text-sm shadow-md hover:shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer font-heading min-h-[48px] border border-amber-300"
-              >
-                <Zap className="w-4 h-4 text-slate-950 fill-amber-300 shrink-0" />
-                <span>Open Box Mobiles &amp; Chargers</span>
-              </button>
-
-              <button
-                onClick={onOpenRepair}
-                className="w-full bg-white border-2 border-slate-300 hover:bg-slate-100 text-slate-900 font-black px-4 py-3.5 rounded-2xl text-xs sm:text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer font-heading min-h-[48px]"
-              >
-                <Wrench className="w-4 h-4 text-amber-600 shrink-0" />
-                <span>30-Min Doorstep Repair</span>
-              </button>
-            </motion.div>
-
-            {/* Trust Highlights */}
-            <div className="pt-4 flex flex-wrap items-center gap-6 text-xs sm:text-sm text-slate-900 font-extrabold border-t border-slate-200">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-                <span>Spot Doorstep UPI</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-                <span>3-Month Recell Warranty</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-                <span>DoD Military Data Wipe</span>
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-slate-900 group-hover:text-[#0052FF]">
+                <span>Get Instant Quote</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
-          </div>
 
-          {/* Right Column: Hero Image Showcase & Live Valuation Card */}
-          <div className="lg:col-span-5 space-y-4">
-            {/* Hero Phone Showcase Banner */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2 }}
-              className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-xl group"
+            {/* Card 2: Buy Refurbished */}
+            <div 
+              onClick={onStartBuy}
+              className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs hover:shadow-xl hover:border-[#0052FF] transition-all duration-300 cursor-pointer group flex flex-col justify-between space-y-4"
             >
-              <img 
-                src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=1200&q=80" 
-                alt="Refurbished Smartphone Showcase" 
-                className="w-full h-48 sm:h-52 object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent p-5 flex flex-col justify-end text-white">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <span className="bg-emerald-500 text-slate-950 text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                      Grade A+ Certified
-                    </span>
-                    <h3 className="text-lg font-black mt-1">iPhone 15 Pro &amp; Galaxy S23 Ultra</h3>
-                  </div>
-                  <span className="bg-white/20 backdrop-blur-md text-white font-mono font-bold text-xs px-3 py-1 rounded-full border border-white/30">
-                    Up to 45% OFF
-                  </span>
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-2xl bg-[#0052FF] text-white flex items-center justify-center shadow-md">
+                  <ShieldCheck className="w-6 h-6" />
+                </div>
+                <div>
+                  <span className="text-[11px] font-bold text-[#0052FF] uppercase tracking-wider block font-mono">Grade A+ Certified</span>
+                  <h3 className="font-extrabold text-slate-900 text-lg group-hover:text-[#0052FF] transition-colors font-heading">
+                    Buy Refurbished
+                  </h3>
+                  <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                    Certified pre-owned smartphones with 3-Month warranty.
+                  </p>
                 </div>
               </div>
-            </motion.div>
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-slate-900 group-hover:text-[#0052FF]">
+                <span>Browse Store</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
 
-            {/* Hero ReCommerce Quick Gateway Card */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="bg-slate-950 border border-slate-800 text-white rounded-3xl p-6 shadow-2xl space-y-4 relative overflow-hidden flex flex-col justify-between"
+            {/* Card 3: Open Box Mobiles & Chargers */}
+            <div 
+              onClick={() => {
+                const openBoxNav = document.querySelector('a[href="/open-box"]') as HTMLElement;
+                if (openBoxNav) openBoxNav.click();
+                else onStartBuy();
+              }}
+              className="bg-amber-50/60 p-6 rounded-3xl border border-amber-200/80 shadow-xs hover:shadow-xl hover:border-amber-400 transition-all duration-300 cursor-pointer group flex flex-col justify-between space-y-4"
             >
-              <div className="space-y-2.5">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                  <span className="bg-[#0052FF] text-white text-xs font-mono font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5">
-                    <Zap className="w-4 h-4 text-amber-400" />
-                    Verified Doorstep Hub
-                  </span>
-                  <span className="text-xs text-emerald-400 font-extrabold font-mono">
-                    250101 &bull; Spot Payout
-                  </span>
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center shadow-md">
+                  <Zap className="w-6 h-6 fill-slate-950" />
                 </div>
-
-                <h3 className="font-black text-white text-xl sm:text-2xl font-heading leading-snug">
-                  Get Maximum Cash for Your Used Mobile
-                </h3>
-
-                <p className="text-sm text-slate-200 leading-relaxed font-sans">
-                  Select your mobile brand &amp; model below to generate a transparent price quote, schedule 2-hour doorstep pickup, and collect instant spot UPI cash!
-                </p>
-              </div>
-
-              <div className="space-y-3 pt-2">
-                <button
-                  onClick={() => {
-                    const el = document.getElementById('sell-diagnostic-section');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                    else onStartSell();
-                  }}
-                  className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-3.5 px-4 rounded-2xl text-sm flex items-center justify-center gap-2 shadow-lg transition-all font-heading cursor-pointer"
-                >
-                  <Smartphone className="w-4 h-4" />
-                  Select Brand &amp; Get Instant Quote &rarr;
-                </button>
-
-                <div className="flex items-center justify-between text-xs text-slate-300 pt-1 px-1 font-semibold">
-                  <span className="flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    32-Point Audit
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <Banknote className="w-4 h-4 text-emerald-400" />
-                    Spot Bank/UPI Transfer
-                  </span>
+                <div>
+                  <span className="text-[11px] font-black text-amber-800 uppercase tracking-wider block font-mono">5-10 Days Old</span>
+                  <h3 className="font-extrabold text-slate-900 text-lg group-hover:text-amber-700 transition-colors font-heading">
+                    Open Box Tech
+                  </h3>
+                  <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                    Unboxed chargers &amp; smartphones with original brand warranty.
+                  </p>
                 </div>
               </div>
-            </motion.div>
+              <div className="pt-3 border-t border-amber-200/60 flex items-center justify-between text-xs font-bold text-slate-900 group-hover:text-amber-800">
+                <span>Explore Deals</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+
+            {/* Card 4: 30-Min Doorstep Repair */}
+            <div 
+              onClick={onOpenRepair}
+              className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs hover:shadow-xl hover:border-slate-900 transition-all duration-300 cursor-pointer group flex flex-col justify-between space-y-4"
+            >
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-2xl bg-slate-100 text-slate-800 flex items-center justify-center shadow-xs">
+                  <Wrench className="w-6 h-6 text-amber-600" />
+                </div>
+                <div>
+                  <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block font-mono">On-Site Service</span>
+                  <h3 className="font-extrabold text-slate-900 text-lg group-hover:text-[#0052FF] transition-colors font-heading">
+                    Doorstep Repair
+                  </h3>
+                  <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                    Screen &amp; battery replacement done at your location in 30 mins.
+                  </p>
+                </div>
+              </div>
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-slate-900 group-hover:text-[#0052FF]">
+                <span>Book Technician</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Trust Highlights Row */}
+          <div className="pt-6 flex flex-wrap items-center justify-center gap-8 text-xs sm:text-sm text-slate-700 font-semibold">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+              <span>Doorstep Spot Cash / UPI</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+              <span>3-Month Hardware Warranty</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+              <span>DoD Military Data Wipe</span>
+            </div>
           </div>
         </div>
       </section>
@@ -356,22 +302,22 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         transition={{ duration: 0.5 }}
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6"
       >
-        <div className="bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-slate-950 p-6 sm:p-8 rounded-3xl shadow-xl border-2 border-amber-300 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <div className="bg-amber-50/70 text-slate-900 p-6 sm:p-8 rounded-3xl border border-amber-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-xs">
           <div className="space-y-2">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="bg-slate-950 text-amber-300 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider font-heading inline-flex items-center gap-1.5 shadow-md">
-                <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
-                ⚡ SPECIAL OPEN BOX CATEGORY
+              <span className="bg-amber-500 text-slate-950 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider font-heading inline-flex items-center gap-1.5 shadow-xs">
+                <Zap className="w-3.5 h-3.5 fill-slate-950" />
+                Special Open Box Category
               </span>
-              <span className="bg-slate-950/80 text-white text-xs font-extrabold px-3 py-1 rounded-full font-mono border border-amber-300/40">
-                5-10 Days Customer Returns &bull; 100% Genuine
+              <span className="bg-white text-slate-700 text-xs font-bold px-3 py-1 rounded-full font-mono border border-amber-200">
+                5-10 Days Returns &bull; 100% Genuine
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-950 font-heading tracking-tight">
+            <h2 className="text-2xl sm:text-4xl font-black text-slate-900 font-heading tracking-tight">
               Open Box Chargers &amp; Smartphones
             </h2>
-            <p className="text-sm text-slate-900 font-bold max-w-3xl leading-relaxed">
-              Genuine fast charging adapters (20W Apple, 25W/45W Samsung, 80W OnePlus, 67W Xiaomi) &amp; flagship smartphones unboxed only 5-10 days ago. Includes <strong>Original Box, Tax Invoice, Cable &amp; Official Brand Warranty</strong> at up to 60% discount!
+            <p className="text-xs sm:text-sm text-slate-700 font-medium max-w-3xl leading-relaxed">
+              Genuine fast charging adapters (20W Apple, 25W/45W Samsung, 80W OnePlus, 67W Xiaomi) &amp; flagship smartphones unboxed 5-10 days ago. Includes <strong>Original Box, Tax Invoice, Cable &amp; Brand Warranty</strong> at up to 60% OFF.
             </p>
           </div>
 
@@ -381,7 +327,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               if (openBoxNav) openBoxNav.click();
               else onStartBuy();
             }}
-            className="bg-slate-950 hover:bg-slate-900 text-amber-300 font-black px-6 py-4 rounded-2xl text-sm flex items-center gap-2.5 shadow-2xl shrink-0 transition-all cursor-pointer font-heading border border-amber-400/40 hover:scale-105"
+            className="bg-slate-900 hover:bg-slate-800 text-white font-bold px-6 py-3.5 rounded-2xl text-xs sm:text-sm flex items-center gap-2 shrink-0 transition-all cursor-pointer font-heading shadow-md"
           >
             <span>Explore All Open Box Deals &rarr;</span>
           </button>
