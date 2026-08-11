@@ -129,6 +129,44 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
   return (
     <div className="space-y-12 pb-16 text-slate-900 overflow-hidden font-sans">
+      {/* 0. ANIMATED FEATURE CARDS MARQUEE */}
+      <section className="w-full bg-slate-950 border-b border-slate-800 py-6 overflow-hidden relative shadow-xl">
+        <div className="animate-marquee-ltr flex items-center gap-5">
+          {featureCards.concat(featureCards).concat(featureCards).map((card, idx) => (
+            <div 
+              key={idx} 
+              className="relative w-[340px] sm:w-[420px] h-56 sm:h-60 rounded-3xl overflow-hidden border border-slate-800 hover:border-[#0052FF] shrink-0 shadow-xl group transition-all cursor-pointer"
+            >
+              {/* Background High-Res Feature Image */}
+              <img 
+                src={card.img} 
+                alt={card.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+              />
+              {/* Dark Gradient Overlay for High Contrast Text */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/20 p-5 flex flex-col justify-between text-white">
+                <div className="flex items-center justify-between">
+                  <span className={`${card.badgeBg} text-white font-mono font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider shadow-md`}>
+                    {card.badge}
+                  </span>
+                  <span className="text-xs text-slate-200 font-mono font-bold bg-black/50 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
+                    Recell Pro Certified
+                  </span>
+                </div>
+                <div className="space-y-1.5">
+                  <h4 className="font-black text-lg sm:text-xl text-white group-hover:text-[#0052FF] transition-colors line-clamp-1 font-heading">
+                    {card.title}
+                  </h4>
+                  <p className="text-xs sm:text-sm text-slate-300 leading-snug line-clamp-2">
+                    {card.desc}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* 1. HERO SECTION WITH CLEAN SPACIOUS WHITE CANVAS */}
       <section className="relative pt-6 sm:pt-12 pb-12 sm:pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="text-center max-w-4xl mx-auto space-y-6">
