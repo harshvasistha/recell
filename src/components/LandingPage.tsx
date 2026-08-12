@@ -168,27 +168,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       </section>
 
       {/* 1. HERO SECTION WITH CLEAN SPACIOUS WHITE CANVAS */}
-      <section className="relative pt-6 sm:pt-12 pb-12 sm:pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <section className="relative pt-12 sm:pt-20 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="text-center max-w-4xl mx-auto space-y-6">
-          {/* Subtle Platform Tag */}
-          <motion.div 
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 text-[#0052FF] text-xs font-bold px-4 py-2 rounded-full shadow-xs"
-          >
-            <Sparkles className="w-4 h-4 text-[#0052FF]" />
-            <span>India's Premier Mobile ReCommerce Platform</span>
-            <span className="bg-[#0052FF] text-white text-[10px] px-2.5 py-0.5 rounded-full font-mono font-bold">250101 Active</span>
-          </motion.div>
-
           {/* Clean Display Title */}
           <motion.h1 
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.08] font-heading"
+            className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] font-heading drop-shadow-sm"
           >
-            Sell Old Phone in <span className="text-[#0052FF]">60 Seconds</span> <br className="hidden sm:inline" />
+            Sell Old Phone in 60 Seconds <br className="hidden sm:inline" />
             or Buy Certified Pre-Owned
           </motion.h1>
 
@@ -197,7 +186,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
-            className="text-base sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed font-normal"
+            className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed font-medium"
           >
             Zero-renege doorstep cash trade-ins, instant spot UPI payouts, 32-point hardware diagnostic checks, and 3-month Recell warranty.
           </motion.p>
@@ -207,55 +196,53 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pt-6 text-left"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 pt-10 text-left"
           >
-            {/* Card 1: Sell Old Phone */}
-            <div 
-              onClick={onStartSell}
-              className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs hover:shadow-xl hover:border-slate-900 transition-all duration-300 cursor-pointer group flex flex-col justify-between space-y-4"
-            >
-              <div className="space-y-3">
-                <div className="w-12 h-12 rounded-2xl bg-slate-950 text-emerald-400 flex items-center justify-center shadow-md">
-                  <Smartphone className="w-6 h-6" />
-                </div>
-                <div>
-                  <span className="text-[11px] font-bold text-emerald-600 uppercase tracking-wider block font-mono">60s Valuation</span>
-                  <h3 className="font-extrabold text-slate-900 text-lg group-hover:text-[#0052FF] transition-colors font-heading">
-                    Sell Old Phone
-                  </h3>
-                  <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                    Get an instant AI price quote and book free doorstep cash pickup.
-                  </p>
-                </div>
-              </div>
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-slate-900 group-hover:text-[#0052FF]">
-                <span>Get Instant Quote</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </div>
-            </div>
-
-            {/* Card 2: Buy Refurbished */}
+            {/* Card 1: Buy Refurbished */}
             <div 
               onClick={onStartBuy}
-              className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs hover:shadow-xl hover:border-[#0052FF] transition-all duration-300 cursor-pointer group flex flex-col justify-between space-y-4"
+              className="bg-white p-8 rounded-3xl border border-slate-100 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer group flex flex-col justify-between space-y-4"
             >
-              <div className="space-y-3">
-                <div className="w-12 h-12 rounded-2xl bg-[#0052FF] text-white flex items-center justify-center shadow-md">
-                  <ShieldCheck className="w-6 h-6" />
+              <div className="space-y-4">
+                <div className="w-14 h-14 rounded-2xl bg-[#0052FF]/10 text-[#0052FF] flex items-center justify-center">
+                  <ShieldCheck className="w-7 h-7" />
                 </div>
                 <div>
-                  <span className="text-[11px] font-bold text-[#0052FF] uppercase tracking-wider block font-mono">Grade A+ Certified</span>
-                  <h3 className="font-extrabold text-slate-900 text-lg group-hover:text-[#0052FF] transition-colors font-heading">
-                    Buy Refurbished
+                  <h3 className="font-bold text-slate-900 text-xl group-hover:text-[#0052FF] transition-colors font-heading drop-shadow-sm">
+                    Buy Refurbished Phones
                   </h3>
-                  <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                  <p className="text-sm text-slate-500 mt-2 leading-relaxed">
                     Certified pre-owned smartphones with 3-Month warranty.
                   </p>
                 </div>
               </div>
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-slate-900 group-hover:text-[#0052FF]">
+              <div className="pt-4 flex items-center justify-between text-sm font-bold text-slate-900 group-hover:text-[#0052FF]">
                 <span>Browse Store</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+
+            {/* Card 2: Sell Old Phone */}
+            <div 
+              onClick={onStartSell}
+              className="bg-white p-8 rounded-3xl border border-slate-100 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer group flex flex-col justify-between space-y-4"
+            >
+              <div className="space-y-4">
+                <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                  <Smartphone className="w-7 h-7" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900 text-xl group-hover:text-emerald-600 transition-colors font-heading drop-shadow-sm">
+                    Sell Old Phone
+                  </h3>
+                  <p className="text-sm text-slate-500 mt-2 leading-relaxed">
+                    Get an instant AI price quote and book free doorstep cash pickup.
+                  </p>
+                </div>
+              </div>
+              <div className="pt-4 flex items-center justify-between text-sm font-bold text-slate-900 group-hover:text-emerald-600">
+                <span>Get Instant Quote</span>
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
 
@@ -266,69 +253,51 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 if (openBoxNav) openBoxNav.click();
                 else onStartBuy();
               }}
-              className="bg-amber-50/60 p-6 rounded-3xl border border-amber-200/80 shadow-xs hover:shadow-xl hover:border-amber-400 transition-all duration-300 cursor-pointer group flex flex-col justify-between space-y-4"
+              className="bg-white p-8 rounded-3xl border border-slate-100 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer group flex flex-col justify-between space-y-4"
             >
-              <div className="space-y-3">
-                <div className="w-12 h-12 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center shadow-md">
-                  <Zap className="w-6 h-6 fill-slate-950" />
+              <div className="space-y-4">
+                <div className="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center">
+                  <Zap className="w-7 h-7" />
                 </div>
                 <div>
-                  <span className="text-[11px] font-black text-amber-800 uppercase tracking-wider block font-mono">5-10 Days Old</span>
-                  <h3 className="font-extrabold text-slate-900 text-lg group-hover:text-amber-700 transition-colors font-heading">
-                    Open Box Tech
+                  <h3 className="font-bold text-slate-900 text-xl group-hover:text-amber-600 transition-colors font-heading drop-shadow-sm">
+                    Open Box Category
                   </h3>
-                  <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                    Unboxed chargers &amp; smartphones with original brand warranty.
+                  <p className="text-sm text-slate-500 mt-2 leading-relaxed">
+                    Unboxed chargers & smartphones with original brand warranty.
                   </p>
                 </div>
               </div>
-              <div className="pt-3 border-t border-amber-200/60 flex items-center justify-between text-xs font-bold text-slate-900 group-hover:text-amber-800">
+              <div className="pt-4 flex items-center justify-between text-sm font-bold text-slate-900 group-hover:text-amber-600">
                 <span>Explore Deals</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
 
-            {/* Card 4: 30-Min Doorstep Repair */}
+            {/* Card 4: Repair Mobiles */}
             <div 
               onClick={onOpenRepair}
-              className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs hover:shadow-xl hover:border-slate-900 transition-all duration-300 cursor-pointer group flex flex-col justify-between space-y-4"
+              className="bg-white p-8 rounded-3xl border border-slate-100 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer group flex flex-col justify-between space-y-4"
             >
-              <div className="space-y-3">
-                <div className="w-12 h-12 rounded-2xl bg-slate-100 text-slate-800 flex items-center justify-center shadow-xs">
-                  <Wrench className="w-6 h-6 text-amber-600" />
+              <div className="space-y-4">
+                <div className="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                  <Wrench className="w-7 h-7" />
                 </div>
                 <div>
-                  <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block font-mono">On-Site Service</span>
-                  <h3 className="font-extrabold text-slate-900 text-lg group-hover:text-[#0052FF] transition-colors font-heading">
-                    Doorstep Repair
+                  <h3 className="font-bold text-slate-900 text-xl group-hover:text-indigo-600 transition-colors font-heading drop-shadow-sm">
+                    Repair Mobiles
                   </h3>
-                  <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                    Screen &amp; battery replacement done at your location in 30 mins.
+                  <p className="text-sm text-slate-500 mt-2 leading-relaxed">
+                    Screen & battery replacement done at your location in 30 mins.
                   </p>
                 </div>
               </div>
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-slate-900 group-hover:text-[#0052FF]">
+              <div className="pt-4 flex items-center justify-between text-sm font-bold text-slate-900 group-hover:text-indigo-600">
                 <span>Book Technician</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
           </motion.div>
-
-          {/* Trust Highlights Row */}
-          <div className="pt-6 flex flex-wrap items-center justify-center gap-8 text-xs sm:text-sm text-slate-700 font-semibold">
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              <span>Doorstep Spot Cash / UPI</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              <span>3-Month Hardware Warranty</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              <span>DoD Military Data Wipe</span>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -338,81 +307,75 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.5 }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8"
       >
-        <div className="bg-amber-50/70 text-slate-900 p-6 sm:p-8 rounded-3xl border border-amber-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-xs">
-          <div className="space-y-2">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="bg-amber-500 text-slate-950 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider font-heading inline-flex items-center gap-1.5 shadow-xs">
-                <Zap className="w-3.5 h-3.5 fill-slate-950" />
-                Special Open Box Category
-              </span>
-              <span className="bg-white text-slate-700 text-xs font-bold px-3 py-1 rounded-full font-mono border border-amber-200">
-                5-10 Days Returns &bull; 100% Genuine
-              </span>
-            </div>
-            <h2 className="text-2xl sm:text-4xl font-black text-slate-900 font-heading tracking-tight">
-              Open Box Chargers &amp; Smartphones
+        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 pb-2 border-b border-slate-100">
+          <div className="space-y-3">
+            <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider font-heading shadow-sm">
+              Special Category
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 font-heading tracking-tight drop-shadow-sm">
+              Open Box Chargers &amp; Phones
             </h2>
-            <p className="text-xs sm:text-sm text-slate-700 font-medium max-w-3xl leading-relaxed">
-              Genuine fast charging adapters (20W Apple, 25W/45W Samsung, 80W OnePlus, 67W Xiaomi) &amp; flagship smartphones unboxed 5-10 days ago. Includes <strong>Original Box, Tax Invoice, Cable &amp; Brand Warranty</strong> at up to 60% OFF.
+            <p className="text-sm text-slate-600 font-medium max-w-2xl leading-relaxed">
+              Genuine fast chargers and unboxed flagship smartphones (5-10 Days old). Includes original box, invoice, and brand warranty. Up to 60% OFF.
             </p>
           </div>
-
           <button
             onClick={() => {
               const openBoxNav = document.querySelector('a[href="/open-box"]') as HTMLElement;
               if (openBoxNav) openBoxNav.click();
               else onStartBuy();
             }}
-            className="bg-slate-900 hover:bg-slate-800 text-white font-bold px-6 py-3.5 rounded-2xl text-xs sm:text-sm flex items-center gap-2 shrink-0 transition-all cursor-pointer font-heading shadow-md"
+            className="text-sm font-bold text-amber-600 hover:text-amber-700 flex items-center gap-1.5 cursor-pointer font-heading"
           >
-            <span>Explore All Open Box Deals &rarr;</span>
+            <span>View All Deals</span>
+            <ArrowRight className="w-4 h-4" />
           </button>
         </div>
 
         {/* Featured Open Box Chargers & Mobiles Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {[
             {
               id: 'chg-app-20w',
-              name: 'Apple Original 20W USB-C Adapter [Open Box]',
-              variant: 'Type-C Fast Charger &bull; 6 Days Old',
+              name: 'Apple Original 20W USB-C Adapter',
+              variant: 'Type-C Fast Charger • 6 Days Old',
               originalPrice: 1900,
               sellPrice: 1199,
               age: '6 Days Old',
               warranty: '6M Brand Warranty',
               img: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=80',
               brand: 'Apple',
-              badge: '⚡ CHARGER BESTSELLER'
+              badge: 'CHARGER'
             },
             {
               id: 'chg-sam-45w',
-              name: 'Samsung 45W Super Fast Charger 2.0 [Open Box]',
-              variant: 'Includes 5A Type-C Cable &bull; 8 Days Old',
+              name: 'Samsung 45W Super Fast Charger 2.0',
+              variant: 'Includes 5A Type-C Cable • 8 Days Old',
               originalPrice: 2999,
               sellPrice: 1499,
               age: '8 Days Old',
               warranty: '10M Samsung Warranty',
               img: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=80',
               brand: 'Samsung',
-              badge: '⚡ 45W ULTRA FAST'
+              badge: 'CHARGER'
             },
             {
               id: 'chg-op-80w',
-              name: 'OnePlus 80W SUPERVOOC Power Adapter [Open Box]',
-              variant: 'Full Retail Box &bull; 7 Days Old',
+              name: 'OnePlus 80W SUPERVOOC Power Adapter',
+              variant: 'Full Retail Box • 7 Days Old',
               originalPrice: 2499,
               sellPrice: 1299,
               age: '7 Days Old',
               warranty: '8M OnePlus Warranty',
               img: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=80',
               brand: 'OnePlus',
-              badge: '⚡ 80W SUPERVOOC'
+              badge: 'CHARGER'
             },
             {
               id: 'ob-ip15pm',
-              name: 'iPhone 15 Pro Max [Open Box 6 Days]',
+              name: 'iPhone 15 Pro Max',
               variant: '256GB - Natural Titanium',
               originalPrice: 159900,
               sellPrice: 104999,
@@ -420,57 +383,50 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               warranty: '11M Official Apple Warranty',
               img: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80',
               brand: 'Apple',
-              badge: '✨ OPEN BOX MOBILE'
+              badge: 'SMARTPHONE'
             }
           ].map((item) => (
             <div 
               key={item.id}
               onClick={onStartBuy}
-              className="bg-white rounded-3xl p-4 border border-amber-200/80 hover:border-amber-500 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col justify-between group relative overflow-hidden"
+              className="bg-white rounded-3xl p-5 border border-slate-100 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col justify-between group relative"
             >
-              {/* Top Highlight Badge */}
-              <div className="absolute top-3 left-3 z-10">
-                <span className="bg-slate-950 text-amber-300 text-[10px] font-black px-2.5 py-0.5 rounded-full font-heading shadow-md">
-                  {item.badge}
-                </span>
-              </div>
-
               <div>
-                <div className="relative h-44 bg-amber-50/50 rounded-2xl overflow-hidden mb-3">
+                <div className="relative h-48 bg-slate-50 rounded-2xl overflow-hidden mb-4 p-4 flex items-center justify-center">
                   <img 
                     src={item.img} 
                     alt={item.name} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                    className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow-md" 
                   />
-                  <div className="absolute bottom-2 right-2 bg-amber-500 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded-full shadow-sm font-mono">
-                    {item.age}
+                  <div className="absolute top-3 left-3 bg-amber-500 text-slate-950 text-[10px] font-black px-2.5 py-1 rounded-full shadow-sm font-mono uppercase tracking-wider">
+                    {item.badge}
                   </div>
                 </div>
 
-                <div className="space-y-1">
-                  <h3 className="font-extrabold text-sm text-slate-900 group-hover:text-amber-600 transition-colors line-clamp-1 font-heading">
+                <div className="space-y-1.5">
+                  <h3 className="font-bold text-base text-slate-900 group-hover:text-amber-600 transition-colors line-clamp-2 font-heading leading-tight drop-shadow-sm">
                     {item.name}
                   </h3>
-                  <p className="text-[11px] text-slate-500 font-medium line-clamp-1">
+                  <p className="text-xs text-slate-500 font-medium line-clamp-1">
                     {item.variant}
                   </p>
-                  <p className="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-md inline-block">
+                  <p className="text-[11px] text-emerald-600 font-bold bg-emerald-50 px-2.5 py-1 rounded-md inline-block">
                     {item.warranty}
                   </p>
                 </div>
               </div>
 
-              <div className="pt-3 mt-3 border-t border-slate-100 flex items-center justify-between">
+              <div className="pt-4 mt-4 border-t border-slate-100 flex items-end justify-between">
                 <div>
-                  <span className="text-lg font-black text-slate-900 font-mono">
+                  <span className="text-[11px] text-slate-400 line-through block font-medium mb-0.5">
+                    MRP: ₹{item.originalPrice.toLocaleString('en-IN')}
+                  </span>
+                  <span className="text-lg font-black text-slate-900 font-heading">
                     ₹{item.sellPrice.toLocaleString('en-IN')}
                   </span>
-                  <span className="text-xs text-slate-400 line-through ml-1.5 font-mono">
-                    ₹{item.originalPrice.toLocaleString('en-IN')}
-                  </span>
                 </div>
-                <button className="bg-amber-500 group-hover:bg-amber-400 text-slate-950 text-xs font-black px-3 py-1.5 rounded-xl shadow-xs transition-colors font-heading">
-                  Buy Now
+                <button className="bg-slate-100 group-hover:bg-amber-500 group-hover:text-white text-slate-800 text-xs font-bold px-4 py-2 rounded-xl transition-colors font-heading shadow-sm">
+                  Buy
                 </button>
               </div>
             </div>
@@ -484,26 +440,30 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.5 }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 mt-16"
       >
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
-          <div>
-            <span className="bg-emerald-50 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full border border-emerald-200 font-heading">
-              Certified Pre-Owned Inventory
+        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 pb-2 border-b border-slate-100">
+          <div className="space-y-3">
+            <span className="bg-blue-100 text-[#0052FF] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider font-heading shadow-sm">
+              Grade A+ Certified
             </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1 font-heading">Buy Refurbished Phones</h2>
-            <p className="text-xs text-slate-500 mt-0.5">Grade A+ certified smartphones with 55-point hardware inspection &amp; 3-month warranty.</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 font-heading tracking-tight drop-shadow-sm">
+              Buy Refurbished Phones
+            </h2>
+            <p className="text-sm text-slate-600 font-medium max-w-2xl leading-relaxed">
+              Top-tier certified smartphones with 55-point hardware inspection &amp; 3-month warranty.
+            </p>
           </div>
-
           <button
             onClick={onStartBuy}
-            className="text-xs font-bold text-[#0052FF] hover:underline flex items-center gap-1 cursor-pointer font-heading"
+            className="text-sm font-bold text-[#0052FF] hover:text-[#0043CC] flex items-center gap-1.5 cursor-pointer font-heading"
           >
-            Browse Full Store Catalog &rarr;
+            <span>View All Phones</span>
+            <ArrowRight className="w-4 h-4" />
           </button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
           {[
             {
               id: 'm-ip15pm',
@@ -572,50 +532,49 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               brand: 'Xiaomi'
             }
           ].map((phone) => (
-            <motion.div
+            <div
               key={phone.id}
-              whileHover={{ y: -4 }}
               onClick={onStartBuy}
-              className="p-4 rounded-3xl bg-white border border-slate-300 hover:border-[#0052FF] shadow-sm hover:shadow-xl transition-all cursor-pointer group flex flex-col justify-between"
+              className="p-5 rounded-3xl bg-white border border-slate-100 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer group flex flex-col justify-between"
             >
               <div>
-                <div className="relative rounded-2xl overflow-hidden bg-slate-100 mb-3 aspect-4/3">
+                <div className="relative rounded-2xl overflow-hidden bg-slate-50 mb-4 aspect-4/3 flex items-center justify-center p-4">
                   <img
                     src={phone.img}
                     alt={phone.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow-md"
                   />
-                  <span className="absolute top-2 left-2 bg-slate-950/80 backdrop-blur-md text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase font-mono">
+                  <span className="absolute top-2 left-2 bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
                     Grade {phone.grade}
                   </span>
-                  <span className="absolute bottom-2 right-2 bg-emerald-500 text-slate-950 text-[9px] font-black px-2 py-0.5 rounded-full font-mono">
+                  <span className="absolute bottom-2 right-2 bg-emerald-100 text-emerald-800 border border-emerald-200 text-[10px] font-bold px-2 py-0.5 rounded-md">
                     {phone.battery} Batt
                   </span>
                 </div>
 
-                <span className="text-[10px] text-indigo-600 font-extrabold uppercase tracking-wider block font-heading">
+                <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block font-heading mb-0.5">
                   {phone.brand}
                 </span>
-                <h3 className="font-heading text-sm font-black text-slate-950 group-hover:text-[#0052FF] transition-colors leading-snug">
+                <h3 className="font-heading text-base font-bold text-slate-900 group-hover:text-[#0052FF] transition-colors leading-snug drop-shadow-sm">
                   {phone.name}
                 </h3>
-                <p className="text-[11px] text-slate-500 font-medium truncate mt-0.5">{phone.variant}</p>
+                <p className="text-xs text-slate-500 font-medium truncate mt-1">{phone.variant}</p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-xs">
+              <div className="mt-5 pt-4 border-t border-slate-100 flex items-end justify-between">
                 <div>
-                  <span className="text-[10px] text-slate-400 line-through block font-mono">
-                    ₹{phone.originalPrice.toLocaleString('en-IN')}
+                  <span className="text-[11px] text-slate-400 line-through block font-medium mb-0.5">
+                    MRP: ₹{phone.originalPrice.toLocaleString('en-IN')}
                   </span>
-                  <span className="font-mono font-black text-[#0052FF] text-sm">
+                  <span className="font-heading font-black text-[#0052FF] text-lg">
                     ₹{phone.sellPrice.toLocaleString('en-IN')}
                   </span>
                 </div>
-                <span className="bg-blue-50 text-[#0052FF] font-bold text-[10px] px-2.5 py-1 rounded-full group-hover:bg-[#0052FF] group-hover:text-white transition-colors">
+                <button className="bg-slate-100 group-hover:bg-[#0052FF] group-hover:text-white text-slate-800 font-bold text-xs px-4 py-2 rounded-xl transition-colors shadow-sm font-heading">
                   Buy
-                </span>
+                </button>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </motion.section>
@@ -627,19 +586,19 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 scroll-mt-24"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 mt-16 scroll-mt-24"
       >
-        <div className="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 border border-slate-800 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-100 shadow-xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-50 rounded-full blur-3xl pointer-events-none" />
           
-          <div className="space-y-3 mb-8 relative z-10 border-b border-slate-800 pb-6">
+          <div className="space-y-4 mb-8 relative z-10 border-b border-slate-100 pb-6">
             <div className="flex flex-wrap items-center gap-3">
-              <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-extrabold px-3 py-1 rounded-full font-mono">
+              <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-3 py-1.5 rounded-full font-heading tracking-wider shadow-sm">
                 Spot UPI Payouts Verified
               </span>
             </div>
             
-            <p className="text-sm sm:text-base text-slate-300 max-w-3xl leading-relaxed font-sans">
+            <p className="text-sm sm:text-base text-slate-600 max-w-3xl leading-relaxed font-medium">
               Complete your 60-second device selection, functional condition check, physical defect inspection, and doorstep booking right here in one compartmentalized flow.
             </p>
           </div>
@@ -663,41 +622,42 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.5 }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 mt-16"
       >
-        <div className="text-center space-y-2 max-w-2xl mx-auto">
-          <span className="bg-indigo-100 text-indigo-900 text-xs font-black px-4 py-1.5 rounded-full border border-indigo-200 uppercase tracking-wider inline-block font-heading shadow-xs">
+        <div className="text-center space-y-3 max-w-2xl mx-auto">
+          <span className="bg-indigo-50 text-indigo-700 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider inline-block font-heading shadow-sm">
             Built for Complete Trust
           </span>
-          <h2 className="text-3xl sm:text-4xl font-black text-slate-950 font-heading drop-shadow-sm">Why Customers Trust Recell Store</h2>
-          <p className="text-sm sm:text-base text-slate-800 font-medium">
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 font-heading drop-shadow-sm">Why Customers Trust Us</h2>
+          <p className="text-sm sm:text-base text-slate-600 font-medium">
             Fast 60-second quotes, instant GPay &amp; cash transfers at doorstep, and 100% data privacy protection.
           </p>
         </div>
 
         {/* Bento Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
           {/* Bento Item 1 (Full Width - 12 cols) */}
           <motion.div 
             whileHover={{ y: -4 }}
-            className="md:col-span-12 p-6 sm:p-8 bg-slate-950 text-white rounded-3xl space-y-6 shadow-xl relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+            className="md:col-span-12 p-8 sm:p-10 bg-white border border-slate-100 rounded-3xl space-y-6 shadow-xl relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-8"
           >
-            <div className="space-y-3 z-10 max-w-xl">
-              <span className="bg-emerald-500/20 text-emerald-300 text-xs font-black px-3 py-1 rounded-full border border-emerald-500/40 inline-flex items-center gap-1.5 shadow-xs">
-                <Zap className="w-4 h-4 text-emerald-400" />
+            <div className="absolute top-0 left-0 w-64 h-64 bg-[#0052FF]/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="space-y-4 z-10 max-w-xl">
+              <span className="bg-emerald-50 text-emerald-700 text-[10px] font-bold px-3 py-1.5 rounded-full inline-flex items-center gap-1.5 shadow-sm uppercase tracking-wider">
+                <Zap className="w-3.5 h-3.5" />
                 Instant Price Valuation
               </span>
-              <h3 className="text-2xl sm:text-3xl font-black text-white font-heading drop-shadow-md">Complete Mobile Inspection Checklist</h3>
-              <p className="text-sm sm:text-base text-slate-200 leading-relaxed font-sans">
+              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 font-heading drop-shadow-sm">Complete Mobile Inspection Checklist</h3>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium">
                 Screen glass, display touch, camera, speakers, battery health, and body condition verified transparently right in front of you.
               </p>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs z-10 w-full md:w-auto">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs z-10 w-full md:w-auto">
               {['Display Touch', 'Camera & OIS', 'Battery Health', 'Microphone', 'Charging Port', 'IMEI Check'].map((item, idx) => (
-                <div key={idx} className="p-3 bg-slate-900 border border-slate-700 rounded-xl flex items-center gap-2 shadow-xs">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span className="font-extrabold text-white text-xs">{item}</span>
+                <div key={idx} className="p-3 bg-slate-50 border border-slate-100 rounded-2xl flex items-center gap-2.5 shadow-sm">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                  <span className="font-bold text-slate-700 text-xs">{item}</span>
                 </div>
               ))}
             </div>
@@ -706,20 +666,20 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           {/* Bento Item 3 (4 cols) */}
           <motion.div 
             whileHover={{ y: -4 }}
-            className="md:col-span-4 p-6 bg-white border border-slate-300 rounded-3xl space-y-4 shadow-md hover:shadow-xl flex flex-col justify-between"
+            className="md:col-span-4 p-8 bg-white border border-slate-100 rounded-3xl space-y-5 shadow-lg hover:shadow-2xl flex flex-col justify-between transition-all duration-300"
           >
-            <div className="w-12 h-12 rounded-2xl bg-blue-100 text-[#0052FF] flex items-center justify-center font-bold">
-              <ShieldCheck className="w-6 h-6" />
+            <div className="w-14 h-14 rounded-2xl bg-blue-50 text-[#0052FF] flex items-center justify-center font-bold">
+              <ShieldCheck className="w-7 h-7" />
             </div>
             <div>
-              <h4 className="font-black text-slate-950 text-xl font-heading drop-shadow-xs">3-Month Warranty</h4>
-              <p className="text-xs sm:text-sm text-slate-800 mt-1 leading-relaxed font-medium">
-                Every certified pre-owned phone sold includes 90 days of hardware protection with free reverse pickup. Water/physical damage excluded.
+              <h4 className="font-bold text-slate-900 text-xl font-heading drop-shadow-sm">3-Month Warranty</h4>
+              <p className="text-sm text-slate-500 mt-2 leading-relaxed font-medium">
+                Every certified pre-owned phone sold includes 90 days of hardware protection with free reverse pickup.
               </p>
             </div>
             <button
               onClick={() => onOpenLegal('warranty')}
-              className="text-xs sm:text-sm font-black text-[#0052FF] flex items-center gap-1.5 pt-2 cursor-pointer font-heading"
+              className="text-sm font-bold text-[#0052FF] flex items-center gap-1.5 pt-3 cursor-pointer font-heading"
             >
               Read Warranty Terms &rarr;
             </button>
@@ -728,20 +688,20 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           {/* Bento Item 4 (4 cols) */}
           <motion.div 
             whileHover={{ y: -4 }}
-            className="md:col-span-4 p-6 bg-white border border-slate-300 rounded-3xl space-y-4 shadow-md hover:shadow-xl flex flex-col justify-between"
+            className="md:col-span-4 p-8 bg-white border border-slate-100 rounded-3xl space-y-5 shadow-lg hover:shadow-2xl flex flex-col justify-between transition-all duration-300"
           >
-            <div className="w-12 h-12 rounded-2xl bg-rose-100 text-rose-700 flex items-center justify-center font-bold">
-              <Lock className="w-6 h-6" />
+            <div className="w-14 h-14 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center font-bold">
+              <Lock className="w-7 h-7" />
             </div>
             <div>
-              <h4 className="font-black text-slate-950 text-xl font-heading drop-shadow-xs">DoD Military Data Wipe</h4>
-              <p className="text-xs sm:text-sm text-slate-800 mt-1 leading-relaxed font-medium">
-                100% zero data leak guarantee. Department of Defense compliant sanitization wipes all personal files permanently.
+              <h4 className="font-bold text-slate-900 text-xl font-heading drop-shadow-sm">DoD Military Data Wipe</h4>
+              <p className="text-sm text-slate-500 mt-2 leading-relaxed font-medium">
+                100% zero data leak guarantee. Department of Defense compliant sanitization wipes all personal files.
               </p>
             </div>
             <button
               onClick={() => onOpenLegal('privacy')}
-              className="text-xs sm:text-sm font-black text-rose-700 flex items-center gap-1.5 pt-2 cursor-pointer font-heading"
+              className="text-sm font-bold text-rose-600 flex items-center gap-1.5 pt-3 cursor-pointer font-heading"
             >
               Data Protection Certificate &rarr;
             </button>
@@ -750,18 +710,18 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           {/* Bento Item 5 (4 cols) */}
           <motion.div 
             whileHover={{ y: -4 }}
-            className="md:col-span-4 p-6 bg-white border border-slate-300 rounded-3xl space-y-4 shadow-md hover:shadow-xl flex flex-col justify-between"
+            className="md:col-span-4 p-8 bg-white border border-slate-100 rounded-3xl space-y-5 shadow-lg hover:shadow-2xl flex flex-col justify-between transition-all duration-300"
           >
-            <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
-              <Leaf className="w-6 h-6" />
+            <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+              <Leaf className="w-7 h-7" />
             </div>
             <div>
-              <h4 className="font-black text-slate-950 text-xl font-heading drop-shadow-xs">Zero Landfill Recycling</h4>
-              <p className="text-xs sm:text-sm text-slate-800 mt-1 leading-relaxed font-medium">
+              <h4 className="font-bold text-slate-900 text-xl font-heading drop-shadow-sm">Zero Landfill Recycling</h4>
+              <p className="text-sm text-slate-500 mt-2 leading-relaxed font-medium">
                 Dispose dead devices responsibly. We divert lithium batteries and circuit boards from polluting water tables.
               </p>
             </div>
-            <span className="text-xs sm:text-sm font-black text-emerald-700 flex items-center gap-1 pt-2 font-mono">
+            <span className="text-sm font-bold text-emerald-600 flex items-center gap-1 pt-3 font-mono">
               45 Tons E-Waste Saved
             </span>
           </motion.div>
@@ -774,20 +734,20 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.5 }}
-        className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6"
+        className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 mt-16"
       >
-        <div className="text-center space-y-2">
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-950 font-heading drop-shadow-sm">Why Trade-In on Recell Beats Local Shop Brokers</h2>
-          <p className="text-sm text-slate-800 font-medium">Transparent comparison between Recell doorstep platform and unorganized offline market shops.</p>
+        <div className="text-center space-y-3">
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 font-heading drop-shadow-sm">Why Trade-In Beats Local Shops</h2>
+          <p className="text-sm text-slate-600 font-medium">Transparent comparison between Recell doorstep platform and unorganized offline market shops.</p>
         </div>
 
-        <div className="bg-white border border-slate-300 rounded-3xl overflow-hidden shadow-md">
-          <table className="w-full text-left text-xs sm:text-sm text-slate-900">
-            <thead className="bg-slate-950 text-white font-mono uppercase text-xs">
-              <tr>
-                <th className="p-4">Feature / Metric</th>
-                <th className="p-4 bg-[#0052FF] text-white font-heading">Recell Platform</th>
-                <th className="p-4 text-slate-300">Unorganized Local Shop</th>
+        <div className="bg-white border border-slate-100 rounded-3xl overflow-hidden shadow-xl">
+          <table className="w-full text-left text-sm text-slate-700">
+            <thead className="bg-slate-50 text-slate-900 font-bold uppercase text-[10px] tracking-wider font-heading">
+              <tr className="border-b border-slate-100">
+                <th className="p-5">Feature / Metric</th>
+                <th className="p-5 text-[#0052FF]">Recell Platform</th>
+                <th className="p-5 text-slate-500">Unorganized Local Shop</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-200">
