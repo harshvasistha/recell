@@ -392,7 +392,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               className="bg-white rounded-3xl p-5 border border-slate-100 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col justify-between group relative"
             >
               <div>
-                <div className="relative h-48 bg-slate-50 rounded-2xl overflow-hidden mb-4 p-4 flex items-center justify-center">
+                <div className="relative h-56 lg:h-64 bg-slate-50 rounded-2xl overflow-hidden mb-4 p-4 flex items-center justify-center">
                   <img 
                     src={item.img} 
                     alt={item.name} 
@@ -463,7 +463,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           </button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {[
             {
               id: 'm-ip15pm',
@@ -538,7 +538,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               className="p-5 rounded-3xl bg-white border border-slate-100 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer group flex flex-col justify-between"
             >
               <div>
-                <div className="relative rounded-2xl overflow-hidden bg-slate-50 mb-4 aspect-4/3 flex items-center justify-center p-4">
+                <div className="relative rounded-2xl overflow-hidden bg-slate-50 mb-4 aspect-square flex items-center justify-center p-4">
                   <img
                     src={phone.img}
                     alt={phone.name}

@@ -144,7 +144,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
                   >
                     <div>
                       <div className="flex items-center gap-2.5 mb-2">
-                        <BrandLogo brandId={brand.id} brandName={brand.name} size="sm" />
+                        <BrandLogo brandId={brand.id} brandName={brand.name} size="md" />
                         <span className="font-mono text-xs font-black text-slate-900 group-hover:text-indigo-600 transition-colors font-heading">
                           {brand.name}
                         </span>

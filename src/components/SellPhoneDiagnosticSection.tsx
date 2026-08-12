@@ -251,8 +251,8 @@ export const SellPhoneDiagnosticSection: React.FC<SellPhoneDiagnosticSectionProp
                       : 'bg-slate-50 border-slate-200 hover:border-slate-300 hover:bg-slate-100'
                   }`}
                 >
-                  <BrandLogo brandId={b.id} brandName={b.name} size="md" />
-                  <span className={`text-xs font-bold font-heading text-center truncate max-w-full ${
+                  <BrandLogo brandId={b.id} brandName={b.name} size="lg" />
+                  <span className={`text-sm mt-1 font-bold font-heading text-center truncate max-w-full ${
                     brand.toLowerCase() === b.name.toLowerCase() ? 'text-[#0052FF]' : 'text-slate-900'
                   }`}>
                     {b.name}

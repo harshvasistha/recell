@@ -47,11 +47,11 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
         <div className="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Left Column: Photos Gallery */}
           <div className="space-y-4">
-            <div className="relative h-80 bg-slate-950 rounded-2xl overflow-hidden border border-slate-800">
+            <div className="relative h-96 bg-slate-50 rounded-2xl overflow-hidden border border-slate-100 flex items-center justify-center p-4 shadow-sm">
               <img
                 src={activeImage || product.images[0]}
                 alt={product.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain drop-shadow-md"
               />
               <span className="absolute top-3 left-3 bg-emerald-500 text-slate-950 text-xs font-black px-3 py-1 rounded-full flex items-center gap-1 shadow-md">
                 <ShieldCheck className="w-3.5 h-3.5" />
@@ -66,11 +66,11 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   <button
                     key={idx}
                     onClick={() => setActiveImage(img)}
-                    className={`w-16 h-16 rounded-xl overflow-hidden border-2 transition-all ${
-                      activeImage === img ? 'border-emerald-500 ring-2 ring-emerald-500/50' : 'border-slate-800 opacity-70'
+                    className={`w-20 h-20 rounded-xl overflow-hidden bg-slate-50 border-2 transition-all p-1 flex items-center justify-center ${
+                      activeImage === img ? 'border-[#0052FF] ring-2 ring-[#0052FF]/20' : 'border-slate-200 opacity-80'
                     }`}
                   >
-                    <img src={img} alt="" className="w-full h-full object-cover" />
+                    <img src={img} alt="" className="w-full h-full object-contain drop-shadow-sm" />
                   </button>
                 ))}
               </div>

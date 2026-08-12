@@ -2,6 +2,7 @@ export interface BrandCategory {
   id: string;
   name: string;
   logoText: string;
+  logoUrl?: string;
   tagline: string;
   modelsCount: number;
   sellStartingFrom: number;
@@ -26,7 +27,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'apple',
     name: 'Apple',
-    logoText: ' Apple',
+    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg', logoText: 'Apple',
     tagline: 'iPhone 16, 15 Pro, 14, 13, 12, SE',
     modelsCount: 42,
     sellStartingFrom: 18000,
@@ -38,7 +39,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'samsung',
     name: 'Samsung',
-    logoText: 'SAMSUNG',
+    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg', logoText: 'SAMSUNG',
     tagline: 'Galaxy S24 Ultra, S23, Z Fold, A Series',
     modelsCount: 58,
     sellStartingFrom: 6500,
@@ -50,7 +51,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'oneplus',
     name: 'OnePlus',
-    logoText: 'ONEPLUS',
+    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/f8/OnePlus_logo.svg', logoText: 'ONEPLUS',
     tagline: 'OnePlus 12, 11R, Nord 4, Open',
     modelsCount: 34,
     sellStartingFrom: 8500,
@@ -62,7 +63,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'xiaomi',
     name: 'Xiaomi / Redmi',
-    logoText: 'Xiaomi',
+    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/2/29/Xiaomi_logo.svg', logoText: 'Xiaomi',
     tagline: 'Xiaomi 14, Redmi Note 13 Pro+, K Series',
     modelsCount: 65,
     sellStartingFrom: 4500,
@@ -74,7 +75,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'vivo',
     name: 'Vivo',
-    logoText: 'vivo',
+    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e5/Vivo_logo_2019.svg', logoText: 'vivo',
     tagline: 'Vivo X100 Pro, V30 Pro, T3 5G, Y Series',
     modelsCount: 48,
     sellStartingFrom: 5000,
@@ -86,7 +87,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'oppo',
     name: 'Oppo',
-    logoText: 'oppo',
+    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/b8/OPPO_Logo.svg', logoText: 'oppo',
     tagline: 'Oppo Find N3 Flip, Reno 12 Pro, F Series',
     modelsCount: 45,
     sellStartingFrom: 4800,
@@ -98,7 +99,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'realme',
     name: 'Realme',
-    logoText: 'realme',
+    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/05/Realme_logo.svg', logoText: 'realme',
     tagline: 'Realme GT 6, 12 Pro+, Narzo 70 Pro',
     modelsCount: 52,
     sellStartingFrom: 4000,
@@ -110,7 +111,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'google',
     name: 'Google Pixel',
-    logoText: 'Google Pixel',
+    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg', logoText: 'Google Pixel',
     tagline: 'Pixel 9 Pro, Pixel 8a, 7 Pro, 6a',
     modelsCount: 18,
     sellStartingFrom: 11000,
@@ -122,7 +123,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'motorola',
     name: 'Motorola',
-    logoText: 'motorola',
+    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/43/Motorola_logo.svg', logoText: 'motorola',
     tagline: 'Moto Edge 50 Ultra, Razr 50, G Series',
     modelsCount: 38,
     sellStartingFrom: 4200,
