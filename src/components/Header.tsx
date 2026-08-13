@@ -204,7 +204,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           <div className="flex items-center group cursor-pointer hover:text-[#0052FF]">
              <a href="/open-box" onClick={(e) => handleNavClick(e, 'open-box')} className="flex items-center transition-colors">
-               Open Box Device <span className="ml-1.5 bg-green-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-sm shadow-sm">HOT</span>
+               Open Box Category <span className="ml-1.5 bg-green-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-sm shadow-sm">HOT</span>
              </a>
           </div>
 
@@ -262,7 +262,7 @@ export const Header: React.FC<HeaderProps> = ({
                    </li>
                    <li>
                      <a href="/open-box" onClick={(e) => handleNavClick(e, 'open-box')} className="flex items-center justify-between py-1 hover:text-[#0052FF] transition-colors cursor-pointer">
-                       <span>Open Box Device</span>
+                       <span>Open Box Category</span>
                        <span className="bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">HOT</span>
                      </a>
                    </li>
