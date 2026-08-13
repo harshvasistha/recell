@@ -260,8 +260,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   <Zap className="w-7 h-7" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 text-xl group-hover:text-amber-600 transition-colors font-heading drop-shadow-sm">
-                    Open Box Category
+                  <h3 className="font-bold text-slate-900 text-xl group-hover:text-amber-600 transition-colors font-heading drop-shadow-sm flex items-center gap-2">
+                    Open Box Device
+                    <span className="bg-green-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full shadow-sm">HOT</span>
                   </h3>
                   <p className="text-sm text-slate-500 mt-2 leading-relaxed">
                     Unboxed chargers & smartphones with original brand warranty.

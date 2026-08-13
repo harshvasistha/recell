@@ -135,7 +135,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'nothing',
     name: 'Nothing',
-    logoText: 'NOTHING',
+    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/74/Nothing_logo.svg', logoText: 'NOTHING',
     tagline: 'Nothing Phone 2a, Phone 2, Phone 1',
     modelsCount: 6,
     sellStartingFrom: 12000,
@@ -147,7 +147,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'poco',
     name: 'Poco',
-    logoText: 'POCO',
+    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/2/29/POCO_logo.svg', logoText: 'POCO',
     tagline: 'Poco F6 5G, X6 Pro, M6 Pro 5G',
     modelsCount: 29,
     sellStartingFrom: 3800,
@@ -159,7 +159,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'iqoo',
     name: 'iQOO',
-    logoText: 'iQOO',
+    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/aa/IQOO_logo.svg', logoText: 'iQOO',
     tagline: 'iQOO 12 5G, Neo 9 Pro, Z9 5G',
     modelsCount: 22,
     sellStartingFrom: 7000,
@@ -171,7 +171,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'asus',
     name: 'Asus / ROG',
-    logoText: 'ASUS ROG',
+    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/2/2e/ASUS_Logo.svg', logoText: 'ASUS ROG',
     tagline: 'ROG Phone 8 Pro, Zenfone 10, ROG 7',
     modelsCount: 12,
     sellStartingFrom: 14000,
@@ -183,7 +183,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'honor',
     name: 'Honor',
-    logoText: 'HONOR',
+    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/2/20/Honor_Logo_%282020%29.svg', logoText: 'HONOR',
     tagline: 'Honor 200 Pro, Magic 6 Pro, X9b',
     modelsCount: 16,
     sellStartingFrom: 6000,
@@ -195,7 +195,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'infinix',
     name: 'Infinix / Tecno',
-    logoText: 'Infinix',
+    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Infinix_logo.svg', logoText: 'Infinix',
     tagline: 'Infinix GT 20 Pro, Phantom V Fold, Zero 30',
     modelsCount: 30,
     sellStartingFrom: 3200,

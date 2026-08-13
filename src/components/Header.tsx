@@ -192,7 +192,7 @@ export const Header: React.FC<HeaderProps> = ({
           
           <div className="flex items-center group relative cursor-pointer hover:text-[#0052FF]">
              <a href="/buy" onClick={(e) => handleNavClick(e, 'buy')} className="flex items-center gap-1 transition-colors">
-               Buy Refurbished <ChevronDown className="w-3.5 h-3.5" />
+               Buy Refurbished
              </a>
           </div>
 
@@ -203,8 +203,8 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           <div className="flex items-center group cursor-pointer hover:text-[#0052FF]">
-             <a href="/open-box" onClick={(e) => handleNavClick(e, 'open-box')} className="transition-colors">
-               Open Box Category
+             <a href="/open-box" onClick={(e) => handleNavClick(e, 'open-box')} className="flex items-center transition-colors">
+               Open Box Device <span className="ml-1.5 bg-green-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-sm shadow-sm">HOT</span>
              </a>
           </div>
 
@@ -261,7 +261,10 @@ export const Header: React.FC<HeaderProps> = ({
                      <a href="/buy" onClick={(e) => handleNavClick(e, 'buy')} className="block py-1 hover:text-[#0052FF] transition-colors cursor-pointer">Buy Refurbished Phones</a>
                    </li>
                    <li>
-                     <a href="/open-box" onClick={(e) => handleNavClick(e, 'open-box')} className="block py-1 hover:text-[#0052FF] transition-colors cursor-pointer">Open Box Category</a>
+                     <a href="/open-box" onClick={(e) => handleNavClick(e, 'open-box')} className="flex items-center justify-between py-1 hover:text-[#0052FF] transition-colors cursor-pointer">
+                       <span>Open Box Device</span>
+                       <span className="bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">HOT</span>
+                     </a>
                    </li>
                    <li>
                      <a href="/repair" onClick={(e) => handleNavClick(e, 'repair')} className="block py-1 hover:text-[#0052FF] transition-colors cursor-pointer">Doorstep Repair</a>

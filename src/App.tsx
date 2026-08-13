@@ -66,6 +66,7 @@ export default function App() {
   // Sync window URL when tab, searchQuery, or legalTab changes
   useEffect(() => {
     syncUrlWithRoute(currentTab, searchQuery, isLegalOpen ? legalTab : undefined);
+    window.scrollTo(0, 0);
   }, [currentTab, searchQuery, isLegalOpen, legalTab]);
 
   // Listen to hash and popstate changes (e.g. browser Back/Forward or new tab navigation)
