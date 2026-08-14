@@ -4,7 +4,7 @@ import { MAJOR_MOBILE_BRANDS, PLATFORM_FEATURES } from '../data/brandsData';
 import { BrandLogo } from './BrandLogo';
 import { SellPhoneDiagnosticSection } from './SellPhoneDiagnosticSection';
 import { 
-  Zap, Banknote, ShieldCheck, RotateCcw, Smartphone, 
+  IndianRupee, Zap, Banknote, ShieldCheck, RotateCcw, Smartphone, 
   Lock, Wrench, Leaf, ChevronRight, CheckCircle2, Star,
   MapPin, HelpCircle, Truck, Sparkles, ArrowUpRight, ArrowRight, RefreshCw, X, Shield, PhoneCall
 } from 'lucide-react';
@@ -196,7 +196,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 pt-10 text-left"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 pt-10 text-left"
           >
             {/* Card 1: Buy Refurbished */}
             <div 
@@ -464,7 +464,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           </button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           {[
             {
               id: 'm-ip15pm',
@@ -580,39 +580,47 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
       </motion.section>
 
-      {/* 2.5 COMPARTMENTALIZED SELL PROCESS & HARDWARE DIAGNOSTIC SECTION */}
+      {/* 2.5 SELL OLD MOBILE CARD (Replaced Diagnostic Section) */}
       <motion.section 
-        id="sell-diagnostic-section"
+        id="sell-mobile-card-section"
         initial={{ opacity: 0, y: 45 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 mt-16 scroll-mt-24"
       >
-        <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-100 shadow-xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-50 rounded-full blur-3xl pointer-events-none" />
+        <div 
+          onClick={() => onStartSell()}
+          className="bg-gradient-to-br from-indigo-50 to-white rounded-3xl p-6 sm:p-10 border border-indigo-100 shadow-xl relative overflow-hidden cursor-pointer hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group"
+        >
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#0052FF]/10 rounded-full blur-3xl pointer-events-none transition-transform group-hover:scale-110" />
           
-          <div className="space-y-4 mb-8 relative z-10 border-b border-slate-100 pb-6">
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-3 py-1.5 rounded-full font-heading tracking-wider shadow-sm">
-                Spot UPI Payouts Verified
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
+            <div className="space-y-4 max-w-xl">
+              <span className="bg-[#0052FF] text-white text-[10px] font-bold px-3 py-1.5 rounded-full font-heading tracking-wider shadow-sm uppercase">
+                Sell For Cash
               </span>
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 font-heading drop-shadow-sm">
+                Sell Old Mobile Phone
+              </h2>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium">
+                Get an instant price quote for your old device. Safe & hassle-free doorstep pickup with spot UPI payment.
+              </p>
+              <button 
+                className="mt-4 bg-[#0052FF] group-hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-2xl shadow-lg shadow-blue-500/30 flex items-center gap-2 text-sm transition-all font-heading"
+              >
+                Sell Now <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
             </div>
             
-            <p className="text-sm sm:text-base text-slate-600 max-w-3xl leading-relaxed font-medium">
-              Complete your 60-second device selection, functional condition check, physical defect inspection, and doorstep booking right here in one compartmentalized flow.
-            </p>
-          </div>
-
-          <div className="relative z-10">
-            <SellPhoneDiagnosticSection
-              selectedBrandFromHub={selectedBrandForSell}
-              onSubmitBuyRequest={(req) => {
-                console.log('Sell Request Created:', req);
-              }}
-              onNavigateToAgent={() => onStartTrack()}
-              onNavigateToTrack={() => onStartTrack()}
-            />
+            <div className="w-full md:w-1/3 flex justify-center">
+              <div className="relative w-48 h-48 md:w-64 md:h-64 flex items-center justify-center">
+                 <Smartphone className="w-32 h-32 text-[#0052FF] drop-shadow-2xl transform -rotate-12 group-hover:rotate-0 transition-transform duration-500" />
+                 <div className="absolute bottom-4 right-4 bg-emerald-500 text-white p-3 rounded-full shadow-lg animate-bounce">
+                    <IndianRupee className="w-6 h-6" />
+                 </div>
+              </div>
+            </div>
           </div>
         </div>
       </motion.section>

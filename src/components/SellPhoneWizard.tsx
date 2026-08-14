@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { DeviceModel, ConditionAnswers, BuyQuoteRequest, PricingRules } from '../types';
 import { calculateRoughQuote, isLocalPincode } from '../utils/pricingEngine';
-import { Smartphone, Check, AlertCircle, Camera, Upload, Calendar, Clock, MapPin, IndianRupee, Sparkles, ShieldCheck, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Smartphone, Check, AlertCircle, Camera, Upload, Calendar, Clock, MapPin, IndianRupee, Sparkles, ShieldCheck, ArrowRight, ArrowLeft, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { MAJOR_MOBILE_BRANDS } from '../data/brandsData';
 
 interface SellPhoneWizardProps {
   deviceModels: DeviceModel[];
@@ -17,9 +18,10 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
   onNavigateToAgent
 }) => {
   const [step, setStep] = useState<number>(1);
-  const [selectedBrand, setSelectedBrand] = useState<string>('All');
+  const [selectedBrand, setSelectedBrand] = useState<string>('');
   const [selectedModel, setSelectedModel] = useState<DeviceModel | null>(null);
   const [searchModelQuery, setSearchModelQuery] = useState<string>('');
+  const [manufacturingYear, setManufacturingYear] = useState<number | null>(null);
 
   // Questionnaire state
   const [answers, setAnswers] = useState<ConditionAnswers>({
@@ -44,13 +46,8 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
   const [scheduledDate, setScheduledDate] = useState<string>('');
   const [scheduledSlot, setScheduledSlot] = useState<string>('02:00 PM - 04:00 PM');
 
-  // Request state after creation
-  const [createdRequest, setCreatedRequest] = useState<BuyQuoteRequest | null>(null);
-
-  const brands = ['All', 'Apple', 'Samsung', 'OnePlus', 'Google', 'Xiaomi', 'Realme'];
-
   const filteredModels = deviceModels.filter(m => {
-    const matchesBrand = selectedBrand === 'All' || m.brand.toLowerCase() === selectedBrand.toLowerCase();
+    const matchesBrand = selectedBrand === '' || m.brand.toLowerCase() === selectedBrand.toLowerCase();
     const matchesSearch = m.name.toLowerCase().includes(searchModelQuery.toLowerCase()) ||
                           m.brand.toLowerCase().includes(searchModelQuery.toLowerCase());
     return matchesBrand && matchesSearch;
@@ -70,7 +67,7 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
       id: `REQ-${answers.pincode || '250101'}-${Math.floor(100 + Math.random() * 900)}`,
       date: new Date().toISOString(),
       modelId: selectedModel.id,
-      modelName: `${selectedModel.brand} ${selectedModel.name} (${selectedModel.variant})`,
+      modelName: `${selectedModel.brand} ${selectedModel.name} (${selectedModel.variant}) - ${manufacturingYear}`,
       brand: selectedModel.brand,
       sellerName: sellerName || 'Seller',
       sellerPhone: sellerPhone || '+91 98765 00000',
@@ -88,554 +85,418 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
       photos: [selectedModel.imageUrl]
     };
 
-    setCreatedRequest(newReq);
     onSubmitBuyRequest(newReq);
-    setStep(4); // Confirmation step
+    setStep(6); // Confirmation step
   };
 
+  const years = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018];
+
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className="max-w-5xl mx-auto px-4 py-8">
       {/* Wizard Header Progress Bar */}
       <div className="bg-white border border-slate-200 rounded-3xl p-6 mb-8 text-slate-900 shadow-sm">
         <div className="flex items-center justify-between mb-4">
           <div>
             <h1 className="text-2xl font-black text-slate-900 flex items-center gap-2">
               <Smartphone className="w-7 h-7 text-indigo-600" />
-              Sell Your Phone in 60 Seconds
+              Sell Old Mobile Phone
             </h1>
             <p className="text-sm text-slate-500 mt-1">
-              Serving <strong>Pincode 250101 (Khekra, Baghpat) &bull; Doorstep Active</strong> — Instant UPI payout on doorstep physical verification.
+              Get an instant quote and doorstep spot UPI payment in 60 seconds.
             </p>
           </div>
           <span className="hidden sm:inline bg-indigo-50 text-indigo-700 border border-indigo-100 font-mono text-xs px-3.5 py-1 rounded-full font-bold">
-            Step {step} of 4
+            Step {step} of 5
           </span>
         </div>
 
-        {/* Step Indicator Pills */}
-        <div className="grid grid-cols-4 gap-2 pt-3 border-t border-slate-100 text-center text-xs">
-          <div className={`py-2 rounded-xl font-bold transition-all ${step >= 1 ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-100 text-slate-400'}`}>
-            1. Model
-          </div>
-          <div className={`py-2 rounded-xl font-bold transition-all ${step >= 2 ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-100 text-slate-400'}`}>
-            2. Condition
-          </div>
-          <div className={`py-2 rounded-xl font-bold transition-all ${step >= 3 ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-100 text-slate-400'}`}>
-            3. Estimated Quote
-          </div>
-          <div className={`py-2 rounded-xl font-bold transition-all ${step >= 4 ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-100 text-slate-400'}`}>
-            4. Schedule Pickup
-          </div>
+        {/* Breadcrumb / Step Indicator */}
+        <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-slate-100 text-xs font-bold text-slate-400">
+          <button onClick={() => setStep(1)} className={`transition-all ${step >= 1 ? 'text-indigo-600' : ''}`}>1. Brand</button>
+          <ChevronRight className="w-4 h-4" />
+          <button onClick={() => setStep(2)} disabled={step < 2} className={`transition-all ${step >= 2 ? 'text-indigo-600' : ''}`}>2. Model</button>
+          <ChevronRight className="w-4 h-4" />
+          <button onClick={() => setStep(3)} disabled={step < 3} className={`transition-all ${step >= 3 ? 'text-indigo-600' : ''}`}>3. Year</button>
+          <ChevronRight className="w-4 h-4" />
+          <button onClick={() => setStep(4)} disabled={step < 4} className={`transition-all ${step >= 4 ? 'text-indigo-600' : ''}`}>4. Diagnostics</button>
+          <ChevronRight className="w-4 h-4" />
+          <button onClick={() => setStep(5)} disabled={step < 5} className={`transition-all ${step >= 5 ? 'text-indigo-600' : ''}`}>5. Quote</button>
         </div>
       </div>
 
-      {/* STEP 1: MODEL SELECTION */}
+      {/* STEP 1: BRAND SELECTION */}
       {step === 1 && (
-        <div className="bg-white border border-slate-200 rounded-3xl p-6 text-slate-900 shadow-sm space-y-6">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="bg-white border border-slate-200 rounded-3xl p-6 md:p-10 shadow-sm">
+          <h2 className="text-2xl font-black text-slate-900 mb-6 font-heading">Select Mobile Brand</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            {MAJOR_MOBILE_BRANDS.map(brand => (
+              <button
+                key={brand.id}
+                onClick={() => {
+                  setSelectedBrand(brand.name);
+                  setSearchModelQuery('');
+                  setStep(2);
+                }}
+                className="group p-4 bg-white border border-slate-200 rounded-2xl hover:border-indigo-500 hover:shadow-lg transition-all flex flex-col items-center gap-4 relative overflow-hidden"
+              >
+                <div className="h-24 flex items-center justify-center w-full">
+                  <img src={brand.logoUrl} alt={brand.name} className="max-h-20 max-w-[140px] object-contain filter group-hover:scale-110 transition-transform" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+                </div>
+                <span className="font-bold text-slate-800 text-sm group-hover:text-indigo-600">{brand.name}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* STEP 2: MODEL SELECTION */}
+      {step === 2 && (
+        <div className="bg-white border border-slate-200 rounded-3xl p-6 md:p-10 shadow-sm space-y-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
             <div>
-              <h2 className="text-xl font-bold">Select Phone Model</h2>
-              <p className="text-slate-500 text-sm">Choose your exact model to get an instant quote</p>
+              <button onClick={() => setStep(1)} className="text-xs text-indigo-600 font-bold mb-2 flex items-center gap-1 hover:underline"><ArrowLeft className="w-3 h-3" /> Back to Brands</button>
+              <h2 className="text-2xl font-black text-slate-900 font-heading">Select {selectedBrand} Model</h2>
             </div>
             <input
               type="text"
-              placeholder="Search e.g. iPhone 14, S23 Ultra, OnePlus 11..."
+              placeholder={`Search ${selectedBrand} models...`}
               value={searchModelQuery}
               onChange={(e) => setSearchModelQuery(e.target.value)}
-              className="bg-slate-50 border border-slate-200 rounded-2xl px-4 py-2.5 text-xs w-full md:w-72 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3 text-sm w-full md:w-80 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium"
             />
           </div>
 
-          {/* Brand Filter Pills */}
-          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
-            {brands.map(b => (
-              <button
-                key={b}
-                onClick={() => setSelectedBrand(b)}
-                className={`px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
-                  selectedBrand === b
-                    ? 'bg-slate-900 text-white shadow-sm'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                }`}
-              >
-                {b}
-              </button>
-            ))}
-          </div>
-
-          {/* Device Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-h-[500px] overflow-y-auto pr-1">
-            {filteredModels.map(m => (
-              <div
-                key={m.id}
-                onClick={() => {
-                  setSelectedModel(m);
-                }}
-                className={`p-4 rounded-2xl border cursor-pointer transition-all flex items-center gap-4 ${
-                  selectedModel?.id === m.id
-                    ? 'bg-indigo-50/80 border-indigo-600 ring-2 ring-indigo-600/30 shadow-sm'
-                    : 'bg-slate-50/80 border-slate-200 hover:border-slate-300'
-                }`}
-              >
-                <img
-                  src={m.imageUrl}
-                  alt={m.name}
-                  className="w-16 h-16 object-cover rounded-xl bg-white border border-slate-200"
-                />
-                <div className="flex-1">
-                  <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-wider">{m.brand}</span>
-                  <h3 className="font-bold text-slate-900 text-sm leading-snug">{m.name}</h3>
-                  <p className="text-xs text-slate-500">{m.variant}</p>
-                  <p className="text-xs font-semibold text-slate-700 mt-1">
-                    Up to <span className="text-indigo-600 font-bold font-mono">₹{(m.baseMarketPrice * 0.88).toLocaleString('en-IN')}</span>
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {selectedModel && (
-            <div className="flex justify-end pt-4 border-t border-slate-100">
-              <button
-                onClick={() => setStep(2)}
-                className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-full flex items-center gap-2 shadow-sm transition-all text-xs"
-              >
-                Continue with {selectedModel.name}
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* STEP 2: CONDITION QUESTIONNAIRE */}
-      {step === 2 && selectedModel && (
-        <div className="bg-white border border-slate-200 rounded-3xl p-6 text-slate-900 shadow-sm space-y-6">
-          <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-            <div>
-              <h2 className="text-xl font-bold flex items-center gap-2">
-                Device Condition Questionnaire
-              </h2>
-              <p className="text-slate-500 text-sm">Answering accurately ensures your doorstep price matches your quote</p>
-            </div>
-            <div className="text-right">
-              <span className="text-xs text-slate-400">Selected Device</span>
-              <p className="text-sm font-bold text-indigo-600">{selectedModel.brand} {selectedModel.name} ({selectedModel.variant})</p>
-            </div>
-          </div>
-
-          {/* Screen Condition */}
-          <div className="space-y-2">
-            <label className="text-sm font-bold text-slate-800">1. Screen & Display Condition</label>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {[
-                { key: 'flawless', label: 'Flawless / Scratchless', sub: 'Zero marks' },
-                { key: 'minor_scratches', label: 'Minor Scratches', sub: 'Light hair-line marks' },
-                { key: 'cracked', label: 'Screen Cracked', sub: 'Glass broken' },
-                { key: 'display_fault', label: 'Display Lines / Fault', sub: 'Spots / Green line' }
-              ].map(opt => (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-h-[600px] overflow-y-auto pr-2">
+            {filteredModels.length > 0 ? (
+              filteredModels.map(m => (
                 <button
-                  key={opt.key}
-                  type="button"
-                  onClick={() => setAnswers({ ...answers, screenCondition: opt.key as any })}
-                  className={`p-3.5 rounded-2xl border text-left text-xs transition-all ${
-                    answers.screenCondition === opt.key
-                      ? 'bg-indigo-50 border-indigo-600 text-indigo-900 font-bold shadow-sm'
-                      : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
-                  }`}
+                  key={m.id}
+                  onClick={() => {
+                    setSelectedModel(m);
+                    setStep(3);
+                  }}
+                  className="p-4 bg-white border border-slate-200 rounded-2xl hover:border-indigo-500 hover:shadow-md transition-all flex flex-col items-center gap-3 text-center"
                 >
-                  <p className="font-bold text-slate-900">{opt.label}</p>
-                  <p className="text-[10px] text-slate-500 mt-0.5">{opt.sub}</p>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Body Condition */}
-          <div className="space-y-2">
-            <label className="text-sm font-bold text-slate-800">2. Body / Frame Condition</label>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {[
-                { key: 'flawless', label: 'Flawless', sub: 'Like new frame' },
-                { key: 'minor_scratches', label: 'Minor Scratches', sub: 'Normal usage' },
-                { key: 'dents', label: 'Visible Dents', sub: 'Corner drops' },
-                { key: 'broken_back', label: 'Broken Back Glass', sub: 'Cracked back' }
-              ].map(opt => (
-                <button
-                  key={opt.key}
-                  type="button"
-                  onClick={() => setAnswers({ ...answers, bodyCondition: opt.key as any })}
-                  className={`p-3.5 rounded-2xl border text-left text-xs transition-all ${
-                    answers.bodyCondition === opt.key
-                      ? 'bg-indigo-50 border-indigo-600 text-indigo-900 font-bold shadow-sm'
-                      : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
-                  }`}
-                >
-                  <p className="font-bold text-slate-900">{opt.label}</p>
-                  <p className="text-[10px] text-slate-500 mt-0.5">{opt.sub}</p>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Functional Checkboxes */}
-          <div className="space-y-2">
-            <label className="text-sm font-bold text-slate-800">3. Functional Verification</label>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {[
-                { key: 'touchWorking', label: 'Touch Screen Working' },
-                { key: 'cameraWorking', label: 'Front & Back Camera OK' },
-                { key: 'speakerWorking', label: 'Speaker & Mic OK' },
-                { key: 'chargingPortWorking', label: 'Charging Port Working' }
-              ].map(item => (
-                <label
-                  key={item.key}
-                  className={`p-3.5 rounded-2xl border flex items-center gap-2 cursor-pointer text-xs font-semibold ${
-                    (answers as any)[item.key]
-                      ? 'bg-emerald-50 border-emerald-500 text-emerald-900 shadow-sm'
-                      : 'bg-slate-50 border-slate-200 text-slate-600'
-                  }`}
-                >
-                  <input
-                    type="checkbox"
-                    checked={(answers as any)[item.key]}
-                    onChange={(e) => setAnswers({ ...answers, [item.key]: e.target.checked })}
-                    className="accent-indigo-600 rounded"
+                  <img
+                    src={m.imageUrl}
+                    alt={m.name}
+                    className="w-28 h-28 object-contain"
                   />
-                  <span>{item.label}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          {/* Accessories Included */}
-          <div className="space-y-2">
-            <label className="text-sm font-bold text-slate-800">4. Original Accessories Handover</label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <label className={`p-3.5 rounded-2xl border flex items-center gap-2 cursor-pointer text-xs font-semibold ${answers.boxIncluded ? 'bg-indigo-50 border-indigo-600 text-indigo-900 shadow-sm' : 'bg-slate-50 border-slate-200 text-slate-600'}`}>
-                <input
-                  type="checkbox"
-                  checked={answers.boxIncluded}
-                  onChange={(e) => setAnswers({ ...answers, boxIncluded: e.target.checked })}
-                  className="accent-indigo-600 rounded"
-                />
-                <span>Original Box Included (+₹600 value)</span>
-              </label>
-              <label className={`p-3.5 rounded-2xl border flex items-center gap-2 cursor-pointer text-xs font-semibold ${answers.chargerIncluded ? 'bg-indigo-50 border-indigo-600 text-indigo-900 shadow-sm' : 'bg-slate-50 border-slate-200 text-slate-600'}`}>
-                <input
-                  type="checkbox"
-                  checked={answers.chargerIncluded}
-                  onChange={(e) => setAnswers({ ...answers, chargerIncluded: e.target.checked })}
-                  className="accent-indigo-600 rounded"
-                />
-                <span>Original Fast Charger Included (+₹900 value)</span>
-              </label>
-            </div>
-          </div>
-
-          {/* Pincode Check */}
-          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-            <label className="text-sm font-bold text-slate-800 flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-indigo-600" />
-              Pickup Pincode Check (Local 5km Radius)
-            </label>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <input
-                type="text"
-                maxLength={6}
-                value={answers.pincode}
-                onChange={(e) => setAnswers({ ...answers, pincode: e.target.value })}
-                className="bg-white border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-900 font-mono w-36 focus:ring-2 focus:ring-indigo-500"
-                placeholder="250101"
-              />
-              <div className="flex-1 flex items-center text-xs">
-                {isLocalPincode(answers.pincode) ? (
-                  <span className="text-emerald-700 font-medium flex items-center gap-1.5 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200">
-                    <Check className="w-4 h-4 text-emerald-600" />
-                    <strong>Pincode {answers.pincode} Serviced!</strong> Instant same-day doorstep visit & UPI payout.
-                  </span>
-                ) : (
-                  <span className="text-amber-700 font-medium flex items-center gap-1.5 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-200">
-                    <AlertCircle className="w-4 h-4 text-amber-600" />
-                    Outside local 250101 radius. Pan-India reverse courier pickup applies.
-                  </span>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Navigation Buttons */}
-          <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-            <button
-              onClick={() => setStep(1)}
-              className="px-5 py-2.5 rounded-full border border-slate-200 text-slate-700 hover:bg-slate-100 text-xs font-bold flex items-center gap-1"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back
-            </button>
-            <button
-              onClick={() => setStep(3)}
-              className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-full flex items-center gap-2 shadow-sm text-xs transition-all"
-            >
-              Calculate Estimated Quote
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* STEP 3: ROUGH QUOTE & SCHEDULE PICKUP */}
-      {step === 3 && selectedModel && currentQuoteBreakdown && (
-        <div className="bg-white border border-slate-200 rounded-3xl p-6 text-slate-900 shadow-sm space-y-6">
-          {/* Quote Card Banner */}
-          <div className="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-sm">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
-              <div>
-                <span className="bg-emerald-500/20 text-emerald-300 text-xs font-bold px-3 py-1 rounded-full border border-emerald-500/30 flex items-center gap-1 w-fit mb-2">
-                  <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-                  Estimated Instant Doorstep Quote
-                </span>
-                <h2 className="text-2xl font-black text-white">{selectedModel.brand} {selectedModel.name}</h2>
-                <p className="text-xs text-slate-400 mt-1">Based on condition selection and local market demand</p>
-              </div>
-
-              <div className="bg-slate-800/90 border border-emerald-500/50 p-5 rounded-2xl text-center min-w-[220px]">
-                <span className="text-xs text-slate-400">Doorstep Offer Range</span>
-                <div className="text-3xl font-black text-emerald-400 font-mono my-1 flex items-center justify-center">
-                  <IndianRupee className="w-7 h-7" />
-                  {currentQuoteBreakdown.roughQuoteMin.toLocaleString('en-IN')} - {currentQuoteBreakdown.roughQuoteMax.toLocaleString('en-IN')}
-                </div>
-                <p className="text-[11px] text-emerald-300 font-bold">Instant Doorstep UPI Transfer</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Detailed Itemized Valuation Rules Breakdown */}
-          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-3">
-            <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider border-b border-slate-200 pb-2">
-              Rule-Based Valuation Breakdown
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-              <div className="flex justify-between py-1 border-b border-slate-200">
-                <span className="text-slate-500 font-medium">Base Market Value (Mint Model)</span>
-                <span className="font-mono font-bold text-slate-900">₹{currentQuoteBreakdown.basePrice.toLocaleString('en-IN')}</span>
-              </div>
-              <div className="flex justify-between py-1 border-b border-slate-200">
-                <span className="text-slate-500 font-medium">Screen Grade ({answers.screenCondition.replace('_', ' ')})</span>
-                <span className="font-mono font-bold text-indigo-600">{(currentQuoteBreakdown.screenMultiplier * 100).toFixed(0)}% factor</span>
-              </div>
-              <div className="flex justify-between py-1 border-b border-slate-200">
-                <span className="text-slate-500 font-medium">Body Frame ({answers.bodyCondition.replace('_', ' ')})</span>
-                <span className="font-mono font-bold text-indigo-600">{(currentQuoteBreakdown.bodyMultiplier * 100).toFixed(0)}% factor</span>
-              </div>
-              {currentQuoteBreakdown.localDemandBonus > 0 && (
-                <div className="flex justify-between py-1 border-b border-slate-200">
-                  <span className="text-emerald-700 font-bold">Local Pincode 250101 Radius Demand Bonus</span>
-                  <span className="font-mono font-bold text-emerald-600">+₹{currentQuoteBreakdown.localDemandBonus}</span>
-                </div>
-              )}
-              {currentQuoteBreakdown.fifteenPercentDeduction > 0 && (
-                <div className="flex justify-between py-1 border-b border-slate-200">
-                  <span className="text-amber-700 font-bold">Diagnostic Rough Estimate Deduction (-15%)</span>
-                  <span className="font-mono font-bold text-amber-600">-₹{currentQuoteBreakdown.fifteenPercentDeduction.toLocaleString('en-IN')}</span>
-                </div>
-              )}
-            </div>
-
-            {currentQuoteBreakdown.deductions.length > 0 && (
-              <div className="pt-2 border-t border-slate-200">
-                <span className="text-[11px] font-bold text-amber-700">Applied Fault Deductions:</span>
-                <div className="flex flex-wrap gap-2 mt-1">
-                  {currentQuoteBreakdown.deductions.map((d, i) => (
-                    <span key={i} className="bg-amber-50 text-amber-800 border border-amber-200 text-[10px] font-bold px-2.5 py-0.5 rounded-full">
-                      {d.label}: -₹{d.amount}
-                    </span>
-                  ))}
-                </div>
+                  <div>
+                    <h3 className="font-bold text-slate-900 text-sm leading-tight">{m.name}</h3>
+                    <p className="text-xs text-slate-500 mt-1">{m.variant}</p>
+                  </div>
+                </button>
+              ))
+            ) : (
+              <div className="col-span-full py-12 text-center text-slate-500 font-medium">
+                No models found for {selectedBrand}. <br />
+                <span className="text-xs">We are continuously adding more models.</span>
               </div>
             )}
-
-            {/* Diagnostic Calculation & 20% Reduction Summary */}
-            <div className="mt-3 pt-3 border-t-2 border-indigo-100 bg-white p-3 rounded-xl space-y-2">
-              <div className="flex justify-between items-center text-xs">
-                <span className="text-slate-600 font-medium">Diagnostic Calculator Rough Estimated Price:</span>
-                <span className="font-mono font-bold text-slate-800 text-sm">
-                  ₹{currentQuoteBreakdown.calculatedBeforeDiscount.toLocaleString('en-IN')}
-                </span>
-              </div>
-
-              <div className="flex justify-between items-center text-xs">
-                <span className="text-rose-600 font-semibold flex items-center gap-1">
-                  Safety &amp; Margin Adjustment (-20% Reduction):
-                </span>
-                <span className="font-mono font-bold text-rose-600">
-                  -₹{currentQuoteBreakdown.discountAmount.toLocaleString('en-IN')}
-                </span>
-              </div>
-
-              <div className="flex justify-between items-center text-xs pt-2 border-t border-slate-100">
-                <span className="text-emerald-700 font-black uppercase tracking-wider">Final Rough-Estimated Doorstep Price:</span>
-                <span className="font-mono font-black text-emerald-600 text-base">
-                  ₹{currentQuoteBreakdown.roughQuoteEstimated.toLocaleString('en-IN')}
-                </span>
-              </div>
-            </div>
           </div>
-
-          {/* Schedule Doorstep Form */}
-          <form onSubmit={handleSubmitSchedule} className="space-y-4 pt-2">
-            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-indigo-600" />
-              Schedule Free Doorstep Pickup & UPI Payout
-            </h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Seller Full Name</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. Ramesh Kumar"
-                  value={sellerName}
-                  onChange={(e) => setSellerName(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Phone Number (For Agent Call)</label>
-                <input
-                  type="tel"
-                  required
-                  placeholder="+91 98765 43210"
-                  value={sellerPhone}
-                  onChange={(e) => setSellerPhone(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                />
-              </div>
-
-              <div className="md:col-span-2">
-                <label className="block text-xs font-bold text-slate-700 mb-1">Complete Doorstep Pickup Address</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="House/Shop No, Street, Landmark, Khekra Area..."
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Preferred Pickup Date</label>
-                <input
-                  type="date"
-                  required
-                  value={scheduledDate}
-                  onChange={(e) => setScheduledDate(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Time Slot</label>
-                <select
-                  value={scheduledSlot}
-                  onChange={(e) => setScheduledSlot(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  <option value="10:00 AM - 12:00 PM">10:00 AM - 12:00 PM</option>
-                  <option value="12:00 PM - 02:00 PM">12:00 PM - 02:00 PM</option>
-                  <option value="02:00 PM - 04:00 PM">02:00 PM - 04:00 PM</option>
-                  <option value="04:00 PM - 06:00 PM">04:00 PM - 06:00 PM</option>
-                </select>
-              </div>
-
-              <div className="md:col-span-2">
-                <label className="block text-xs font-bold text-slate-700 mb-1">UPI ID for Instant Spot Payout</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="yourname@upi / GPay / Paytm number"
-                  value={upiId}
-                  onChange={(e) => setUpiId(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-3.5 py-2.5 text-xs text-slate-900 font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                />
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-              <button
-                type="button"
-                onClick={() => setStep(2)}
-                className="px-5 py-2.5 rounded-full border border-slate-200 text-slate-700 hover:bg-slate-100 text-xs font-bold"
-              >
-                Back
-              </button>
-              <button
-                type="submit"
-                className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-8 py-3.5 rounded-full flex items-center gap-2 shadow-sm text-sm transition-all"
-              >
-                Confirm Pickup Request
-                <Check className="w-5 h-5" />
-              </button>
-            </div>
-          </form>
         </div>
       )}
 
-      {/* STEP 4: CONFIRMATION & AGENT FIELD LINK */}
-      {step === 4 && createdRequest && (
-        <div className="bg-white border border-slate-200 rounded-3xl p-8 text-slate-900 text-center space-y-6 shadow-sm">
-          <div className="w-16 h-16 bg-emerald-50 border-2 border-emerald-500 rounded-full flex items-center justify-center mx-auto text-emerald-600">
-            <Check className="w-8 h-8" />
+      {/* STEP 3: YEAR SELECTION */}
+      {step === 3 && selectedModel && (
+        <div className="bg-white border border-slate-200 rounded-3xl p-6 md:p-10 shadow-sm space-y-6">
+          <button onClick={() => setStep(2)} className="text-xs text-indigo-600 font-bold mb-2 flex items-center gap-1 hover:underline"><ArrowLeft className="w-3 h-3" /> Back to Models</button>
+          
+          <div className="text-center max-w-2xl mx-auto space-y-2">
+            <h2 className="text-2xl font-black text-slate-900 font-heading">Manufacturing Year</h2>
+            <p className="text-slate-500 text-sm">When was your {selectedModel.name} manufactured?</p>
           </div>
 
-          <div>
-            <span className="bg-emerald-50 text-emerald-700 text-xs font-mono font-bold px-3.5 py-1 rounded-full border border-emerald-100">
-              Request ID: {createdRequest.id}
-            </span>
-            <h2 className="text-2xl font-black text-slate-900 mt-3">Pickup Request Confirmed!</h2>
-            <p className="text-sm text-slate-500 mt-1 max-w-lg mx-auto">
-              Our agent <strong>{createdRequest.assignedAgent}</strong> will visit your doorstep on{' '}
-              <strong>{createdRequest.scheduledDate} ({createdRequest.scheduledSlot})</strong> to perform physical verification and transfer funds directly to <strong>{createdRequest.upiId}</strong>.
-            </p>
+          <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 max-w-3xl mx-auto mt-8">
+            {years.map(year => (
+              <button
+                key={year}
+                onClick={() => {
+                  setManufacturingYear(year);
+                  setStep(4);
+                }}
+                className="py-4 px-2 bg-slate-50 border border-slate-200 rounded-2xl font-black text-xl text-slate-700 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 transition-all shadow-sm"
+              >
+                {year}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* STEP 4: HARDWARE DIAGNOSTICS */}
+      {step === 4 && selectedModel && (
+        <div className="bg-white border border-slate-200 rounded-3xl p-6 md:p-10 shadow-sm space-y-8">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+            <div>
+              <button onClick={() => setStep(3)} className="text-xs text-indigo-600 font-bold mb-2 flex items-center gap-1 hover:underline"><ArrowLeft className="w-3 h-3" /> Back to Year</button>
+              <h2 className="text-2xl font-black text-slate-900 font-heading flex items-center gap-2">
+                Hardware Diagnostic Engine
+              </h2>
+            </div>
+            <div className="text-right hidden sm:block">
+              <span className="text-xs text-slate-400 font-bold">Selected Device</span>
+              <p className="text-sm font-black text-indigo-600">{selectedModel.name} ({manufacturingYear})</p>
+            </div>
           </div>
 
-          <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 max-w-md mx-auto text-left text-xs space-y-2">
-            <div className="flex justify-between">
-              <span className="text-slate-500">Device:</span>
-              <span className="font-bold text-slate-900">{createdRequest.modelName}</span>
+          <div className="space-y-8">
+             {/* 1. Screen Condition */}
+            <div className="space-y-3">
+              <label className="text-sm font-bold text-slate-800 flex items-center gap-2"><Smartphone className="w-4 h-4 text-indigo-600" /> 1. Screen & Display Condition</label>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {[
+                  { key: 'flawless', label: 'Flawless', sub: 'Zero marks' },
+                  { key: 'minor_scratches', label: 'Minor Scratches', sub: 'Light hair-line marks' },
+                  { key: 'cracked', label: 'Screen Cracked', sub: 'Glass broken' },
+                  { key: 'display_fault', label: 'Display Fault', sub: 'Spots / Green line' }
+                ].map(opt => (
+                  <button
+                    key={opt.key}
+                    type="button"
+                    onClick={() => setAnswers({ ...answers, screenCondition: opt.key as any })}
+                    className={`p-4 rounded-2xl border text-center transition-all ${
+                      answers.screenCondition === opt.key
+                        ? 'bg-indigo-50 border-indigo-600 text-indigo-900 shadow-sm ring-1 ring-indigo-600'
+                        : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                    }`}
+                  >
+                    <p className="font-bold text-sm">{opt.label}</p>
+                    <p className="text-[10px] text-slate-500 mt-1">{opt.sub}</p>
+                  </button>
+                ))}
+              </div>
             </div>
-            <div className="flex justify-between">
-              <span className="text-slate-500">Rough Quote Range:</span>
-              <span className="font-bold text-indigo-600 font-mono">₹{createdRequest.roughQuoteMin.toLocaleString('en-IN')} - ₹{createdRequest.roughQuoteMax.toLocaleString('en-IN')}</span>
+
+            {/* 2. Body Condition */}
+            <div className="space-y-3">
+              <label className="text-sm font-bold text-slate-800 flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-indigo-600" /> 2. Body & Back Panel</label>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {[
+                  { key: 'flawless', label: 'Flawless', sub: 'Like new' },
+                  { key: 'minor_scratches', label: 'Minor Scratches', sub: 'Regular wear' },
+                  { key: 'dented', label: 'Dented', sub: 'Deep dents on frame' },
+                  { key: 'cracked', label: 'Back Cracked', sub: 'Glass shattered' }
+                ].map(opt => (
+                  <button
+                    key={opt.key}
+                    type="button"
+                    onClick={() => setAnswers({ ...answers, bodyCondition: opt.key as any })}
+                    className={`p-4 rounded-2xl border text-center transition-all ${
+                      answers.bodyCondition === opt.key
+                        ? 'bg-indigo-50 border-indigo-600 text-indigo-900 shadow-sm ring-1 ring-indigo-600'
+                        : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                    }`}
+                  >
+                    <p className="font-bold text-sm">{opt.label}</p>
+                    <p className="text-[10px] text-slate-500 mt-1">{opt.sub}</p>
+                  </button>
+                ))}
+              </div>
             </div>
-            <div className="flex justify-between">
-              <span className="text-slate-500">Pickup Location:</span>
-              <span className="text-slate-800 font-medium">{createdRequest.address} ({createdRequest.pincode})</span>
+
+            {/* 3. Functional Toggles */}
+            <div className="space-y-3">
+              <label className="text-sm font-bold text-slate-800">3. Hardware Functionality</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {[
+                  { key: 'touchWorking', label: 'Touch Screen Working Perfectly?' },
+                  { key: 'cameraWorking', label: 'Front & Back Camera Working?' },
+                  { key: 'speakerWorking', label: 'Speakers & Mic Working?' },
+                  { key: 'chargingPortWorking', label: 'Charging Port & Battery OK?' }
+                ].map(opt => (
+                  <div key={opt.key} className="flex items-center justify-between p-4 bg-slate-50 border border-slate-200 rounded-2xl">
+                    <span className="text-xs font-bold text-slate-700">{opt.label}</span>
+                    <div className="flex bg-slate-200 rounded-lg p-0.5">
+                      <button
+                        type="button"
+                        onClick={() => setAnswers({ ...answers, [opt.key]: true })}
+                        className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${answers[opt.key as keyof ConditionAnswers] === true ? 'bg-white shadow-sm text-emerald-600' : 'text-slate-500'}`}
+                      >Yes</button>
+                      <button
+                        type="button"
+                        onClick={() => setAnswers({ ...answers, [opt.key]: false })}
+                        className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${answers[opt.key as keyof ConditionAnswers] === false ? 'bg-white shadow-sm text-rose-600' : 'text-slate-500'}`}
+                      >No</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* 4. Accessories */}
+             <div className="space-y-3">
+              <label className="text-sm font-bold text-slate-800">4. Original Accessories</label>
+              <div className="grid grid-cols-2 gap-3">
+                 <button
+                    type="button"
+                    onClick={() => setAnswers({ ...answers, boxIncluded: !answers.boxIncluded })}
+                    className={`p-4 rounded-2xl border text-center transition-all flex items-center justify-center gap-2 ${
+                      answers.boxIncluded
+                        ? 'bg-emerald-50 border-emerald-500 text-emerald-900 shadow-sm ring-1 ring-emerald-500'
+                        : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                    }`}
+                  >
+                    <CheckCircle2 className={`w-5 h-5 ${answers.boxIncluded ? 'text-emerald-500' : 'text-slate-300'}`} />
+                    <p className="font-bold text-sm">Original Box</p>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setAnswers({ ...answers, chargerIncluded: !answers.chargerIncluded })}
+                    className={`p-4 rounded-2xl border text-center transition-all flex items-center justify-center gap-2 ${
+                      answers.chargerIncluded
+                        ? 'bg-emerald-50 border-emerald-500 text-emerald-900 shadow-sm ring-1 ring-emerald-500'
+                        : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                    }`}
+                  >
+                    <CheckCircle2 className={`w-5 h-5 ${answers.chargerIncluded ? 'text-emerald-500' : 'text-slate-300'}`} />
+                    <p className="font-bold text-sm">Original Charger</p>
+                  </button>
+              </div>
             </div>
           </div>
 
-          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <div className="pt-6 border-t border-slate-100 flex justify-end">
             <button
-              onClick={onNavigateToAgent}
-              className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-full text-xs flex items-center gap-2 shadow-sm"
+              onClick={() => setStep(5)}
+              className="bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 px-10 rounded-2xl shadow-xl shadow-indigo-600/30 flex items-center gap-2 text-base transition-all transform hover:-translate-y-1"
             >
-              <ShieldCheck className="w-4 h-4" />
-              Open Agent Doorstep Simulator
-            </button>
-            <button
-              onClick={() => {
-                setStep(1);
-                setSelectedModel(null);
-              }}
-              className="px-5 py-3 rounded-full border border-slate-200 text-slate-700 hover:bg-slate-100 text-xs font-bold"
-            >
-              Sell Another Phone
+              Calculate Quote
+              <Sparkles className="w-5 h-5" />
             </button>
           </div>
         </div>
+      )}
+
+      {/* STEP 5: QUOTE & SCHEDULE */}
+      {step === 5 && selectedModel && currentQuoteBreakdown && (
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+          <div className="md:col-span-5 space-y-6">
+            <div className="bg-gradient-to-br from-indigo-900 to-slate-900 text-white p-8 rounded-3xl shadow-xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
+              <button onClick={() => setStep(4)} className="text-xs text-indigo-300 font-bold mb-6 flex items-center gap-1 hover:text-white"><ArrowLeft className="w-3 h-3" /> Back to Diagnostics</button>
+              
+              <div className="relative z-10">
+                <span className="bg-emerald-500/20 text-emerald-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  Highest Value Guaranteed
+                </span>
+                <p className="text-slate-300 text-sm mt-6 font-medium">Estimated value for {selectedModel.name}</p>
+                <div className="flex items-end gap-2 mt-2">
+                  <h2 className="text-5xl font-black font-mono tracking-tight drop-shadow-md">
+                    ₹{currentQuoteBreakdown.roughQuoteMax.toLocaleString('en-IN')}
+                  </h2>
+                </div>
+                
+                <div className="mt-8 space-y-3 pt-6 border-t border-white/10">
+                  <div className="flex justify-between text-sm text-slate-300">
+                    <span>Base Value</span>
+                    <span>₹{selectedModel.baseMarketPrice.toLocaleString('en-IN')}</span>
+                  </div>
+                  <div className="flex justify-between text-sm text-rose-300">
+                    <span>Condition Deductions</span>
+                    <span>-₹{currentQuoteBreakdown.deductions.reduce((a, b) => a + b.amount, 0).toLocaleString('en-IN')}</span>
+                  </div>
+                  <div className="flex justify-between text-sm text-emerald-300 font-bold">
+                    <span>Final Quote Range</span>
+                    <span>₹{currentQuoteBreakdown.roughQuoteMin.toLocaleString('en-IN')} - ₹{currentQuoteBreakdown.roughQuoteMax.toLocaleString('en-IN')}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex items-start gap-4">
+               <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center shrink-0">
+                 <CheckCircle2 className="w-6 h-6 text-emerald-600" />
+               </div>
+               <div>
+                 <h4 className="font-bold text-slate-900">Price Lock Guarantee</h4>
+                 <p className="text-xs text-slate-500 mt-1">This quote is valid for 7 days. Ensure your physical device matches the diagnostic answers to get exactly this price.</p>
+               </div>
+            </div>
+          </div>
+          
+          <div className="md:col-span-7 bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+            <h3 className="text-2xl font-black text-slate-900 font-heading mb-6">Schedule Doorstep Pickup</h3>
+            
+            <form onSubmit={handleSubmitSchedule} className="space-y-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-slate-700">Your Full Name</label>
+                  <input required type="text" value={sellerName} onChange={e => setSellerName(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Rahul Sharma" />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-slate-700">Mobile Number</label>
+                  <input required type="tel" value={sellerPhone} onChange={e => setSellerPhone(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="98765 43210" />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                <div className="sm:col-span-2 space-y-1.5">
+                  <label className="text-xs font-bold text-slate-700">Pickup Address</label>
+                  <input required type="text" value={address} onChange={e => setAddress(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="House No, Street, Landmark" />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-slate-700">Pincode</label>
+                  <input required type="text" value={answers.pincode} onChange={e => setAnswers({...answers, pincode: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="250101" />
+                </div>
+              </div>
+              
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-slate-700">UPI ID for Payment (Optional, can provide to agent)</label>
+                <input type="text" value={upiId} onChange={e => setUpiId(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="rahul@oksbi" />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-slate-700 flex items-center gap-1"><Calendar className="w-3.5 h-3.5" /> Date</label>
+                  <input required type="date" value={scheduledDate} onChange={e => setScheduledDate(e.target.value)} min={new Date().toISOString().split('T')[0]} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-slate-700 flex items-center gap-1"><Clock className="w-3.5 h-3.5" /> Time Slot</label>
+                  <select required value={scheduledSlot} onChange={e => setScheduledSlot(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none appearance-none">
+                    <option>10:00 AM - 12:00 PM</option>
+                    <option>12:00 PM - 02:00 PM</option>
+                    <option>02:00 PM - 04:00 PM</option>
+                    <option>04:00 PM - 06:00 PM</option>
+                    <option>06:00 PM - 08:00 PM</option>
+                  </select>
+                </div>
+              </div>
+
+              <button type="submit" className="w-full bg-slate-900 hover:bg-black text-white font-black py-4 rounded-xl shadow-lg mt-6 transition-all flex items-center justify-center gap-2">
+                Book Free Pickup & Lock Price <ArrowRight className="w-4 h-4" />
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* STEP 6: SUCCESS */}
+      {step === 6 && selectedModel && (
+         <div className="bg-white border border-slate-200 rounded-3xl p-10 text-center max-w-2xl mx-auto shadow-xl">
+           <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+             <Check className="w-10 h-10 text-emerald-600" />
+           </div>
+           <h2 className="text-3xl font-black text-slate-900 font-heading">Pickup Scheduled Successfully!</h2>
+           <p className="text-slate-600 mt-4 leading-relaxed font-medium">
+             Our certified agent will visit <strong>{address}</strong> on <strong>{scheduledDate}</strong> between <strong>{scheduledSlot}</strong>.
+           </p>
+           <div className="bg-slate-50 rounded-2xl p-6 mt-8 border border-slate-100 text-left">
+             <h4 className="font-bold text-slate-900 mb-3 border-b border-slate-200 pb-2">Next Steps</h4>
+             <ul className="space-y-3 text-sm text-slate-600">
+               <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-indigo-500 shrink-0 mt-0.5" /> Keep your original box and charger handy (if declared).</li>
+               <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-indigo-500 shrink-0 mt-0.5" /> Backup your data. Our agent will perform a secure DoD military-grade wipe in front of you.</li>
+               <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-indigo-500 shrink-0 mt-0.5" /> Receive instant UPI payment before handing over the device.</li>
+             </ul>
+           </div>
+           <button
+              onClick={onNavigateToAgent}
+              className="mt-8 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-8 rounded-xl shadow-md flex items-center justify-center gap-2 mx-auto"
+           >
+             Track Pickup Status
+           </button>
+         </div>
       )}
     </div>
   );

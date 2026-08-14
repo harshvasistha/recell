@@ -207,7 +207,7 @@ export const Storefront: React.FC<StorefrontProps> = ({
       </div>
 
       {/* Product Cards Bento Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {filteredProducts.map(product => {
           const discountPercent = Math.round(((product.originalPrice - product.refurbPrice) / product.originalPrice) * 100);
 
@@ -218,11 +218,11 @@ export const Storefront: React.FC<StorefrontProps> = ({
             >
               <div>
                 {/* Image & Badges Container */}
-                <div className="relative h-64 bg-slate-50 overflow-hidden cursor-pointer p-4 flex items-center justify-center" onClick={() => onSelectProduct(product)}>
+                <div className="relative h-80 bg-slate-50 overflow-hidden cursor-pointer p-4 flex items-center justify-center" onClick={() => onSelectProduct(product)}>
                   <img
                     src={product.images[0]}
                     alt={product.title}
-                    className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow-md"
+                    className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow-lg"
                   />
 
                   {/* Top Badges */}

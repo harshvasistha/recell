@@ -31,7 +31,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
   if (brandData?.logoUrl) {
     return (
       <div className={`flex items-center justify-center bg-white border border-slate-100 shadow-sm shrink-0 ${sizeClasses[size]} ${className}`}>
-        <img src={brandData.logoUrl} alt={brandName || brandId} className="w-full h-full object-contain drop-shadow-sm" />
+        <img src={brandData.logoUrl} alt={brandName || brandId} className="w-full h-full object-contain drop-shadow-sm" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
       </div>
     );
   }
