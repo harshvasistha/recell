@@ -70,7 +70,7 @@ export const Header: React.FC<HeaderProps> = ({
     <header className="sticky top-0 z-40 bg-white text-slate-900 shadow-md border-b border-slate-200">
       {/* Top Banner (Optional, keep for branding) */}
       <div className="bg-[#0052FF] text-white text-[11px] sm:text-xs py-2 px-4 font-bold flex items-center justify-center overflow-hidden">
-        <div className="animate-marquee-ltr w-full max-w-7xl mx-auto flex items-center justify-between gap-12 whitespace-nowrap">
+        <div className="animate-marquee-ltr-fast w-full max-w-7xl mx-auto flex items-center justify-between gap-12 whitespace-nowrap">
            <span className="inline-flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5" />Doorstep Coverage: Khekra 250101</span>
            <span>&bull;</span>
            <span className="inline-flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5" />3-Mo Recell Warranty</span>

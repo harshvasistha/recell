@@ -1,4 +1,6 @@
-@import "tailwindcss";
+const fs = require('fs');
+
+const css = `@import "tailwindcss";
 
 :root {
   --brand-primary: #0052FF;
@@ -56,7 +58,7 @@
 .bg-brand {
   background-color: #0052FF;
 }
-.hover\:bg-brand:hover {
+.hover\\:bg-brand:hover {
   background-color: #0043CC;
 }
 .text-brand {
@@ -71,3 +73,6 @@
 .border-brand-light {
   border-color: #BFDBFE;
 }
+`;
+fs.writeFileSync('src/index.css', css);
+console.log('CSS updated');
