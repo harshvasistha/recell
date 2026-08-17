@@ -68,7 +68,7 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
     }
   };
 
-  const loadDriveDirectory = async (token: string, folderId?: string, shared: boolean = isSharedWithMe, folderDesc?: string) => {
+  const loadDriveDirectory = async (token: string, folderId?: string, shared: boolean = isSharedWithMe, folderDesc?: string, folderName?: string) => {
     setLoading(true);
     setErrorMsg(null);
     try {
@@ -108,7 +108,7 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
     setCurrentFolderId(folder.id);
     setFolderHistory(prev => [...prev, { id: folder.id, name: folder.name, description: folder.description }]);
     if (accessToken) {
-      loadDriveDirectory(accessToken, folder.id, isSharedWithMe, folder.description);
+      loadDriveDirectory(accessToken, folder.id, isSharedWithMe, folder.description, folder.name);
     }
   };
 
@@ -118,7 +118,7 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
     setFolderHistory(targetHistory);
     setCurrentFolderId(targetFolder.id);
     if (accessToken) {
-      loadDriveDirectory(accessToken, targetFolder.id, isSharedWithMe, targetFolder.description);
+      loadDriveDirectory(accessToken, targetFolder.id, isSharedWithMe, targetFolder.description, targetFolder.name);
     }
   };
 

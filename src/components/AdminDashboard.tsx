@@ -29,6 +29,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   warrantyClaims
 }) => {
   const [activeTab, setActiveTab] = useState<'catalog' | 'buys' | 'pricing' | 'orders' | 'repairs' | 'claims'>('catalog');
+  
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+  const [confirmClear, setConfirmClear] = useState(false);
 
   // Single Catalog Item Modal Form
   const [showAddModal, setShowAddModal] = useState(false);
@@ -233,7 +236,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   };
 
   const handleRemoveProduct = (id: string) => {
-    setCatalog(catalog.filter(p => p.id !== id));
+    if (confirmDeleteId === id) {
+      setCatalog(prev => prev.filter(p => p.id !== id));
+      setConfirmDeleteId(null);
+    } else {
+      setConfirmDeleteId(id);
+      setTimeout(() => setConfirmDeleteId(null), 3000);
+    }
   };
 
   const handleUpdateRepairStatus = (jobId: string, newStatus: RepairJob['status']) => {
@@ -316,15 +325,19 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             <div className="flex flex-wrap items-center gap-2">
               <button
                 onClick={() => {
-                  if (window.confirm("Are you sure you want to clear all products from the storefront catalog? This will empty the current list.")) {
+                  if (confirmClear) {
                     setCatalog([]);
+                    setConfirmClear(false);
+                  } else {
+                    setConfirmClear(true);
+                    setTimeout(() => setConfirmClear(false), 3000);
                   }
                 }}
-                className="bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold px-3.5 py-2 rounded-full text-xs flex items-center gap-1.5 border border-rose-200 transition-all cursor-pointer"
+                className={`font-bold px-3.5 py-2 rounded-full text-xs flex items-center gap-1.5 transition-all cursor-pointer ${confirmClear ? 'bg-red-500 text-white' : 'bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200'}`}
                 title="Wipe and clean all items currently listed on storefront"
               >
-                <Trash2 className="w-3.5 h-3.5 text-rose-600" />
-                <span>Clear Catalog ({catalog.length})</span>
+                <Trash2 className={`w-3.5 h-3.5 ${confirmClear ? 'text-white' : 'text-rose-600'}`} />
+                <span>{confirmClear ? "Click to Confirm" : `Clear Catalog (${catalog.length})`}</span>
               </button>
 
               <button
@@ -459,9 +472,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     </td>
                     <td className="p-3 text-right">
                       <button
+                        type="button"
                         onClick={() => handleRemoveProduct(item.id)}
-                        className="p-1.5 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-100 border border-rose-100 transition-colors"
-                        title="Delete Product"
+                        className={`p-1.5 rounded-xl transition-colors ${confirmDeleteId === item.id ? 'bg-red-500 text-white hover:bg-red-600' : 'bg-rose-50 text-rose-600 hover:bg-rose-100 border border-rose-100'}`}
+                        title={confirmDeleteId === item.id ? "Click again to confirm delete" : "Delete Product"}
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
