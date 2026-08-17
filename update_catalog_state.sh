@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# We will replace the local storage initialization with fetching from DB on mount
+sed -i -z 's/const \[catalog, setCatalog\] = useState<CatalogProduct\[\]>(() => {\n    const stored = localStorage.getItem('\''recellCatalog'\'');\n    return stored ? JSON.parse(stored) : SEED_CATALOG;\n  });\n  \n  useEffect(() => {\n    localStorage.setItem('\''recellCatalog'\'', JSON.stringify(catalog));\n  }, \[catalog\]);/const [catalog, setCatalog] = useState<CatalogProduct[]>(SEED_CATALOG);\n\n  useEffect(() => {\n    fetchCatalogFromDB().then(dbCatalog => {\n      if (dbCatalog && dbCatalog.length > 0) {\n        setCatalog(dbCatalog);\n      }\n    });\n  }, []);\n\n  useEffect(() => {\n    if (catalog !== SEED_CATALOG) {\n      localStorage.setItem('\''recellCatalog'\'', JSON.stringify(catalog));\n      saveCatalogToDB(catalog);\n    }\n  }, [catalog]);/g' src/App.tsx

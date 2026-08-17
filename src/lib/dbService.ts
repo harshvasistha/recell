@@ -11,7 +11,7 @@ import {
   serverTimestamp
 } from 'firebase/firestore';
 import { db } from './firebase';
-import { Order, BuyQuoteRequest, RepairJob } from '../types';
+import { Order, BuyQuoteRequest, RepairJob, CatalogProduct } from '../types';
 
 // Collection Names
 const COLLECTIONS = {
@@ -190,4 +190,29 @@ export async function savePaymentRecord(payment: PaymentRecord): Promise<void> {
   } catch (err) {
     console.warn('[Firestore] Error logging payment record:', err);
   }
+}
+
+// 6. Catalog Sync
+
+export async function saveCatalogToDB(catalog: CatalogProduct[]): Promise<void> {
+  try {
+    const docRef = doc(db, 'system', 'catalog');
+    await setDoc(docRef, { products: catalog });
+    console.log('[Firestore] Catalog saved successfully.');
+  } catch (err) {
+    console.error('[Firestore] Error saving catalog:', err);
+  }
+}
+
+export async function fetchCatalogFromDB(): Promise<CatalogProduct[]> {
+  try {
+    const docRef = doc(db, 'system', 'catalog');
+    const snap = await getDoc(docRef);
+    if (snap.exists()) {
+      return snap.data().products as CatalogProduct[];
+    }
+  } catch (err) {
+    console.error('[Firestore] Error fetching catalog:', err);
+  }
+  return [];
 }

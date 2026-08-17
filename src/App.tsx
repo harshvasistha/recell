@@ -38,7 +38,7 @@ import { ContactUs } from './components/Pages/ContactUs';
 import { OpenBoxMobiles } from './components/Pages/OpenBoxMobiles';
 import { AuthModal } from './components/AuthModal';
 import { UserProfileModal } from './components/UserProfileModal';
-import { saveOrderToDB, saveSellRequestToDB } from './lib/dbService';
+import { saveOrderToDB, saveSellRequestToDB, fetchCatalogFromDB, saveCatalogToDB } from './lib/dbService';
 import { MegaMenu } from './components/MegaMenu';
 import { LegalModal } from './components/Legal/LegalModal';
 import { WhatsAppChatWidget } from './components/WhatsAppChatWidget';
@@ -117,13 +117,26 @@ export default function App() {
   }, []);
 
   // App Master Data State
-  const [catalog, setCatalog] = useState<CatalogProduct[]>(() => {
-    const stored = localStorage.getItem('recellCatalog');
-    return stored ? JSON.parse(stored) : SEED_CATALOG;
-  });
-  
+  const [catalog, setCatalog] = useState<CatalogProduct[]>(SEED_CATALOG);
+
   useEffect(() => {
-    localStorage.setItem('recellCatalog', JSON.stringify(catalog));
+    fetchCatalogFromDB().then(dbCatalog => {
+      if (dbCatalog && dbCatalog.length > 0) {
+        setCatalog(dbCatalog);
+      } else {
+        const stored = localStorage.getItem('recellCatalog');
+        if (stored) {
+            setCatalog(JSON.parse(stored));
+        }
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    if (catalog !== SEED_CATALOG) {
+      localStorage.setItem('recellCatalog', JSON.stringify(catalog));
+      saveCatalogToDB(catalog);
+    }
   }, [catalog]);
 
   const [buyRequests, setBuyRequests] = useState<BuyQuoteRequest[]>(SEED_BUY_REQUESTS);
