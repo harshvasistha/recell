@@ -56,7 +56,18 @@ export default function App() {
   // User & Auth State
   const [isAuthOpen, setIsAuthOpen] = useState<boolean>(false);
   const [isProfileOpen, setIsProfileOpen] = useState<boolean>(false);
-  const [user, setUser] = useState<{ name: string; phone: string; role: string; email?: string; pincode?: string } | null>(null);
+  const [user, setUser] = useState<{ name: string; phone: string; role: string; email?: string; pincode?: string } | null>(() => {
+    const stored = localStorage.getItem('recellUser');
+    return stored ? JSON.parse(stored) : null;
+  });
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('recellUser', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('recellUser');
+    }
+  }, [user]);
 
   // Modals
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState<boolean>(false);
@@ -64,6 +75,18 @@ export default function App() {
   const [legalTab, setLegalTab] = useState<'privacy' | 'terms' | 'warranty' | 'returns'>(initialRoute.legalTab || 'privacy');
 
   // Sync window URL when tab, searchQuery, or legalTab changes
+  
+  useEffect(() => {
+    const handleAdminNav = () => setCurrentTab('admin');
+    const handleHomeNav = () => setCurrentTab('landing');
+    document.addEventListener('NAVIGATE_ADMIN', handleAdminNav);
+    document.addEventListener('NAVIGATE_HOME', handleHomeNav);
+    return () => {
+      document.removeEventListener('NAVIGATE_ADMIN', handleAdminNav);
+      document.removeEventListener('NAVIGATE_HOME', handleHomeNav);
+    };
+  }, []);
+
   useEffect(() => {
     syncUrlWithRoute(currentTab, searchQuery, isLegalOpen ? legalTab : undefined);
     window.scrollTo(0, 0);
@@ -94,7 +117,15 @@ export default function App() {
   }, []);
 
   // App Master Data State
-  const [catalog, setCatalog] = useState<CatalogProduct[]>(SEED_CATALOG);
+  const [catalog, setCatalog] = useState<CatalogProduct[]>(() => {
+    const stored = localStorage.getItem('recellCatalog');
+    return stored ? JSON.parse(stored) : SEED_CATALOG;
+  });
+  
+  useEffect(() => {
+    localStorage.setItem('recellCatalog', JSON.stringify(catalog));
+  }, [catalog]);
+
   const [buyRequests, setBuyRequests] = useState<BuyQuoteRequest[]>(SEED_BUY_REQUESTS);
   const [orders, setOrders] = useState<Order[]>(SEED_ORDERS);
   const [repairJobs, setRepairJobs] = useState<RepairJob[]>(SEED_REPAIR_JOBS);
@@ -250,7 +281,8 @@ export default function App() {
   const renderMainContent = () => (
     <main className="pb-16">
       {currentTab === 'landing' && (
-        <LandingPage
+        <LandingPage catalog={catalog}
+          onSelectProduct={(product) => setSelectedProduct(product)}
           onStartSell={() => setCurrentTab('sell')}
           onStartBuy={() => setCurrentTab('buy')}
           onStartTrack={() => setCurrentTab('track')}

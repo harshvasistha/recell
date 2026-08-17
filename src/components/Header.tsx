@@ -151,7 +151,18 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
 
           {/* User Account / Login Button */}
+          
+          {user?.role === 'admin' && (
+            <button
+              onClick={() => setCurrentTab('admin')}
+              className="hidden lg:flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 transition-colors border border-rose-200"
+            >
+              <ShieldCheck className="w-4 h-4" />
+              Admin
+            </button>
+          )}
           {user ? (
+
              <button
                onClick={() => onOpenProfile ? onOpenProfile() : onOpenAuth()}
                className="hidden sm:flex items-center gap-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 px-4 py-2 rounded-full text-sm font-semibold text-slate-800 cursor-pointer transition-all font-heading shadow-sm"

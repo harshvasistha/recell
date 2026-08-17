@@ -61,7 +61,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
 
             {/* Thumbnails */}
             {product.images.length > 1 && (
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3">
                 {product.images.map((img, idx) => (
                   <button
                     key={idx}
@@ -118,7 +118,11 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
 
               <div className="flex justify-between items-center text-slate-400">
                 <span>Battery Health:</span>
-                <span className="font-bold text-emerald-400">{product.batteryHealthPercent}% Health Pass</span>
+                {product.batteryHealthPercent ? (
+    <span className="font-bold text-emerald-400">{product.batteryHealthPercent}% Health Pass</span>
+  ) : (
+    <span className="font-bold text-emerald-400">Battery Pass</span>
+  )}
               </div>
             </div>
           </div>

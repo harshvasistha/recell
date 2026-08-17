@@ -65,7 +65,7 @@ export interface CatalogProduct {
   refurbPrice: number;
   conditionGrade: 'Grade A' | 'Grade A1' | 'Grade B' | 'Grade B1' | 'Like New' | 'Superb' | 'Good' | 'Open Box (5-10 Days)';
   warrantyMonths: number;
-  batteryHealthPercent: number;
+  batteryHealthPercent?: number;
   images: string[];
   inStock: boolean;
   stockCount: number;

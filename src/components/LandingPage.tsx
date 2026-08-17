@@ -10,6 +10,8 @@ import {
 } from 'lucide-react';
 
 interface LandingPageProps {
+  catalog?: any[];
+  onSelectProduct?: (product: any) => void;
   onStartSell: () => void;
   onStartBuy: () => void;
   onStartTrack: () => void;
@@ -19,6 +21,8 @@ interface LandingPageProps {
 }
 
 export const LandingPage: React.FC<LandingPageProps> = ({
+  catalog,
+  onSelectProduct,
   onStartSell,
   onStartBuy,
   onStartTrack,
@@ -337,82 +341,34 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
         {/* Featured Open Box Chargers & Mobiles Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {[
-            {
-              id: 'chg-app-20w',
-              name: 'Apple Original 20W USB-C Adapter',
-              variant: 'Type-C Fast Charger • 6 Days Old',
-              originalPrice: 1900,
-              sellPrice: 1199,
-              age: '6 Days Old',
-              warranty: '6M Brand Warranty',
-              img: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=80',
-              brand: 'Apple',
-              badge: 'CHARGER'
-            },
-            {
-              id: 'chg-sam-45w',
-              name: 'Samsung 45W Super Fast Charger 2.0',
-              variant: 'Includes 5A Type-C Cable • 8 Days Old',
-              originalPrice: 2999,
-              sellPrice: 1499,
-              age: '8 Days Old',
-              warranty: '10M Samsung Warranty',
-              img: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=80',
-              brand: 'Samsung',
-              badge: 'CHARGER'
-            },
-            {
-              id: 'chg-op-80w',
-              name: 'OnePlus 80W SUPERVOOC Power Adapter',
-              variant: 'Full Retail Box • 7 Days Old',
-              originalPrice: 2499,
-              sellPrice: 1299,
-              age: '7 Days Old',
-              warranty: '8M OnePlus Warranty',
-              img: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=80',
-              brand: 'OnePlus',
-              badge: 'CHARGER'
-            },
-            {
-              id: 'ob-ip15pm',
-              name: 'iPhone 15 Pro Max',
-              variant: '256GB - Natural Titanium',
-              originalPrice: 159900,
-              sellPrice: 104999,
-              age: '6 Days Old',
-              warranty: '11M Official Apple Warranty',
-              img: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80',
-              brand: 'Apple',
-              badge: 'SMARTPHONE'
-            }
-          ].map((item) => (
+          {catalog && catalog.filter(p => p.isOpenBox || p.conditionGrade === 'Open Box (5-10 Days)' || (p.title && p.title.toLowerCase().includes('open box'))).slice(0, 4).length > 0 ? (
+            catalog.filter(p => p.isOpenBox || p.conditionGrade === 'Open Box (5-10 Days)' || (p.title && p.title.toLowerCase().includes('open box'))).slice(0, 4).map((item) => (
             <div 
               key={item.id}
-              onClick={onStartBuy}
+              onClick={() => onSelectProduct?.(item)}
               className="bg-white rounded-3xl p-5 border border-slate-100 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col justify-between group relative"
             >
               <div>
                 <div className="relative h-56 lg:h-64 bg-slate-50 rounded-2xl overflow-hidden mb-4 p-4 flex items-center justify-center">
                   <img 
-                    src={item.img} 
-                    alt={item.name} 
+                    src={item.images?.[0] || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80'} 
+                    alt={item.title} 
                     className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow-md" 
                   />
                   <div className="absolute top-3 left-3 bg-amber-500 text-slate-950 text-[10px] font-black px-2.5 py-1 rounded-full shadow-sm font-mono uppercase tracking-wider">
-                    {item.badge}
+                    {item.category === 'Open Box Chargers' ? 'CHARGER' : 'SMARTPHONE'}
                   </div>
                 </div>
 
                 <div className="space-y-1.5">
                   <h3 className="font-bold text-base text-slate-900 group-hover:text-amber-600 transition-colors line-clamp-2 font-heading leading-tight drop-shadow-sm">
-                    {item.name}
+                    {item.title}
                   </h3>
                   <p className="text-xs text-slate-500 font-medium line-clamp-1">
-                    {item.variant}
+                    {item.storage} {item.color ? `- ${item.color}` : ''}
                   </p>
                   <p className="text-[11px] text-emerald-600 font-bold bg-emerald-50 px-2.5 py-1 rounded-md inline-block">
-                    {item.warranty}
+                    {item.brandWarrantyMonths ? `${item.brandWarrantyMonths}M Brand Warranty` : `${item.warrantyMonths}M Warranty`}
                   </p>
                 </div>
               </div>
@@ -420,10 +376,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               <div className="pt-4 mt-4 border-t border-slate-100 flex items-end justify-between">
                 <div>
                   <span className="text-[11px] text-slate-400 line-through block font-medium mb-0.5">
-                    MRP: ₹{item.originalPrice.toLocaleString('en-IN')}
+                    MRP: ₹{(item.originalPrice || 0).toLocaleString('en-IN')}
                   </span>
                   <span className="text-lg font-black text-slate-900 font-heading">
-                    ₹{item.sellPrice.toLocaleString('en-IN')}
+                    ₹{(item.refurbPrice || 0).toLocaleString('en-IN')}
                   </span>
                 </div>
                 <button className="bg-slate-100 group-hover:bg-amber-500 group-hover:text-white text-slate-800 text-xs font-bold px-4 py-2 rounded-xl transition-colors font-heading shadow-sm">
@@ -431,7 +387,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 </button>
               </div>
             </div>
-          ))}
+            ))
+          ) : (
+            <div className="col-span-full py-12 text-center">
+              <p className="text-slate-500 font-medium">No open box deals available at the moment. Check back later!</p>
+            </div>
+          )}
         </div>
       </motion.section>
 
@@ -465,110 +426,46 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-          {[
-            {
-              id: 'm-ip15pm',
-              name: 'iPhone 15 Pro Max',
-              variant: '256GB - Natural Titanium',
-              originalPrice: 159900,
-              sellPrice: 94500,
-              grade: 'Superb',
-              battery: '94%',
-              img: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80',
-              brand: 'Apple'
-            },
-            {
-              id: 'm-ip14',
-              name: 'iPhone 14',
-              variant: '128GB - Midnight Black',
-              originalPrice: 69900,
-              sellPrice: 48999,
-              grade: 'Superb',
-              battery: '91%',
-              img: 'https://images.unsplash.com/photo-1663499482523-1c0c1bae4ce1?auto=format&fit=crop&w=800&q=80',
-              brand: 'Apple'
-            },
-            {
-              id: 'm-s23u',
-              name: 'Galaxy S23 Ultra',
-              variant: '256GB - Botanic Green',
-              originalPrice: 124999,
-              sellPrice: 68500,
-              grade: 'Like New',
-              battery: '95%',
-              img: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80',
-              brand: 'Samsung'
-            },
-            {
-              id: 'm-op12r',
-              name: 'OnePlus 12R 5G',
-              variant: '256GB - Cool Blue',
-              originalPrice: 39999,
-              sellPrice: 30999,
-              grade: 'Like New',
-              battery: '98%',
-              img: 'https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=800&q=80',
-              brand: 'OnePlus'
-            },
-            {
-              id: 'm-px8a',
-              name: 'Pixel 8a 5G',
-              variant: '128GB - Aloe Green',
-              originalPrice: 52999,
-              sellPrice: 31500,
-              grade: 'Superb',
-              battery: '96%',
-              img: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=80',
-              brand: 'Google'
-            },
-            {
-              id: 'm-rmn13p',
-              name: 'Redmi Note 13 Pro+',
-              variant: '256GB - Fusion Purple',
-              originalPrice: 33999,
-              sellPrice: 21999,
-              grade: 'Superb',
-              battery: '93%',
-              img: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80',
-              brand: 'Xiaomi'
-            }
-          ].map((phone) => (
+          {catalog && catalog.filter(p => p.conditionGrade !== 'Open Box (5-10 Days)' && !(p.title && p.title.toLowerCase().includes('open box'))).slice(0, 6).length > 0 ? (
+            catalog.filter(p => p.conditionGrade !== 'Open Box (5-10 Days)' && !(p.title && p.title.toLowerCase().includes('open box'))).slice(0, 6).map((phone) => (
             <div
               key={phone.id}
-              onClick={onStartBuy}
+              onClick={() => onSelectProduct?.(phone)}
               className="p-5 rounded-3xl bg-white border border-slate-100 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer group flex flex-col justify-between"
             >
               <div>
                 <div className="relative rounded-2xl overflow-hidden bg-slate-50 mb-4 aspect-square flex items-center justify-center p-4">
                   <img
-                    src={phone.img}
-                    alt={phone.name}
+                    src={phone.images?.[0] || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80'}
+                    alt={phone.title}
                     className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow-md"
                   />
                   <span className="absolute top-2 left-2 bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
-                    Grade {phone.grade}
+                    {phone.conditionGrade}
                   </span>
-                  <span className="absolute bottom-2 right-2 bg-emerald-100 text-emerald-800 border border-emerald-200 text-[10px] font-bold px-2 py-0.5 rounded-md">
-                    {phone.battery} Batt
-                  </span>
+                  {phone.batteryHealthPercent && (
+                    <span className="absolute bottom-2 right-2 bg-emerald-100 text-emerald-800 border border-emerald-200 text-[10px] font-bold px-2 py-0.5 rounded-md">
+                      {phone.batteryHealthPercent}% Batt
+                    </span>
+                  )}
                 </div>
 
                 <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block font-heading mb-0.5">
                   {phone.brand}
                 </span>
                 <h3 className="font-heading text-base font-bold text-slate-900 group-hover:text-[#0052FF] transition-colors leading-snug drop-shadow-sm">
-                  {phone.name}
+                  {phone.title}
                 </h3>
-                <p className="text-xs text-slate-500 font-medium truncate mt-1">{phone.variant}</p>
+                <p className="text-xs text-slate-500 font-medium truncate mt-1">{phone.storage} {phone.color ? `- ${phone.color}` : ''}</p>
               </div>
 
               <div className="mt-5 pt-4 border-t border-slate-100 flex items-end justify-between">
                 <div>
                   <span className="text-[11px] text-slate-400 line-through block font-medium mb-0.5">
-                    MRP: ₹{phone.originalPrice.toLocaleString('en-IN')}
+                    MRP: ₹{(phone.originalPrice || 0).toLocaleString('en-IN')}
                   </span>
                   <span className="font-heading font-black text-[#0052FF] text-lg">
-                    ₹{phone.sellPrice.toLocaleString('en-IN')}
+                    ₹{(phone.refurbPrice || 0).toLocaleString('en-IN')}
                   </span>
                 </div>
                 <button className="bg-slate-100 group-hover:bg-[#0052FF] group-hover:text-white text-slate-800 font-bold text-xs px-4 py-2 rounded-xl transition-colors shadow-sm font-heading">
@@ -576,7 +473,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 </button>
               </div>
             </div>
-          ))}
+            ))
+          ) : (
+            <div className="col-span-full py-12 text-center">
+              <p className="text-slate-500 font-medium">No refurbished phones available at the moment. Check back later!</p>
+            </div>
+          )}
         </div>
       </motion.section>
 
@@ -735,6 +637,77 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </div>
           </motion.div>
 
+        </div>
+      </motion.section>
+
+      
+      {/* 4.5. REFURBISHED GRADING SYSTEM */}
+      <motion.section 
+        initial={{ opacity: 0, y: 35 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.5 }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 mt-20 mb-20"
+      >
+        <div className="text-center space-y-3 max-w-2xl mx-auto">
+          <span className="bg-blue-50 text-blue-700 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider inline-block font-heading shadow-sm">
+            Transparent Quality
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 font-heading drop-shadow-sm">Device Grading System</h2>
+          <p className="text-sm sm:text-base text-slate-600 font-medium">
+            Every device passes a strict 32-point hardware test. Choose the condition that fits your budget.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Superb Grade */}
+          <div className="p-8 bg-white border border-slate-100 rounded-3xl space-y-4 shadow-lg hover:shadow-xl transition-all duration-300">
+            <div className="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold mb-6 shadow-sm">
+              <Star className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-black text-slate-900 font-heading">Superb (A+)</h3>
+            <p className="text-sm text-slate-600 leading-relaxed font-medium">
+              Flawless condition. Looks and feels like a brand-new device out of the box. No visible scratches or dents.
+            </p>
+            <ul className="space-y-2 mt-4 text-xs font-medium text-slate-700">
+              <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-purple-500" /> 100% Functionality</li>
+              <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-purple-500" /> Pristine Screen & Body</li>
+              <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-purple-500" /> Battery Health &gt; 90%</li>
+            </ul>
+          </div>
+
+          {/* Good Grade */}
+          <div className="p-8 bg-white border border-slate-100 rounded-3xl space-y-4 shadow-lg hover:shadow-xl transition-all duration-300 transform md:-translate-y-4 relative border-t-4 border-t-blue-500">
+             <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-md uppercase tracking-wider">Most Popular</div>
+            <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold mb-6 shadow-sm">
+              <CheckCircle2 className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-black text-slate-900 font-heading">Good (A)</h3>
+            <p className="text-sm text-slate-600 leading-relaxed font-medium">
+              Excellent value. Minor signs of wear like light micro-scratches on the body, invisible when screen is on.
+            </p>
+            <ul className="space-y-2 mt-4 text-xs font-medium text-slate-700">
+              <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-blue-500" /> 100% Functionality</li>
+              <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-blue-500" /> Light Usage Marks</li>
+              <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-blue-500" /> Battery Health &gt; 85%</li>
+            </ul>
+          </div>
+
+          {/* Fair Grade */}
+          <div className="p-8 bg-white border border-slate-100 rounded-3xl space-y-4 shadow-lg hover:shadow-xl transition-all duration-300">
+            <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold mb-6 shadow-sm">
+              <RotateCcw className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-black text-slate-900 font-heading">Fair (B)</h3>
+            <p className="text-sm text-slate-600 leading-relaxed font-medium">
+              Budget-friendly. Noticeable scratches or minor dents on the frame, but completely structurally sound and tested.
+            </p>
+            <ul className="space-y-2 mt-4 text-xs font-medium text-slate-700">
+              <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-amber-500" /> 100% Functionality</li>
+              <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-amber-500" /> Visible Scratches/Dents</li>
+              <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-amber-500" /> Battery Health &gt; 80%</li>
+            </ul>
+          </div>
         </div>
       </motion.section>
 

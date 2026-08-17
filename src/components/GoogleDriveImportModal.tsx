@@ -39,7 +39,7 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const [currentFolderId, setCurrentFolderId] = useState<string | undefined>(undefined);
-  const [folderHistory, setFolderHistory] = useState<{ id?: string; name: string }[]>([
+  const [folderHistory, setFolderHistory] = useState<{ id?: string; name: string; description?: string }[]>([
     { name: 'My Drive Root' }
   ]);
 
@@ -59,7 +59,7 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
       const res = await googleDriveSignIn();
       setUser(res.user);
       setAccessToken(res.accessToken);
-      await loadDriveDirectory(res.accessToken, currentFolderId, false);
+      await loadDriveDirectory(res.accessToken, currentFolderId, false, undefined);
     } catch (err: any) {
       console.error('Google Drive sign in error:', err);
       setErrorMsg(err.message || 'Failed to authenticate with Google Drive.');
@@ -68,7 +68,7 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
     }
   };
 
-  const loadDriveDirectory = async (token: string, folderId?: string, shared: boolean = isSharedWithMe) => {
+  const loadDriveDirectory = async (token: string, folderId?: string, shared: boolean = isSharedWithMe, folderDesc?: string) => {
     setLoading(true);
     setErrorMsg(null);
     try {
@@ -88,7 +88,7 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
       // Pre-parse items
       const newMap: Record<string, CatalogProduct> = {};
       imageFiles.forEach(f => {
-        newMap[f.id] = parseDriveFileToCatalogProduct(f, token);
+        newMap[f.id] = parseDriveFileToCatalogProduct(f, token, folderDesc, folderName);
       });
       setParsedPreviewMap(newMap);
 
@@ -106,9 +106,9 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
 
   const handleOpenFolder = (folder: DriveItem) => {
     setCurrentFolderId(folder.id);
-    setFolderHistory(prev => [...prev, { id: folder.id, name: folder.name }]);
+    setFolderHistory(prev => [...prev, { id: folder.id, name: folder.name, description: folder.description }]);
     if (accessToken) {
-      loadDriveDirectory(accessToken, folder.id);
+      loadDriveDirectory(accessToken, folder.id, isSharedWithMe, folder.description);
     }
   };
 
@@ -118,7 +118,7 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
     setFolderHistory(targetHistory);
     setCurrentFolderId(targetFolder.id);
     if (accessToken) {
-      loadDriveDirectory(accessToken, targetFolder.id);
+      loadDriveDirectory(accessToken, targetFolder.id, isSharedWithMe, targetFolder.description);
     }
   };
 
@@ -185,6 +185,46 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
 
     onImportProducts([combinedProduct]);
     onClose();
+  };
+
+  const handlePublishFolderAsDevice = async (folder: DriveItem) => {
+    if (!accessToken) return;
+    setLoading(true);
+    try {
+      const { files: driveFiles } = await fetchDriveFiles(accessToken, folder.id, isSharedWithMe);
+      const imageFiles = driveFiles.filter(f => 
+        f.mimeType.startsWith('image/') || 
+        f.mimeType.includes('pdf') || 
+        f.mimeType.includes('document') ||
+        f.mimeType.includes('text')
+      );
+
+      if (imageFiles.length === 0) {
+        alert(`Folder "${folder.name}" has no images to publish.`);
+        setLoading(false);
+        return;
+      }
+
+      const firstItem = parseDriveFileToCatalogProduct(imageFiles[0], accessToken, folder.description, folder.name);
+      const allImages = imageFiles
+        .map(f => parseDriveFileToCatalogProduct(f, accessToken, folder.description, folder.name).images[0])
+        .filter(Boolean);
+
+      const combinedProduct: CatalogProduct = {
+        ...firstItem,
+        id: `gdrive-folder-${folder.id}`,
+        title: `${folder.name} [${firstItem.conditionGrade}]`,
+        images: allImages
+      };
+
+      onImportProducts([combinedProduct]);
+      alert(`Successfully published folder "${folder.name}" as 1 device with ${allImages.length} photos!`);
+    } catch (err) {
+      console.error('Error publishing folder:', err);
+      alert('Failed to publish folder.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -373,15 +413,29 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
                       <h4 className="text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-2">Folders ({folders.length})</h4>
                       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
                         {folders.map(f => (
-                          <button
+                          <div
                             key={f.id}
-                            type="button"
-                            onClick={() => handleOpenFolder(f)}
-                            className="p-3 bg-white border border-slate-200 hover:border-blue-400 hover:bg-blue-50/50 rounded-2xl flex items-center gap-2.5 transition-all text-left group cursor-pointer"
+                            className="p-3 bg-white border border-slate-200 hover:border-blue-400 hover:bg-blue-50/50 rounded-2xl flex flex-col gap-2.5 transition-all group"
                           >
-                            <Folder className="w-4 h-4 text-amber-500 shrink-0 group-hover:scale-110 transition-transform" />
-                            <span className="font-bold text-slate-800 text-xs truncate">{f.name}</span>
-                          </button>
+                            <button
+                              type="button"
+                              onClick={() => handleOpenFolder(f)}
+                              className="flex items-center gap-2.5 text-left cursor-pointer flex-1 w-full"
+                            >
+                              <Folder className="w-4 h-4 text-amber-500 shrink-0 group-hover:scale-110 transition-transform" />
+                              <span className="font-bold text-slate-800 text-xs truncate">{f.name}</span>
+                            </button>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handlePublishFolderAsDevice(f);
+                              }}
+                              className="w-full mt-auto bg-indigo-50 hover:bg-indigo-600 hover:text-white text-indigo-700 text-[10px] font-bold py-1.5 rounded-lg flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                            >
+                              <Upload className="w-3 h-3" /> Publish Folder
+                            </button>
+                          </div>
                         ))}
                       </div>
                     </div>

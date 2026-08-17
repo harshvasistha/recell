@@ -117,8 +117,21 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
             </div>
           </div>
 
+          
           {/* Actions */}
           <div className="space-y-2.5 pt-2">
+            {user.role === 'admin' && (
+              <button
+                onClick={() => {
+                  onClose();
+                  document.dispatchEvent(new CustomEvent('NAVIGATE_ADMIN')); 
+                }}
+                className="w-full bg-rose-500 hover:bg-rose-600 text-white font-bold py-3 rounded-2xl text-xs flex items-center justify-center gap-2 shadow-md cursor-pointer transition-all font-heading"
+              >
+                <ShieldCheck className="w-4 h-4" />
+                Open Admin Dashboard
+              </button>
+            )}
             <button
               onClick={() => {
                 onClose();
@@ -130,15 +143,13 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
               View Orders &amp; Doorstep Trackers
               <ExternalLink className="w-3.5 h-3.5" />
             </button>
-
             <button
               onClick={onClose}
               className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 rounded-2xl text-xs flex items-center justify-center gap-2 border border-slate-300 cursor-pointer transition-all font-heading"
             >
               <ArrowLeft className="w-4 h-4 text-slate-500" />
-              Close Profile &amp; Return to Dashboard
+              Close Profile
             </button>
-
             <button
               onClick={() => {
                 onSignOut();
@@ -150,9 +161,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
               Sign Out from Account
             </button>
           </div>
-
         </div>
-
       </div>
     </div>
   );

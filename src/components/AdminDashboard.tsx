@@ -449,7 +449,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                         {item.conditionGrade}
                       </span>
                     </td>
-                    <td className="p-3 font-mono text-emerald-600 font-bold">{item.batteryHealthPercent}%</td>
+                    <td className="p-3 font-mono text-emerald-600 font-bold">{item.batteryHealthPercent ? `${item.batteryHealthPercent}%` : 'N/A'}</td>
                     <td className="p-3 font-mono text-slate-400">₹{item.originalPrice.toLocaleString('en-IN')}</td>
                     <td className="p-3 font-mono text-emerald-600 font-bold">₹{item.refurbPrice.toLocaleString('en-IN')}</td>
                     <td className="p-3">

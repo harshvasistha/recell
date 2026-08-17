@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+const fs = require('fs');
+
+const code = `import React, { useState, useEffect } from 'react';
 import { RecellLogo } from './RecellLogo';
 import { X, CheckCircle2, ArrowRight, Smartphone, Mail, Lock, User, ShieldCheck, MapPin, LogOut, Package } from 'lucide-react';
 import { saveUserProfile } from '../lib/dbService';
@@ -43,9 +45,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   useEffect(() => {
     if (isOpen) {
       // Cleanup recaptcha on open
-      if (!(window as any).recaptchaVerifier) {
+      if (!window.recaptchaVerifier) {
         try {
-          (window as any).recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+          window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
             'size': 'invisible'
           });
         } catch (e) {
@@ -82,7 +84,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     }
 
     if (authMethod === 'phone') {
-      const cleanPhone = phone.replace(/\D/g, '');
+      const cleanPhone = phone.replace(/\\D/g, '');
       if (!phone || cleanPhone.length < 10) {
         setErrorMsg('Please enter a valid 10-digit mobile number.');
         return;
@@ -106,9 +108,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       try {
         if (authMethod === 'phone') {
           // Send Real SMS OTP via Firebase
-          const formattedPhone = phone.trim().startsWith('+') ? phone.trim() : `+91${phone.trim()}`;
+          const formattedPhone = phone.trim().startsWith('+') ? phone.trim() : \`+91\${phone.trim()}\`;
           try {
-            const appVerifier = (window as any).recaptchaVerifier;
+            const appVerifier = window.recaptchaVerifier;
             const confirmation = await signInWithPhoneNumber(auth, formattedPhone, appVerifier);
             setConfirmationResult(confirmation);
             setSuccessMsg('Real SMS OTP sent successfully!');
@@ -120,7 +122,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         } else {
           // For Email OTP, Firebase doesn't natively send a 6-digit code easily without custom functions.
           // We will simulate the email OTP flow.
-          setSuccessMsg(`OTP sent to ${email}. (Demo: use 520055)`);
+          setSuccessMsg(\`OTP sent to \${email}. (Demo: use 520055)\`);
         }
         
         setIsSubmitting(false);
@@ -160,18 +162,18 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         throw new Error('Invalid OTP. Please use 520055 for demo.');
       }
 
-      const cleanPhone = phone.replace(/\D/g, '') || '9310552055';
-      const userDisplayName = fullName.trim() || (authMethod === 'email' ? email.split('@')[0] : `User ${cleanPhone.slice(-4)}`);
+      const cleanPhone = phone.replace(/\\D/g, '') || '9310552055';
+      const userDisplayName = fullName.trim() || (authMethod === 'email' ? email.split('@')[0] : \`User \${cleanPhone.slice(-4)}\`);
       
       const isAdmin = (email.trim().toLowerCase() === 'admin@recell.in' || phone.includes('9310552055'));
       
-      const userProfileData: import('../lib/dbService').UserProfile = {
-        uid: `USR-${Date.now()}`,
+      const userProfileData = {
+        uid: \`USR-\${Date.now()}\`,
         name: userDisplayName,
-        phone: authMethod === 'phone' ? (phone.trim().startsWith('+') ? phone.trim() : `+91 ${phone.trim()}`) : '+91 0000000000',
-        email: authMethod === 'email' ? email.trim() : `${cleanPhone}@recell.in`,
+        phone: authMethod === 'phone' ? (phone.trim().startsWith('+') ? phone.trim() : \`+91 \${phone.trim()}\`) : '+91 0000000000',
+        email: authMethod === 'email' ? email.trim() : \`\${cleanPhone}@recell.in\`,
         pincode: pincode.trim() || '250101',
-        role: (isAdmin ? 'admin' : 'customer') as 'admin' | 'customer',
+        role: isAdmin ? 'admin' : 'customer' as const,
         createdAt: new Date().toISOString()
       };
 
@@ -197,8 +199,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       // Navigate to tracking or admin via reload/hash
       if (isAdmin) {
         document.dispatchEvent(new CustomEvent('NAVIGATE_ADMIN'));
-      } else {
-        document.dispatchEvent(new CustomEvent('NAVIGATE_HOME'));
       }
       
       handleClose();
@@ -314,11 +314,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     setErrorMsg('');
                     setStep('form');
                   }}
-                  className={`py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                  className={\`py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer \${
                     authMethod === 'phone'
                       ? 'bg-white text-[#0052FF] shadow-sm'
                       : 'text-blue-100 hover:text-white'
-                  }`}
+                  }\`}
                 >
                   <Smartphone className="w-4 h-4" />
                   Mobile
@@ -330,11 +330,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     setErrorMsg('');
                     setStep('form');
                   }}
-                  className={`py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                  className={\`py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer \${
                     authMethod === 'email'
                       ? 'bg-white text-[#0052FF] shadow-sm'
                       : 'text-blue-100 hover:text-white'
-                  }`}
+                  }\`}
                 >
                   <Mail className="w-4 h-4" />
                   Email
@@ -507,3 +507,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     </div>
   );
 };
+`;
+
+fs.writeFileSync('src/components/AuthModal.tsx', code);

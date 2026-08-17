@@ -33,7 +33,7 @@ export const Storefront: React.FC<StorefrontProps> = ({
   }).sort((a, b) => {
     if (sortBy === 'price_low') return a.refurbPrice - b.refurbPrice;
     if (sortBy === 'price_high') return b.refurbPrice - a.refurbPrice;
-    if (sortBy === 'battery') return b.batteryHealthPercent - a.batteryHealthPercent;
+    if (sortBy === 'battery') return (b.batteryHealthPercent || 0) - (a.batteryHealthPercent || 0);
     return 0;
   });
 
