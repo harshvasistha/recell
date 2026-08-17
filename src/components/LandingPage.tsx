@@ -443,7 +443,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   <span className="absolute top-2 left-2 bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
                     {phone.conditionGrade}
                   </span>
-                  {phone.batteryHealthPercent && (
+                  {phone.brand.toLowerCase() === 'apple' && phone.batteryHealthPercent && (
                     <span className="absolute bottom-2 right-2 bg-emerald-100 text-emerald-800 border border-emerald-200 text-[10px] font-bold px-2 py-0.5 rounded-md">
                       {phone.batteryHealthPercent}% Batt
                     </span>

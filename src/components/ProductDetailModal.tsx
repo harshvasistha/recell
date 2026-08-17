@@ -118,7 +118,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
 
               <div className="flex justify-between items-center text-slate-400">
                 <span>Battery Health:</span>
-                {product.batteryHealthPercent ? (
+                {product.brand.toLowerCase() === 'apple' && product.batteryHealthPercent ? (
     <span className="font-bold text-emerald-400">{product.batteryHealthPercent}% Health Pass</span>
   ) : (
     <span className="font-bold text-emerald-400">Battery Pass</span>
@@ -182,7 +182,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 </div>
                 <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-between">
                   <span className="text-slate-400">Battery Health:</span>
-                  <span className="text-emerald-400 font-bold">{product.batteryHealthPercent}%</span>
+                  <span className="text-emerald-400 font-bold">{product.brand.toLowerCase() === 'apple' ? `${product.batteryHealthPercent}%` : 'PASSED'}</span>
                 </div>
               </div>
             </div>

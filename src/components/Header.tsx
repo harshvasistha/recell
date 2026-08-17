@@ -204,7 +204,26 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="flex items-center group relative cursor-pointer hover:text-[#0052FF]">
              <a href="/buy" onClick={(e) => handleNavClick(e, 'buy')} className="flex items-center gap-1 transition-colors">
                Buy Refurbished
+               <ChevronDown className="w-3.5 h-3.5" />
              </a>
+             
+             {/* Submenu for Brands */}
+             <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+               <ul className="py-2">
+                 {['Apple', 'Samsung', 'Vivo', 'Oppo', 'OnePlus', 'Google', 'Poco', 'Realme', 'Redmi', 'Xiaomi', 'Motorola', 'Nothing', 'Infinix'].map(brand => (
+                   <li key={brand}>
+                     <button
+                       onClick={() => {
+                         onOpenBrand(brand);
+                       }}
+                       className="w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#0052FF] transition-colors"
+                     >
+                       {brand}
+                     </button>
+                   </li>
+                 ))}
+               </ul>
+             </div>
           </div>
 
           <div className="flex items-center group cursor-pointer hover:text-[#0052FF]">
@@ -270,6 +289,21 @@ export const Header: React.FC<HeaderProps> = ({
                 <ul className="space-y-4 text-[15px] text-slate-800">
                    <li>
                      <a href="/buy" onClick={(e) => handleNavClick(e, 'buy')} className="block py-1 hover:text-[#0052FF] transition-colors cursor-pointer">Buy Refurbished Phones</a>
+                     <ul className="pl-4 mt-2 space-y-2 border-l-2 border-slate-100">
+                       {['Apple', 'Samsung', 'Vivo', 'Oppo', 'OnePlus', 'Google', 'Poco', 'Realme', 'Redmi', 'Xiaomi', 'Motorola', 'Nothing', 'Infinix'].map(brand => (
+                         <li key={`mobile-${brand}`}>
+                           <button
+                             onClick={() => {
+                               onOpenBrand(brand);
+                               setIsMenuOpen(false);
+                             }}
+                             className="block py-1 text-[14px] text-slate-600 hover:text-[#0052FF] transition-colors cursor-pointer text-left w-full"
+                           >
+                             {brand}
+                           </button>
+                         </li>
+                       ))}
+                     </ul>
                    </li>
                    <li>
                      <a href="/open-box" onClick={(e) => handleNavClick(e, 'open-box')} className="flex items-center justify-between py-1 hover:text-[#0052FF] transition-colors cursor-pointer">
