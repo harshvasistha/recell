@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <style>vite-error-overlay { display: none !important; }</style>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recell - Sell Old Phone in 60s & Buy Certified Refurbished</title>
@@ -8,14 +9,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script>
+      function isExtErr(e) {
+        if (!e) return false;
+        var str = typeof e === 'string' ? e.toLowerCase() : (e.message ? String(e.message).toLowerCase() : (e.toString ? e.toString().toLowerCase() : ''));
+        return str.indexOf('ethereum') !== -1 || str.indexOf('metamask') !== -1;
+      }
       window.addEventListener('error', function(event) {
-        if (event.message && (event.message.includes('ethereum') || event.message.includes('MetaMask'))) {
+        if (isExtErr(event.message) || isExtErr(event.error)) {
           event.preventDefault();
           event.stopPropagation();
         }
       }, true);
       window.addEventListener('unhandledrejection', function(event) {
-        if (event.reason && event.reason.message && (event.reason.message.includes('ethereum') || event.reason.message.includes('MetaMask'))) {
+        if (isExtErr(event.reason)) {
           event.preventDefault();
           event.stopPropagation();
         }

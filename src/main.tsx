@@ -6,9 +6,13 @@ import './index.css';
 
 // Prevent browser extension injection rejections (like MetaMask / Web3 provider noise) from breaking runtime
 if (typeof window !== 'undefined') {
-  const isExtensionError = (arg: any) => 
-    typeof arg === 'string' && (arg.toLowerCase().includes('ethereum') || arg.toLowerCase().includes('metamask')) ||
-    (arg instanceof Error && (arg.message.toLowerCase().includes('ethereum') || arg.message.toLowerCase().includes('metamask')));
+  const isExtensionError = (arg: any): boolean => {
+    if (!arg) return false;
+    const str = typeof arg === 'string' ? arg.toLowerCase() : 
+                (arg?.message ? String(arg.message).toLowerCase() : 
+                 (arg?.toString ? arg.toString().toLowerCase() : ''));
+    return str.includes('ethereum') || str.includes('metamask');
+  };
 
   const suppressError = (msg: string | Event | unknown) => {
     return isExtensionError(msg);
