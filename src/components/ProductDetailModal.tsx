@@ -227,26 +227,26 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             </form>
 
             {/* Checkout Action Buttons */}
-            <div className="grid grid-cols-2 gap-3 pt-2">
-              <button
-                onClick={() => {
-                  onAddToCart(product);
-                  onClose();
-                }}
-                className="bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-bold py-3.5 rounded-xl border border-slate-700 flex items-center justify-center gap-2"
-              >
-                <ShoppingCart className="w-4 h-4" />
-                Add to Cart
-              </button>
-
+            <div className="flex flex-col gap-3 pt-2">
               <button
                 onClick={() => {
                   onBuyNow(product);
                   onClose();
                 }}
-                className="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-black py-3.5 rounded-xl shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-2"
+                className="w-full bg-gradient-to-r from-[#0052FF] to-indigo-600 hover:from-blue-600 hover:to-indigo-500 text-white text-[16px] font-black py-4 rounded-xl shadow-[0_4px_14px_0_rgba(0,82,255,0.39)] hover:shadow-[0_6px_20px_rgba(0,82,255,0.23)] hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2"
               >
                 Buy Now (Razorpay)
+              </button>
+
+              <button
+                onClick={() => {
+                  onAddToCart(product);
+                  onClose();
+                }}
+                className="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-bold py-3 rounded-xl border border-slate-700 flex items-center justify-center gap-2 transition-colors"
+              >
+                <ShoppingCart className="w-4 h-4 flex-shrink-0" />
+                Add to Cart
               </button>
             </div>
           </div>

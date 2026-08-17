@@ -307,21 +307,20 @@ export const Storefront: React.FC<StorefrontProps> = ({
               </div>
 
               {/* Action Buttons */}
-              <div className="p-5 pt-0 grid grid-cols-2 gap-2">
-                <button
-                  onClick={() => onSelectProduct(product)}
-                  className="bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold py-2.5 rounded-2xl border border-slate-200 flex items-center justify-center gap-1.5 transition-colors"
-                >
-                  <Eye className="w-3.5 h-3.5 text-slate-600" />
-                  Inspection Report
-                </button>
-
+              <div className="p-5 pt-0 flex flex-col gap-2.5">
                 <button
                   onClick={() => onQuickBuy(product)}
-                  className="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold py-2.5 rounded-2xl flex items-center justify-center gap-1.5 shadow-sm transition-colors"
+                  className="w-full bg-gradient-to-r from-[#0052FF] to-indigo-600 hover:from-blue-600 hover:to-indigo-500 text-white text-[15px] font-black py-3.5 rounded-2xl flex items-center justify-center gap-2 shadow-[0_4px_14px_0_rgba(0,82,255,0.39)] hover:shadow-[0_6px_20px_rgba(0,82,255,0.23)] hover:-translate-y-0.5 transition-all duration-200"
                 >
-                  <ShoppingCart className="w-3.5 h-3.5" />
-                  Buy Razorpay
+                  <ShoppingCart className="w-4 h-4 flex-shrink-0" />
+                  Buy Now — ₹{product.refurbPrice.toLocaleString('en-IN')}
+                </button>
+                <button
+                  onClick={() => onSelectProduct(product)}
+                  className="w-full bg-slate-50 hover:bg-slate-100 text-slate-700 text-[13px] font-bold py-2.5 rounded-2xl border border-slate-200 flex items-center justify-center gap-1.5 transition-colors"
+                >
+                  <Eye className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" />
+                  View Inspection Report
                 </button>
               </div>
             </div>
