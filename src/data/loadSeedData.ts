@@ -24,7 +24,7 @@ export const generateOpenBoxSeed = (): CatalogProduct[] => {
     conditionGrade: 'Open Box (5-10 Days)',
     batteryHealthPercent: 100,
     serialImei: `35${Math.floor(Math.random() * 10000000000000)}`,
-    images: [IMAGES[i % IMAGES.length]],
+    images: (d as any).images?.length > 0 ? (d as any).images : [IMAGES[i % IMAGES.length]],
     inStock: true,
     stockCount: 2,
     inspectionPassed: true,

@@ -257,10 +257,12 @@ export const Storefront: React.FC<StorefrontProps> = ({
                     <span className="font-mono bg-white/90 text-slate-800 font-bold px-2.5 py-0.5 rounded-full text-[10px] border border-slate-200">
                       IMEI: {product.serialImei.slice(0, 6)}...
                     </span>
+                  {discountPercent > 0 && (
                     <span className="text-emerald-700 font-bold bg-emerald-100 px-2.5 py-0.5 rounded-full text-[10px]">
                       Save {discountPercent}%
                     </span>
-                  </div>
+                  )}
+                </div>
                 </div>
 
                 {/* Content Section */}
@@ -289,9 +291,11 @@ export const Storefront: React.FC<StorefrontProps> = ({
                       <span className="text-2xl font-black text-slate-900 font-mono">
                         ₹{product.refurbPrice.toLocaleString('en-IN')}
                       </span>
-                      <span className="text-xs text-slate-400 line-through ml-2 font-mono">
-                        ₹{product.originalPrice.toLocaleString('en-IN')}
-                      </span>
+                      {discountPercent > 0 && (
+                        <span className="text-xs text-slate-400 line-through ml-2 font-mono">
+                          ₹{product.originalPrice.toLocaleString('en-IN')}
+                        </span>
+                      )}
                     </div>
                     <span className="text-[11px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
                       In Stock

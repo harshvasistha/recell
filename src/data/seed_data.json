@@ -1,59 +1,1082 @@
 [
-  { "brand": "Xiaomi", "model": "Redmi Note 14 5G", "storage": "6+128", "originalPrice": 16499, "refurbPrice": 15499 },
-  { "brand": "Xiaomi", "model": "Redmi Note 14 5G", "storage": "8+128", "originalPrice": 16999, "refurbPrice": 15999 },
-  { "brand": "Xiaomi", "model": "Redmi Note 14 5G", "storage": "8+256", "originalPrice": 18499, "refurbPrice": 17499 },
-  { "brand": "Xiaomi", "model": "Redmi Note 15 5G", "storage": "8+128", "originalPrice": 26999, "refurbPrice": 24999 },
-  { "brand": "Xiaomi", "model": "Redmi Note 15 5G", "storage": "8+256", "originalPrice": 29999, "refurbPrice": 27999 },
-  { "brand": "Xiaomi", "model": "Redmi Note 14 Pro 5G", "storage": "8+128", "originalPrice": 23999, "refurbPrice": 21999 },
-  { "brand": "Xiaomi", "model": "Redmi Note 14 Pro 5G", "storage": "8+256", "originalPrice": 25999, "refurbPrice": 23999 },
-  { "brand": "Xiaomi", "model": "Redmi Note 15 Pro 5G", "storage": "8+128", "originalPrice": 31999, "refurbPrice": 28999 },
-  { "brand": "Xiaomi", "model": "Redmi Note 15 Pro 5G", "storage": "8+256", "originalPrice": 34999, "refurbPrice": 31999 },
-  { "brand": "Xiaomi", "model": "Redmi Note 14 Pro+ 5G", "storage": "8+128", "originalPrice": 28999, "refurbPrice": 26999 },
-  { "brand": "Xiaomi", "model": "Redmi Note 14 Pro+ 5G", "storage": "8+256", "originalPrice": 30999, "refurbPrice": 28999 },
-  { "brand": "Xiaomi", "model": "Redmi Note 14 Pro+ 5G", "storage": "12+512", "originalPrice": 33999, "refurbPrice": 31999 },
-  { "brand": "Xiaomi", "model": "Redmi Note 15 Pro+ 5G", "storage": "8+256", "originalPrice": 39999, "refurbPrice": 36999 },
-  { "brand": "Xiaomi", "model": "Redmi Note 15 Pro+ 5G", "storage": "12+256", "originalPrice": 41999, "refurbPrice": 38999 },
-  { "brand": "Xiaomi", "model": "Redmi Note 15 Pro+ 5G", "storage": "12+512", "originalPrice": 44999, "refurbPrice": 41999 },
-  { "brand": "Xiaomi", "model": "Xiaomi 17T", "storage": "12+256", "originalPrice": 59999, "refurbPrice": 54999 },
-  { "brand": "Xiaomi", "model": "Xiaomi 17T", "storage": "12+512", "originalPrice": 64999, "refurbPrice": 59999 },
-  { "brand": "Xiaomi", "model": "Xiaomi 17", "storage": "12+512", "originalPrice": 89999, "refurbPrice": 82999 },
-  { "brand": "Xiaomi", "model": "Xiaomi 17 Ultra", "storage": "16+512", "originalPrice": 139999, "refurbPrice": 129999 },
-  { "brand": "Oppo", "model": "A6X 4G", "storage": "4+64", "originalPrice": 12999, "refurbPrice": 12380 },
-  { "brand": "Oppo", "model": "A6C 4G", "storage": "4+64", "originalPrice": 16999, "refurbPrice": 16189 },
-  { "brand": "Oppo", "model": "A6X", "storage": "4+64", "originalPrice": 17999, "refurbPrice": 17142 },
-  { "brand": "Oppo", "model": "A6X", "storage": "4+128", "originalPrice": 19999, "refurbPrice": 19046 },
-  { "brand": "Oppo", "model": "A6X", "storage": "6+128", "originalPrice": 22999, "refurbPrice": 21904 },
-  { "brand": "Oppo", "model": "K14X", "storage": "4+64", "originalPrice": 17999, "refurbPrice": 17308 },
-  { "brand": "Oppo", "model": "K14X", "storage": "4+128", "originalPrice": 19999, "refurbPrice": 19231 },
-  { "brand": "Oppo", "model": "K14X", "storage": "6+128", "originalPrice": 22999, "refurbPrice": 22115 },
-  { "brand": "Oppo", "model": "A6s", "storage": "4+128", "originalPrice": 21999, "refurbPrice": 20951 },
-  { "brand": "Oppo", "model": "A6s", "storage": "6+128", "originalPrice": 24999, "refurbPrice": 23809 },
-  { "brand": "Oppo", "model": "A6", "storage": "4+128", "originalPrice": 26999, "refurbPrice": 25713 },
-  { "brand": "Oppo", "model": "A6", "storage": "6+128", "originalPrice": 28999, "refurbPrice": 27617 },
-  { "brand": "Oppo", "model": "A6", "storage": "6+256", "originalPrice": 31999, "refurbPrice": 30331 },
-  { "brand": "Oppo", "model": "A6 PRO", "storage": "8+128", "originalPrice": 32999, "refurbPrice": 31279 },
-  { "brand": "Oppo", "model": "A6 PRO", "storage": "8+256", "originalPrice": 35999, "refurbPrice": 34123 },
-  { "brand": "Oppo", "model": "FIND X9", "storage": "12+256", "originalPrice": 74999, "refurbPrice": 70754 },
-  { "brand": "Oppo", "model": "FIND X9", "storage": "16+512", "originalPrice": 84999, "refurbPrice": 80188 },
-  { "brand": "Oppo", "model": "RENO15 C", "storage": "8+256", "originalPrice": 41999, "refurbPrice": 39622 },
-  { "brand": "Oppo", "model": "RENO15 C", "storage": "12+256", "originalPrice": 44999, "refurbPrice": 42452 },
-  { "brand": "Oppo", "model": "RENO15", "storage": "12+512", "originalPrice": 55999, "refurbPrice": 52830 },
-  { "brand": "Oppo", "model": "RENO15 PRO MINI", "storage": "12+256", "originalPrice": 59999, "refurbPrice": 56603 },
-  { "brand": "Oppo", "model": "RENO15 PRO MINI", "storage": "12+512", "originalPrice": 64999, "refurbPrice": 61320 },
-  { "brand": "Oppo", "model": "F33 PRO", "storage": "8+256", "originalPrice": 43999, "refurbPrice": 41508 },
-  { "brand": "Oppo", "model": "F33 PRO", "storage": "8+128", "originalPrice": 39999, "refurbPrice": 37735 },
-  { "brand": "Oppo", "model": "F33", "storage": "8+256", "originalPrice": 39999, "refurbPrice": 37735 },
-  { "brand": "Oppo", "model": "F33", "storage": "8+128", "originalPrice": 36999, "refurbPrice": 35070 },
-  { "brand": "Oppo", "model": "F33", "storage": "6+128", "originalPrice": 34999, "refurbPrice": 33174 },
-  { "brand": "Oppo", "model": "FIND X9s", "storage": "12+256", "originalPrice": 79999, "refurbPrice": 74073 },
-  { "brand": "Oppo", "model": "FIND X9s", "storage": "12+512", "originalPrice": 89999, "refurbPrice": 83332 },
-  { "brand": "Oppo", "model": "FIND X9 ULTRA", "storage": "12+512", "originalPrice": 169999, "refurbPrice": 157406 },
-  { "brand": "Oppo", "model": "RENO16 C", "storage": "8+128", "originalPrice": 46999, "refurbPrice": 44549 },
-  { "brand": "Oppo", "model": "RENO16 C", "storage": "8+256", "originalPrice": 49999, "refurbPrice": 46728 },
-  { "brand": "Oppo", "model": "RENO16 C", "storage": "12+256", "originalPrice": 55999, "refurbPrice": 52336 },
-  { "brand": "Oppo", "model": "RENO16", "storage": "8+256", "originalPrice": 61999, "refurbPrice": 57406 },
-  { "brand": "Oppo", "model": "RENO16", "storage": "12+256", "originalPrice": 67999, "refurbPrice": 62962 },
-  { "brand": "Oppo", "model": "PAD 5", "storage": "8+128", "originalPrice": 29999, "refurbPrice": 27777 },
-  { "brand": "Oppo", "model": "PAD 5", "storage": "8+256", "originalPrice": 34999, "refurbPrice": 32406 },
-  { "brand": "Oppo", "model": "K14", "storage": "6+128", "originalPrice": 23999, "refurbPrice": 23076 }
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi 12",
+    "storage": "4+128",
+    "originalPrice": 14999,
+    "refurbPrice": 11999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi 13C",
+    "storage": "4+128",
+    "originalPrice": 11999,
+    "refurbPrice": 9999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi 13C",
+    "storage": "6+128",
+    "originalPrice": 13999,
+    "refurbPrice": 10999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi 13C",
+    "storage": "8+256",
+    "originalPrice": 15999,
+    "refurbPrice": 12499,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi 13 5G",
+    "storage": "6+128",
+    "originalPrice": 16999,
+    "refurbPrice": 13999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi 13 5G",
+    "storage": "8+128",
+    "originalPrice": 18999,
+    "refurbPrice": 15499,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 13 5G",
+    "storage": "6+128",
+    "originalPrice": 20999,
+    "refurbPrice": 16999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 13 5G",
+    "storage": "8+256",
+    "originalPrice": 22999,
+    "refurbPrice": 18999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 13 5G",
+    "storage": "12+256",
+    "originalPrice": 24999,
+    "refurbPrice": 20999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 13 Pro 5G",
+    "storage": "8+128",
+    "originalPrice": 28999,
+    "refurbPrice": 24999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 13 Pro 5G",
+    "storage": "8+256",
+    "originalPrice": 30999,
+    "refurbPrice": 26999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 13 Pro 5G",
+    "storage": "12+256",
+    "originalPrice": 32999,
+    "refurbPrice": 28999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 13 Pro+ 5G",
+    "storage": "8+256",
+    "originalPrice": 33999,
+    "refurbPrice": 29999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 13 Pro+ 5G",
+    "storage": "12+256",
+    "originalPrice": 35999,
+    "refurbPrice": 31999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 13 Pro+ 5G",
+    "storage": "12+512",
+    "originalPrice": 37999,
+    "refurbPrice": 33999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 14 5G",
+    "storage": "6+128",
+    "originalPrice": 16499,
+    "refurbPrice": 15499,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 14 5G",
+    "storage": "8+128",
+    "originalPrice": 16999,
+    "refurbPrice": 15999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 14 5G",
+    "storage": "8+256",
+    "originalPrice": 18499,
+    "refurbPrice": 17499,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 14 Pro 5G",
+    "storage": "8+128",
+    "originalPrice": 23999,
+    "refurbPrice": 21999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 14 Pro 5G",
+    "storage": "8+256",
+    "originalPrice": 25999,
+    "refurbPrice": 23999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 14 Pro+ 5G",
+    "storage": "8+128",
+    "originalPrice": 28999,
+    "refurbPrice": 26999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 14 Pro+ 5G",
+    "storage": "8+256",
+    "originalPrice": 30999,
+    "refurbPrice": 28999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 14 Pro+ 5G",
+    "storage": "12+512",
+    "originalPrice": 33999,
+    "refurbPrice": 31999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 15 5G",
+    "storage": "8+128",
+    "originalPrice": 26999,
+    "refurbPrice": 24999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 15 5G",
+    "storage": "8+256",
+    "originalPrice": 29999,
+    "refurbPrice": 27999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 15 Pro 5G",
+    "storage": "8+128",
+    "originalPrice": 31999,
+    "refurbPrice": 28999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 15 Pro 5G",
+    "storage": "8+256",
+    "originalPrice": 34999,
+    "refurbPrice": 31999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 15 Pro+ 5G",
+    "storage": "8+256",
+    "originalPrice": 39999,
+    "refurbPrice": 36999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 15 Pro+ 5G",
+    "storage": "12+256",
+    "originalPrice": 41999,
+    "refurbPrice": 38999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Redmi Note 15 Pro+ 5G",
+    "storage": "12+512",
+    "originalPrice": 44999,
+    "refurbPrice": 41999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Xiaomi 17T",
+    "storage": "12+256",
+    "originalPrice": 59999,
+    "refurbPrice": 54999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Xiaomi 17T",
+    "storage": "12+512",
+    "originalPrice": 64999,
+    "refurbPrice": 59999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Xiaomi 17",
+    "storage": "12+512",
+    "originalPrice": 89999,
+    "refurbPrice": 82999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Xiaomi",
+    "model": "Xiaomi 17 Ultra",
+    "storage": "16+512",
+    "originalPrice": 139999,
+    "refurbPrice": 129999,
+    "images": [
+      "https://files.tecnoblog.net/wp-content/uploads/2025/01/Redmi-Note-14-4G-Azul-oceano.png",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/xiaomi-17-series-sales-records-kv.jpg",
+      "https://xiaomi-bulgaria.bg/wp-content/uploads/2024/02/xiaomi-14.png",
+      "https://cdn.beebom.com/brands/Xiaomi/Xiaomi-color.png",
+      "https://www.newszii.com/wp-content/uploads/2023/09/Xiaomis-latest-smartphone.jpg",
+      "https://i02.appmifile.com/activity-mi-web/fly-birds/xiaomi-launch-march-2025/pc-video/newAI0.jpg"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "A6X 4G",
+    "storage": "4+64",
+    "originalPrice": 12999,
+    "refurbPrice": 12380,
+    "images": [
+      "https://m.media-amazon.com/images/I/51dyj-6pblL._AC_SL1280_.jpg",
+      "https://m.media-amazon.com/images/I/81elbAVA5oL._AC_SL1500_.jpg",
+      "https://m.media-amazon.com/images/I/81BG1ybkw5L.jpg",
+      "https://m.media-amazon.com/images/I/81ePabtowXL._AC_SL1500_.jpg",
+      "https://m.media-amazon.com/images/I/51TsApt1OpL._AC_.jpg",
+      "https://m.media-amazon.com/images/I/617XRupNB9L._AC_.jpg"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "A6C 4G",
+    "storage": "4+64",
+    "originalPrice": 16999,
+    "refurbPrice": 16189,
+    "images": [
+      "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=574213034741992",
+      "https://i.pinimg.com/originals/da/6c/bd/da6cbd794c0a9386b7031d52476d2934.jpg",
+      "https://static.vecteezy.com/system/resources/thumbnails/039/282/148/large/aerial-drone-view-of-the-fortress-of-palmanova-in-italy-unesco-world-heritage-venetian-works-of-defence-video.jpg",
+      "https://whc.unesco.org/uploads/thumbs/site_1533_0001-1000-1000-20230109203151.jpg",
+      "https://www.immobiliare.it/news/app/uploads/2023/11/Perche-la-citta-di-Palmanova-ha-la-pianta-a-stella.jpeg",
+      "https://cn22.nevsedoma.com.ua/p/26/2634/95_files/7c825e37a5a37782183764ba15ff57e4.jpg"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "A6X",
+    "storage": "4+64",
+    "originalPrice": 17999,
+    "refurbPrice": 17142,
+    "images": [
+      "https://i.ytimg.com/vi/ZAIXS6AMgcA/maxresdefault.jpg",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "A6X",
+    "storage": "4+128",
+    "originalPrice": 19999,
+    "refurbPrice": 19046,
+    "images": [
+      "https://i.ytimg.com/vi/ZAIXS6AMgcA/maxresdefault.jpg",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "A6X",
+    "storage": "6+128",
+    "originalPrice": 22999,
+    "refurbPrice": 21904,
+    "images": [
+      "https://i.ytimg.com/vi/ZAIXS6AMgcA/maxresdefault.jpg",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "K14X",
+    "storage": "4+64",
+    "originalPrice": 17999,
+    "refurbPrice": 17308,
+    "images": [
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "K14X",
+    "storage": "4+128",
+    "originalPrice": 19999,
+    "refurbPrice": 19231,
+    "images": [
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "K14X",
+    "storage": "6+128",
+    "originalPrice": 22999,
+    "refurbPrice": 22115,
+    "images": [
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "A6s",
+    "storage": "4+128",
+    "originalPrice": 21999,
+    "refurbPrice": 20951,
+    "images": [
+      "https://photos.airmail.news/hjg75s8r149dh1pddlkjzkqsq7wj-e8ffc938d2592b28a666523cc1c80a5a.jpg",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "A6s",
+    "storage": "6+128",
+    "originalPrice": 24999,
+    "refurbPrice": 23809,
+    "images": [
+      "https://photos.airmail.news/hjg75s8r149dh1pddlkjzkqsq7wj-e8ffc938d2592b28a666523cc1c80a5a.jpg",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "A6",
+    "storage": "4+128",
+    "originalPrice": 26999,
+    "refurbPrice": 25713,
+    "images": [
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "A6",
+    "storage": "6+128",
+    "originalPrice": 28999,
+    "refurbPrice": 27617,
+    "images": [
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "A6",
+    "storage": "6+256",
+    "originalPrice": 31999,
+    "refurbPrice": 30331,
+    "images": [
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "A6 PRO",
+    "storage": "8+128",
+    "originalPrice": 32999,
+    "refurbPrice": 31279,
+    "images": [
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "A6 PRO",
+    "storage": "8+256",
+    "originalPrice": 35999,
+    "refurbPrice": 34123,
+    "images": [
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "FIND X9",
+    "storage": "12+256",
+    "originalPrice": 74999,
+    "refurbPrice": 70754,
+    "images": [
+      "https://down-ph.img.susercontent.com/file/ph-11134207-7ra0h-mc1ta43hnfc148",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "FIND X9",
+    "storage": "16+512",
+    "originalPrice": 84999,
+    "refurbPrice": 80188,
+    "images": [
+      "https://down-ph.img.susercontent.com/file/ph-11134207-7ra0h-mc1ta43hnfc148",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "RENO15 C",
+    "storage": "8+256",
+    "originalPrice": 41999,
+    "refurbPrice": 39622,
+    "images": [
+      "https://tesdra.com/wp-content/uploads/2023/08/serena-gazou-80211.jpg",
+      "https://tesdra.com/wp-content/uploads/2023/08/serena-gazou-101627-300x200.jpg",
+      "https://tesdra.com/wp-content/uploads/2023/08/serena-gazou-80086-300x200.jpg",
+      "https://kuruma-news.jp/wp-content/uploads/2022/11/20221128_nissan_serena_0077-650x433.jpg?v=1669344472",
+      "https://tesdra.com/wp-content/uploads/2023/08/serena-gazou-80307-300x200.jpg",
+      "https://tesdra.com/wp-content/uploads/2023/08/serena-gazou-80067-320x213.jpg"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "RENO15 C",
+    "storage": "12+256",
+    "originalPrice": 44999,
+    "refurbPrice": 42452,
+    "images": [
+      "https://tesdra.com/wp-content/uploads/2023/08/serena-gazou-80211.jpg",
+      "https://tesdra.com/wp-content/uploads/2023/08/serena-gazou-101627-300x200.jpg",
+      "https://tesdra.com/wp-content/uploads/2023/08/serena-gazou-80086-300x200.jpg",
+      "https://kuruma-news.jp/wp-content/uploads/2022/11/20221128_nissan_serena_0077-650x433.jpg?v=1669344472",
+      "https://tesdra.com/wp-content/uploads/2023/08/serena-gazou-80307-300x200.jpg",
+      "https://tesdra.com/wp-content/uploads/2023/08/serena-gazou-80067-320x213.jpg"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "RENO15",
+    "storage": "12+512",
+    "originalPrice": 55999,
+    "refurbPrice": 52830,
+    "images": [
+      "https://upload.wikimedia.org/wikipedia/commons/0/08/Colourful_ballet_tutu.jpg",
+      "https://m.media-amazon.com/images/I/71EnmI+p5yL.jpg",
+      "https://groundup.org.za/media/uploads/images/photographers/Ihsaan Haffejee/enable_through_dance/enable_through_dance_5.jpg",
+      "https://www.dancedirect.com/media/wysiwyg/Info-Squares-Student_1.jpg",
+      "https://m.media-amazon.com/images/I/81b80z2oG5L.jpg",
+      "https://c2.peakpx.com/wallpaper/535/284/881/diwali-cary-dance-wallpaper.jpg"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "RENO15 PRO MINI",
+    "storage": "12+256",
+    "originalPrice": 59999,
+    "refurbPrice": 56603,
+    "images": [
+      "https://assets.vogue.com/photos/64fda4bd35ae6307b2481d32/master/w_2560%2Cc_limit/00007-dion-lee-spring-2024-ready-to-wear-credit-gorunway.jpg",
+      "https://wwd.com/wp-content/uploads/2023/09/Dion-Lee-RTW-S24-RB-023.jpg",
+      "https://i.pinimg.com/originals/a8/48/3f/a8483ff68f97b86a829f67d06d9e2e40.jpg",
+      "https://theimpression.com/wp-content/uploads/2023/09/Dion-Lee-S24-004.jpg",
+      "https://img-new.orientpalms.com/IMG/article8719/Dion_Lee_S23_020-resp2400v.jpg",
+      "https://rain-mag.com/uploads/original/dion-lee-s24-045-1600x2000-1742423686725-j3k7nv9z9k.jpg"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "RENO15 PRO MINI",
+    "storage": "12+512",
+    "originalPrice": 64999,
+    "refurbPrice": 61320,
+    "images": [
+      "https://assets.vogue.com/photos/64fda4bd35ae6307b2481d32/master/w_2560%2Cc_limit/00007-dion-lee-spring-2024-ready-to-wear-credit-gorunway.jpg",
+      "https://wwd.com/wp-content/uploads/2023/09/Dion-Lee-RTW-S24-RB-023.jpg",
+      "https://i.pinimg.com/originals/a8/48/3f/a8483ff68f97b86a829f67d06d9e2e40.jpg",
+      "https://theimpression.com/wp-content/uploads/2023/09/Dion-Lee-S24-004.jpg",
+      "https://img-new.orientpalms.com/IMG/article8719/Dion_Lee_S23_020-resp2400v.jpg",
+      "https://rain-mag.com/uploads/original/dion-lee-s24-045-1600x2000-1742423686725-j3k7nv9z9k.jpg"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "F33 PRO",
+    "storage": "8+256",
+    "originalPrice": 43999,
+    "refurbPrice": 41508,
+    "images": [
+      "https://davrampur.org/File/381/Slider_4dbec182-2c7a-4899-9a4d-354578888c5d_15.jpg",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "F33 PRO",
+    "storage": "8+128",
+    "originalPrice": 39999,
+    "refurbPrice": 37735,
+    "images": [
+      "https://davrampur.org/File/381/Slider_4dbec182-2c7a-4899-9a4d-354578888c5d_15.jpg",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "F33",
+    "storage": "8+256",
+    "originalPrice": 39999,
+    "refurbPrice": 37735,
+    "images": [
+      "https://static.mercdn.net/item/detail/orig/photos/m42681135633_1.jpg?1770722887",
+      "https://car.watch.impress.co.jp/img/car/list/2003/457/003.jpg",
+      "https://mrsgreenapple.com/static/mga/feature/taibanLive2024/image/ph_goodsList_0a5r0vb8E.jpg",
+      "https://collabo-kk.co.jp/images/2025/06/\u30df\u30bb\u30b9\u30ed\u30fc\u30bd\u30f3\u30b3\u30e9\u30dc2025\u30b0\u30c3\u30ba-530x309.jpg",
+      "https://static.mercdn.net/item/detail/orig/photos/m17880026684_1.jpg?1766065586",
+      "https://aop-emtg-jp.s3.amazonaws.com/prod/public/mga/contents/information/df55df6568322f1078beb3c6383d61b9.jpg"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "F33",
+    "storage": "8+128",
+    "originalPrice": 36999,
+    "refurbPrice": 35070,
+    "images": [
+      "https://static.mercdn.net/item/detail/orig/photos/m42681135633_1.jpg?1770722887",
+      "https://car.watch.impress.co.jp/img/car/list/2003/457/003.jpg",
+      "https://mrsgreenapple.com/static/mga/feature/taibanLive2024/image/ph_goodsList_0a5r0vb8E.jpg",
+      "https://collabo-kk.co.jp/images/2025/06/\u30df\u30bb\u30b9\u30ed\u30fc\u30bd\u30f3\u30b3\u30e9\u30dc2025\u30b0\u30c3\u30ba-530x309.jpg",
+      "https://static.mercdn.net/item/detail/orig/photos/m17880026684_1.jpg?1766065586",
+      "https://aop-emtg-jp.s3.amazonaws.com/prod/public/mga/contents/information/df55df6568322f1078beb3c6383d61b9.jpg"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "F33",
+    "storage": "6+128",
+    "originalPrice": 34999,
+    "refurbPrice": 33174,
+    "images": [
+      "https://static.mercdn.net/item/detail/orig/photos/m42681135633_1.jpg?1770722887",
+      "https://car.watch.impress.co.jp/img/car/list/2003/457/003.jpg",
+      "https://mrsgreenapple.com/static/mga/feature/taibanLive2024/image/ph_goodsList_0a5r0vb8E.jpg",
+      "https://collabo-kk.co.jp/images/2025/06/\u30df\u30bb\u30b9\u30ed\u30fc\u30bd\u30f3\u30b3\u30e9\u30dc2025\u30b0\u30c3\u30ba-530x309.jpg",
+      "https://static.mercdn.net/item/detail/orig/photos/m17880026684_1.jpg?1766065586",
+      "https://aop-emtg-jp.s3.amazonaws.com/prod/public/mga/contents/information/df55df6568322f1078beb3c6383d61b9.jpg"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "FIND X9s",
+    "storage": "12+256",
+    "originalPrice": 79999,
+    "refurbPrice": 74073,
+    "images": [
+      "https://images.classic.com/vehicles/7b9c8b0a85bc00dc1fd7972ea4def88b7af998c2.jpg?w=1920",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "FIND X9s",
+    "storage": "12+512",
+    "originalPrice": 89999,
+    "refurbPrice": 83332,
+    "images": [
+      "https://images.classic.com/vehicles/7b9c8b0a85bc00dc1fd7972ea4def88b7af998c2.jpg?w=1920",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "FIND X9 ULTRA",
+    "storage": "12+512",
+    "originalPrice": 169999,
+    "refurbPrice": 157406,
+    "images": [
+      "https://ai2-s2-public.s3.amazonaws.com/figures/2017-08-08/ed86bd60bd31f8f12978a46f8c9f122c74a36c30/3-Figure1-1.png",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "RENO16 C",
+    "storage": "8+128",
+    "originalPrice": 46999,
+    "refurbPrice": 44549,
+    "images": [
+      "https://www.stock-app.info/media/wp-content/uploads/2024/12/\u30b9\u30af\u30ea\u30fc\u30f3\u30b7\u30e7\u30c3\u30c8-2024-12-24-12.28.10.png",
+      "https://kaizen-penguin.com/wp-content/uploads/2021/06/thumbnail_about-job-list-8865.webp",
+      "https://i.pinimg.com/736x/a1/db/cd/a1dbcd805d1828f67279aeec6833d099.jpg",
+      "https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/36153287485/original/ukweydAH8_2rVGtHmlOgcCyxJQNArUm_jA.png?1679041542",
+      "https://www.stock-app.info/media/wp-content/uploads/2025/04/\u30b9\u30af\u30ea\u30fc\u30f3\u30b7\u30e7\u30c3\u30c8-2025-04-04-165004.png",
+      "https://www.stock-app.info/media/wp-content/uploads/2025/09/\u30b9\u30af\u30ea\u30fc\u30f3\u30b7\u30e7\u30c3\u30c8-2025-09-18-164347.png"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "RENO16 C",
+    "storage": "8+256",
+    "originalPrice": 49999,
+    "refurbPrice": 46728,
+    "images": [
+      "https://www.stock-app.info/media/wp-content/uploads/2024/12/\u30b9\u30af\u30ea\u30fc\u30f3\u30b7\u30e7\u30c3\u30c8-2024-12-24-12.28.10.png",
+      "https://kaizen-penguin.com/wp-content/uploads/2021/06/thumbnail_about-job-list-8865.webp",
+      "https://i.pinimg.com/736x/a1/db/cd/a1dbcd805d1828f67279aeec6833d099.jpg",
+      "https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/36153287485/original/ukweydAH8_2rVGtHmlOgcCyxJQNArUm_jA.png?1679041542",
+      "https://www.stock-app.info/media/wp-content/uploads/2025/04/\u30b9\u30af\u30ea\u30fc\u30f3\u30b7\u30e7\u30c3\u30c8-2025-04-04-165004.png",
+      "https://www.stock-app.info/media/wp-content/uploads/2025/09/\u30b9\u30af\u30ea\u30fc\u30f3\u30b7\u30e7\u30c3\u30c8-2025-09-18-164347.png"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "RENO16 C",
+    "storage": "12+256",
+    "originalPrice": 55999,
+    "refurbPrice": 52336,
+    "images": [
+      "https://www.stock-app.info/media/wp-content/uploads/2024/12/\u30b9\u30af\u30ea\u30fc\u30f3\u30b7\u30e7\u30c3\u30c8-2024-12-24-12.28.10.png",
+      "https://kaizen-penguin.com/wp-content/uploads/2021/06/thumbnail_about-job-list-8865.webp",
+      "https://i.pinimg.com/736x/a1/db/cd/a1dbcd805d1828f67279aeec6833d099.jpg",
+      "https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/36153287485/original/ukweydAH8_2rVGtHmlOgcCyxJQNArUm_jA.png?1679041542",
+      "https://www.stock-app.info/media/wp-content/uploads/2025/04/\u30b9\u30af\u30ea\u30fc\u30f3\u30b7\u30e7\u30c3\u30c8-2025-04-04-165004.png",
+      "https://www.stock-app.info/media/wp-content/uploads/2025/09/\u30b9\u30af\u30ea\u30fc\u30f3\u30b7\u30e7\u30c3\u30c8-2025-09-18-164347.png"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "RENO16",
+    "storage": "8+256",
+    "originalPrice": 61999,
+    "refurbPrice": 57406,
+    "images": [
+      "https://tshop.r10s.jp/cocoterior/cabinet/111/maa-kago1n.jpg?fitin=300:300",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "RENO16",
+    "storage": "12+256",
+    "originalPrice": 67999,
+    "refurbPrice": 62962,
+    "images": [
+      "https://tshop.r10s.jp/cocoterior/cabinet/111/maa-kago1n.jpg?fitin=300:300",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "PAD 5",
+    "storage": "8+128",
+    "originalPrice": 29999,
+    "refurbPrice": 27777,
+    "images": [
+      "https://www.creativefabrica.com/wp-content/uploads/2024/04/01/Cowboy-riding-a-fast-horse-silhouette-Graphics-94609716-1.jpg",
+      "https://www.shutterstock.com/shutterstock/photos/2240795233/display_1500/stock-vector-cowboy-silhouette-with-three-horse-riding-2240795233.jpg",
+      "https://www.creativefabrica.com/wp-content/uploads/2024/03/10/Cowboy-riding-horse-shoots-silhouette-Graphics-92946676-1.jpg",
+      "https://static.vecteezy.com/system/resources/thumbnails/037/796/467/small_2x/ai-generated-silhouette-of-a-cowboy-on-a-horse-at-sunset-neural-network-generatedrealistic-image-photo.jpg",
+      "https://img.freepik.com/premium-vector/cowboy-riding-horse-silhouette-white-background_1266257-33264.jpg?w=1060",
+      "https://img.freepik.com/premium-vector/silhouette-cowboy-horse-full-body_925376-77749.jpg?w=900"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "PAD 5",
+    "storage": "8+256",
+    "originalPrice": 34999,
+    "refurbPrice": 32406,
+    "images": [
+      "https://www.creativefabrica.com/wp-content/uploads/2024/04/01/Cowboy-riding-a-fast-horse-silhouette-Graphics-94609716-1.jpg",
+      "https://www.shutterstock.com/shutterstock/photos/2240795233/display_1500/stock-vector-cowboy-silhouette-with-three-horse-riding-2240795233.jpg",
+      "https://www.creativefabrica.com/wp-content/uploads/2024/03/10/Cowboy-riding-horse-shoots-silhouette-Graphics-92946676-1.jpg",
+      "https://static.vecteezy.com/system/resources/thumbnails/037/796/467/small_2x/ai-generated-silhouette-of-a-cowboy-on-a-horse-at-sunset-neural-network-generatedrealistic-image-photo.jpg",
+      "https://img.freepik.com/premium-vector/cowboy-riding-horse-silhouette-white-background_1266257-33264.jpg?w=1060",
+      "https://img.freepik.com/premium-vector/silhouette-cowboy-horse-full-body_925376-77749.jpg?w=900"
+    ]
+  },
+  {
+    "brand": "Oppo",
+    "model": "K14",
+    "storage": "6+128",
+    "originalPrice": 23999,
+    "refurbPrice": 23076,
+    "images": [
+      "https://i.pinimg.com/736x/f2/59/76/f25976cd9f15b792944a5c7972624dbc.jpg",
+      "https://www.line-emoji.com/img/detail_3/68354/2.png",
+      "https://i.pinimg.com/736x/c6/06/b0/c606b01a7f4510ada80a5aba4ac39713.jpg",
+      "http://image.brush-stock.com/img/vewomu000200.jpg",
+      "https://service-cdn.coconala.com/crop/460/380/service_images/original/8036049c-4919865.png",
+      "https://www.fonttr.com/yone/prev/punk-b.jpg"
+    ]
+  }
 ]

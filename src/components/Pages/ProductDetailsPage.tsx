@@ -106,15 +106,19 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
               {/* Pricing */}
               <div className="mb-6">
                 <div className="flex items-end gap-3 mb-1">
-                  <span className="text-red-500 font-bold text-2xl">-{discountPercent}%</span>
+                  {discountPercent > 0 && (
+                    <span className="text-red-500 font-bold text-2xl">-{discountPercent}%</span>
+                  )}
                   <div className="text-3xl font-black text-slate-900 flex items-center">
                     <IndianRupee className="w-6 h-6 stroke-[2.5]" />
                     {product.refurbPrice.toLocaleString('en-IN')}
                   </div>
-                  <span className="text-slate-400 line-through text-lg font-medium flex items-center mb-1">
-                    <IndianRupee className="w-4 h-4" />
-                    {product.originalPrice.toLocaleString('en-IN')}
-                  </span>
+                  {discountPercent > 0 && (
+                    <span className="text-slate-400 line-through text-lg font-medium flex items-center mb-1">
+                      <IndianRupee className="w-4 h-4" />
+                      {product.originalPrice.toLocaleString('en-IN')}
+                    </span>
+                  )}
                 </div>
                 <div className="inline-block bg-amber-100 text-amber-900 text-xs font-bold px-3 py-1 rounded-full">
                   Get it for ₹{(product.refurbPrice - 1000).toLocaleString('en-IN')} with Bank Offers
@@ -243,7 +247,9 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
                   <h3 className="font-bold text-sm text-slate-900 mb-1 truncate">{rec.title}</h3>
                   <div className="flex items-baseline gap-2">
                     <span className="font-bold text-emerald-600">₹{rec.refurbPrice.toLocaleString('en-IN')}</span>
-                    <span className="text-xs text-slate-400 line-through">₹{rec.originalPrice.toLocaleString('en-IN')}</span>
+                    {rec.originalPrice > rec.refurbPrice && (
+                      <span className="text-xs text-slate-400 line-through">₹{rec.originalPrice.toLocaleString('en-IN')}</span>
+                    )}
                   </div>
                 </div>
               ))}
