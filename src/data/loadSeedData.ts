@@ -41,3 +41,32 @@ export const generateOpenBoxSeed = (): CatalogProduct[] => {
     }
   }));
 };
+
+export const generateRefurbishedSeed = (): CatalogProduct[] => {
+  return data.slice(0, 10).map((d, i) => ({
+    id: `refurb-${Date.now()}-${i}`,
+    title: `${d.brand} ${d.model} (${d.storage}) [Grade A]`,
+    brand: d.brand,
+    model: d.model,
+    storage: d.storage,
+    color: 'Assorted',
+    originalPrice: d.originalPrice,
+    refurbPrice: Math.floor(d.refurbPrice * 0.8), // cheaper than open box
+    conditionGrade: 'Grade A',
+    batteryHealthPercent: 95,
+    serialImei: `35${Math.floor(Math.random() * 10000000000000)}`,
+    images: (d as any).images?.length > 0 ? (d as any).images : [IMAGES[i % IMAGES.length]],
+    inStock: true,
+    stockCount: 5,
+    inspectionPassed: true,
+    description: `Refurbished ${d.brand} ${d.model}. Grade A certified, minor wear, fully functional with 3-Month ReCell warranty.`,
+    boxChargerIncluded: false,
+    warrantyMonths: 3,
+    specs: {
+      screen: 'AMOLED Display',
+      processor: 'High Performance Octa-Core',
+      ram: d.storage.split('+')[0] + 'GB',
+      camera: 'Pro Camera System'
+    }
+  }));
+};

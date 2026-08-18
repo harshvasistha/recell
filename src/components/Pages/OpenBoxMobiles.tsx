@@ -138,7 +138,7 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
               <motion.div
                 key={product.id}
                 whileHover={{ y: -4 }}
-                className="bg-white border border-slate-200 hover:border-[#0052FF] rounded-3xl p-5 shadow-xs hover:shadow-xl transition-all flex flex-col justify-between group relative overflow-hidden"
+                className="bg-white border border-slate-200 hover:border-[#0052FF] rounded-3xl p-5 shadow-xs hover:shadow-xl transition-all flex flex-col justify-between group relative overflow-hidden cursor-pointer" onClick={() => onSelectProduct(product)}
               >
                 {/* Age Badge */}
                 <div className="absolute top-4 left-4 z-10 flex flex-col gap-1">

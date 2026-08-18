@@ -132,7 +132,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             {/* Pricing Card */}
             <div className="p-4 rounded-2xl bg-slate-800/80 border border-slate-700 flex items-center justify-between">
               <div>
-                <span className="text-xs text-slate-400">Refurbished Price</span>
+                <span className="text-xs text-slate-400">{product.isOpenBox || product.conditionGrade === 'Open Box' ? 'Selling Price' : 'Refurbished Price'}</span>
                 <div className="text-3xl font-black text-white font-mono flex items-center">
                   <IndianRupee className="w-6 h-6" />
                   {product.refurbPrice.toLocaleString('en-IN')}

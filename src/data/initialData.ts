@@ -354,9 +354,9 @@ export const DEFAULT_PRICING_RULES: PricingRules = {
   minMarginPercent: 18
 };
 
-import { generateOpenBoxSeed } from "./loadSeedData";
+import { generateOpenBoxSeed, generateRefurbishedSeed } from "./loadSeedData";
 
-export const SEED_CATALOG: CatalogProduct[] = generateOpenBoxSeed();
+export const SEED_CATALOG: CatalogProduct[] = [...generateOpenBoxSeed(), ...generateRefurbishedSeed()];
 
 export const SEED_BUY_REQUESTS: BuyQuoteRequest[] = [];
 
