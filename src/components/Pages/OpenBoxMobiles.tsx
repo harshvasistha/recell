@@ -18,7 +18,7 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
 
   // Filter catalog for open box devices or 5-10 day old devices
   const openBoxProducts = catalog.filter((p) => {
-    const isOpenBox = p.isOpenBox || p.conditionGrade === 'Open Box (5-10 Days)' || p.title.toLowerCase().includes('open box');
+    const isOpenBox = p.isOpenBox || p.conditionGrade === 'Open Box' || p.title.toLowerCase().includes('open box');
     const matchesBrand = selectedBrand === 'All' || p.brand.toLowerCase() === selectedBrand.toLowerCase();
     const matchesQuery = !searchQuery || p.title.toLowerCase().includes(searchQuery.toLowerCase()) || p.model.toLowerCase().includes(searchQuery.toLowerCase());
     return isOpenBox && matchesBrand && matchesQuery;
@@ -39,7 +39,7 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
               100% Genuine Open Box Delivery
             </span>
             <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold px-3 py-1 rounded-full font-mono">
-              5 to 10 Days Old Phones
+              Sealed Pack Phones
             </span>
           </div>
 
@@ -48,7 +48,7 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
           </h1>
 
           <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-sans">
-            Brand new 5 to 10 days old mobile phones with original brand seal opened for inspection. Comes with <strong className="text-white">Original Box, Bill, Accessories</strong> and <strong className="text-amber-300">11-12 Months Official Manufacturer Warranty</strong> — priced 25% to 35% below MRP!
+            Brand new sealed pack mobile phones. Comes with <strong className="text-white">Original Box, Bill, Accessories</strong> and <strong className="text-amber-300">12 Months Official Manufacturer Warranty</strong> — priced 25% to 35% below MRP!
           </p>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 text-xs">

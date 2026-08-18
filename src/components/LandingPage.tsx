@@ -341,8 +341,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
         {/* Featured Open Box Chargers & Mobiles Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {catalog && catalog.filter(p => p.isOpenBox || p.conditionGrade === 'Open Box (5-10 Days)' || (p.title && p.title.toLowerCase().includes('open box'))).slice(0, 4).length > 0 ? (
-            catalog.filter(p => p.isOpenBox || p.conditionGrade === 'Open Box (5-10 Days)' || (p.title && p.title.toLowerCase().includes('open box'))).slice(0, 4).map((item) => (
+          {catalog && catalog.filter(p => p.isOpenBox || p.conditionGrade === 'Open Box' || (p.title && p.title.toLowerCase().includes('open box'))).slice(0, 4).length > 0 ? (
+            catalog.filter(p => p.isOpenBox || p.conditionGrade === 'Open Box' || (p.title && p.title.toLowerCase().includes('open box'))).slice(0, 4).map((item) => (
             <div 
               key={item.id}
               onClick={() => onSelectProduct?.(item)}
@@ -426,8 +426,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-          {catalog && catalog.filter(p => p.conditionGrade !== 'Open Box (5-10 Days)' && !(p.title && p.title.toLowerCase().includes('open box'))).slice(0, 6).length > 0 ? (
-            catalog.filter(p => p.conditionGrade !== 'Open Box (5-10 Days)' && !(p.title && p.title.toLowerCase().includes('open box'))).slice(0, 6).map((phone) => (
+          {catalog && catalog.filter(p => p.conditionGrade !== 'Open Box' && !(p.title && p.title.toLowerCase().includes('open box'))).slice(0, 6).length > 0 ? (
+            catalog.filter(p => p.conditionGrade !== 'Open Box' && !(p.title && p.title.toLowerCase().includes('open box'))).slice(0, 6).map((phone) => (
             <div
               key={phone.id}
               onClick={() => onSelectProduct?.(phone)}

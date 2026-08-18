@@ -21,7 +21,7 @@ export const generateOpenBoxSeed = (): CatalogProduct[] => {
     color: 'Assorted',
     originalPrice: d.originalPrice,
     refurbPrice: d.refurbPrice,
-    conditionGrade: 'Open Box (5-10 Days)',
+    conditionGrade: 'Open Box',
     batteryHealthPercent: 100,
     serialImei: `35${Math.floor(Math.random() * 10000000000000)}`,
     images: (d as any).images?.length > 0 ? (d as any).images : [IMAGES[i % IMAGES.length]],

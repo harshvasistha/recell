@@ -42,7 +42,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const [newColor, setNewColor] = useState('Starlight');
   const [newOrigPrice, setNewOrigPrice] = useState(59900);
   const [newRefurbPrice, setNewRefurbPrice] = useState(38900);
-  const [newGrade, setNewGrade] = useState<'Grade A' | 'Grade A1' | 'Grade B' | 'Grade B1' | 'Open Box (5-10 Days)' | 'Like New' | 'Superb' | 'Good'>('Grade A1');
+  const [newGrade, setNewGrade] = useState<'Grade A' | 'Grade A1' | 'Grade B' | 'Grade B1' | 'Open Box' | 'Like New' | 'Superb' | 'Good'>('Grade A1');
   const [newBattery, setNewBattery] = useState(90);
   const [newImei, setNewImei] = useState('359018273641029');
   const [newImage, setNewImage] = useState('https://images.unsplash.com/photo-1632661674596-df8be070a5c5?auto=format&fit=crop&w=800&q=80');
@@ -156,7 +156,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       } else if (lower.includes('good')) {
         conditionGrade = 'Grade B';
       } else if (lower.includes('open box')) {
-        conditionGrade = 'Open Box (5-10 Days)';
+        conditionGrade = 'Open Box';
       }
 
       const batteryHealthPercent = Number(parts[8]) || 88;
@@ -825,7 +825,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     <option value="Grade A1">Grade A1: New Condition + ReCell Warranty</option>
                     <option value="Grade B">Grade B: Minor Scuffs (Never Repaired) + ReCell Warranty</option>
                     <option value="Grade B1">Grade B1: Repaired Phone (Folder/Jack/Mic) - No Warranty</option>
-                    <option value="Open Box (5-10 Days)">Open Box (5-10 Days Demo Unit)</option>
+                    <option value="Open Box">Open Box (5-10 Days Demo Unit)</option>
                   </select>
                 </div>
                 <div>

@@ -73,7 +73,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="animate-marquee-ltr-fast w-full max-w-7xl mx-auto flex items-center justify-between gap-12 whitespace-nowrap">
            <span className="inline-flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5" />Doorstep Coverage: Khekra 250101</span>
            <span>&bull;</span>
-           <span className="inline-flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5" />3-Mo Recell Warranty</span>
+           <span className="inline-flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5" />Up to 12-Mo Warranty</span>
            <span>&bull;</span>
            <span className="inline-flex items-center gap-1.5">7-Day Hassle-Free Returns</span>
         </div>

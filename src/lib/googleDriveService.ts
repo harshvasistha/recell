@@ -104,7 +104,7 @@ export const parseDriveFileToCatalogProduct = (
   } else if (lower.includes('grade b') || lower.includes('scuffs') || lower.includes('minor rough')) {
     conditionGrade = 'Grade B';
   } else if (lower.includes('open box')) {
-    conditionGrade = 'Open Box (5-10 Days)';
+    conditionGrade = 'Open Box';
   }
 
   // Detect Brand

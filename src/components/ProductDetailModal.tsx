@@ -55,7 +55,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               />
               <span className="absolute top-3 left-3 bg-emerald-500 text-slate-950 text-xs font-black px-3 py-1 rounded-full flex items-center gap-1 shadow-md">
                 <ShieldCheck className="w-3.5 h-3.5" />
-                3-Month RePhone Warranty
+                {product.conditionGrade === 'Open Box' ? '12-Month Brand' : '3-Month RePhone'} Warranty
               </span>
             </div>
 
@@ -180,7 +180,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               <p className="text-slate-400 pl-5">
                 • {product.title} (Sanitized) <br />
                 • High-speed USB charging cable <br />
-                • RePhone 3-Month Warranty Card with QR Warranty Register <br />
+                • {product.conditionGrade === 'Open Box' ? '12-Month Brand' : 'RePhone 3-Month'} Warranty Card with QR Warranty Register <br />
                 • SIM Ejector tool
               </p>
             </div>
