@@ -159,7 +159,7 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute bottom-2 right-2 bg-emerald-500 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded-full font-mono">
-                      100% Batt Health
+                      
                     </div>
                   </div>
 

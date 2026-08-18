@@ -43,7 +43,7 @@ export async function openRazorpayCheckout(options: RazorpayOptions): Promise<vo
   const amountInPaise = Math.round(options.amount * 100);
 
   if (loaded && window.Razorpay) {
-    const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_RecellIndiaStore2026';
+    const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_rS9L2yG8mZg5Qk';
 
     const razorpayOptions = {
       key: razorpayKey, // Dynamic environment variable or test fallback
@@ -92,7 +92,7 @@ export async function openRazorpayCheckout(options: RazorpayOptions): Promise<vo
 
   // Fallback simulator for test environment
   setTimeout(() => {
-    const mockPaymentId = `pay_rzp_live_${Math.random().toString(36).substring(2, 10)}`;
+    const mockPaymentId = `pay_rzp_test_${Math.random().toString(36).substring(2, 10)}`;
     options.onSuccess({
       razorpay_payment_id: mockPaymentId,
       razorpay_order_id: `ord_rzp_${Math.random().toString(36).substring(2, 10)}`,

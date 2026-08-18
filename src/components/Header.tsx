@@ -295,7 +295,7 @@ export const Header: React.FC<HeaderProps> = ({
                            <button
                              onClick={() => {
                                onOpenBrand(brand);
-                               setIsMenuOpen(false);
+                                
                              }}
                              className="block py-1 text-[14px] text-slate-600 hover:text-[#0052FF] transition-colors cursor-pointer text-left w-full"
                            >

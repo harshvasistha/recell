@@ -189,7 +189,7 @@ export const Storefront: React.FC<StorefrontProps> = ({
               <option value="featured">Featured</option>
               <option value="price_low">Price: Low to High</option>
               <option value="price_high">Price: High to Low</option>
-              <option value="battery">Battery Health</option>
+              
             </select>
           </div>
         </div>
@@ -231,12 +231,6 @@ export const Storefront: React.FC<StorefrontProps> = ({
                       <ShieldCheck className="w-3 h-3" />
                       3-Mo Warranty
                     </span>
-                    {product.brand.toLowerCase() === 'apple' && (
-                      <span className="bg-slate-900/90 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1">
-                        <Battery className="w-3 h-3 text-emerald-400" />
-                        {product.batteryHealthPercent}% Battery
-                      </span>
-                    )}
                   </div>
 
                   {/* Condition Grade Pill */}

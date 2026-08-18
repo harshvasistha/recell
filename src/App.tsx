@@ -64,7 +64,7 @@ export default function App() {
   useEffect(() => {
     if (user) {
       localStorage.setItem('recellUser', JSON.stringify(user));
-    } else {
+     
       localStorage.removeItem('recellUser');
     }
   }, [user]);
@@ -103,7 +103,7 @@ export default function App() {
       if (route.legalTab) {
         setLegalTab(route.legalTab);
         setIsLegalOpen(true);
-      } else {
+       
         setIsLegalOpen(false);
       }
     };
@@ -127,6 +127,8 @@ export default function App() {
         const stored = localStorage.getItem('recellCatalog');
         if (stored) {
             setCatalog(JSON.parse(stored));
+        } else {
+            setCatalog(SEED_CATALOG);
         }
       }
     });

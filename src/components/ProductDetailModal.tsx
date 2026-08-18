@@ -79,15 +79,12 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             {/* Serial / IMEI Verification Card */}
             <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs space-y-2">
               <div className="flex justify-between items-center text-slate-400">
-                <span>Certified IMEI Serial:</span>
-                <span className="font-mono font-bold text-emerald-400">{product.serialImei}</span>
+                <span>IMEI / Serial:</span>
+                <span className="font-mono text-white bg-slate-800 px-2 py-0.5 rounded">{product.serialImei}</span>
               </div>
-              <div className="flex justify-between items-center text-slate-400">
-                <span>Grade Classification:</span>
-                <span className="font-bold font-heading text-blue-400">{product.conditionGrade}</span>
-              </div>
+            </div>
 
-              {/* Grade Specific Explanation Box */}
+            {/* Grade Specific Explanation Box */}
               <div className="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] leading-snug text-slate-300">
                 {product.conditionGrade === 'Grade A' && (
                   <p className="text-emerald-400 font-medium">
@@ -114,15 +111,6 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     <strong className="text-white font-bold">{product.conditionGrade}:</strong> Certified 55-point inspected pre-owned device with {product.warrantyMonths} Months warranty.
                   </p>
                 )}
-              </div>
-
-              <div className="flex justify-between items-center text-slate-400">
-                <span>Battery Health:</span>
-                {product.brand.toLowerCase() === 'apple' && product.batteryHealthPercent ? (
-    <span className="font-bold text-emerald-400">{product.batteryHealthPercent}% Health Pass</span>
-  ) : (
-    <span className="font-bold text-emerald-400">Battery Pass</span>
-  )}
               </div>
             </div>
           </div>
@@ -179,10 +167,6 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-between">
                   <span className="text-slate-400">Cameras & Sensors:</span>
                   <span className="text-emerald-400 font-bold">PASSED</span>
-                </div>
-                <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-between">
-                  <span className="text-slate-400">Battery Health:</span>
-                  <span className="text-emerald-400 font-bold">{product.brand.toLowerCase() === 'apple' ? `${product.batteryHealthPercent}%` : 'PASSED'}</span>
                 </div>
               </div>
             </div>
@@ -252,6 +236,5 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           </div>
         </div>
       </div>
-    </div>
   );
 };
