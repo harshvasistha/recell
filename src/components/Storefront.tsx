@@ -19,13 +19,14 @@ export const Storefront: React.FC<StorefrontProps> = ({
 }) => {
   const [selectedBrand, setSelectedBrand] = useState<string>('All');
   const [selectedCondition, setSelectedCondition] = useState<string>('All');
-  const [isOpenBoxOnly, setIsOpenBoxOnly] = useState<boolean>(false);
+  
   const [sortBy, setSortBy] = useState<'featured' | 'price_low' | 'price_high' | 'battery'>('featured');
 
   const filteredProducts = catalog.filter(p => {
     const matchesBrand = selectedBrand === 'All' || p.brand.toLowerCase() === selectedBrand.toLowerCase();
     const matchesCondition = selectedCondition === 'All' || p.conditionGrade === selectedCondition;
-    const matchesOpenBox = !isOpenBoxOnly || p.isOpenBox || p.category === 'Open Box Chargers' || p.title.toLowerCase().includes('open box') || p.title.toLowerCase().includes('charger');
+    const isItemOpenBox = p.isOpenBox || p.conditionGrade === 'Open Box' || p.title.toLowerCase().includes('open box');
+    const matchesOpenBox = !isItemOpenBox; // Exclude open box items from refurbished store
     const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           p.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           p.model.toLowerCase().includes(searchQuery.toLowerCase());
@@ -138,10 +139,10 @@ export const Storefront: React.FC<StorefrontProps> = ({
               key={b}
               onClick={() => {
                 setSelectedBrand(b);
-                setIsOpenBoxOnly(false);
+                
               }}
               className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
-                selectedBrand === b && !isOpenBoxOnly
+                selectedBrand === b 
                   ? 'bg-slate-900 text-white shadow-sm'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
@@ -152,9 +153,9 @@ export const Storefront: React.FC<StorefrontProps> = ({
 
           {/* Highlighted Open Box Category Filter */}
           <button
-            onClick={() => setIsOpenBoxOnly(!isOpenBoxOnly)}
+            
             className={`px-4 py-1.5 rounded-full text-xs font-black transition-all flex items-center gap-1.5 border-2 ${
-              isOpenBoxOnly
+              false
                 ? 'bg-amber-500 text-slate-950 border-amber-300 shadow-md scale-105'
                 : 'bg-amber-100/80 text-amber-900 border-amber-300/80 hover:bg-amber-200'
             }`}
@@ -198,7 +199,7 @@ export const Storefront: React.FC<StorefrontProps> = ({
       {/* Catalog Counter Indicator */}
       <div className="flex items-center justify-between text-xs text-slate-500 px-2 font-medium">
         <span>
-          Showing <strong className="text-slate-900">{filteredProducts.length}</strong> live listings (Limit: 50 max)
+          Showing <strong className="text-slate-900">{filteredProducts.length}</strong> live listings (Limit: 500 max)
         </span>
         <span className="text-emerald-600 font-mono font-bold flex items-center gap-1">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />

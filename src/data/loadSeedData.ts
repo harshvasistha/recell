@@ -33,7 +33,7 @@ export const generateOpenBoxSeed = (): CatalogProduct[] => {
     openBoxAgeDays: Math.floor(Math.random() * 5) + 5,
     brandWarrantyMonths: 12,
     warrantyMonths: 12,
-    specs: {
+    specs: ((d as any).specs) ? (d as any).specs : {
       screen: 'AMOLED Display',
       processor: 'High Performance Octa-Core',
       ram: d.storage.split('+')[0] + 'GB',
@@ -62,7 +62,7 @@ export const generateRefurbishedSeed = (): CatalogProduct[] => {
     description: `Refurbished ${d.brand} ${d.model}. Grade A certified, minor wear, fully functional with 3-Month ReCell warranty.`,
     boxChargerIncluded: false,
     warrantyMonths: 3,
-    specs: {
+    specs: ((d as any).specs) ? (d as any).specs : {
       screen: 'AMOLED Display',
       processor: 'High Performance Octa-Core',
       ram: d.storage.split('+')[0] + 'GB',

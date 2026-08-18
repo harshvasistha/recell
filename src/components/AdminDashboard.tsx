@@ -28,7 +28,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   returnRequests,
   warrantyClaims
 }) => {
-  const [activeTab, setActiveTab] = useState<'catalog' | 'buys' | 'pricing' | 'orders' | 'repairs' | 'claims'>('catalog');
+  const [activeTab, setActiveTab] = useState<'openbox_catalog' | 'refurb_catalog' | 'buys' | 'pricing' | 'orders' | 'repairs' | 'claims'>('openbox_catalog');
   
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
   const [confirmClear, setConfirmClear] = useState(false);
@@ -42,7 +42,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const [newColor, setNewColor] = useState('Starlight');
   const [newOrigPrice, setNewOrigPrice] = useState(59900);
   const [newRefurbPrice, setNewRefurbPrice] = useState(38900);
-  const [newGrade, setNewGrade] = useState<'Grade A' | 'Grade A1' | 'Grade B' | 'Grade B1' | 'Open Box' | 'Like New' | 'Superb' | 'Good'>('Grade A1');
+  const [newGrade, setNewGrade] = useState<'Grade A' | 'Grade A1' | 'Grade B' | 'Grade B1' | 'Open Box' | 'Like New' | 'Superb' | 'Good'>('Open Box');
   const [newBattery, setNewBattery] = useState(90);
   const [newImei, setNewImei] = useState('359018273641029');
   const [newImage, setNewImage] = useState('https://images.unsplash.com/photo-1632661674596-df8be070a5c5?auto=format&fit=crop&w=800&q=80');
@@ -61,8 +61,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
   const handleAddCatalogProduct = (e: React.FormEvent) => {
     e.preventDefault();
-    if (catalog.length >= 100) {
-      alert('Maximum 100 products catalog limit reached! Please remove an existing item before adding.');
+    if (catalog.length >= 500) {
+      alert('Maximum 500 products catalog limit reached! Please remove an existing item before adding.');
       return;
     }
 
@@ -280,14 +280,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           </span>
           <h1 className="text-2xl font-black text-slate-900">Platform Control Dashboard</h1>
           <p className="text-xs text-slate-500 mt-0.5">
-            Catalog Limit: <strong className="text-emerald-600">{catalog.length} / 50 Max</strong> • Local Radius: <strong>Pincode 250101</strong>
+            Catalog Limit: <strong className="text-emerald-600">{catalog.length} / 500 Max</strong> • Local Radius: <strong>Pincode 250101</strong>
           </p>
         </div>
 
         {/* Quick Tabs */}
         <div className="flex flex-wrap items-center gap-1.5 bg-slate-100 p-1.5 rounded-full border border-slate-200 text-xs font-semibold">
           {[
-            { id: 'catalog', label: `Catalog (${catalog.length}/50)`, icon: ShoppingBag },
+            { id: 'openbox_catalog', label: `Open Box Catalog (${catalog.filter(c => c.conditionGrade === 'Open Box').length}/500)`, icon: ShoppingBag },
+            { id: 'refurb_catalog', label: `Refurbished Catalog (${catalog.filter(c => c.conditionGrade !== 'Open Box').length}/500)`, icon: ShoppingBag },
             { id: 'buys', label: `Buy Requests (${buyRequests.length})`, icon: Smartphone },
             { id: 'pricing', label: 'Pricing Rules', icon: Sliders },
             { id: 'orders', label: `Orders (${orders.length})`, icon: Truck },
@@ -314,12 +315,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       </div>
 
       {/* TAB 1: CATALOG MANAGEMENT */}
-      {activeTab === 'catalog' && (
+      {(activeTab === 'openbox_catalog' || activeTab === 'refurb_catalog') && (
         <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
             <div>
-              <h2 className="text-lg font-bold text-slate-900">Live Refurbished &amp; Open-Box Catalog</h2>
-              <p className="text-xs text-slate-500">Manage up to 100 live items on pan-India storefront</p>
+              <h2 className="text-lg font-bold text-slate-900">{activeTab === 'openbox_catalog' ? 'Open Box Phones Catalog' : 'Refurbished Phones Catalog'}</h2>
+              <p className="text-xs text-slate-500">Manage up to 500 live items on pan-India storefront</p>
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
@@ -367,7 +368,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               </button>
 
               <button
-                onClick={() => setShowAddModal(true)}
+                onClick={() => { setShowAddModal(true); setNewGrade(activeTab === 'openbox_catalog' ? 'Open Box' : 'Grade A'); }}
                 className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2 rounded-full text-xs flex items-center gap-2 shadow-sm transition-all cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
@@ -448,7 +449,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                {catalog.map(item => (
+                {catalog.filter(item => activeTab === 'openbox_catalog' ? item.conditionGrade === 'Open Box' : item.conditionGrade !== 'Open Box').map(item => (
                   <tr key={item.id} className="hover:bg-slate-50/80 transition-colors">
                     <td className="p-3 font-medium flex items-center gap-3">
                       <img src={item.images[0]} alt="" className="w-10 h-10 object-cover rounded-xl bg-slate-100 border border-slate-200" />

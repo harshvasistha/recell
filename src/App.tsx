@@ -246,7 +246,7 @@ export default function App() {
       };
       setRepairJobs([newJob, ...repairJobs]);
     } else if (updatedReq.finalAgreedPrice) {
-      if (catalog.length < 50) {
+      if (catalog.length < 500) {
         const newCatProduct: CatalogProduct = {
           id: `cat-${Date.now()}`,
           title: `${updatedReq.modelName} - Refurbished`,
