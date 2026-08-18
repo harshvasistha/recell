@@ -120,18 +120,32 @@ export default function App() {
   const [catalog, setCatalog] = useState<CatalogProduct[]>(SEED_CATALOG);
 
   useEffect(() => {
+    // Force reset to the latest seed catalog to ensure the newly uploaded
+    // Open Box devices (Redmi Note 14/15, Oppo, etc.) are live on the frontend
+    // and override any stale empty state or old catalog items.
+    setCatalog(SEED_CATALOG);
+    saveCatalogToDB(SEED_CATALOG);
+    localStorage.setItem('recellCatalog', JSON.stringify(SEED_CATALOG));
+    
+    /* Previous fetch logic commented out temporarily for hard reset
     fetchCatalogFromDB().then(dbCatalog => {
       if (dbCatalog && dbCatalog.length > 0) {
         setCatalog(dbCatalog);
       } else {
         const stored = localStorage.getItem('recellCatalog');
         if (stored) {
-            setCatalog(JSON.parse(stored));
+            const parsed = JSON.parse(stored);
+            if (parsed && parsed.length > 0) {
+                setCatalog(parsed);
+            } else {
+                setCatalog(SEED_CATALOG);
+            }
         } else {
             setCatalog(SEED_CATALOG);
         }
       }
     });
+    */
   }, []);
 
   useEffect(() => {
