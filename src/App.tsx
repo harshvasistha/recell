@@ -36,6 +36,7 @@ import { DoorstepRepair } from './components/Pages/DoorstepRepair';
 import { EWasteRecycle } from './components/Pages/EWasteRecycle';
 import { ContactUs } from './components/Pages/ContactUs';
 import { OpenBoxMobiles } from './components/Pages/OpenBoxMobiles';
+import { ProductDetailsPage } from './components/Pages/ProductDetailsPage';
 import { AuthModal } from './components/AuthModal';
 import { UserProfileModal } from './components/UserProfileModal';
 import { saveOrderToDB, saveSellRequestToDB, fetchCatalogFromDB, saveCatalogToDB } from './lib/dbService';
@@ -52,6 +53,7 @@ export default function App() {
   const [currentTab, setCurrentTab] = useState<TabType>(initialRoute.tab);
   const [isAppFrame, setIsAppFrame] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>(initialRoute.searchQuery || '');
+  const [currentProductId, setCurrentProductId] = useState<string | undefined>(initialRoute.productId);
 
   // User & Auth State
   const [isAuthOpen, setIsAuthOpen] = useState<boolean>(false);
@@ -88,9 +90,9 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    syncUrlWithRoute(currentTab, searchQuery, isLegalOpen ? legalTab : undefined);
+    syncUrlWithRoute(currentTab, searchQuery, isLegalOpen ? legalTab : undefined, currentProductId);
     window.scrollTo(0, 0);
-  }, [currentTab, searchQuery, isLegalOpen, legalTab]);
+  }, [currentTab, searchQuery, isLegalOpen, legalTab, currentProductId]);
 
   // Listen to hash and popstate changes (e.g. browser Back/Forward or new tab navigation)
   useEffect(() => {
@@ -99,6 +101,11 @@ export default function App() {
       setCurrentTab(route.tab);
       if (route.searchQuery !== undefined) {
         setSearchQuery(route.searchQuery);
+      }
+      if (route.productId !== undefined) {
+        setCurrentProductId(route.productId);
+      } else {
+        setCurrentProductId(undefined);
       }
       if (route.legalTab) {
         setLegalTab(route.legalTab);
@@ -176,6 +183,11 @@ export default function App() {
   };
 
   // Select Brand from MegaMenu or Landing Page
+  const handleSelectProduct = (product: CatalogProduct) => {
+    setCurrentTab('product');
+    setCurrentProductId(product.id);
+  };
+
   const handleSelectBrand = (brandName: string) => {
     setSearchQuery(brandName);
     setCurrentTab('buy');
@@ -194,14 +206,11 @@ export default function App() {
   };
 
   const handleQuickBuy = (product: CatalogProduct) => {
-    setCheckoutItems([product]);
-    setIsCheckoutOpen(true);
   };
 
   const handleCartCheckout = () => {
     setCheckoutItems(cart);
     setIsCartOpen(false);
-    setIsCheckoutOpen(true);
   };
 
   // Handlers for data updates
@@ -311,7 +320,7 @@ export default function App() {
     <main className="pb-16">
       {currentTab === 'landing' && (
         <LandingPage catalog={catalog}
-          onSelectProduct={(product) => setSelectedProduct(product)}
+          onSelectProduct={handleSelectProduct}
           onStartSell={() => setCurrentTab('sell')}
           onStartBuy={() => setCurrentTab('buy')}
           onStartTrack={() => setCurrentTab('track')}
@@ -334,7 +343,7 @@ export default function App() {
         <Storefront
           catalog={catalog}
           searchQuery={searchQuery}
-          onSelectProduct={(product) => setSelectedProduct(product)}
+          onSelectProduct={handleSelectProduct}
           onAddToCart={handleAddToCart}
           onQuickBuy={handleQuickBuy}
         />
@@ -343,9 +352,9 @@ export default function App() {
       {currentTab === 'open-box' && (
         <OpenBoxMobiles
           catalog={catalog}
-          onSelectProduct={(product) => {
-            setSelectedProduct(product);
-          }}
+          onSelectProduct={handleSelectProduct}
+             
+
           onOpenAuth={() => setIsAuthOpen(true)}
         />
       )}
@@ -378,6 +387,20 @@ export default function App() {
         <AgentFieldView
           buyRequests={buyRequests}
           onUpdateBuyRequest={handleUpdateBuyRequest}
+        />
+      )}
+
+      {currentTab === 'product' && currentProductId && (
+        <ProductDetailsPage
+          product={catalog.find(p => p.id === currentProductId) || catalog[0]}
+          catalog={catalog}
+          onSelectProduct={handleSelectProduct}
+          onAddToCart={handleAddToCart}
+          onBuyNow={handleQuickBuy}
+          onBack={() => {
+            setCurrentTab('buy');
+            setCurrentProductId(undefined);
+          }}
         />
       )}
 
@@ -554,12 +577,6 @@ export default function App() {
       />
 
       {/* Product Detail Modal */}
-      <ProductDetailModal
-        product={selectedProduct}
-        onClose={() => setSelectedProduct(null)}
-        onAddToCart={handleAddToCart}
-        onBuyNow={handleQuickBuy}
-      />
 
       {/* Checkout Razorpay Modal */}
       <CheckoutModal

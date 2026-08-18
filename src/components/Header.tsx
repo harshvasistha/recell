@@ -8,7 +8,7 @@ import {
   ChevronDown, User, Heart, Menu, X, MapPin, Zap, ExternalLink, Phone
 } from 'lucide-react';
 
-export type TabType = 'landing' | 'sell' | 'buy' | 'open-box' | 'track' | 'repair' | 'about' | 'how-it-works' | 'recycle' | 'contact' | 'agent' | 'admin';
+export type TabType = 'landing' | 'sell' | 'buy' | 'open-box' | 'track' | 'repair' | 'about' | 'how-it-works' | 'recycle' | 'contact' | 'agent' | 'admin' | 'product';
 
 interface HeaderProps {
   currentTab: TabType;
