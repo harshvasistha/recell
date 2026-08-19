@@ -33,6 +33,21 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   // Selected brand state for the Sell Old Phone Diagnostic section
   const [selectedBrandForSell, setSelectedBrandForSell] = useState<string | null>(null);
 
+  // Collapse storage/RAM variants of the same phone down to one (cheapest)
+  // entry so homepage previews show distinct models, not 4 cards for the
+  // same phone in different storage configs.
+  const dedupeByModel = (items: any[]) => {
+    const byModel = new Map<string, any>();
+    for (const item of items) {
+      const key = `${item.brand}|${item.model}`;
+      const existing = byModel.get(key);
+      if (!existing || item.refurbPrice < existing.refurbPrice) {
+        byModel.set(key, item);
+      }
+    }
+    return Array.from(byModel.values());
+  };
+
   // FAQs Accordion
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
@@ -341,8 +356,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
         {/* Featured Open Box Chargers & Mobiles Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {catalog && catalog.filter(p => p.isOpenBox || p.conditionGrade === 'Open Box' || (p.title && p.title.toLowerCase().includes('open box'))).slice(0, 4).length > 0 ? (
-            catalog.filter(p => p.isOpenBox || p.conditionGrade === 'Open Box' || (p.title && p.title.toLowerCase().includes('open box'))).slice(0, 4).map((item) => (
+          {catalog && dedupeByModel(catalog.filter(p => p.isOpenBox || p.conditionGrade === 'Open Box' || (p.title && p.title.toLowerCase().includes('open box')))).slice(0, 4).length > 0 ? (
+            dedupeByModel(catalog.filter(p => p.isOpenBox || p.conditionGrade === 'Open Box' || (p.title && p.title.toLowerCase().includes('open box')))).slice(0, 4).map((item) => (
             <div 
               key={item.id}
               onClick={() => onSelectProduct?.(item)}
@@ -426,8 +441,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-          {catalog && catalog.filter(p => p.conditionGrade !== 'Open Box' && !(p.title && p.title.toLowerCase().includes('open box'))).slice(0, 6).length > 0 ? (
-            catalog.filter(p => p.conditionGrade !== 'Open Box' && !(p.title && p.title.toLowerCase().includes('open box'))).slice(0, 6).map((phone) => (
+          {catalog && dedupeByModel(catalog.filter(p => p.conditionGrade !== 'Open Box' && !(p.title && p.title.toLowerCase().includes('open box')))).slice(0, 6).length > 0 ? (
+            dedupeByModel(catalog.filter(p => p.conditionGrade !== 'Open Box' && !(p.title && p.title.toLowerCase().includes('open box')))).slice(0, 6).map((phone) => (
             <div
               key={phone.id}
               onClick={() => onSelectProduct?.(phone)}

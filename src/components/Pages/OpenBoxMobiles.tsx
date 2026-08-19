@@ -24,7 +24,22 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
     return isOpenBox && matchesBrand && matchesQuery;
   });
 
-  const brands = ['All', 'Apple', 'Samsung', 'OnePlus', 'Google', 'Xiaomi'];
+  // One card per model, not per storage variant - a device with 4 storage
+  // configs would otherwise show 4 near-identical cards. Represent each
+  // group by its cheapest variant; the full variant switcher lives on the
+  // product detail page.
+  const variantsByModel: Record<string, CatalogProduct[]> = {};
+  for (const p of openBoxProducts) {
+    const key = `${p.brand}|${p.model}`;
+    if (!variantsByModel[key]) variantsByModel[key] = [];
+    variantsByModel[key].push(p);
+  }
+  const groupedProducts = Object.values(variantsByModel).map(variants => {
+    const cheapest = variants.reduce((min, v) => (v.refurbPrice < min.refurbPrice ? v : min), variants[0]);
+    return { representative: cheapest, variantCount: variants.length };
+  });
+
+  const brands = ['All', 'Apple', 'Samsung', 'OnePlus', 'Google', 'Xiaomi', 'Oppo'];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-10 text-slate-900">
@@ -121,7 +136,7 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
       </div>
 
       {/* Products Grid */}
-      {openBoxProducts.length === 0 ? (
+      {groupedProducts.length === 0 ? (
         <div className="p-12 text-center bg-white border border-slate-200 rounded-3xl space-y-3">
           <PackageCheck className="w-12 h-12 text-slate-300 mx-auto" />
           <h3 className="text-lg font-bold text-slate-800 font-heading">No Open Box Mobiles Found</h3>
@@ -129,14 +144,14 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {openBoxProducts.map((product) => {
+          {groupedProducts.map(({ representative: product, variantCount }) => {
             const savingsPercent = Math.round(
               ((product.originalPrice - product.refurbPrice) / product.originalPrice) * 100
             );
 
             return (
               <motion.div
-                key={product.id}
+                key={`${product.brand}|${product.model}`}
                 whileHover={{ y: -4 }}
                 className="bg-white border border-slate-200 hover:border-[#0052FF] rounded-3xl p-5 shadow-xs hover:shadow-xl transition-all flex flex-col justify-between group relative overflow-hidden cursor-pointer" onClick={() => onSelectProduct(product)}
               >
@@ -158,9 +173,6 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
                       alt={product.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute bottom-2 right-2 bg-emerald-500 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded-full font-mono">
-                      
-                    </div>
                   </div>
 
                   {/* Title & Specs */}
@@ -168,8 +180,11 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
                     {product.brand} &bull; Open Box Delivery
                   </span>
                   <h3 className="font-heading text-sm font-black text-slate-900 group-hover:text-[#0052FF] transition-colors leading-snug line-clamp-2 mt-0.5">
-                    {product.title}
+                    {product.model}
                   </h3>
+                  {variantCount > 1 && (
+                    <span className="text-[10px] text-slate-500 font-semibold">{variantCount} storage options</span>
+                  )}
 
                   <div className="mt-3 p-2.5 bg-slate-50 border border-slate-100 rounded-xl space-y-1 text-[11px] text-slate-600">
                     <div className="flex items-center gap-1.5">
@@ -191,7 +206,7 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
                         ₹{product.originalPrice.toLocaleString('en-IN')}
                       </span>
                       <span className="font-mono text-lg font-black text-[#0052FF]">
-                        ₹{product.refurbPrice.toLocaleString('en-IN')}
+                        {variantCount > 1 ? 'From ' : ''}₹{product.refurbPrice.toLocaleString('en-IN')}
                       </span>
                     </div>
                     <span className="bg-emerald-50 text-emerald-800 text-[11px] font-black px-2.5 py-1 rounded-full border border-emerald-200">

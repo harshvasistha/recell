@@ -51,6 +51,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const [showBulkUploadModal, setShowBulkUploadModal] = useState(false);
   const [showDriveImportModal, setShowDriveImportModal] = useState(false);
   const [bulkCsvText, setBulkCsvText] = useState('');
+  const [bulkJsonText, setBulkJsonText] = useState('');
   const [bulkUploadMsg, setBulkUploadMsg] = useState('');
   const [showGradingGuide, setShowGradingGuide] = useState(false);
 
@@ -202,6 +203,82 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     setCatalog(prev => [...newProducts, ...prev]);
     setBulkUploadMsg(`Successfully uploaded ${newProducts.length} product(s) to live store catalog!`);
     setBulkCsvText('');
+    setTimeout(() => {
+      setShowBulkUploadModal(false);
+      setBulkUploadMsg('');
+    }, 1800);
+  };
+
+  // JSON bulk import - handles the full CatalogProduct shape (multiple
+  // images, a real specs object, per-variant pricing) that CSV rows can't
+  // express cleanly. Each entry only needs title/brand/model/storage/
+  // originalPrice/refurbPrice - everything else gets a sane default.
+  // Multiple entries sharing the same brand+model become storage variants
+  // of one listing (see the product detail page's variant switcher).
+  const parseAndAddJsonProducts = (rawText: string) => {
+    setBulkUploadMsg('');
+    let parsed: any;
+    try {
+      parsed = JSON.parse(rawText);
+    } catch (err) {
+      setBulkUploadMsg('Invalid JSON - please check for a trailing comma or unclosed bracket.');
+      return;
+    }
+
+    const rows: any[] = Array.isArray(parsed) ? parsed : [parsed];
+    if (catalog.length + rows.length > 500) {
+      setBulkUploadMsg(`This would exceed the 500-product catalog limit (currently ${catalog.length}).`);
+      return;
+    }
+
+    const newProducts: CatalogProduct[] = [];
+    for (let i = 0; i < rows.length; i++) {
+      const r = rows[i];
+      if (!r || !r.title || !r.brand || !r.model || r.refurbPrice == null) continue;
+
+      const conditionGrade: CatalogProduct['conditionGrade'] = r.conditionGrade || 'Open Box';
+      const isOpenBox = r.isOpenBox ?? (conditionGrade === 'Open Box');
+
+      newProducts.push({
+        id: `cat-json-${Date.now()}-${i}`,
+        title: r.title,
+        brand: r.brand,
+        model: r.model,
+        storage: r.storage || '128GB',
+        color: r.color || 'Assorted Official',
+        originalPrice: Number(r.originalPrice) || Number(r.refurbPrice),
+        refurbPrice: Number(r.refurbPrice),
+        conditionGrade,
+        warrantyMonths: r.warrantyMonths ?? (isOpenBox ? 12 : 3),
+        batteryHealthPercent: r.batteryHealthPercent,
+        images: Array.isArray(r.images) && r.images.length > 0
+          ? r.images
+          : ['https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'],
+        inStock: r.inStock ?? true,
+        stockCount: r.stockCount ?? 5,
+        serialImei: r.serialImei || `3590${Math.floor(10000000000 + Math.random() * 90000000000)}`,
+        inspectionPassed: true,
+        description: r.description || `${r.title} - ${isOpenBox ? 'Sealed open box unit with 12-month official manufacturer warranty.' : `Certified 55-point inspected device with ${r.warrantyMonths ?? 3}-month warranty.`}`,
+        boxChargerIncluded: r.boxChargerIncluded ?? true,
+        isOpenBox,
+        brandWarrantyMonths: r.brandWarrantyMonths ?? (isOpenBox ? 12 : undefined),
+        specs: r.specs || {
+          screen: '6.7" Full HD+ Display',
+          processor: 'Octa-Core Processor',
+          ram: r.storage || '',
+          camera: 'AI Multi-Camera System'
+        }
+      });
+    }
+
+    if (newProducts.length === 0) {
+      setBulkUploadMsg('No valid rows found - each needs at least title, brand, model, and refurbPrice.');
+      return;
+    }
+
+    setCatalog(prev => [...newProducts, ...prev]);
+    setBulkUploadMsg(`Successfully uploaded ${newProducts.length} product(s) to live store catalog!`);
+    setBulkJsonText('');
     setTimeout(() => {
       setShowBulkUploadModal(false);
       setBulkUploadMsg('');
@@ -730,6 +807,51 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-3 text-xs font-mono text-slate-900 focus:ring-2 focus:ring-[#0052FF] outline-none"
                 />
               </div>
+
+              <div className="flex items-center justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowBulkUploadModal(false)}
+                  className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-bold hover:bg-slate-50 transition-all cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={() => parseAndAddCsvProducts(bulkCsvText)}
+                  disabled={!bulkCsvText.trim()}
+                  className="bg-[#0052FF] hover:bg-[#0043CC] disabled:opacity-40 text-white font-bold px-5 py-2.5 rounded-xl text-xs flex items-center gap-2 shadow-md transition-all cursor-pointer font-heading"
+                >
+                  <Upload className="w-4 h-4" />
+                  <span>Parse &amp; Add CSV Products</span>
+                </button>
+              </div>
+
+              <div className="relative flex py-1 items-center">
+                <div className="flex-grow border-t border-slate-200"></div>
+                <span className="shrink mx-3 text-[10px] uppercase font-mono font-bold text-slate-400">OR: FULL-DETAIL JSON IMPORT</span>
+                <div className="flex-grow border-t border-slate-200"></div>
+              </div>
+
+              <div>
+                <label className="block text-slate-700 font-bold mb-1">
+                  Method 3: Paste Product JSON (supports multiple images, full specs, storage variants)
+                </label>
+                <p className="text-[11px] text-slate-500 mb-1.5">
+                  Paste an array of products. Entries sharing the same brand + model become storage
+                  variants of one listing on the product page. Fields: title, brand, model, storage,
+                  color, originalPrice (strike price), refurbPrice (selling price), images (array of
+                  3-6 URLs), specs {'{'}screen, processor, camera, battery, os{'}'}, conditionGrade
+                  ("Open Box" defaults warranty to 12 months).
+                </p>
+                <textarea
+                  rows={6}
+                  value={bulkJsonText}
+                  onChange={(e) => setBulkJsonText(e.target.value)}
+                  placeholder={`[\n  {\n    "title": "OPPO A6X (4GB+64GB)",\n    "brand": "Oppo",\n    "model": "OPPO A6X",\n    "storage": "4GB+64GB",\n    "originalPrice": 17999,\n    "refurbPrice": 17142,\n    "conditionGrade": "Open Box",\n    "images": ["https://...jpg", "https://...jpg"],\n    "specs": {"screen": "6.7\\" HD+", "processor": "MediaTek", "camera": "50MP AI", "battery": "5800mAh"}\n  }\n]`}
+                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-3 text-xs font-mono text-slate-900 focus:ring-2 focus:ring-[#0052FF] outline-none"
+                />
+              </div>
             </div>
 
             <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
@@ -742,12 +864,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               </button>
               <button
                 type="button"
-                onClick={() => parseAndAddCsvProducts(bulkCsvText)}
-                disabled={!bulkCsvText.trim()}
-                className="bg-[#0052FF] hover:bg-[#0043CC] disabled:opacity-40 text-white font-bold px-5 py-2.5 rounded-xl text-xs flex items-center gap-2 shadow-md transition-all cursor-pointer font-heading"
+                onClick={() => parseAndAddJsonProducts(bulkJsonText)}
+                disabled={!bulkJsonText.trim()}
+                className="bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 text-white font-bold px-5 py-2.5 rounded-xl text-xs flex items-center gap-2 shadow-md transition-all cursor-pointer font-heading"
               >
                 <Upload className="w-4 h-4" />
-                <span>Parse &amp; Add Products to Store</span>
+                <span>Parse &amp; Add JSON Products</span>
               </button>
             </div>
           </div>

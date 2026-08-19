@@ -52,6 +52,13 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
     .filter(p => p.id !== product.id && p.brand === product.brand)
     .slice(0, 4);
 
+  // Other storage/RAM configs of this exact same phone model, so the page
+  // can offer a variant switcher instead of only ever showing one fixed
+  // config (each variant is its own CatalogProduct entry sharing brand+model).
+  const sameModelVariants = catalog
+    .filter(p => p.brand === product.brand && p.model === product.model)
+    .sort((a, b) => a.refurbPrice - b.refurbPrice);
+
   const isCurrentOpenBox = selectedGrade === 'Open Box' || product.conditionGrade === 'Open Box';
   const cleanTitle = product.title.replace(/\s*-\s*Refurbished/gi, '').replace(/\[Grade.*?\]/gi, '').trim();
 
@@ -239,13 +246,32 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
                 </li>
               </ul>
 
-              {/* Storage & Color */}
-              <div className="grid grid-cols-2 gap-4 mb-6">
+              {/* Storage Variant Switcher & Color */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                 <div>
                   <h3 className="font-bold text-xs text-slate-900 mb-1.5 uppercase tracking-wider">Storage Variant</h3>
-                  <div className="inline-block border-2 border-emerald-600 bg-emerald-50 text-emerald-900 text-xs font-black px-4 py-2 rounded-lg">
-                    {product.storage}
-                  </div>
+                  {sameModelVariants.length > 1 ? (
+                    <div className="flex flex-wrap gap-2">
+                      {sameModelVariants.map(variant => (
+                        <button
+                          key={variant.id}
+                          type="button"
+                          onClick={() => variant.id !== product.id && onSelectProduct(variant)}
+                          className={`text-xs font-black px-3.5 py-2 rounded-lg border-2 transition-all ${
+                            variant.id === product.id
+                              ? 'border-emerald-600 bg-emerald-50 text-emerald-900'
+                              : 'border-slate-200 bg-white text-slate-600 hover:border-emerald-400'
+                          }`}
+                        >
+                          {variant.storage}
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="inline-block border-2 border-emerald-600 bg-emerald-50 text-emerald-900 text-xs font-black px-4 py-2 rounded-lg">
+                      {product.storage}
+                    </div>
+                  )}
                 </div>
                 <div>
                   <h3 className="font-bold text-xs text-slate-900 mb-1.5 uppercase tracking-wider">Color</h3>
