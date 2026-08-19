@@ -2,13 +2,11 @@ import data from './seed_data.json';
 import { CatalogProduct } from '../types';
 
 const IMAGES = [
-  'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1598327105666-5b89351cb315?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1546054454-aa26e2b734c7?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1601784551446-20c9e07cd562?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?auto=format&fit=crop&w=800&q=80'
+  "/devices/redmi-13c/view-1.png",
+  "/devices/redmi-13c/view-2.png",
+  "/devices/redmi-13c/view-3.png",
+  "/devices/redmi-13c/view-4.png",
+  "/devices/redmi-13c/view-5.png"
 ];
 
 export const generateOpenBoxSeed = (): CatalogProduct[] => {
@@ -28,9 +26,9 @@ export const generateOpenBoxSeed = (): CatalogProduct[] => {
     inStock: true,
     stockCount: 2,
     inspectionPassed: true,
-    description: `Open box condition ${d.brand} ${d.model}. Zero scratches, fully functional with 12-Month brand warranty.`,
+    description: `Sealed device. 100% original condition with 12-Month manufacturer warranty. ZERO scratches or dents.`,
     boxChargerIncluded: true,
-    openBoxAgeDays: Math.floor(Math.random() * 5) + 5,
+    
     brandWarrantyMonths: 12,
     warrantyMonths: 12,
     specs: ((d as any).specs) ? (d as any).specs : {

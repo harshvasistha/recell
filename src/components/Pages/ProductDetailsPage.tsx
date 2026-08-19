@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CatalogProduct } from '../../types';
-import { ShieldCheck, CheckCircle2, Truck, PackageCheck, ShoppingCart, IndianRupee, ChevronRight, Star, CreditCard, Wallet, MapPin, Search, ArrowLeft, Zap } from 'lucide-react';
+import { 
+  ShieldCheck, CheckCircle2, Truck, PackageCheck, ShoppingCart, 
+  IndianRupee, ChevronRight, Star, CreditCard, Wallet, MapPin, 
+  ArrowLeft, Zap, Smartphone, Cpu, Camera, Battery, Layers, 
+  SlidersHorizontal, Check, Info, Award
+} from 'lucide-react';
 
 interface ProductDetailsPageProps {
   product: CatalogProduct;
   onAddToCart: (product: CatalogProduct) => void;
   onBuyNow: (product: CatalogProduct) => void;
   onBack: () => void;
-  catalog: CatalogProduct[]; // For recommendations
+  catalog: CatalogProduct[];
   onSelectProduct: (product: CatalogProduct) => void;
 }
 
@@ -19,9 +24,17 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
   catalog,
   onSelectProduct
 }) => {
-  const [activeImage, setActiveImage] = useState<string>(product.images[0] || '');
+  const [activeImage, setActiveImage] = useState<string>(product.images?.[0] || '');
+  const [selectedGrade, setSelectedGrade] = useState<string>(product.conditionGrade || 'Open Box');
   const [pincodeCheck, setPincodeCheck] = useState<string>('110001');
   const [pincodeStatus, setPincodeStatus] = useState<string>('Express Delivery in 2-3 Days');
+
+  useEffect(() => {
+    if (product.images && product.images.length > 0) {
+      setActiveImage(product.images[0]);
+    }
+    setSelectedGrade(product.conditionGrade || 'Open Box');
+  }, [product]);
 
   const discountAmount = product.originalPrice - product.refurbPrice;
   const discountPercent = Math.round((discountAmount / product.originalPrice) * 100);
@@ -39,75 +52,111 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
     .filter(p => p.id !== product.id && p.brand === product.brand)
     .slice(0, 4);
 
+  const isCurrentOpenBox = selectedGrade === 'Open Box' || product.conditionGrade === 'Open Box';
+  const cleanTitle = product.title.replace(/\s*-\s*Refurbished/gi, '').replace(/\[Grade.*?\]/gi, '').trim();
+
+  // Specs object
+  const specs = product.specs || {
+    screen: '6.74" HD+ IPS LCD 90Hz Display',
+    processor: 'MediaTek Octa-Core High Performance',
+    rearCamera: '50MP AI Dual / Triple Camera',
+    frontCamera: '8MP AI Selfie Camera',
+    battery: '5000mAh with Fast Charging',
+    os: 'Android 13 / 14 with Brand UI',
+    dimensions: 'Slim 8.1mm profile, 192g',
+    features: 'Side-mounted Fingerprint, Dual SIM, 3.5mm Audio'
+  };
+
   return (
     <div className="bg-slate-50 min-h-screen pb-20 pt-24 text-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Breadcrumbs */}
-        <div className="flex items-center gap-2 text-xs text-slate-500 mb-6">
-          <button onClick={onBack} className="hover:text-blue-600 flex items-center gap-1">
-            <ArrowLeft className="w-3 h-3" /> Back
+        <div className="flex items-center gap-2 text-xs text-slate-500 mb-6 flex-wrap">
+          <button onClick={onBack} className="hover:text-blue-600 flex items-center gap-1 font-semibold">
+            <ArrowLeft className="w-3.5 h-3.5" /> Back
           </button>
           <ChevronRight className="w-3 h-3" />
           <span className="hover:text-blue-600 cursor-pointer">Home</span>
           <ChevronRight className="w-3 h-3" />
-          <span className="hover:text-blue-600 cursor-pointer">Buy Refurbished {product.brand}</span>
+          <span className="hover:text-blue-600 cursor-pointer">
+            {isCurrentOpenBox ? "Buy Open Box" : "Buy Certified Pre-Owned"} {product.brand}
+          </span>
           <ChevronRight className="w-3 h-3" />
-          <span className="font-semibold text-slate-900">{product.title}</span>
+          <span className="font-semibold text-slate-900">{cleanTitle}</span>
         </div>
 
+        {/* Main Product Card */}
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
             
-            {/* Left Column: Images */}
+            {/* Left Column: Images Gallery */}
             <div className="lg:col-span-6 p-6 lg:p-8 flex flex-col md:flex-row gap-6 border-b lg:border-b-0 lg:border-r border-slate-200">
               {/* Thumbnails (Vertical on desktop) */}
               <div className="flex md:flex-col gap-3 order-2 md:order-1 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
-                {product.images.map((img, idx) => (
+                {(product.images && product.images.length > 0 ? product.images : [activeImage]).map((img, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveImage(img)}
-                    className={`w-16 h-16 shrink-0 rounded-xl overflow-hidden border-2 transition-all p-1.5 flex items-center justify-center ${
-                      activeImage === img ? 'border-emerald-500' : 'border-slate-200 hover:border-slate-300'
+                    className={`w-16 h-16 shrink-0 rounded-xl overflow-hidden border-2 transition-all p-1.5 flex items-center justify-center bg-slate-50 ${
+                      activeImage === img ? 'border-emerald-500 ring-2 ring-emerald-100' : 'border-slate-200 hover:border-slate-300'
                     }`}
                   >
-                    <img src={img} alt="" className="w-full h-full object-contain" />
+                    <img 
+                      src={img} 
+                      alt={`${product.model} view ${idx + 1}`} 
+                      className="w-full h-full object-contain"
+                      onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'; }}
+                    />
                   </button>
                 ))}
               </div>
               
               {/* Main Image */}
               <div className="flex-1 order-1 md:order-2">
-                <div className="relative w-full aspect-square bg-slate-50 rounded-2xl flex items-center justify-center p-8">
+                <div className="relative w-full aspect-square bg-slate-50 rounded-2xl flex items-center justify-center p-8 border border-slate-100">
                   <img
-                    src={activeImage || product.images[0]}
-                    alt={product.title}
-                    className="max-w-full max-h-full object-contain drop-shadow-xl"
+                    src={activeImage || product.images?.[0] || 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'}
+                    alt={cleanTitle}
+                    className="max-w-full max-h-full object-contain drop-shadow-xl transition-all duration-300"
+                    onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'; }}
                   />
-                  <div className="absolute top-4 left-4 bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1 border border-emerald-200">
+                  <div className="absolute top-4 left-4 bg-emerald-600 text-white text-[11px] font-bold px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
                     <ShieldCheck className="w-3.5 h-3.5" />
-                    {product.brandWarrantyMonths || product.warrantyMonths || 12} Months Warranty
+                    {isCurrentOpenBox ? "12 Months Manufacturer Warranty" : "3 Months Recell Warranty"}
                   </div>
+
+                  {isCurrentOpenBox && (
+                    <div className="absolute bottom-4 left-4 bg-slate-900/90 backdrop-blur-sm text-white text-[10px] font-bold px-2.5 py-1 rounded-md">
+                      100% Sealed & Unused
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
 
             {/* Right Column: Details */}
             <div className="lg:col-span-6 p-6 lg:p-10 flex flex-col">
-              <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">{product.title} - Refurbished</h1>
+              <h1 className="text-2xl sm:text-3xl font-black text-slate-900 mb-2 font-heading tracking-tight">
+                {cleanTitle}
+              </h1>
               
               <div className="flex items-center gap-3 mb-6">
-                <div className="flex items-center bg-emerald-500 text-white px-2 py-0.5 rounded text-xs font-bold gap-1">
-                  4.4 <Star className="w-3 h-3 fill-current" />
+                <div className="flex items-center bg-emerald-600 text-white px-2 py-0.5 rounded text-xs font-bold gap-1">
+                  4.5 <Star className="w-3 h-3 fill-current" />
                 </div>
-                <span className="text-xs text-slate-500 underline decoration-dashed">5121 reviews</span>
+                <span className="text-xs text-slate-500 font-medium">Verified 91mobiles & Retail Specs</span>
+                <span className="text-slate-300">|</span>
+                <span className="text-xs text-emerald-700 font-semibold flex items-center gap-1">
+                  <Check className="w-3.5 h-3.5" /> In Stock & Ready to Ship
+                </span>
               </div>
 
               {/* Pricing */}
-              <div className="mb-6">
+              <div className="mb-6 bg-slate-50 p-4 rounded-xl border border-slate-200">
                 <div className="flex items-end gap-3 mb-1">
                   {discountPercent > 0 && (
-                    <span className="text-red-500 font-bold text-2xl">-{discountPercent}%</span>
+                    <span className="text-emerald-600 font-black text-2xl">-{discountPercent}% OFF</span>
                   )}
                   <div className="text-3xl font-black text-slate-900 flex items-center">
                     <IndianRupee className="w-6 h-6 stroke-[2.5]" />
@@ -120,121 +169,235 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
                     </span>
                   )}
                 </div>
-                <div className="inline-block bg-amber-100 text-amber-900 text-xs font-bold px-3 py-1 rounded-full">
-                  Get it for ₹{(product.refurbPrice - 1000).toLocaleString('en-IN')} with Bank Offers
+                <div className="inline-block bg-amber-100 text-amber-900 text-xs font-bold px-3 py-1 rounded-full mt-1">
+                  Get additional ₹1,000 instant discount with UPI / Credit Card offers
                 </div>
               </div>
 
-              {/* Condition Options (Visual only) */}
+              {/* Grading System */}
               <div className="mb-6">
-                <div className="flex justify-between items-end mb-3">
-                  <h3 className="font-bold text-sm text-slate-900">Condition</h3>
-                  <a href="#" className="text-xs text-blue-600 hover:underline">Learn More</a>
+                <div className="flex justify-between items-end mb-2.5">
+                  <h3 className="font-bold text-sm text-slate-900 flex items-center gap-1.5">
+                    <Award className="w-4 h-4 text-emerald-600" />
+                    Device Grading System
+                  </h3>
+                  <span className="text-xs text-slate-500 font-medium">Selected: <strong className="text-slate-900">{selectedGrade}</strong></span>
                 </div>
-                <div className="grid grid-cols-4 gap-2">
-                  <button className={`py-2 px-1 text-[11px] font-bold border-2 rounded-lg text-center ${product.conditionGrade.includes('Open Box') ? 'border-emerald-500 text-emerald-700 bg-emerald-50' : 'border-slate-200 text-slate-500 hover:border-slate-300'}`}>
-                    Open Box
-                  </button>
-                  <button className={`py-2 px-1 text-[11px] font-bold border-2 rounded-lg text-center ${product.conditionGrade === 'Grade A' ? 'border-emerald-500 text-emerald-700 bg-emerald-50' : 'border-slate-200 text-slate-500 hover:border-slate-300'}`}>
-                    Superb
-                  </button>
-                  <button className={`py-2 px-1 text-[11px] font-bold border-2 rounded-lg text-center ${product.conditionGrade === 'Grade B' ? 'border-emerald-500 text-emerald-700 bg-emerald-50' : 'border-slate-200 text-slate-500 hover:border-slate-300'}`}>
-                    Good
-                  </button>
-                  <button className={`py-2 px-1 text-[11px] font-bold border-2 rounded-lg text-center ${product.conditionGrade === 'Grade B1' ? 'border-emerald-500 text-emerald-700 bg-emerald-50' : 'border-slate-200 text-slate-500 hover:border-slate-300'}`}>
-                    Fair
-                  </button>
+                
+                {/* Grading System: Open Box, A, A1, B, B1 */}
+                <div className="grid grid-cols-5 gap-1.5 sm:gap-2">
+                  {[
+                    { id: 'Open Box', label: 'Open Box', desc: 'Sealed 12M' },
+                    { id: 'Grade A', label: 'Grade A', desc: 'Like New' },
+                    { id: 'Grade A1', label: 'Grade A1', desc: 'Superb' },
+                    { id: 'Grade B', label: 'Grade B', desc: 'Good' },
+                    { id: 'Grade B1', label: 'Grade B1', desc: 'Fair' }
+                  ].map((grade) => (
+                    <button
+                      key={grade.id}
+                      type="button"
+                      onClick={() => setSelectedGrade(grade.id)}
+                      className={`py-2.5 px-1 text-center rounded-xl border-2 transition-all ${
+                        selectedGrade === grade.id 
+                          ? 'border-emerald-600 bg-emerald-50 text-emerald-900 shadow-sm' 
+                          : 'border-slate-200 text-slate-600 hover:border-slate-300 bg-white'
+                      }`}
+                    >
+                      <span className="block text-xs font-black leading-tight">{grade.label}</span>
+                      <span className="text-[10px] text-slate-500 block mt-0.5">{grade.desc}</span>
+                    </button>
+                  ))}
                 </div>
-                <div className="mt-3 bg-emerald-50 border border-emerald-200 rounded-lg p-3 flex items-start gap-2">
+
+                <div className="mt-3 bg-emerald-50/80 border border-emerald-200 rounded-xl p-3 flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                  <p className="text-xs text-emerald-800 font-medium">
-                    All devices have a default {product.brandWarrantyMonths || product.warrantyMonths || 12} Months warranty out of the box
+                  <p className="text-xs text-emerald-900 font-medium leading-relaxed">
+                    {selectedGrade === 'Open Box' 
+                      ? 'Open Box: 100% Sealed & Unused unit with original packaging, accessories, and 12-Month Official Manufacturer Warranty.' 
+                      : `${selectedGrade}: Certified thoroughly inspected unit with 3-Month Recell Warranty and 7-day refund policy.`}
                   </p>
                 </div>
               </div>
 
               {/* Key Features List */}
-              <ul className="space-y-2 mb-8 text-sm text-slate-700">
+              <ul className="space-y-2 mb-6 text-xs sm:text-sm text-slate-700 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-slate-400"></div>
-                  Fully tested & 100% functional
+                  <Check className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span><strong>Condition:</strong> {selectedGrade === 'Open Box' ? 'Open Box (Sealed & Unused)' : selectedGrade}</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-slate-400"></div>
-                  {product.conditionGrade}
+                  <Check className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span><strong>Warranty:</strong> {isCurrentOpenBox ? '12 Months Official Manufacturer Warranty' : '3 Months Comprehensive Recell Warranty'}</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-slate-400"></div>
-                  {product.brandWarrantyMonths || product.warrantyMonths || 12} Months Warranty
+                  <Check className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span><strong>Original Packaging:</strong> Original Box, Charger & Factory Accessories Included</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-slate-400"></div>
-                  7 days no question refund policy
+                  <Check className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span><strong>Return Policy:</strong> 7 Days No-Questions-Asked Refund Guarantee</span>
                 </li>
               </ul>
 
-              <div className="grid grid-cols-2 gap-4 mb-8">
+              {/* Storage & Color */}
+              <div className="grid grid-cols-2 gap-4 mb-6">
                 <div>
-                  <h3 className="font-bold text-sm text-slate-900 mb-2">Storage</h3>
-                  <div className="inline-block border-2 border-emerald-500 bg-emerald-50 text-emerald-800 text-xs font-bold px-4 py-2 rounded-lg">
+                  <h3 className="font-bold text-xs text-slate-900 mb-1.5 uppercase tracking-wider">Storage Variant</h3>
+                  <div className="inline-block border-2 border-emerald-600 bg-emerald-50 text-emerald-900 text-xs font-black px-4 py-2 rounded-lg">
                     {product.storage}
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-bold text-sm text-slate-900 mb-2">Color</h3>
+                  <h3 className="font-bold text-xs text-slate-900 mb-1.5 uppercase tracking-wider">Color</h3>
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-slate-800 border-2 border-white ring-2 ring-emerald-500"></div>
-                    <span className="text-xs font-medium text-slate-700">{product.color}</span>
+                    <div className="w-6 h-6 rounded-full bg-slate-800 border-2 border-white ring-2 ring-emerald-500"></div>
+                    <span className="text-xs font-semibold text-slate-700">{product.color || 'Assorted Official'}</span>
                   </div>
                 </div>
               </div>
 
               {/* Delivery Pincode */}
-              <div className="mb-8 border-t border-slate-200 pt-6">
-                <h3 className="font-bold text-sm text-slate-900 mb-3">Check Delivery</h3>
-                <form onSubmit={handlePincodeSubmit} className="relative">
+              <div className="mb-6 border-t border-slate-200 pt-5">
+                <h3 className="font-bold text-xs text-slate-900 mb-2 uppercase tracking-wider">Check Delivery & Pincode</h3>
+                <form onSubmit={handlePincodeSubmit} className="relative max-w-md">
                   <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                   <input
                     type="text"
                     maxLength={6}
                     value={pincodeCheck}
                     onChange={(e) => setPincodeCheck(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-300 rounded-xl pl-10 pr-24 py-3 text-sm text-slate-900 font-medium focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
-                    placeholder="Postal code e.g. 414001"
+                    className="w-full bg-white border border-slate-300 rounded-xl pl-9 pr-24 py-2.5 text-sm text-slate-900 font-medium focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
+                    placeholder="Enter 6-digit Pincode"
                   />
                   <button
                     type="submit"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 text-emerald-600 font-bold text-sm hover:text-emerald-700 px-2"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-emerald-600 font-bold text-xs hover:text-emerald-700 px-3 py-1.5 rounded-lg bg-emerald-50"
                   >
                     Check
                   </button>
                 </form>
-                <p className="text-xs text-emerald-600 mt-2 font-medium flex items-center gap-1">
+                <p className="text-xs text-emerald-700 mt-2 font-semibold flex items-center gap-1">
                   <Truck className="w-3.5 h-3.5" /> {pincodeStatus}
                 </p>
               </div>
 
               {/* Action Buttons */}
-              <div className="grid grid-cols-2 gap-4 mt-auto">
+              <div className="grid grid-cols-2 gap-3 mt-auto">
                 <button
                   onClick={() => onAddToCart(product)}
-                  className="bg-white border-2 border-slate-300 hover:border-slate-400 text-slate-700 font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 transition-colors"
+                  className="bg-white border-2 border-slate-300 hover:border-slate-400 text-slate-800 font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 transition-colors text-sm"
                 >
-                  <ShoppingCart className="w-5 h-5" /> Add to Cart
+                  <ShoppingCart className="w-4 h-4" /> Add to Cart
                 </button>
                 <button
                   onClick={() => onBuyNow(product)}
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl shadow-[0_4px_14px_0_rgba(16,185,129,0.39)] transition-colors"
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-emerald-600/25 transition-colors text-sm flex items-center justify-center gap-2"
                 >
-                  Buy Now
+                  <Zap className="w-4 h-4 fill-white" /> Buy Now
                 </button>
               </div>
-
             </div>
           </div>
         </div>
 
-        {/* You May Also Like */}
+        {/* Complete Technical Specifications */}
+        <div className="mt-12 bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+          <div className="flex items-center justify-between border-b border-slate-200 pb-4 mb-6">
+            <div>
+              <h2 className="text-xl font-black text-slate-900 font-heading">
+                {product.brand} {product.model} Complete Technical Specifications
+              </h2>
+              <p className="text-xs text-slate-500 mt-1">Sourced from official manufacturer retail spec sheet ({product.brand})</p>
+            </div>
+            <span className="bg-emerald-50 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full border border-emerald-200">
+              100% Brand Verified
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+              <Smartphone className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+              <div>
+                <span className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Display & Screen</span>
+                <span className="font-semibold text-slate-900">{(specs as any)['Display'] || (specs as any)['screen'] || '6.74" 90Hz Smooth Display'}</span>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+              <Cpu className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+              <div>
+                <span className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Processor & Performance</span>
+                <span className="font-semibold text-slate-900">{(specs as any)['Processor'] || (specs as any)['processor'] || 'High Performance Octa-Core Processor'}</span>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+              <Camera className="w-5 h-5 text-purple-600 shrink-0 mt-0.5" />
+              <div>
+                <span className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Rear Camera Matrix</span>
+                <span className="font-semibold text-slate-900">{(specs as any)['Rear Camera'] || (specs as any)['Camera'] || (specs as any)['rearCamera'] || '50MP AI Dual / Triple Camera Setup'}</span>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+              <Camera className="w-5 h-5 text-indigo-600 shrink-0 mt-0.5" />
+              <div>
+                <span className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Front Selfie Camera</span>
+                <span className="font-semibold text-slate-900">{(specs as any)['Front Camera'] || (specs as any)['frontCamera'] || '8MP / 16MP AI Portrait Selfie Camera'}</span>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+              <Battery className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+              <div>
+                <span className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Battery & Charging</span>
+                <span className="font-semibold text-slate-900">{(specs as any)['Battery'] || (specs as any)['battery'] || '5000mAh Massive Battery + Fast Charge'}</span>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+              <Layers className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+              <div>
+                <span className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Operating System</span>
+                <span className="font-semibold text-slate-900">{(specs as any)['OS'] || (specs as any)['os'] || 'Official HyperOS / ColorOS'}</span>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+              <SlidersHorizontal className="w-5 h-5 text-slate-600 shrink-0 mt-0.5" />
+              <div>
+                <span className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Dimensions & Form Factor</span>
+                <span className="font-semibold text-slate-900">{(specs as any)['Dimensions & Weight'] || (specs as any)['Dimensions'] || (specs as any)['dimensions'] || 'Ergonomic Slim Profile'}</span>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+              <ShieldCheck className="w-5 h-5 text-teal-600 shrink-0 mt-0.5" />
+              <div>
+                <span className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Security & Connectivity</span>
+                <span className="font-semibold text-slate-900">{(specs as any)['Security & Ports'] || (specs as any)['Features'] || (specs as any)['features'] || 'Side Fingerprint, Dual SIM, 3.5mm Jack'}</span>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+              <PackageCheck className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+              <div>
+                <span className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Box Contents</span>
+                <span className="font-semibold text-slate-900">{(specs as any)['Box Contents'] || 'Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card'}</span>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+              <Award className="w-5 h-5 text-purple-600 shrink-0 mt-0.5" />
+              <div>
+                <span className="block text-xs font-bold text-slate-500 uppercase tracking-wider">RAM & ROM Configuration</span>
+                <span className="font-semibold text-slate-900">{(specs as any)['RAM & Storage'] || (product.storage ? product.storage + ' Built-in' : 'Official Storage Variant')}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Recommended Products */}
         {recommendedProducts.length > 0 && (
           <div className="mt-12">
             <h2 className="text-xl font-bold text-slate-900 mb-6">You May Also Like</h2>
@@ -242,9 +405,14 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
               {recommendedProducts.map(rec => (
                 <div key={rec.id} onClick={() => onSelectProduct(rec)} className="bg-white p-4 rounded-2xl border border-slate-200 hover:shadow-lg transition-all cursor-pointer group">
                   <div className="aspect-square bg-slate-50 rounded-xl mb-4 p-4 flex items-center justify-center relative">
-                    <img src={rec.images[0]} className="max-h-full object-contain group-hover:scale-105 transition-transform" />
+                    <img 
+                      src={rec.images?.[0] || 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'} 
+                      alt={rec.title}
+                      className="max-h-full object-contain group-hover:scale-105 transition-transform" 
+                      onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'; }} 
+                    />
                   </div>
-                  <h3 className="font-bold text-sm text-slate-900 mb-1 truncate">{rec.title}</h3>
+                  <h3 className="font-bold text-sm text-slate-900 mb-1 truncate">{rec.title.replace(/\s*-\s*Refurbished/gi, '')}</h3>
                   <div className="flex items-baseline gap-2">
                     <span className="font-bold text-emerald-600">₹{rec.refurbPrice.toLocaleString('en-IN')}</span>
                     {rec.originalPrice > rec.refurbPrice && (
@@ -257,28 +425,28 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
           </div>
         )}
 
-        {/* Info Blocks */}
+        {/* ReCell Trust Badges */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 text-center">
+          <div className="bg-white p-6 rounded-2xl border border-slate-200 text-center shadow-sm">
              <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
                <ShieldCheck className="w-6 h-6" />
              </div>
-             <h3 className="font-bold text-slate-900 mb-2">Certified Quality</h3>
-             <p className="text-sm text-slate-500">Every device undergoes a strict 55-point quality check by our experts.</p>
+             <h3 className="font-bold text-slate-900 mb-1">12-Month Brand Warranty</h3>
+             <p className="text-xs text-slate-500">Official manufacturer warranty support valid across all authorized service centers.</p>
           </div>
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 text-center">
+          <div className="bg-white p-6 rounded-2xl border border-slate-200 text-center shadow-sm">
              <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                <PackageCheck className="w-6 h-6" />
              </div>
-             <h3 className="font-bold text-slate-900 mb-2">Original Accessories</h3>
-             <p className="text-sm text-slate-500">Devices come with a certified box, charging cable, and a warranty card.</p>
+             <h3 className="font-bold text-slate-900 mb-1">Original Sealed Packaging</h3>
+             <p className="text-xs text-slate-500">Unused condition with original cable, charger, manuals, and serial-matched invoice.</p>
           </div>
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 text-center">
+          <div className="bg-white p-6 rounded-2xl border border-slate-200 text-center shadow-sm">
              <div className="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
                <Wallet className="w-6 h-6" />
              </div>
-             <h3 className="font-bold text-slate-900 mb-2">Secure Payments</h3>
-             <p className="text-sm text-slate-500">Pay securely via Credit Card, EMI, UPI or choose Cash on Delivery.</p>
+             <h3 className="font-bold text-slate-900 mb-1">7-Day Refund Guarantee</h3>
+             <p className="text-xs text-slate-500">100% money-back guarantee with zero hassle return pickup at your doorstep.</p>
           </div>
         </div>
 

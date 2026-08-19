@@ -6,15 +6,30 @@
     "originalPrice": 14999,
     "refurbPrice": 11999,
     "images": [
-      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-12/view-1.png",
+      "/devices/redmi-12/view-2.png",
+      "/devices/redmi-12/view-3.png",
+      "/devices/redmi-12/view-4.png",
+      "/devices/redmi-12/view-5.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "4GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.79\" FHD+ 90Hz AdaptiveSync IPS Display, 550 nits",
+      "Processor": "MediaTek Helio G88 (12nm Octa-Core)",
+      "Rear Camera": "50MP Primary + 8MP Ultra-Wide + 2MP Macro",
+      "Front Camera": "8MP AI Selfie Camera",
+      "Battery": "5000mAh with 18W Fast Charging (22.5W charger in box)",
+      "OS": "MIUI 14 with Android 13 (Upgradable to Xiaomi HyperOS)",
+      "Dimensions & Weight": "168.6 x 76.28 x 8.17 mm, 198.5g (Glass Back)",
+      "Security & Ports": "Side Fingerprint Sensor, AI Face Unlock, 3.5mm Jack, IR Blaster, IP53",
+      "Box Contents": "Handset, 22.5W Power Adapter, USB Type-C Cable, SIM Eject Tool, Warranty Card",
+      "RAM & Storage": " RAM + 4+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -23,15 +38,31 @@
     "originalPrice": 11999,
     "refurbPrice": 9999,
     "images": [
-      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-13c/img1.png",
+      "/devices/redmi-13c/view-1.png",
+      "/devices/redmi-13c/view-2.png",
+      "/devices/redmi-13c/view-3.png",
+      "/devices/redmi-13c/view-4.png",
+      "/devices/redmi-13c/view-5.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "4GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.74\" 90Hz Dot Drop Display, Corning Gorilla Glass, 600 nits HBM",
+      "Processor": "MediaTek Helio G85 Octa-Core (up to 2.0GHz)",
+      "Rear Camera": "50MP AI Dual Camera with 2MP Macro lens, f/1.8",
+      "Front Camera": "8MP with Soft-light ring for night selfies",
+      "Battery": "5000mAh Long-lasting Battery, 18W Type-C Fast Charging",
+      "OS": "MIUI 14 based on Android 13",
+      "Dimensions & Weight": "168 x 78 x 8.09 mm, 192g Ultra-slim profile",
+      "Security & Ports": "Side Fingerprint Sensor, AI Face Unlock, 3.5mm Headphone Jack",
+      "Box Contents": "Redmi 13C, Fast Adapter, Type-C Cable, SIM Tool, Quick Start Guide",
+      "RAM & Storage": " RAM + 4+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -40,15 +71,31 @@
     "originalPrice": 13999,
     "refurbPrice": 10999,
     "images": [
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-13c/img1.png",
+      "/devices/redmi-13c/view-1.png",
+      "/devices/redmi-13c/view-2.png",
+      "/devices/redmi-13c/view-3.png",
+      "/devices/redmi-13c/view-4.png",
+      "/devices/redmi-13c/view-5.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "6GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.74\" 90Hz Dot Drop Display, Corning Gorilla Glass, 600 nits HBM",
+      "Processor": "MediaTek Helio G85 Octa-Core (up to 2.0GHz)",
+      "Rear Camera": "50MP AI Dual Camera with 2MP Macro lens, f/1.8",
+      "Front Camera": "8MP with Soft-light ring for night selfies",
+      "Battery": "5000mAh Long-lasting Battery, 18W Type-C Fast Charging",
+      "OS": "MIUI 14 based on Android 13",
+      "Dimensions & Weight": "168 x 78 x 8.09 mm, 192g Ultra-slim profile",
+      "Security & Ports": "Side Fingerprint Sensor, AI Face Unlock, 3.5mm Headphone Jack",
+      "Box Contents": "Redmi 13C, Fast Adapter, Type-C Cable, SIM Tool, Quick Start Guide",
+      "RAM & Storage": " RAM + 6+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -57,15 +104,31 @@
     "originalPrice": 15999,
     "refurbPrice": 12499,
     "images": [
-      "https://images.unsplash.com/photo-1601784551446-20c9e07cd562?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-13c/img1.png",
+      "/devices/redmi-13c/view-1.png",
+      "/devices/redmi-13c/view-2.png",
+      "/devices/redmi-13c/view-3.png",
+      "/devices/redmi-13c/view-4.png",
+      "/devices/redmi-13c/view-5.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "8GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.74\" 90Hz Dot Drop Display, Corning Gorilla Glass, 600 nits HBM",
+      "Processor": "MediaTek Helio G85 Octa-Core (up to 2.0GHz)",
+      "Rear Camera": "50MP AI Dual Camera with 2MP Macro lens, f/1.8",
+      "Front Camera": "8MP with Soft-light ring for night selfies",
+      "Battery": "5000mAh Long-lasting Battery, 18W Type-C Fast Charging",
+      "OS": "MIUI 14 based on Android 13",
+      "Dimensions & Weight": "168 x 78 x 8.09 mm, 192g Ultra-slim profile",
+      "Security & Ports": "Side Fingerprint Sensor, AI Face Unlock, 3.5mm Headphone Jack",
+      "Box Contents": "Redmi 13C, Fast Adapter, Type-C Cable, SIM Tool, Quick Start Guide",
+      "RAM & Storage": " RAM + 8+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -74,15 +137,30 @@
     "originalPrice": 16999,
     "refurbPrice": 13999,
     "images": [
-      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-13-5g/view-1.png",
+      "/devices/redmi-13-5g/view-2.png",
+      "/devices/redmi-13-5g/view-3.png",
+      "/devices/redmi-13-5g/view-4.png",
+      "/devices/redmi-13-5g/view-5.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "6GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.79\" FHD+ 120Hz Crystal Glass Display, Corning Gorilla Glass 3",
+      "Processor": "Qualcomm Snapdragon 4 Gen 2 AE (4nm 5G Architecture)",
+      "Rear Camera": "108MP 3X In-Sensor Zoom AI Camera + 2MP Macro",
+      "Front Camera": "13MP AI Selfie Camera",
+      "Battery": "5030mAh Massive Battery + 33W Turbo Fast Charge",
+      "OS": "Xiaomi HyperOS based on Android 14",
+      "Dimensions & Weight": "168.6 x 76.28 x 8.3 mm, 205g (Dual Glass Body)",
+      "Security & Ports": "Side Fingerprint, IP53 Splash Resistance, IR Blaster, 3.5mm Audio",
+      "Box Contents": "Phone, 33W Power Adapter, USB-C Cable, SIM Tray Ejector, Warranty Card",
+      "RAM & Storage": " RAM + 6+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -91,15 +169,30 @@
     "originalPrice": 18999,
     "refurbPrice": 15499,
     "images": [
-      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-13-5g/view-1.png",
+      "/devices/redmi-13-5g/view-2.png",
+      "/devices/redmi-13-5g/view-3.png",
+      "/devices/redmi-13-5g/view-4.png",
+      "/devices/redmi-13-5g/view-5.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "8GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.79\" FHD+ 120Hz Crystal Glass Display, Corning Gorilla Glass 3",
+      "Processor": "Qualcomm Snapdragon 4 Gen 2 AE (4nm 5G Architecture)",
+      "Rear Camera": "108MP 3X In-Sensor Zoom AI Camera + 2MP Macro",
+      "Front Camera": "13MP AI Selfie Camera",
+      "Battery": "5030mAh Massive Battery + 33W Turbo Fast Charge",
+      "OS": "Xiaomi HyperOS based on Android 14",
+      "Dimensions & Weight": "168.6 x 76.28 x 8.3 mm, 205g (Dual Glass Body)",
+      "Security & Ports": "Side Fingerprint, IP53 Splash Resistance, IR Blaster, 3.5mm Audio",
+      "Box Contents": "Phone, 33W Power Adapter, USB-C Cable, SIM Tray Ejector, Warranty Card",
+      "RAM & Storage": " RAM + 8+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -108,15 +201,30 @@
     "originalPrice": 20999,
     "refurbPrice": 16999,
     "images": [
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-note-13-5g/view-1.png",
+      "/devices/redmi-note-13-5g/view-2.png",
+      "/devices/redmi-note-13-5g/view-3.png",
+      "/devices/redmi-note-13-5g/view-4.png",
+      "/devices/redmi-note-13-5g/view-5.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "6GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.67\" 120Hz Ultra-slim Bezel AMOLED, 1000 nits, Gorilla Glass 5",
+      "Processor": "MediaTek Dimensity 6080 5G (6nm Octa-Core up to 2.4GHz)",
+      "Rear Camera": "108MP 3X Lossless Zoom + 8MP Ultra-Wide + 2MP Macro",
+      "Front Camera": "16MP AI HDR Selfie Camera",
+      "Battery": "5000mAh Battery + 33W Fast Charging",
+      "OS": "MIUI 14 / Xiaomi HyperOS (Android 14)",
+      "Dimensions & Weight": "161.11 x 74.95 x 7.6 mm, 173.5g Super Lightweight",
+      "Security & Ports": "In-Display Fingerprint Sensor, Dolby Atmos Dual Speakers, IP54",
+      "Box Contents": "Redmi Note 13 5G, 33W Adapter, USB-C Cable, SIM Tool, Quick Guide",
+      "RAM & Storage": " RAM + 6+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -125,15 +233,30 @@
     "originalPrice": 22999,
     "refurbPrice": 18999,
     "images": [
-      "https://images.unsplash.com/photo-1601784551446-20c9e07cd562?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-note-13-5g/view-1.png",
+      "/devices/redmi-note-13-5g/view-2.png",
+      "/devices/redmi-note-13-5g/view-3.png",
+      "/devices/redmi-note-13-5g/view-4.png",
+      "/devices/redmi-note-13-5g/view-5.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "8GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.67\" 120Hz Ultra-slim Bezel AMOLED, 1000 nits, Gorilla Glass 5",
+      "Processor": "MediaTek Dimensity 6080 5G (6nm Octa-Core up to 2.4GHz)",
+      "Rear Camera": "108MP 3X Lossless Zoom + 8MP Ultra-Wide + 2MP Macro",
+      "Front Camera": "16MP AI HDR Selfie Camera",
+      "Battery": "5000mAh Battery + 33W Fast Charging",
+      "OS": "MIUI 14 / Xiaomi HyperOS (Android 14)",
+      "Dimensions & Weight": "161.11 x 74.95 x 7.6 mm, 173.5g Super Lightweight",
+      "Security & Ports": "In-Display Fingerprint Sensor, Dolby Atmos Dual Speakers, IP54",
+      "Box Contents": "Redmi Note 13 5G, 33W Adapter, USB-C Cable, SIM Tool, Quick Guide",
+      "RAM & Storage": " RAM + 8+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -142,15 +265,30 @@
     "originalPrice": 24999,
     "refurbPrice": 20999,
     "images": [
-      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-note-13-5g/view-1.png",
+      "/devices/redmi-note-13-5g/view-2.png",
+      "/devices/redmi-note-13-5g/view-3.png",
+      "/devices/redmi-note-13-5g/view-4.png",
+      "/devices/redmi-note-13-5g/view-5.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "12GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.67\" 120Hz Ultra-slim Bezel AMOLED, 1000 nits, Gorilla Glass 5",
+      "Processor": "MediaTek Dimensity 6080 5G (6nm Octa-Core up to 2.4GHz)",
+      "Rear Camera": "108MP 3X Lossless Zoom + 8MP Ultra-Wide + 2MP Macro",
+      "Front Camera": "16MP AI HDR Selfie Camera",
+      "Battery": "5000mAh Battery + 33W Fast Charging",
+      "OS": "MIUI 14 / Xiaomi HyperOS (Android 14)",
+      "Dimensions & Weight": "161.11 x 74.95 x 7.6 mm, 173.5g Super Lightweight",
+      "Security & Ports": "In-Display Fingerprint Sensor, Dolby Atmos Dual Speakers, IP54",
+      "Box Contents": "Redmi Note 13 5G, 33W Adapter, USB-C Cable, SIM Tool, Quick Guide",
+      "RAM & Storage": " RAM + 12+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -159,15 +297,30 @@
     "originalPrice": 28999,
     "refurbPrice": 24999,
     "images": [
-      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-note-13-pro-5g/view-1.jpg",
+      "/devices/redmi-note-13-pro-5g/view-2.png",
+      "/devices/redmi-note-13-pro-5g/view-3.png",
+      "/devices/redmi-note-13-pro-5g/view-4.png",
+      "/devices/redmi-note-13-pro-5g/view-5.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "8GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.67\" 1.5K 120Hz Curved AMOLED, Dolby Vision, 1800 nits, Gorilla Glass Victus",
+      "Processor": "Snapdragon 7s Gen 2 (4nm High-Efficiency 5G Chip)",
+      "Rear Camera": "200MP OIS Ultra-Clear Camera + 8MP Ultra-Wide + 2MP Macro",
+      "Front Camera": "16MP AI Portrait Camera",
+      "Battery": "5100mAh Large Battery + 67W Turbo Charge (100% in 44 mins)",
+      "OS": "Xiaomi HyperOS based on Android 14",
+      "Dimensions & Weight": "161.15 x 74.24 x 7.98 mm, 187g",
+      "Security & Ports": "In-Display Heart Rate & Fingerprint Sensor, Dual Stereo Speakers",
+      "Box Contents": "Handset, 67W Turbo Adapter, Type-C Cable, SIM Pin, User Manual",
+      "RAM & Storage": " RAM + 8+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -176,15 +329,30 @@
     "originalPrice": 30999,
     "refurbPrice": 26999,
     "images": [
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-note-13-pro-5g/view-1.jpg",
+      "/devices/redmi-note-13-pro-5g/view-2.png",
+      "/devices/redmi-note-13-pro-5g/view-3.png",
+      "/devices/redmi-note-13-pro-5g/view-4.png",
+      "/devices/redmi-note-13-pro-5g/view-5.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "8GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.67\" 1.5K 120Hz Curved AMOLED, Dolby Vision, 1800 nits, Gorilla Glass Victus",
+      "Processor": "Snapdragon 7s Gen 2 (4nm High-Efficiency 5G Chip)",
+      "Rear Camera": "200MP OIS Ultra-Clear Camera + 8MP Ultra-Wide + 2MP Macro",
+      "Front Camera": "16MP AI Portrait Camera",
+      "Battery": "5100mAh Large Battery + 67W Turbo Charge (100% in 44 mins)",
+      "OS": "Xiaomi HyperOS based on Android 14",
+      "Dimensions & Weight": "161.15 x 74.24 x 7.98 mm, 187g",
+      "Security & Ports": "In-Display Heart Rate & Fingerprint Sensor, Dual Stereo Speakers",
+      "Box Contents": "Handset, 67W Turbo Adapter, Type-C Cable, SIM Pin, User Manual",
+      "RAM & Storage": " RAM + 8+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -193,15 +361,30 @@
     "originalPrice": 32999,
     "refurbPrice": 28999,
     "images": [
-      "https://images.unsplash.com/photo-1601784551446-20c9e07cd562?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-note-13-pro-5g/view-1.jpg",
+      "/devices/redmi-note-13-pro-5g/view-2.png",
+      "/devices/redmi-note-13-pro-5g/view-3.png",
+      "/devices/redmi-note-13-pro-5g/view-4.png",
+      "/devices/redmi-note-13-pro-5g/view-5.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "12GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.67\" 1.5K 120Hz Curved AMOLED, Dolby Vision, 1800 nits, Gorilla Glass Victus",
+      "Processor": "Snapdragon 7s Gen 2 (4nm High-Efficiency 5G Chip)",
+      "Rear Camera": "200MP OIS Ultra-Clear Camera + 8MP Ultra-Wide + 2MP Macro",
+      "Front Camera": "16MP AI Portrait Camera",
+      "Battery": "5100mAh Large Battery + 67W Turbo Charge (100% in 44 mins)",
+      "OS": "Xiaomi HyperOS based on Android 14",
+      "Dimensions & Weight": "161.15 x 74.24 x 7.98 mm, 187g",
+      "Security & Ports": "In-Display Heart Rate & Fingerprint Sensor, Dual Stereo Speakers",
+      "Box Contents": "Handset, 67W Turbo Adapter, Type-C Cable, SIM Pin, User Manual",
+      "RAM & Storage": " RAM + 12+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -210,15 +393,30 @@
     "originalPrice": 33999,
     "refurbPrice": 29999,
     "images": [
-      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-note-13-pro-plus-5g/view-1.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-2.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-3.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-4.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-5.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "8GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.67\" 3D Curved 1.5K 120Hz AMOLED, HDR10+, 1800 nits, Gorilla Glass Victus",
+      "Processor": "MediaTek Dimensity 7200-Ultra (4nm Flagship TSMC Process)",
+      "Rear Camera": "200MP Samsung ISOCELL HP3 with OIS + EIS, 8MP Ultra-wide, 2MP Macro",
+      "Front Camera": "16MP AI Studio Selfie Camera",
+      "Battery": "5000mAh Battery + 120W HyperCharge (100% in 19 mins)",
+      "OS": "Xiaomi HyperOS with guaranteed 3 OS upgrades",
+      "Dimensions & Weight": "161.4 x 74.2 x 8.9 mm, 204.5g (IP68 Water & Dust Resistant)",
+      "Security & Ports": "In-Screen Fingerprint, Dolby Atmos, NFC, IR Blaster, WiFi 6",
+      "Box Contents": "Redmi Note 13 Pro+, 120W HyperCharge Adapter, 6A Type-C Cable, SIM Pin",
+      "RAM & Storage": " RAM + 8+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -227,15 +425,30 @@
     "originalPrice": 35999,
     "refurbPrice": 31999,
     "images": [
-      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-note-13-pro-plus-5g/view-1.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-2.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-3.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-4.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-5.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "12GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.67\" 3D Curved 1.5K 120Hz AMOLED, HDR10+, 1800 nits, Gorilla Glass Victus",
+      "Processor": "MediaTek Dimensity 7200-Ultra (4nm Flagship TSMC Process)",
+      "Rear Camera": "200MP Samsung ISOCELL HP3 with OIS + EIS, 8MP Ultra-wide, 2MP Macro",
+      "Front Camera": "16MP AI Studio Selfie Camera",
+      "Battery": "5000mAh Battery + 120W HyperCharge (100% in 19 mins)",
+      "OS": "Xiaomi HyperOS with guaranteed 3 OS upgrades",
+      "Dimensions & Weight": "161.4 x 74.2 x 8.9 mm, 204.5g (IP68 Water & Dust Resistant)",
+      "Security & Ports": "In-Screen Fingerprint, Dolby Atmos, NFC, IR Blaster, WiFi 6",
+      "Box Contents": "Redmi Note 13 Pro+, 120W HyperCharge Adapter, 6A Type-C Cable, SIM Pin",
+      "RAM & Storage": " RAM + 12+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -244,15 +457,30 @@
     "originalPrice": 37999,
     "refurbPrice": 33999,
     "images": [
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-note-13-pro-plus-5g/view-1.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-2.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-3.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-4.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-5.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "12GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.67\" 3D Curved 1.5K 120Hz AMOLED, HDR10+, 1800 nits, Gorilla Glass Victus",
+      "Processor": "MediaTek Dimensity 7200-Ultra (4nm Flagship TSMC Process)",
+      "Rear Camera": "200MP Samsung ISOCELL HP3 with OIS + EIS, 8MP Ultra-wide, 2MP Macro",
+      "Front Camera": "16MP AI Studio Selfie Camera",
+      "Battery": "5000mAh Battery + 120W HyperCharge (100% in 19 mins)",
+      "OS": "Xiaomi HyperOS with guaranteed 3 OS upgrades",
+      "Dimensions & Weight": "161.4 x 74.2 x 8.9 mm, 204.5g (IP68 Water & Dust Resistant)",
+      "Security & Ports": "In-Screen Fingerprint, Dolby Atmos, NFC, IR Blaster, WiFi 6",
+      "Box Contents": "Redmi Note 13 Pro+, 120W HyperCharge Adapter, 6A Type-C Cable, SIM Pin",
+      "RAM & Storage": " RAM + 12+512 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -261,15 +489,31 @@
     "originalPrice": 16499,
     "refurbPrice": 15499,
     "images": [
-      "https://images.unsplash.com/photo-1601784551446-20c9e07cd562?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-note-12-5g/view-1.jpg",
+      "/devices/redmi-note-12-5g/view-2.png",
+      "/devices/redmi-note-12-5g/view-3.png",
+      "/devices/redmi-note-12-5g/view-4.png",
+      "/devices/redmi-note-12-5g/view-5.png",
+      "/devices/redmi-note-12-5g/view-6.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "6GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.67\" 120Hz Super AMOLED Display, 1200 nits Brightness",
+      "Processor": "Qualcomm Snapdragon 4 Gen 1 5G Architecture",
+      "Rear Camera": "48MP High Resolution AI Dual Camera + 2MP Depth",
+      "Front Camera": "13MP AI Selfie Camera with Beauty modes",
+      "Battery": "5000mAh Battery + 33W Fast Charging",
+      "OS": "Xiaomi HyperOS based on Android 14",
+      "Dimensions & Weight": "165.88 x 76.21 x 7.98 mm, 188g",
+      "Security & Ports": "Side-mounted Fingerprint, IP53 Water Repellent, IR Blaster",
+      "Box Contents": "Handset, 33W Charger, USB Type-C Cable, SIM Ejector, Warranty Sheet",
+      "RAM & Storage": " RAM + 6+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -278,15 +522,31 @@
     "originalPrice": 16999,
     "refurbPrice": 15999,
     "images": [
-      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-note-12-5g/view-1.jpg",
+      "/devices/redmi-note-12-5g/view-2.png",
+      "/devices/redmi-note-12-5g/view-3.png",
+      "/devices/redmi-note-12-5g/view-4.png",
+      "/devices/redmi-note-12-5g/view-5.png",
+      "/devices/redmi-note-12-5g/view-6.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "8GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.67\" 120Hz Super AMOLED Display, 1200 nits Brightness",
+      "Processor": "Qualcomm Snapdragon 4 Gen 1 5G Architecture",
+      "Rear Camera": "48MP High Resolution AI Dual Camera + 2MP Depth",
+      "Front Camera": "13MP AI Selfie Camera with Beauty modes",
+      "Battery": "5000mAh Battery + 33W Fast Charging",
+      "OS": "Xiaomi HyperOS based on Android 14",
+      "Dimensions & Weight": "165.88 x 76.21 x 7.98 mm, 188g",
+      "Security & Ports": "Side-mounted Fingerprint, IP53 Water Repellent, IR Blaster",
+      "Box Contents": "Handset, 33W Charger, USB Type-C Cable, SIM Ejector, Warranty Sheet",
+      "RAM & Storage": " RAM + 8+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -295,15 +555,31 @@
     "originalPrice": 18499,
     "refurbPrice": 17499,
     "images": [
-      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-note-12-5g/view-1.jpg",
+      "/devices/redmi-note-12-5g/view-2.png",
+      "/devices/redmi-note-12-5g/view-3.png",
+      "/devices/redmi-note-12-5g/view-4.png",
+      "/devices/redmi-note-12-5g/view-5.png",
+      "/devices/redmi-note-12-5g/view-6.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "8GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.67\" 120Hz Super AMOLED Display, 1200 nits Brightness",
+      "Processor": "Qualcomm Snapdragon 4 Gen 1 5G Architecture",
+      "Rear Camera": "48MP High Resolution AI Dual Camera + 2MP Depth",
+      "Front Camera": "13MP AI Selfie Camera with Beauty modes",
+      "Battery": "5000mAh Battery + 33W Fast Charging",
+      "OS": "Xiaomi HyperOS based on Android 14",
+      "Dimensions & Weight": "165.88 x 76.21 x 7.98 mm, 188g",
+      "Security & Ports": "Side-mounted Fingerprint, IP53 Water Repellent, IR Blaster",
+      "Box Contents": "Handset, 33W Charger, USB Type-C Cable, SIM Ejector, Warranty Sheet",
+      "RAM & Storage": " RAM + 8+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -312,15 +588,31 @@
     "originalPrice": 23999,
     "refurbPrice": 21999,
     "images": [
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-note-12-pro-5g/view-1.png",
+      "/devices/redmi-note-12-pro-5g/view-2.png",
+      "/devices/redmi-note-12-pro-5g/view-3.png",
+      "/devices/redmi-note-12-pro-5g/view-4.png",
+      "/devices/redmi-note-12-pro-5g/view-5.png",
+      "/devices/redmi-note-12-pro-5g/view-6.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "8GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.67\" 120Hz Pro AMOLED Display, Dolby Vision & HDR10+",
+      "Processor": "MediaTek Dimensity 1080 5G Octa-Core",
+      "Rear Camera": "50MP Sony IMX766 with OIS + 8MP Ultra-Wide + 2MP Macro",
+      "Front Camera": "16MP AI HDR Camera",
+      "Battery": "5000mAh with 67W Turbo Charging",
+      "OS": "Xiaomi HyperOS",
+      "Dimensions & Weight": "162.9 x 76 x 7.98 mm, 187g",
+      "Security & Ports": "Side-mounted Fingerprint, Dual Stereo Speakers, 3.5mm Jack",
+      "Box Contents": "Handset, 67W Power Adapter, USB-C Cable, SIM Eject Tool",
+      "RAM & Storage": " RAM + 8+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -329,15 +621,31 @@
     "originalPrice": 25999,
     "refurbPrice": 23999,
     "images": [
-      "https://images.unsplash.com/photo-1601784551446-20c9e07cd562?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-note-12-pro-5g/view-1.png",
+      "/devices/redmi-note-12-pro-5g/view-2.png",
+      "/devices/redmi-note-12-pro-5g/view-3.png",
+      "/devices/redmi-note-12-pro-5g/view-4.png",
+      "/devices/redmi-note-12-pro-5g/view-5.png",
+      "/devices/redmi-note-12-pro-5g/view-6.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "8GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.67\" 120Hz Pro AMOLED Display, Dolby Vision & HDR10+",
+      "Processor": "MediaTek Dimensity 1080 5G Octa-Core",
+      "Rear Camera": "50MP Sony IMX766 with OIS + 8MP Ultra-Wide + 2MP Macro",
+      "Front Camera": "16MP AI HDR Camera",
+      "Battery": "5000mAh with 67W Turbo Charging",
+      "OS": "Xiaomi HyperOS",
+      "Dimensions & Weight": "162.9 x 76 x 7.98 mm, 187g",
+      "Security & Ports": "Side-mounted Fingerprint, Dual Stereo Speakers, 3.5mm Jack",
+      "Box Contents": "Handset, 67W Power Adapter, USB-C Cable, SIM Eject Tool",
+      "RAM & Storage": " RAM + 8+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -346,15 +654,31 @@
     "originalPrice": 28999,
     "refurbPrice": 26999,
     "images": [
-      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-note-12-pro-plus-5g/view-1.png",
+      "/devices/redmi-note-12-pro-plus-5g/view-2.png",
+      "/devices/redmi-note-12-pro-plus-5g/view-3.png",
+      "/devices/redmi-note-12-pro-plus-5g/view-4.png",
+      "/devices/redmi-note-12-pro-plus-5g/view-5.png",
+      "/devices/redmi-note-12-pro-plus-5g/view-6.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "8GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.67\" 120Hz Pro AMOLED Curved Display, Dolby Vision, 10-bit Color",
+      "Processor": "MediaTek Dimensity 1080 5G Flagship-Grade Processor",
+      "Rear Camera": "200MP Ultra-High Res Sensor with OIS + 8MP Ultra-Wide + 2MP Macro",
+      "Front Camera": "16MP AI Front Camera",
+      "Battery": "4980mAh Battery + 120W HyperCharge",
+      "OS": "Xiaomi HyperOS",
+      "Dimensions & Weight": "162.9 x 76.03 x 8.98 mm, 208.4g",
+      "Security & Ports": "Side Fingerprint, Vapor Chamber LiquidCool Technology, Dolby Atmos",
+      "Box Contents": "Device, 120W Ultra-Fast Charger, Type-C Cable, SIM Pin",
+      "RAM & Storage": " RAM + 8+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -363,15 +687,31 @@
     "originalPrice": 30999,
     "refurbPrice": 28999,
     "images": [
-      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-note-12-pro-plus-5g/view-1.png",
+      "/devices/redmi-note-12-pro-plus-5g/view-2.png",
+      "/devices/redmi-note-12-pro-plus-5g/view-3.png",
+      "/devices/redmi-note-12-pro-plus-5g/view-4.png",
+      "/devices/redmi-note-12-pro-plus-5g/view-5.png",
+      "/devices/redmi-note-12-pro-plus-5g/view-6.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "8GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.67\" 120Hz Pro AMOLED Curved Display, Dolby Vision, 10-bit Color",
+      "Processor": "MediaTek Dimensity 1080 5G Flagship-Grade Processor",
+      "Rear Camera": "200MP Ultra-High Res Sensor with OIS + 8MP Ultra-Wide + 2MP Macro",
+      "Front Camera": "16MP AI Front Camera",
+      "Battery": "4980mAh Battery + 120W HyperCharge",
+      "OS": "Xiaomi HyperOS",
+      "Dimensions & Weight": "162.9 x 76.03 x 8.98 mm, 208.4g",
+      "Security & Ports": "Side Fingerprint, Vapor Chamber LiquidCool Technology, Dolby Atmos",
+      "Box Contents": "Device, 120W Ultra-Fast Charger, Type-C Cable, SIM Pin",
+      "RAM & Storage": " RAM + 8+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -380,15 +720,31 @@
     "originalPrice": 33999,
     "refurbPrice": 31999,
     "images": [
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-note-12-pro-plus-5g/view-1.png",
+      "/devices/redmi-note-12-pro-plus-5g/view-2.png",
+      "/devices/redmi-note-12-pro-plus-5g/view-3.png",
+      "/devices/redmi-note-12-pro-plus-5g/view-4.png",
+      "/devices/redmi-note-12-pro-plus-5g/view-5.png",
+      "/devices/redmi-note-12-pro-plus-5g/view-6.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "12GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.67\" 120Hz Pro AMOLED Curved Display, Dolby Vision, 10-bit Color",
+      "Processor": "MediaTek Dimensity 1080 5G Flagship-Grade Processor",
+      "Rear Camera": "200MP Ultra-High Res Sensor with OIS + 8MP Ultra-Wide + 2MP Macro",
+      "Front Camera": "16MP AI Front Camera",
+      "Battery": "4980mAh Battery + 120W HyperCharge",
+      "OS": "Xiaomi HyperOS",
+      "Dimensions & Weight": "162.9 x 76.03 x 8.98 mm, 208.4g",
+      "Security & Ports": "Side Fingerprint, Vapor Chamber LiquidCool Technology, Dolby Atmos",
+      "Box Contents": "Device, 120W Ultra-Fast Charger, Type-C Cable, SIM Pin",
+      "RAM & Storage": " RAM + 12+512 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -397,15 +753,31 @@
     "originalPrice": 26999,
     "refurbPrice": 24999,
     "images": [
-      "https://images.unsplash.com/photo-1601784551446-20c9e07cd562?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-11-prime-5g/view-1.jpg",
+      "/devices/redmi-11-prime-5g/view-2.jpg",
+      "/devices/redmi-11-prime-5g/view-3.png",
+      "/devices/redmi-11-prime-5g/view-4.png",
+      "/devices/redmi-11-prime-5g/view-5.png",
+      "/devices/redmi-11-prime-5g/view-6.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "8GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.58\" FHD+ 90Hz AdaptiveSync Display, Corning Gorilla Glass",
+      "Processor": "MediaTek Dimensity 700 5G Octa-Core",
+      "Rear Camera": "50MP AI Main Camera + 2MP Depth Camera",
+      "Front Camera": "5MP AI Selfie Camera",
+      "Battery": "5000mAh Battery with 18W Fast Charging (22.5W in box)",
+      "OS": "MIUI with Android / HyperOS",
+      "Dimensions & Weight": "164 x 76.1 x 8.9 mm, 200g",
+      "Security & Ports": "Side Fingerprint Sensor, 3.5mm Headphone Jack, Hi-Res Audio",
+      "Box Contents": "Redmi Handset, Power Adapter, USB-C Cable, SIM Tool, Documentation",
+      "RAM & Storage": " RAM + 8+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -414,15 +786,31 @@
     "originalPrice": 29999,
     "refurbPrice": 27999,
     "images": [
-      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-11-prime-5g/view-1.jpg",
+      "/devices/redmi-11-prime-5g/view-2.jpg",
+      "/devices/redmi-11-prime-5g/view-3.png",
+      "/devices/redmi-11-prime-5g/view-4.png",
+      "/devices/redmi-11-prime-5g/view-5.png",
+      "/devices/redmi-11-prime-5g/view-6.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "8GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.58\" FHD+ 90Hz AdaptiveSync Display, Corning Gorilla Glass",
+      "Processor": "MediaTek Dimensity 700 5G Octa-Core",
+      "Rear Camera": "50MP AI Main Camera + 2MP Depth Camera",
+      "Front Camera": "5MP AI Selfie Camera",
+      "Battery": "5000mAh Battery with 18W Fast Charging (22.5W in box)",
+      "OS": "MIUI with Android / HyperOS",
+      "Dimensions & Weight": "164 x 76.1 x 8.9 mm, 200g",
+      "Security & Ports": "Side Fingerprint Sensor, 3.5mm Headphone Jack, Hi-Res Audio",
+      "Box Contents": "Redmi Handset, Power Adapter, USB-C Cable, SIM Tool, Documentation",
+      "RAM & Storage": " RAM + 8+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -431,15 +819,30 @@
     "originalPrice": 31999,
     "refurbPrice": 28999,
     "images": [
-      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-12-5g/view-1.png",
+      "/devices/redmi-12-5g/view-2.jpg",
+      "/devices/redmi-12-5g/view-3.jpg",
+      "/devices/redmi-12-5g/view-4.jpg",
+      "/devices/redmi-12-5g/view-5.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "8GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.79\" FHD+ 90Hz Smooth Display, Corning Gorilla Glass Protection",
+      "Processor": "Snapdragon 4 Gen 2 (4nm 5G Processor)",
+      "Rear Camera": "50MP AI Dual Camera + 2MP Depth Sensor",
+      "Front Camera": "8MP Front Camera",
+      "Battery": "5000mAh Battery + 18W Fast Charging (22.5W in box)",
+      "OS": "Xiaomi HyperOS",
+      "Dimensions & Weight": "168.6 x 76.28 x 8.17 mm, 199g (Glass Back)",
+      "Security & Ports": "Side Fingerprint, IP53 Splash Resistance, IR Blaster",
+      "Box Contents": "Handset, 22.5W Adapter, USB Type-C Cable, SIM Eject Tool",
+      "RAM & Storage": " RAM + 8+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -448,15 +851,30 @@
     "originalPrice": 34999,
     "refurbPrice": 31999,
     "images": [
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-12-5g/view-1.png",
+      "/devices/redmi-12-5g/view-2.jpg",
+      "/devices/redmi-12-5g/view-3.jpg",
+      "/devices/redmi-12-5g/view-4.jpg",
+      "/devices/redmi-12-5g/view-5.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "8GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.79\" FHD+ 90Hz Smooth Display, Corning Gorilla Glass Protection",
+      "Processor": "Snapdragon 4 Gen 2 (4nm 5G Processor)",
+      "Rear Camera": "50MP AI Dual Camera + 2MP Depth Sensor",
+      "Front Camera": "8MP Front Camera",
+      "Battery": "5000mAh Battery + 18W Fast Charging (22.5W in box)",
+      "OS": "Xiaomi HyperOS",
+      "Dimensions & Weight": "168.6 x 76.28 x 8.17 mm, 199g (Glass Back)",
+      "Security & Ports": "Side Fingerprint, IP53 Splash Resistance, IR Blaster",
+      "Box Contents": "Handset, 22.5W Adapter, USB Type-C Cable, SIM Eject Tool",
+      "RAM & Storage": " RAM + 8+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -465,15 +883,30 @@
     "originalPrice": 39999,
     "refurbPrice": 36999,
     "images": [
-      "https://images.unsplash.com/photo-1601784551446-20c9e07cd562?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-note-13-pro-plus-5g/view-1.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-2.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-3.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-4.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-5.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "8GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.67\" 1.5K 120Hz 3D Curved AMOLED, HDR10+, 1800 nits, IP68",
+      "Processor": "MediaTek Dimensity 7200-Ultra 4nm 5G",
+      "Rear Camera": "200MP OIS Flagship Camera + 8MP Ultra-Wide + 2MP Macro",
+      "Front Camera": "16MP AI Selfie Camera",
+      "Battery": "5000mAh + 120W HyperCharge (100% in 19 mins)",
+      "OS": "Xiaomi HyperOS",
+      "Dimensions & Weight": "161.4 x 74.2 x 8.9 mm, 204.5g (IP68)",
+      "Security & Ports": "In-Display Fingerprint, Stereo Speakers, NFC, IR Blaster",
+      "Box Contents": "Device, 120W Power Adapter, 6A USB Cable, SIM Pin",
+      "RAM & Storage": " RAM + 8+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -482,15 +915,30 @@
     "originalPrice": 41999,
     "refurbPrice": 38999,
     "images": [
-      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-note-13-pro-plus-5g/view-1.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-2.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-3.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-4.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-5.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "12GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.67\" 1.5K 120Hz 3D Curved AMOLED, HDR10+, 1800 nits, IP68",
+      "Processor": "MediaTek Dimensity 7200-Ultra 4nm 5G",
+      "Rear Camera": "200MP OIS Flagship Camera + 8MP Ultra-Wide + 2MP Macro",
+      "Front Camera": "16MP AI Selfie Camera",
+      "Battery": "5000mAh + 120W HyperCharge (100% in 19 mins)",
+      "OS": "Xiaomi HyperOS",
+      "Dimensions & Weight": "161.4 x 74.2 x 8.9 mm, 204.5g (IP68)",
+      "Security & Ports": "In-Display Fingerprint, Stereo Speakers, NFC, IR Blaster",
+      "Box Contents": "Device, 120W Power Adapter, 6A USB Cable, SIM Pin",
+      "RAM & Storage": " RAM + 12+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -499,15 +947,30 @@
     "originalPrice": 44999,
     "refurbPrice": 41999,
     "images": [
-      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+      "/devices/redmi-note-13-pro-plus-5g/view-1.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-2.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-3.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-4.png",
+      "/devices/redmi-note-13-pro-plus-5g/view-5.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "12GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.67\" 1.5K 120Hz 3D Curved AMOLED, HDR10+, 1800 nits, IP68",
+      "Processor": "MediaTek Dimensity 7200-Ultra 4nm 5G",
+      "Rear Camera": "200MP OIS Flagship Camera + 8MP Ultra-Wide + 2MP Macro",
+      "Front Camera": "16MP AI Selfie Camera",
+      "Battery": "5000mAh + 120W HyperCharge (100% in 19 mins)",
+      "OS": "Xiaomi HyperOS",
+      "Dimensions & Weight": "161.4 x 74.2 x 8.9 mm, 204.5g (IP68)",
+      "Security & Ports": "In-Display Fingerprint, Stereo Speakers, NFC, IR Blaster",
+      "Box Contents": "Device, 120W Power Adapter, 6A USB Cable, SIM Pin",
+      "RAM & Storage": " RAM + 12+512 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -516,15 +979,29 @@
     "originalPrice": 59999,
     "refurbPrice": 54999,
     "images": [
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+      "/devices/xiaomi-17t/view-1.png",
+      "/devices/xiaomi-17t/view-2.png",
+      "/devices/xiaomi-17t/view-3.png",
+      "/devices/xiaomi-17t/view-4.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "12GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.36\" 1.5K 120Hz LTPO OLED, 3000 nits Peak Brightness, Dolby Vision",
+      "Processor": "Qualcomm Snapdragon 8 Gen 3 (4nm TSMC)",
+      "Rear Camera": "Leica Summilux 50MP Light Fusion 900 + 50MP 75mm Floating Telephoto + 50MP Ultra-Wide",
+      "Front Camera": "32MP 4K60fps Selfie Camera",
+      "Battery": "4610mAh High-Density Battery + 90W HyperCharge + 50W Wireless",
+      "OS": "Xiaomi HyperOS",
+      "Dimensions & Weight": "152.8 x 71.5 x 8.2 mm, 193g (IP68)",
+      "Security & Ports": "In-Screen Optical Fingerprint, USB 3.2 Gen 1, Stereo Speakers",
+      "Box Contents": "Xiaomi Flagship, 90W Adapter, Type-C Cable, SIM Tool, Warranty Card",
+      "RAM & Storage": " RAM + 12+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -533,15 +1010,29 @@
     "originalPrice": 64999,
     "refurbPrice": 59999,
     "images": [
-      "https://images.unsplash.com/photo-1601784551446-20c9e07cd562?auto=format&fit=crop&w=800&q=80"
+      "/devices/xiaomi-17t/view-1.png",
+      "/devices/xiaomi-17t/view-2.png",
+      "/devices/xiaomi-17t/view-3.png",
+      "/devices/xiaomi-17t/view-4.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "12GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.36\" 1.5K 120Hz LTPO OLED, 3000 nits Peak Brightness, Dolby Vision",
+      "Processor": "Qualcomm Snapdragon 8 Gen 3 (4nm TSMC)",
+      "Rear Camera": "Leica Summilux 50MP Light Fusion 900 + 50MP 75mm Floating Telephoto + 50MP Ultra-Wide",
+      "Front Camera": "32MP 4K60fps Selfie Camera",
+      "Battery": "4610mAh High-Density Battery + 90W HyperCharge + 50W Wireless",
+      "OS": "Xiaomi HyperOS",
+      "Dimensions & Weight": "152.8 x 71.5 x 8.2 mm, 193g (IP68)",
+      "Security & Ports": "In-Screen Optical Fingerprint, USB 3.2 Gen 1, Stereo Speakers",
+      "Box Contents": "Xiaomi Flagship, 90W Adapter, Type-C Cable, SIM Tool, Warranty Card",
+      "RAM & Storage": " RAM + 12+512 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -550,15 +1041,29 @@
     "originalPrice": 89999,
     "refurbPrice": 82999,
     "images": [
-      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80"
+      "/devices/xiaomi-17/view-1.png",
+      "/devices/xiaomi-17/view-2.png",
+      "/devices/xiaomi-17/view-3.png",
+      "/devices/xiaomi-17/view-4.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "12GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.36\" 120Hz LTPO OLED Pro HDR Display, 3000 nits, Ceramic Shield",
+      "Processor": "Snapdragon 8 Gen 3 TSMC 4nm Flagship Platform",
+      "Rear Camera": "Triple Leica 50MP Master Optics with OIS",
+      "Front Camera": "32MP HDR Front Camera",
+      "Battery": "4610mAh + 90W Wired + 50W Wireless HyperCharge",
+      "OS": "Xiaomi HyperOS",
+      "Dimensions & Weight": "152.8 x 71.5 x 8.2 mm, 193g",
+      "Security & Ports": "Under-display Fingerprint, IP68 Waterproofing, WiFi 7",
+      "Box Contents": "Phone, 90W Power Brick, Type-C Cable, SIM Pin, Documentation",
+      "RAM & Storage": " RAM + 12+512 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Xiaomi",
@@ -567,15 +1072,28 @@
     "originalPrice": 139999,
     "refurbPrice": 129999,
     "images": [
-      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+      "/devices/xiaomi-17-ultra/view-1.png",
+      "/devices/xiaomi-17-ultra/view-2.png",
+      "/devices/xiaomi-17-ultra/view-3.png"
     ],
     "specs": {
-      "screen": "6.7\" FHD+ AMOLED 120Hz",
-      "processor": "Snapdragon 7 Gen 2",
-      "ram": "16GB RAM",
-      "camera": "50MP + 8MP + 2MP Triple",
-      "battery": "5000mAh"
-    }
+      "Display": "6.73\" WQHD+ 120Hz LTPO AMOLED, 3000 nits, Xiaomi Shield Glass",
+      "Processor": "Snapdragon 8 Gen 3 (4nm) with LiquidCool Dual Channel",
+      "Rear Camera": "Quad Leica 50MP Camera: 1-inch LYT-900 Variable Aperture + 50MP 75mm OIS + 50MP 120mm Periscope + 50MP Ultra-Wide",
+      "Front Camera": "32MP 4K Recording Front Camera",
+      "Battery": "5000mAh Battery + 90W HyperCharge + 80W Wireless HyperCharge",
+      "OS": "Xiaomi HyperOS with Ultra Studio modes",
+      "Dimensions & Weight": "161.4 x 75.3 x 9.2 mm, 219.8g (Nano-tech Vegan Leather, IP68)",
+      "Security & Ports": "Ultrasonic In-Display Fingerprint, USB 3.2 Gen 2, Hi-Res Audio",
+      "Box Contents": "Xiaomi Ultra Phone, 90W HyperCharger, 6A Cable, SIM Ejector, Case",
+      "RAM & Storage": " RAM + 16+512 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -584,15 +1102,29 @@
     "originalPrice": 12999,
     "refurbPrice": 12380,
     "images": [
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-a6x-4g/view-1.png",
+      "/devices/oppo-a6x-4g/view-2.png",
+      "/devices/oppo-a6x-4g/view-3.png",
+      "/devices/oppo-a6x-4g/view-4.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "4GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.56\" 90Hz Sunlight Display, 720 nits Peak Brightness",
+      "Processor": "MediaTek Helio G85 Octa-Core Processor",
+      "Rear Camera": "8MP AI Main Camera + 2MP Portrait Camera",
+      "Front Camera": "5MP AI Front Camera",
+      "Battery": "5000mAh Long-lasting Large Battery",
+      "OS": "ColorOS 13.1 based on Android 13",
+      "Dimensions & Weight": "163.74 x 75.03 x 8.16 mm, 188g Glowing Design",
+      "Security & Ports": "Side Fingerprint Unlock, 3.5mm Headphone Jack, IP54",
+      "Box Contents": "Oppo Device, Power Adapter, USB-C Cable, SIM Pin, Quick Guide",
+      "RAM & Storage": " RAM + 4+64 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -601,15 +1133,28 @@
     "originalPrice": 16999,
     "refurbPrice": 16189,
     "images": [
-      "https://images.unsplash.com/photo-1601784551446-20c9e07cd562?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-a6c-4g/view-1.png",
+      "/devices/oppo-a6c-4g/view-2.png",
+      "/devices/oppo-a6c-4g/view-3.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "4GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.56\" 90Hz Rich Color Sunlight Display, 720 nits",
+      "Processor": "MediaTek Helio G85 Gaming Processor",
+      "Rear Camera": "50MP AI Dual Camera with 2MP Bokeh Camera",
+      "Front Camera": "5MP AI Selfie Lens",
+      "Battery": "5000mAh Battery + 33W SUPERVOOC Fast Charge",
+      "OS": "ColorOS 13.1 (Dynamic Computing Engine)",
+      "Dimensions & Weight": "163.74 x 75.03 x 8.16 mm, 190g",
+      "Security & Ports": "Side Fingerprint, Ultra-Volume 300% Mode, IP54",
+      "Box Contents": "Phone, 33W SUPERVOOC Charger, USB Cable, SIM Ejector",
+      "RAM & Storage": " RAM + 4+64 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -618,15 +1163,28 @@
     "originalPrice": 17999,
     "refurbPrice": 17142,
     "images": [
-      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-a6x/view-1.png",
+      "/devices/oppo-a6x/view-2.png",
+      "/devices/oppo-a6x/view-3.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "4GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.56\" 90Hz HD+ Sunlight Display, 720 nits",
+      "Processor": "MediaTek Helio G85 Octa-Core",
+      "Rear Camera": "50MP AI Main Camera + 2MP Depth",
+      "Front Camera": "5MP Front Camera",
+      "Battery": "5000mAh + 33W SUPERVOOC Fast Charging",
+      "OS": "ColorOS 13.1",
+      "Dimensions & Weight": "163.74 x 75.03 x 8.16 mm, 190g",
+      "Security & Ports": "Side Fingerprint, Dual SIM + Dedicated MicroSD, IP54",
+      "Box Contents": "Handset, 33W SUPERVOOC Adapter, Type-C Cable, SIM Tool",
+      "RAM & Storage": " RAM + 4+64 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -635,15 +1193,28 @@
     "originalPrice": 19999,
     "refurbPrice": 19046,
     "images": [
-      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-a6x/view-1.png",
+      "/devices/oppo-a6x/view-2.png",
+      "/devices/oppo-a6x/view-3.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "4GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.56\" 90Hz HD+ Sunlight Display, 720 nits",
+      "Processor": "MediaTek Helio G85 Octa-Core",
+      "Rear Camera": "50MP AI Main Camera + 2MP Depth",
+      "Front Camera": "5MP Front Camera",
+      "Battery": "5000mAh + 33W SUPERVOOC Fast Charging",
+      "OS": "ColorOS 13.1",
+      "Dimensions & Weight": "163.74 x 75.03 x 8.16 mm, 190g",
+      "Security & Ports": "Side Fingerprint, Dual SIM + Dedicated MicroSD, IP54",
+      "Box Contents": "Handset, 33W SUPERVOOC Adapter, Type-C Cable, SIM Tool",
+      "RAM & Storage": " RAM + 4+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -652,15 +1223,28 @@
     "originalPrice": 22999,
     "refurbPrice": 21904,
     "images": [
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-a6x/view-1.png",
+      "/devices/oppo-a6x/view-2.png",
+      "/devices/oppo-a6x/view-3.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "6GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.56\" 90Hz HD+ Sunlight Display, 720 nits",
+      "Processor": "MediaTek Helio G85 Octa-Core",
+      "Rear Camera": "50MP AI Main Camera + 2MP Depth",
+      "Front Camera": "5MP Front Camera",
+      "Battery": "5000mAh + 33W SUPERVOOC Fast Charging",
+      "OS": "ColorOS 13.1",
+      "Dimensions & Weight": "163.74 x 75.03 x 8.16 mm, 190g",
+      "Security & Ports": "Side Fingerprint, Dual SIM + Dedicated MicroSD, IP54",
+      "Box Contents": "Handset, 33W SUPERVOOC Adapter, Type-C Cable, SIM Tool",
+      "RAM & Storage": " RAM + 6+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -669,15 +1253,28 @@
     "originalPrice": 17999,
     "refurbPrice": 17308,
     "images": [
-      "https://images.unsplash.com/photo-1601784551446-20c9e07cd562?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-k14x/view-1.png",
+      "/devices/oppo-k14x/view-2.png",
+      "/devices/oppo-k14x/view-3.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "4GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.56\" 90Hz Color-Rich Display, All-Day AI Eye Comfort",
+      "Processor": "MediaTek Dimensity 700 5G Processor (7nm)",
+      "Rear Camera": "50MP AI Main Camera + 2MP Portrait Lens",
+      "Front Camera": "8MP Front Camera",
+      "Battery": "5000mAh Battery + 33W SUPERVOOC Fast Charge",
+      "OS": "ColorOS 13 based on Android 13",
+      "Dimensions & Weight": "163.8 x 75.1 x 7.99 mm, 188g (Glowing Silk Design)",
+      "Security & Ports": "Side Fingerprint, Dual Stereo Speakers, 3.5mm Jack",
+      "Box Contents": "Oppo K-Series Phone, 33W Adapter, USB-C Cable, SIM Tool",
+      "RAM & Storage": " RAM + 4+64 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -686,15 +1283,28 @@
     "originalPrice": 19999,
     "refurbPrice": 19231,
     "images": [
-      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-k14x/view-1.png",
+      "/devices/oppo-k14x/view-2.png",
+      "/devices/oppo-k14x/view-3.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "4GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.56\" 90Hz Color-Rich Display, All-Day AI Eye Comfort",
+      "Processor": "MediaTek Dimensity 700 5G Processor (7nm)",
+      "Rear Camera": "50MP AI Main Camera + 2MP Portrait Lens",
+      "Front Camera": "8MP Front Camera",
+      "Battery": "5000mAh Battery + 33W SUPERVOOC Fast Charge",
+      "OS": "ColorOS 13 based on Android 13",
+      "Dimensions & Weight": "163.8 x 75.1 x 7.99 mm, 188g (Glowing Silk Design)",
+      "Security & Ports": "Side Fingerprint, Dual Stereo Speakers, 3.5mm Jack",
+      "Box Contents": "Oppo K-Series Phone, 33W Adapter, USB-C Cable, SIM Tool",
+      "RAM & Storage": " RAM + 4+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -703,15 +1313,28 @@
     "originalPrice": 22999,
     "refurbPrice": 22115,
     "images": [
-      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-k14x/view-1.png",
+      "/devices/oppo-k14x/view-2.png",
+      "/devices/oppo-k14x/view-3.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "6GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.56\" 90Hz Color-Rich Display, All-Day AI Eye Comfort",
+      "Processor": "MediaTek Dimensity 700 5G Processor (7nm)",
+      "Rear Camera": "50MP AI Main Camera + 2MP Portrait Lens",
+      "Front Camera": "8MP Front Camera",
+      "Battery": "5000mAh Battery + 33W SUPERVOOC Fast Charge",
+      "OS": "ColorOS 13 based on Android 13",
+      "Dimensions & Weight": "163.8 x 75.1 x 7.99 mm, 188g (Glowing Silk Design)",
+      "Security & Ports": "Side Fingerprint, Dual Stereo Speakers, 3.5mm Jack",
+      "Box Contents": "Oppo K-Series Phone, 33W Adapter, USB-C Cable, SIM Tool",
+      "RAM & Storage": " RAM + 6+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -720,15 +1343,29 @@
     "originalPrice": 21999,
     "refurbPrice": 20951,
     "images": [
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-a6s/view-1.png",
+      "/devices/oppo-a6s/view-2.png",
+      "/devices/oppo-a6s/view-3.png",
+      "/devices/oppo-a6s/view-4.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "4GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.56\" 90Hz Sunlight Screen, Eye Care Display",
+      "Processor": "MediaTek Helio G85 Octa-Core",
+      "Rear Camera": "8MP AI Main Camera + 2MP Portrait Lens",
+      "Front Camera": "5MP AI Front Camera",
+      "Battery": "5000mAh Battery with All-Day Battery Protection",
+      "OS": "ColorOS 13.1",
+      "Dimensions & Weight": "163.74 x 75.03 x 8.16 mm, 188g",
+      "Security & Ports": "Side Fingerprint Unlock, 3.5mm Headphone Jack, IP54",
+      "Box Contents": "Oppo Phone, Charger, USB Cable, SIM Ejector, Warranty Sheet",
+      "RAM & Storage": " RAM + 4+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -737,15 +1374,29 @@
     "originalPrice": 24999,
     "refurbPrice": 23809,
     "images": [
-      "https://images.unsplash.com/photo-1601784551446-20c9e07cd562?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-a6s/view-1.png",
+      "/devices/oppo-a6s/view-2.png",
+      "/devices/oppo-a6s/view-3.png",
+      "/devices/oppo-a6s/view-4.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "6GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.56\" 90Hz Sunlight Screen, Eye Care Display",
+      "Processor": "MediaTek Helio G85 Octa-Core",
+      "Rear Camera": "8MP AI Main Camera + 2MP Portrait Lens",
+      "Front Camera": "5MP AI Front Camera",
+      "Battery": "5000mAh Battery with All-Day Battery Protection",
+      "OS": "ColorOS 13.1",
+      "Dimensions & Weight": "163.74 x 75.03 x 8.16 mm, 188g",
+      "Security & Ports": "Side Fingerprint Unlock, 3.5mm Headphone Jack, IP54",
+      "Box Contents": "Oppo Phone, Charger, USB Cable, SIM Ejector, Warranty Sheet",
+      "RAM & Storage": " RAM + 6+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -754,15 +1405,28 @@
     "originalPrice": 26999,
     "refurbPrice": 25713,
     "images": [
-      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-a6/view-1.png",
+      "/devices/oppo-a6/view-2.png",
+      "/devices/oppo-a6/view-3.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "4GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.56\" 90Hz Sunlight Display, 720 nits, 96% NTSC Wide Color",
+      "Processor": "MediaTek Dimensity 6020 5G (7nm Octa-Core)",
+      "Rear Camera": "13MP AI Primary Camera + 2MP Bokeh Camera",
+      "Front Camera": "8MP AI Portrait Camera",
+      "Battery": "5000mAh Battery + 33W SUPERVOOC Flash Charge",
+      "OS": "ColorOS 13.1 with 36-Month Fluency Protection",
+      "Dimensions & Weight": "163.8 x 75.1 x 8.12 mm, 187g (Glowing Silk Texture)",
+      "Security & Ports": "Side Fingerprint, 300% Ultra Volume Mode, IP54",
+      "Box Contents": "Handset, 33W SUPERVOOC Charger, USB Cable, SIM Tray Pin",
+      "RAM & Storage": " RAM + 4+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -771,15 +1435,28 @@
     "originalPrice": 28999,
     "refurbPrice": 27617,
     "images": [
-      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-a6/view-1.png",
+      "/devices/oppo-a6/view-2.png",
+      "/devices/oppo-a6/view-3.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "6GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.56\" 90Hz Sunlight Display, 720 nits, 96% NTSC Wide Color",
+      "Processor": "MediaTek Dimensity 6020 5G (7nm Octa-Core)",
+      "Rear Camera": "13MP AI Primary Camera + 2MP Bokeh Camera",
+      "Front Camera": "8MP AI Portrait Camera",
+      "Battery": "5000mAh Battery + 33W SUPERVOOC Flash Charge",
+      "OS": "ColorOS 13.1 with 36-Month Fluency Protection",
+      "Dimensions & Weight": "163.8 x 75.1 x 8.12 mm, 187g (Glowing Silk Texture)",
+      "Security & Ports": "Side Fingerprint, 300% Ultra Volume Mode, IP54",
+      "Box Contents": "Handset, 33W SUPERVOOC Charger, USB Cable, SIM Tray Pin",
+      "RAM & Storage": " RAM + 6+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -788,15 +1465,28 @@
     "originalPrice": 31999,
     "refurbPrice": 30331,
     "images": [
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-a6/view-1.png",
+      "/devices/oppo-a6/view-2.png",
+      "/devices/oppo-a6/view-3.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "6GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.56\" 90Hz Sunlight Display, 720 nits, 96% NTSC Wide Color",
+      "Processor": "MediaTek Dimensity 6020 5G (7nm Octa-Core)",
+      "Rear Camera": "13MP AI Primary Camera + 2MP Bokeh Camera",
+      "Front Camera": "8MP AI Portrait Camera",
+      "Battery": "5000mAh Battery + 33W SUPERVOOC Flash Charge",
+      "OS": "ColorOS 13.1 with 36-Month Fluency Protection",
+      "Dimensions & Weight": "163.8 x 75.1 x 8.12 mm, 187g (Glowing Silk Texture)",
+      "Security & Ports": "Side Fingerprint, 300% Ultra Volume Mode, IP54",
+      "Box Contents": "Handset, 33W SUPERVOOC Charger, USB Cable, SIM Tray Pin",
+      "RAM & Storage": " RAM + 6+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -805,15 +1495,28 @@
     "originalPrice": 32999,
     "refurbPrice": 31279,
     "images": [
-      "https://images.unsplash.com/photo-1601784551446-20c9e07cd562?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-a6-pro/view-1.png",
+      "/devices/oppo-a6-pro/view-2.png",
+      "/devices/oppo-a6-pro/view-3.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "8GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.72\" FHD+ 90Hz Sunlight Display, 680 nits Peak, Wide Color Gamut",
+      "Processor": "MediaTek Dimensity 6020 5G Octa-Core",
+      "Rear Camera": "50MP AI Camera (f/1.8) + 2MP Portrait Lens",
+      "Front Camera": "8MP AI Selfie Camera",
+      "Battery": "5000mAh Battery + 33W SUPERVOOC Flash Charge",
+      "OS": "ColorOS 13.1",
+      "Dimensions & Weight": "165.6 x 76 x 7.99 mm, 193g (Glowing Feather Finish)",
+      "Security & Ports": "Side Fingerprint, Dual Stereo Speakers with Ultra Volume, IPX4",
+      "Box Contents": "Phone, 33W SUPERVOOC Adapter, Type-C Cable, SIM Pin, User Manual",
+      "RAM & Storage": " RAM + 8+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -822,15 +1525,28 @@
     "originalPrice": 35999,
     "refurbPrice": 34123,
     "images": [
-      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-a6-pro/view-1.png",
+      "/devices/oppo-a6-pro/view-2.png",
+      "/devices/oppo-a6-pro/view-3.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "8GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.72\" FHD+ 90Hz Sunlight Display, 680 nits Peak, Wide Color Gamut",
+      "Processor": "MediaTek Dimensity 6020 5G Octa-Core",
+      "Rear Camera": "50MP AI Camera (f/1.8) + 2MP Portrait Lens",
+      "Front Camera": "8MP AI Selfie Camera",
+      "Battery": "5000mAh Battery + 33W SUPERVOOC Flash Charge",
+      "OS": "ColorOS 13.1",
+      "Dimensions & Weight": "165.6 x 76 x 7.99 mm, 193g (Glowing Feather Finish)",
+      "Security & Ports": "Side Fingerprint, Dual Stereo Speakers with Ultra Volume, IPX4",
+      "Box Contents": "Phone, 33W SUPERVOOC Adapter, Type-C Cable, SIM Pin, User Manual",
+      "RAM & Storage": " RAM + 8+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -839,15 +1555,28 @@
     "originalPrice": 74999,
     "refurbPrice": 70754,
     "images": [
-      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-find-x9/view-1.png",
+      "/devices/oppo-find-x9/view-2.png",
+      "/devices/oppo-find-x9/view-3.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "12GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.8\" 120Hz Foldable AMOLED + 3.26\" Intuitive Vertical Cover Screen",
+      "Processor": "MediaTek Dimensity 9000+ Flagship 4nm Chip",
+      "Rear Camera": "50MP Sony IMX890 Flagship Camera with Hasselblad Color + 8MP Ultra-wide",
+      "Front Camera": "32MP Sony IMX709 RGBW Front Camera",
+      "Battery": "4300mAh Battery + 44W SUPERVOOC Fast Charge",
+      "OS": "ColorOS 14 (Folder / Multi-tasking Engine)",
+      "Dimensions & Weight": "166.2 x 75.2 x 7.45 mm (Unfolded), 191g",
+      "Security & Ports": "Side Fingerprint, Flexion Hinge Tested for 400,000 Folds",
+      "Box Contents": "Find Flip Device, 44W Charger, USB-C Cable, SIM Tool, Documentation",
+      "RAM & Storage": " RAM + 12+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -856,15 +1585,28 @@
     "originalPrice": 84999,
     "refurbPrice": 80188,
     "images": [
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-find-x9/view-1.png",
+      "/devices/oppo-find-x9/view-2.png",
+      "/devices/oppo-find-x9/view-3.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "16GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.8\" 120Hz Foldable AMOLED + 3.26\" Intuitive Vertical Cover Screen",
+      "Processor": "MediaTek Dimensity 9000+ Flagship 4nm Chip",
+      "Rear Camera": "50MP Sony IMX890 Flagship Camera with Hasselblad Color + 8MP Ultra-wide",
+      "Front Camera": "32MP Sony IMX709 RGBW Front Camera",
+      "Battery": "4300mAh Battery + 44W SUPERVOOC Fast Charge",
+      "OS": "ColorOS 14 (Folder / Multi-tasking Engine)",
+      "Dimensions & Weight": "166.2 x 75.2 x 7.45 mm (Unfolded), 191g",
+      "Security & Ports": "Side Fingerprint, Flexion Hinge Tested for 400,000 Folds",
+      "Box Contents": "Find Flip Device, 44W Charger, USB-C Cable, SIM Tool, Documentation",
+      "RAM & Storage": " RAM + 16+512 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -873,15 +1615,29 @@
     "originalPrice": 41999,
     "refurbPrice": 39622,
     "images": [
-      "https://images.unsplash.com/photo-1601784551446-20c9e07cd562?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-reno15-c/view-1.png",
+      "/devices/oppo-reno15-c/view-2.png",
+      "/devices/oppo-reno15-c/view-3.png",
+      "/devices/oppo-reno15-c/view-4.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "8GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.43\" 90Hz FHD+ AMOLED Eye-Care Display, Gorilla Glass 5",
+      "Processor": "Qualcomm Snapdragon 680 6nm Power-Efficient SoC",
+      "Rear Camera": "64MP AI Triple Camera + 2MP Microlens (30x Zoom) + 2MP Depth",
+      "Front Camera": "32MP Sony IMX709 Flagship RGBW Selfie Camera",
+      "Battery": "4500mAh + 33W SUPERVOOC Flash Charge",
+      "OS": "ColorOS with Orbit Light Notifications",
+      "Dimensions & Weight": "159.9 x 73.2 x 7.66 mm, 182g (Oppo Glow Finish)",
+      "Security & Ports": "In-Display Optical Fingerprint, Orbit Light Around Camera",
+      "Box Contents": "Device, 33W Charger, USB-C Cable, SIM Tool, Protective Case",
+      "RAM & Storage": " RAM + 8+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -890,15 +1646,29 @@
     "originalPrice": 44999,
     "refurbPrice": 42452,
     "images": [
-      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-reno15-c/view-1.png",
+      "/devices/oppo-reno15-c/view-2.png",
+      "/devices/oppo-reno15-c/view-3.png",
+      "/devices/oppo-reno15-c/view-4.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "12GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.43\" 90Hz FHD+ AMOLED Eye-Care Display, Gorilla Glass 5",
+      "Processor": "Qualcomm Snapdragon 680 6nm Power-Efficient SoC",
+      "Rear Camera": "64MP AI Triple Camera + 2MP Microlens (30x Zoom) + 2MP Depth",
+      "Front Camera": "32MP Sony IMX709 Flagship RGBW Selfie Camera",
+      "Battery": "4500mAh + 33W SUPERVOOC Flash Charge",
+      "OS": "ColorOS with Orbit Light Notifications",
+      "Dimensions & Weight": "159.9 x 73.2 x 7.66 mm, 182g (Oppo Glow Finish)",
+      "Security & Ports": "In-Display Optical Fingerprint, Orbit Light Around Camera",
+      "Box Contents": "Device, 33W Charger, USB-C Cable, SIM Tool, Protective Case",
+      "RAM & Storage": " RAM + 12+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -907,15 +1677,28 @@
     "originalPrice": 55999,
     "refurbPrice": 52830,
     "images": [
-      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-reno15/view-1.png",
+      "/devices/oppo-reno15/view-3.png",
+      "/devices/oppo-reno15/view-4.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "12GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.7\" 120Hz 3D Curved OLED, HDR10+, 1.07 Billion Colors",
+      "Processor": "MediaTek Dimensity 7050 5G (6nm Octa-Core)",
+      "Rear Camera": "50MP Sony LYT-600 with OIS + 32MP 2X Telephoto Portrait + 8MP Ultra-Wide",
+      "Front Camera": "32MP Sony IMX709 4K Video Selfie Camera",
+      "Battery": "5000mAh Long-life Battery + 67W SUPERVOOC (100% in 45 mins)",
+      "OS": "ColorOS 14 with Trinity Engine Performance Boost",
+      "Dimensions & Weight": "162.4 x 74.3 x 7.99 mm, 182g Ultra-Slim Curve",
+      "Security & Ports": "In-Display Fingerprint, Dual Stereo Speakers, IR Remote Control",
+      "Box Contents": "Reno Phone, 67W SUPERVOOC Adapter, Type-C Cable, SIM Ejector, Case",
+      "RAM & Storage": " RAM + 12+512 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -924,15 +1707,28 @@
     "originalPrice": 59999,
     "refurbPrice": 56603,
     "images": [
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-reno15-pro-mini/view-2.png",
+      "/devices/oppo-reno15-pro-mini/view-3.png",
+      "/devices/oppo-reno15-pro-mini/view-4.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "12GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.72\" 120Hz FHD+ Large Punch-Hole Screen, 680 nits",
+      "Processor": "Snapdragon 695 5G Octa-Core SoC",
+      "Rear Camera": "64MP AI Triple Camera with 2MP 40x Microlens + 2MP Depth",
+      "Front Camera": "32MP AI Portrait Selfie Camera",
+      "Battery": "5000mAh Battery + 67W SUPERVOOC Flash Charge (50% in 18 mins)",
+      "OS": "ColorOS 13.1 with Battery Health Engine (4-year health guarantee)",
+      "Dimensions & Weight": "165.6 x 76.1 x 8.2 mm, 192g",
+      "Security & Ports": "Side Fingerprint, Dual Stereo Speakers 200% Ultra Volume",
+      "Box Contents": "Handset, 67W SUPERVOOC Adapter, USB-C Cable, SIM Tool",
+      "RAM & Storage": " RAM + 12+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -941,15 +1737,28 @@
     "originalPrice": 64999,
     "refurbPrice": 61320,
     "images": [
-      "https://images.unsplash.com/photo-1601784551446-20c9e07cd562?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-reno15-pro-mini/view-2.png",
+      "/devices/oppo-reno15-pro-mini/view-3.png",
+      "/devices/oppo-reno15-pro-mini/view-4.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "12GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.72\" 120Hz FHD+ Large Punch-Hole Screen, 680 nits",
+      "Processor": "Snapdragon 695 5G Octa-Core SoC",
+      "Rear Camera": "64MP AI Triple Camera with 2MP 40x Microlens + 2MP Depth",
+      "Front Camera": "32MP AI Portrait Selfie Camera",
+      "Battery": "5000mAh Battery + 67W SUPERVOOC Flash Charge (50% in 18 mins)",
+      "OS": "ColorOS 13.1 with Battery Health Engine (4-year health guarantee)",
+      "Dimensions & Weight": "165.6 x 76.1 x 8.2 mm, 192g",
+      "Security & Ports": "Side Fingerprint, Dual Stereo Speakers 200% Ultra Volume",
+      "Box Contents": "Handset, 67W SUPERVOOC Adapter, USB-C Cable, SIM Tool",
+      "RAM & Storage": " RAM + 12+512 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -958,15 +1767,29 @@
     "originalPrice": 43999,
     "refurbPrice": 41508,
     "images": [
-      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-f33-pro/view-1.png",
+      "/devices/oppo-f33-pro/view-2.png",
+      "/devices/oppo-f33-pro/view-3.png",
+      "/devices/oppo-f33-pro/view-4.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "8GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.7\" 120Hz Borderless AMOLED Screen, 1.07B Colors, Panda Glass",
+      "Processor": "MediaTek Dimensity 7050 6nm 5G Platform",
+      "Rear Camera": "64MP Ultra-Clear Triple Camera (4K Ultra-Clear Video) + 8MP Ultra-Wide + 2MP Macro",
+      "Front Camera": "32MP Sony IMX615 4K Front Camera",
+      "Battery": "5000mAh Massive Battery + 67W SUPERVOOC Flash Charge",
+      "OS": "ColorOS 14 with LinkBoost 360-degree Antenna",
+      "Dimensions & Weight": "161.6 x 74.7 x 7.54 mm, 177g Ultra-Slim Body (IP65)",
+      "Security & Ports": "In-Display Fingerprint, IP65 Water and Dust Resistance",
+      "Box Contents": "Handset, 67W SUPERVOOC Charger, USB Cable, SIM Ejector, Case",
+      "RAM & Storage": " RAM + 8+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -975,15 +1798,29 @@
     "originalPrice": 39999,
     "refurbPrice": 37735,
     "images": [
-      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-f33-pro/view-1.png",
+      "/devices/oppo-f33-pro/view-2.png",
+      "/devices/oppo-f33-pro/view-3.png",
+      "/devices/oppo-f33-pro/view-4.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "8GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.7\" 120Hz Borderless AMOLED Screen, 1.07B Colors, Panda Glass",
+      "Processor": "MediaTek Dimensity 7050 6nm 5G Platform",
+      "Rear Camera": "64MP Ultra-Clear Triple Camera (4K Ultra-Clear Video) + 8MP Ultra-Wide + 2MP Macro",
+      "Front Camera": "32MP Sony IMX615 4K Front Camera",
+      "Battery": "5000mAh Massive Battery + 67W SUPERVOOC Flash Charge",
+      "OS": "ColorOS 14 with LinkBoost 360-degree Antenna",
+      "Dimensions & Weight": "161.6 x 74.7 x 7.54 mm, 177g Ultra-Slim Body (IP65)",
+      "Security & Ports": "In-Display Fingerprint, IP65 Water and Dust Resistance",
+      "Box Contents": "Handset, 67W SUPERVOOC Charger, USB Cable, SIM Ejector, Case",
+      "RAM & Storage": " RAM + 8+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -992,15 +1829,29 @@
     "originalPrice": 39999,
     "refurbPrice": 37735,
     "images": [
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-f33/view-1.png",
+      "/devices/oppo-f33/view-2.png",
+      "/devices/oppo-f33/view-3.png",
+      "/devices/oppo-f33/view-4.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "8GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.72\" 120Hz Ultra Smooth Screen, 100% DCI-P3 Color",
+      "Processor": "Qualcomm Snapdragon 695 5G SoC",
+      "Rear Camera": "64MP AI Main + 2MP 40x Microscope + 2MP Monochrome",
+      "Front Camera": "32MP AI Portrait Lens",
+      "Battery": "5000mAh + 67W SUPERVOOC Flash Charging",
+      "OS": "ColorOS 13.1",
+      "Dimensions & Weight": "165.6 x 76.1 x 8.2 mm, 192g (3D Curved Back)",
+      "Security & Ports": "Side Fingerprint, 3.5mm Headphone Jack, Dual Stereo Speakers",
+      "Box Contents": "Phone, 67W SUPERVOOC Adapter, Type-C Cable, SIM Ejector",
+      "RAM & Storage": " RAM + 8+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -1009,15 +1860,29 @@
     "originalPrice": 36999,
     "refurbPrice": 35070,
     "images": [
-      "https://images.unsplash.com/photo-1601784551446-20c9e07cd562?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-f33/view-1.png",
+      "/devices/oppo-f33/view-2.png",
+      "/devices/oppo-f33/view-3.png",
+      "/devices/oppo-f33/view-4.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "8GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.72\" 120Hz Ultra Smooth Screen, 100% DCI-P3 Color",
+      "Processor": "Qualcomm Snapdragon 695 5G SoC",
+      "Rear Camera": "64MP AI Main + 2MP 40x Microscope + 2MP Monochrome",
+      "Front Camera": "32MP AI Portrait Lens",
+      "Battery": "5000mAh + 67W SUPERVOOC Flash Charging",
+      "OS": "ColorOS 13.1",
+      "Dimensions & Weight": "165.6 x 76.1 x 8.2 mm, 192g (3D Curved Back)",
+      "Security & Ports": "Side Fingerprint, 3.5mm Headphone Jack, Dual Stereo Speakers",
+      "Box Contents": "Phone, 67W SUPERVOOC Adapter, Type-C Cable, SIM Ejector",
+      "RAM & Storage": " RAM + 8+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -1026,15 +1891,29 @@
     "originalPrice": 34999,
     "refurbPrice": 33174,
     "images": [
-      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-f33/view-1.png",
+      "/devices/oppo-f33/view-2.png",
+      "/devices/oppo-f33/view-3.png",
+      "/devices/oppo-f33/view-4.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "6GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.72\" 120Hz Ultra Smooth Screen, 100% DCI-P3 Color",
+      "Processor": "Qualcomm Snapdragon 695 5G SoC",
+      "Rear Camera": "64MP AI Main + 2MP 40x Microscope + 2MP Monochrome",
+      "Front Camera": "32MP AI Portrait Lens",
+      "Battery": "5000mAh + 67W SUPERVOOC Flash Charging",
+      "OS": "ColorOS 13.1",
+      "Dimensions & Weight": "165.6 x 76.1 x 8.2 mm, 192g (3D Curved Back)",
+      "Security & Ports": "Side Fingerprint, 3.5mm Headphone Jack, Dual Stereo Speakers",
+      "Box Contents": "Phone, 67W SUPERVOOC Adapter, Type-C Cable, SIM Ejector",
+      "RAM & Storage": " RAM + 6+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -1043,15 +1922,29 @@
     "originalPrice": 79999,
     "refurbPrice": 74073,
     "images": [
-      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-find-x9s/view-1.png",
+      "/devices/oppo-find-x9s/view-2.png",
+      "/devices/oppo-find-x9s/view-3.png",
+      "/devices/oppo-find-x9s/view-4.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "12GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.8\" 120Hz Foldable LTPO AMOLED + 3.26\" Interactive Outer Display",
+      "Processor": "MediaTek Dimensity 9200 4nm Flagship Platform",
+      "Rear Camera": "Hasselblad Triple Camera: 50MP Sony IMX890 OIS + 32MP 2X Telephoto Portrait + 48MP Ultra-Wide",
+      "Front Camera": "32MP 4K Front Camera with Auto-Focus",
+      "Battery": "4300mAh Battery + 44W SUPERVOOC Flash Charge",
+      "OS": "ColorOS 14 (Dedicated Mini App Ecosystem)",
+      "Dimensions & Weight": "166.4 x 75.8 x 7.79 mm (Unfolded), 198g (Seiko Pseudo-vertical Hinge)",
+      "Security & Ports": "Side Fingerprint, Alert Slider, IPX4 Water Resistance",
+      "Box Contents": "Find N3 Flip Phone, 44W Charger, USB Type-C Cable, SIM Pin, Premium Case",
+      "RAM & Storage": " RAM + 12+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -1060,15 +1953,29 @@
     "originalPrice": 89999,
     "refurbPrice": 83332,
     "images": [
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-find-x9s/view-1.png",
+      "/devices/oppo-find-x9s/view-2.png",
+      "/devices/oppo-find-x9s/view-3.png",
+      "/devices/oppo-find-x9s/view-4.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "12GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.8\" 120Hz Foldable LTPO AMOLED + 3.26\" Interactive Outer Display",
+      "Processor": "MediaTek Dimensity 9200 4nm Flagship Platform",
+      "Rear Camera": "Hasselblad Triple Camera: 50MP Sony IMX890 OIS + 32MP 2X Telephoto Portrait + 48MP Ultra-Wide",
+      "Front Camera": "32MP 4K Front Camera with Auto-Focus",
+      "Battery": "4300mAh Battery + 44W SUPERVOOC Flash Charge",
+      "OS": "ColorOS 14 (Dedicated Mini App Ecosystem)",
+      "Dimensions & Weight": "166.4 x 75.8 x 7.79 mm (Unfolded), 198g (Seiko Pseudo-vertical Hinge)",
+      "Security & Ports": "Side Fingerprint, Alert Slider, IPX4 Water Resistance",
+      "Box Contents": "Find N3 Flip Phone, 44W Charger, USB Type-C Cable, SIM Pin, Premium Case",
+      "RAM & Storage": " RAM + 12+512 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -1077,15 +1984,28 @@
     "originalPrice": 169999,
     "refurbPrice": 157406,
     "images": [
-      "https://images.unsplash.com/photo-1601784551446-20c9e07cd562?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-find-x9-ultra/view-1.png",
+      "/devices/oppo-find-x9-ultra/view-2.png",
+      "/devices/oppo-find-x9-ultra/view-3.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "12GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.8\" 120Hz Foldable LTPO AMOLED + 3.26\" Full Cover Display, 1600 nits",
+      "Processor": "MediaTek Dimensity 9200 TSMC 4nm Flagship",
+      "Rear Camera": "Triple Hasselblad Matrix: 50MP OIS + 32MP Portrait + 48MP Ultra-Wide 114°",
+      "Front Camera": "32MP Sony RGBW Front Camera",
+      "Battery": "4300mAh + 44W SUPERVOOC Flash Charge",
+      "OS": "ColorOS 14",
+      "Dimensions & Weight": "166.4 x 75.8 x 7.79 mm, 198g (Zero-Gap Hinge)",
+      "Security & Ports": "Side Fingerprint, Dual Dolby Atmos Speakers, Alert Slider",
+      "Box Contents": "Device, 44W Flash Charger, Type-C Cable, SIM Ejector, Protective Case",
+      "RAM & Storage": " RAM + 12+512 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -1094,15 +2014,29 @@
     "originalPrice": 46999,
     "refurbPrice": 44549,
     "images": [
-      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-reno16-c/view-1.png",
+      "/devices/oppo-reno16-c/view-2.png",
+      "/devices/oppo-reno16-c/view-3.png",
+      "/devices/oppo-reno16-c/view-4.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "8GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.43\" 90Hz AMOLED FHD+ Display, Gorilla Glass 5",
+      "Processor": "Snapdragon 680 6nm Octa-Core",
+      "Rear Camera": "64MP AI Triple Camera + 2MP Microlens + 2MP Depth",
+      "Front Camera": "32MP Sony IMX709 Selfie Camera",
+      "Battery": "4500mAh + 33W SUPERVOOC Flash Charge",
+      "OS": "ColorOS with Orbit Light Notification Ring",
+      "Dimensions & Weight": "159.9 x 73.2 x 7.66 mm, 182g",
+      "Security & Ports": "In-Screen Optical Fingerprint, Orbit Breathing Light",
+      "Box Contents": "Phone, 33W SUPERVOOC Charger, USB Cable, SIM Tool",
+      "RAM & Storage": " RAM + 8+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -1111,15 +2045,29 @@
     "originalPrice": 49999,
     "refurbPrice": 46728,
     "images": [
-      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-reno16-c/view-1.png",
+      "/devices/oppo-reno16-c/view-2.png",
+      "/devices/oppo-reno16-c/view-3.png",
+      "/devices/oppo-reno16-c/view-4.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "8GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.43\" 90Hz AMOLED FHD+ Display, Gorilla Glass 5",
+      "Processor": "Snapdragon 680 6nm Octa-Core",
+      "Rear Camera": "64MP AI Triple Camera + 2MP Microlens + 2MP Depth",
+      "Front Camera": "32MP Sony IMX709 Selfie Camera",
+      "Battery": "4500mAh + 33W SUPERVOOC Flash Charge",
+      "OS": "ColorOS with Orbit Light Notification Ring",
+      "Dimensions & Weight": "159.9 x 73.2 x 7.66 mm, 182g",
+      "Security & Ports": "In-Screen Optical Fingerprint, Orbit Breathing Light",
+      "Box Contents": "Phone, 33W SUPERVOOC Charger, USB Cable, SIM Tool",
+      "RAM & Storage": " RAM + 8+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -1128,15 +2076,29 @@
     "originalPrice": 55999,
     "refurbPrice": 52336,
     "images": [
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-reno16-c/view-1.png",
+      "/devices/oppo-reno16-c/view-2.png",
+      "/devices/oppo-reno16-c/view-3.png",
+      "/devices/oppo-reno16-c/view-4.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "12GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.43\" 90Hz AMOLED FHD+ Display, Gorilla Glass 5",
+      "Processor": "Snapdragon 680 6nm Octa-Core",
+      "Rear Camera": "64MP AI Triple Camera + 2MP Microlens + 2MP Depth",
+      "Front Camera": "32MP Sony IMX709 Selfie Camera",
+      "Battery": "4500mAh + 33W SUPERVOOC Flash Charge",
+      "OS": "ColorOS with Orbit Light Notification Ring",
+      "Dimensions & Weight": "159.9 x 73.2 x 7.66 mm, 182g",
+      "Security & Ports": "In-Screen Optical Fingerprint, Orbit Breathing Light",
+      "Box Contents": "Phone, 33W SUPERVOOC Charger, USB Cable, SIM Tool",
+      "RAM & Storage": " RAM + 12+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -1145,15 +2107,28 @@
     "originalPrice": 61999,
     "refurbPrice": 57406,
     "images": [
-      "https://images.unsplash.com/photo-1601784551446-20c9e07cd562?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-reno16/view-1.png",
+      "/devices/oppo-reno16/view-2.png",
+      "/devices/oppo-reno16/view-3.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "8GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.7\" 120Hz 3D Curved AMOLED Display, HDR10+, 950 nits",
+      "Processor": "MediaTek Dimensity 7050 5G (6nm TSMC)",
+      "Rear Camera": "50MP Sony LYT-600 OIS + 32MP 2X Telephoto + 8MP Ultra-Wide",
+      "Front Camera": "32MP Sony 4K Video Front Camera",
+      "Battery": "5000mAh Battery + 67W SUPERVOOC (100% in 45 mins)",
+      "OS": "ColorOS 14 with Trinity Performance Boost",
+      "Dimensions & Weight": "162.4 x 74.3 x 7.99 mm, 182g",
+      "Security & Ports": "In-Display Fingerprint, Dual Stereo Speakers, IR Blaster",
+      "Box Contents": "Handset, 67W Adapter, USB-C Cable, SIM Ejector, Case",
+      "RAM & Storage": " RAM + 8+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -1162,15 +2137,28 @@
     "originalPrice": 67999,
     "refurbPrice": 62962,
     "images": [
-      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-reno16/view-1.png",
+      "/devices/oppo-reno16/view-2.png",
+      "/devices/oppo-reno16/view-3.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "12GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.7\" 120Hz 3D Curved AMOLED Display, HDR10+, 950 nits",
+      "Processor": "MediaTek Dimensity 7050 5G (6nm TSMC)",
+      "Rear Camera": "50MP Sony LYT-600 OIS + 32MP 2X Telephoto + 8MP Ultra-Wide",
+      "Front Camera": "32MP Sony 4K Video Front Camera",
+      "Battery": "5000mAh Battery + 67W SUPERVOOC (100% in 45 mins)",
+      "OS": "ColorOS 14 with Trinity Performance Boost",
+      "Dimensions & Weight": "162.4 x 74.3 x 7.99 mm, 182g",
+      "Security & Ports": "In-Display Fingerprint, Dual Stereo Speakers, IR Blaster",
+      "Box Contents": "Handset, 67W Adapter, USB-C Cable, SIM Ejector, Case",
+      "RAM & Storage": " RAM + 12+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -1179,15 +2167,29 @@
     "originalPrice": 29999,
     "refurbPrice": 27777,
     "images": [
-      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-pad-5/view-1.png",
+      "/devices/oppo-pad-5/view-2.png",
+      "/devices/oppo-pad-5/view-3.png",
+      "/devices/oppo-pad-5/view-4.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "8GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "10.36\" 2K (2000 x 1200) Eye-Care Display, 1 Billion Colors, TÜV Rheinland",
+      "Processor": "Qualcomm Snapdragon 680 6nm Octa-Core Processor",
+      "Rear Camera": "8MP HD Rear Camera with Document Scanner Mode",
+      "Front Camera": "5MP Video Calling & Class Camera",
+      "Battery": "7100mAh Mega Battery + 18W Fast Charging (Up to 15 hours continuous video)",
+      "OS": "ColorOS for Pad (Split Screen & Multi-Screen Connect)",
+      "Dimensions & Weight": "245.08 x 154.84 x 6.94 mm, 440g Ultra-Slim Metal Unibody",
+      "Security & Ports": "Quad Dolby Atmos Speakers with 1W Large Sound Chambers, USB-C",
+      "Box Contents": "Oppo Pad, Power Adapter, USB Type-C Cable, SIM Pin, Warranty Manual",
+      "RAM & Storage": " RAM + 8+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -1196,15 +2198,29 @@
     "originalPrice": 34999,
     "refurbPrice": 32406,
     "images": [
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-pad-5/view-1.png",
+      "/devices/oppo-pad-5/view-2.png",
+      "/devices/oppo-pad-5/view-3.png",
+      "/devices/oppo-pad-5/view-4.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "8GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "10.36\" 2K (2000 x 1200) Eye-Care Display, 1 Billion Colors, TÜV Rheinland",
+      "Processor": "Qualcomm Snapdragon 680 6nm Octa-Core Processor",
+      "Rear Camera": "8MP HD Rear Camera with Document Scanner Mode",
+      "Front Camera": "5MP Video Calling & Class Camera",
+      "Battery": "7100mAh Mega Battery + 18W Fast Charging (Up to 15 hours continuous video)",
+      "OS": "ColorOS for Pad (Split Screen & Multi-Screen Connect)",
+      "Dimensions & Weight": "245.08 x 154.84 x 6.94 mm, 440g Ultra-Slim Metal Unibody",
+      "Security & Ports": "Quad Dolby Atmos Speakers with 1W Large Sound Chambers, USB-C",
+      "Box Contents": "Oppo Pad, Power Adapter, USB Type-C Cable, SIM Pin, Warranty Manual",
+      "RAM & Storage": " RAM + 8+256 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   },
   {
     "brand": "Oppo",
@@ -1213,14 +2229,28 @@
     "originalPrice": 23999,
     "refurbPrice": 23076,
     "images": [
-      "https://images.unsplash.com/photo-1601784551446-20c9e07cd562?auto=format&fit=crop&w=800&q=80"
+      "/devices/oppo-k14/view-1.png",
+      "/devices/oppo-k14/view-2.png",
+      "/devices/oppo-k14/view-3.png",
+      "/devices/oppo-k14/view-4.png"
     ],
     "specs": {
-      "screen": "6.4\" FHD+ AMOLED 90Hz",
-      "processor": "MediaTek Dimensity 920",
-      "ram": "6GB RAM",
-      "camera": "64MP + 8MP + 2MP",
-      "battery": "4500mAh"
-    }
+      "Display": "6.56\" 90Hz Sunlight Display, 720 nits, 96% NTSC",
+      "Processor": "MediaTek Dimensity 6020 5G (7nm TSMC)",
+      "Rear Camera": "13MP AI Dual Camera + 2MP Bokeh Camera",
+      "Front Camera": "8MP AI Selfie Camera",
+      "Battery": "5000mAh Battery + 33W SUPERVOOC Flash Charge",
+      "OS": "ColorOS 13.1 with 36-Month Smooth Fluency",
+      "Dimensions & Weight": "163.8 x 75.1 x 8.12 mm, 187g",
+      "Security & Ports": "Side Fingerprint, Ultra Volume 300%, IP54",
+      "Box Contents": "Handset, 33W SUPERVOOC Charger, USB Cable, SIM Tool",
+      "RAM & Storage": " RAM + 6+128 ROM (Dedicated MicroSD Expansion)",
+      "Color Finish": "Standard Official Color",
+      "Condition & Warranty": "100% Unused Sealed Open Box (12-Month Official Manufacturer Warranty)"
+    },
+    "warrantyMonths": 12,
+    "brandWarrantyMonths": 12,
+    "conditionGrade": "Open Box",
+    "description": "Sealed Open Box device in pristine factory condition. Comes with complete original retail box and accessories. Fully backed by 12-Month Official Manufacturer Warranty. ZERO scratches or blemishes."
   }
 ]

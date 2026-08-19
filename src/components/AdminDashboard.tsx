@@ -826,7 +826,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     <option value="Grade A1">Grade A1: New Condition + ReCell Warranty</option>
                     <option value="Grade B">Grade B: Minor Scuffs (Never Repaired) + ReCell Warranty</option>
                     <option value="Grade B1">Grade B1: Repaired Phone (Folder/Jack/Mic) - No Warranty</option>
-                    <option value="Open Box">Open Box (5-10 Days Demo Unit)</option>
+                    <option value="Open Box">Open Box (Sealed, 12-Month Warranty)</option>
                   </select>
                 </div>
                 <div>

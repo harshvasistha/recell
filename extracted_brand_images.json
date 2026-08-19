@@ -1,0 +1,86 @@
+{
+  "redmi-13c": [
+    "/devices/redmi-13c/view-1.png",
+    "/devices/redmi-13c/view-2.png",
+    "/devices/redmi-13c/view-3.png",
+    "/devices/redmi-13c/view-4.png",
+    "/devices/redmi-13c/view-5.png"
+  ],
+  "redmi-12": [
+    "/devices/redmi-12/view-1.png",
+    "/devices/redmi-12/view-2.png",
+    "/devices/redmi-12/view-3.png",
+    "/devices/redmi-12/view-4.png",
+    "/devices/redmi-12/view-5.png"
+  ],
+  "redmi-13-5g": [
+    "/devices/redmi-13-5g/view-1.png",
+    "/devices/redmi-13-5g/view-2.png",
+    "/devices/redmi-13-5g/view-3.png",
+    "/devices/redmi-13-5g/view-4.png",
+    "/devices/redmi-13-5g/view-5.png"
+  ],
+  "redmi-note-13-5g": [
+    "/devices/redmi-note-13-5g/view-1.png",
+    "/devices/redmi-note-13-5g/view-2.png",
+    "/devices/redmi-note-13-5g/view-3.png",
+    "/devices/redmi-note-13-5g/view-4.png",
+    "/devices/redmi-note-13-5g/view-5.png"
+  ],
+  "redmi-note-13-pro-5g": [
+    "/devices/redmi-note-13-pro-5g/view-1.jpg",
+    "/devices/redmi-note-13-pro-5g/view-2.png",
+    "/devices/redmi-note-13-pro-5g/view-3.png",
+    "/devices/redmi-note-13-pro-5g/view-4.png",
+    "/devices/redmi-note-13-pro-5g/view-5.png"
+  ],
+  "redmi-note-13-pro-plus-5g": [
+    "/devices/redmi-note-13-pro-plus-5g/view-1.png",
+    "/devices/redmi-note-13-pro-plus-5g/view-2.png",
+    "/devices/redmi-note-13-pro-plus-5g/view-3.png",
+    "/devices/redmi-note-13-pro-plus-5g/view-4.png",
+    "/devices/redmi-note-13-pro-plus-5g/view-5.png"
+  ],
+  "xiaomi-14": [
+    "/devices/xiaomi-14/view-1.jpg",
+    "/devices/xiaomi-14/view-2.png",
+    "/devices/xiaomi-14/view-3.png",
+    "/devices/xiaomi-14/view-4.png",
+    "/devices/xiaomi-14/view-5.png"
+  ],
+  "xiaomi-14-ultra": [
+    "/devices/xiaomi-14-ultra/view-1.png",
+    "/devices/xiaomi-14-ultra/view-2.png",
+    "/devices/xiaomi-14-ultra/view-3.png",
+    "/devices/xiaomi-14-ultra/view-4.png",
+    "/devices/xiaomi-14-ultra/view-5.png"
+  ],
+  "oppo-reno11-5g": [
+    "/devices/oppo-reno11-5g/view-1.png",
+    "/devices/oppo-reno11-5g/view-2.png",
+    "/devices/oppo-reno11-5g/view-3.png",
+    "/devices/oppo-reno11-5g/view-4.png",
+    "/devices/oppo-reno11-5g/view-5.png"
+  ],
+  "oppo-a79-5g": [
+    "/devices/oppo-a79-5g/view-1.png",
+    "/devices/oppo-a79-5g/view-2.png",
+    "/devices/oppo-a79-5g/view-3.png",
+    "/devices/oppo-a79-5g/view-4.png",
+    "/devices/oppo-a79-5g/view-5.png"
+  ],
+  "oppo-a59-5g": [
+    "/devices/oppo-a59-5g/view-1.png",
+    "/devices/oppo-a59-5g/view-2.png",
+    "/devices/oppo-a59-5g/view-3.png",
+    "/devices/oppo-a59-5g/view-4.png",
+    "/devices/oppo-a59-5g/view-5.png"
+  ],
+  "oppo-find-n3-flip": [
+    "/devices/oppo-find-n3-flip/view-1.png",
+    "/devices/oppo-find-n3-flip/view-2.png",
+    "/devices/oppo-find-n3-flip/view-3.png",
+    "/devices/oppo-find-n3-flip/view-4.png",
+    "/devices/oppo-find-n3-flip/view-5.png"
+  ]
+}

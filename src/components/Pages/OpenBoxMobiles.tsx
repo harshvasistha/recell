@@ -16,7 +16,7 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
   const [selectedBrand, setSelectedBrand] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  // Filter catalog for open box devices or 5-10 day old devices
+  // Filter catalog for open box devices
   const openBoxProducts = catalog.filter((p) => {
     const isOpenBox = p.isOpenBox || p.conditionGrade === 'Open Box' || p.title.toLowerCase().includes('open box');
     const matchesBrand = selectedBrand === 'All' || p.brand.toLowerCase() === selectedBrand.toLowerCase();
@@ -55,7 +55,7 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
             <div className="p-3 bg-slate-900/80 border border-slate-800 rounded-2xl flex items-center gap-2.5">
               <Clock className="w-5 h-5 text-amber-400 shrink-0" />
               <div>
-                <span className="block font-black text-white">5-10 Days Old</span>
+                <span className="block font-black text-white">Sealed Box</span>
                 <span className="text-[10px] text-slate-400">Mint Unboxed Condition</span>
               </div>
             </div>
@@ -143,7 +143,7 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
                 {/* Age Badge */}
                 <div className="absolute top-4 left-4 z-10 flex flex-col gap-1">
                   <span className="bg-amber-400 text-slate-950 text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-xs uppercase tracking-wider font-heading">
-                    {product.openBoxAgeDays || 7} Days Old
+                    12-Month Warranty
                   </span>
                   <span className="bg-slate-950/80 backdrop-blur-md text-emerald-400 text-[9px] font-mono px-2 py-0.5 rounded-full">
                     {product.brandWarrantyMonths || 11}M Brand Warranty

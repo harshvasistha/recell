@@ -74,7 +74,7 @@ export interface CatalogProduct {
   description: string;
   boxChargerIncluded: boolean;
   isOpenBox?: boolean;
-  openBoxAgeDays?: number; // e.g. 5 to 10 days old
+  openBoxAgeDays?: number; // Sealed box
   brandWarrantyMonths?: number; // Official remaining brand warranty
   specs: {
     screen: string;

@@ -142,7 +142,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               className="relative w-[340px] sm:w-[420px] h-56 sm:h-60 rounded-3xl overflow-hidden border border-slate-800 hover:border-[#0052FF] shrink-0 shadow-xl group transition-all cursor-pointer"
             >
               {/* Background High-Res Feature Image */}
-              <img 
+              <img onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'; }} 
                 src={card.img} 
                 alt={card.title}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
@@ -323,7 +323,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               Open Box Chargers &amp; Phones
             </h2>
             <p className="text-sm text-slate-600 font-medium max-w-2xl leading-relaxed">
-              Genuine fast chargers and unboxed flagship smartphones (5-10 Days old). Includes original box, invoice, and brand warranty. Up to 60% OFF.
+              Genuine fast chargers and sealed flagship smartphones (Sealed & Unused). Includes original box, invoice, and brand warranty. Up to 60% OFF.
             </p>
           </div>
           <button
@@ -350,7 +350,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             >
               <div>
                 <div className="relative h-56 lg:h-64 bg-slate-50 rounded-2xl overflow-hidden mb-4 p-4 flex items-center justify-center">
-                  <img 
+                  <img onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'; }} 
                     src={item.images?.[0] || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80'} 
                     alt={item.title} 
                     className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow-md" 

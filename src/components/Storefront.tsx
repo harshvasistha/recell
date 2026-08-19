@@ -110,7 +110,7 @@ export const Storefront: React.FC<StorefrontProps> = ({
                 onClick={() => onSelectProduct(item)}
                 className="bg-white/10 hover:bg-white/20 transition-colors cursor-pointer rounded-2xl p-3 flex-1 border border-white/10 text-white"
               >
-                <img src={item.images[0]} alt={item.title} className="w-full h-24 object-contain rounded-xl mb-2 drop-shadow-sm" />
+                <img onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'; }} src={item.images[0]} alt={item.title} className="w-full h-24 object-contain rounded-xl mb-2 drop-shadow-sm" />
                 <p className="text-xs font-bold truncate">{item.title}</p>
                 <p className="text-xs opacity-90 font-mono font-bold mt-0.5">₹{item.refurbPrice.toLocaleString('en-IN')}</p>
               </div>
