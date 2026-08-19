@@ -326,7 +326,10 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
           </div>
         </div>
 
-        {/* Complete Technical Specifications */}
+        {/* Complete Technical Specifications - Open Box only; the Refurbished
+            dedicated page intentionally omits this section per catalog rules
+            (Refurbished listings are graded/inspected units, not spec sheets). */}
+        {product.conditionGrade === 'Open Box' && (
         <div className="mt-12 bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
           <div className="flex items-center justify-between border-b border-slate-200 pb-4 mb-6">
             <div>
@@ -422,6 +425,7 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
             </div>
           </div>
         </div>
+        )}
 
         {/* Recommended Products */}
         {recommendedProducts.length > 0 && (
