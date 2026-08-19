@@ -14,6 +14,8 @@ interface ProductDetailsPageProps {
   onBack: () => void;
   catalog: CatalogProduct[];
   onSelectProduct: (product: CatalogProduct) => void;
+  onNavigateHome?: () => void;
+  onNavigateCategory?: () => void;
 }
 
 export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
@@ -22,7 +24,9 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
   onBuyNow,
   onBack,
   catalog,
-  onSelectProduct
+  onSelectProduct,
+  onNavigateHome,
+  onNavigateCategory
 }) => {
   const [activeImage, setActiveImage] = useState<string>(product.images?.[0] || '');
   const [selectedGrade, setSelectedGrade] = useState<string>(product.conditionGrade || 'Open Box');
@@ -84,11 +88,21 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
             <ArrowLeft className="w-3.5 h-3.5" /> Back
           </button>
           <ChevronRight className="w-3 h-3" />
-          <span className="hover:text-blue-600 cursor-pointer">Home</span>
+          <button
+            type="button"
+            onClick={() => onNavigateHome?.()}
+            className="hover:text-blue-600 cursor-pointer"
+          >
+            Home
+          </button>
           <ChevronRight className="w-3 h-3" />
-          <span className="hover:text-blue-600 cursor-pointer">
+          <button
+            type="button"
+            onClick={() => onNavigateCategory?.()}
+            className="hover:text-blue-600 cursor-pointer"
+          >
             {isCurrentOpenBox ? "Buy Open Box" : "Buy Certified Pre-Owned"} {product.brand}
-          </span>
+          </button>
           <ChevronRight className="w-3 h-3" />
           <span className="font-semibold text-slate-900">{cleanTitle}</span>
         </div>

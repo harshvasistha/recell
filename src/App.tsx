@@ -396,7 +396,17 @@ export default function App() {
           onAddToCart={handleAddToCart}
           onBuyNow={handleQuickBuy}
           onBack={() => {
-            setCurrentTab('buy');
+            const viewedProduct = catalog.find(p => p.id === currentProductId);
+            setCurrentTab(viewedProduct?.conditionGrade === 'Open Box' ? 'open-box' : 'buy');
+            setCurrentProductId(undefined);
+          }}
+          onNavigateHome={() => {
+            setCurrentTab('landing');
+            setCurrentProductId(undefined);
+          }}
+          onNavigateCategory={() => {
+            const viewedProduct = catalog.find(p => p.id === currentProductId);
+            setCurrentTab(viewedProduct?.conditionGrade === 'Open Box' ? 'open-box' : 'buy');
             setCurrentProductId(undefined);
           }}
         />

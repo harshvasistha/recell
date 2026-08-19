@@ -524,7 +524,9 @@
     "images": [
       "/products/oppo-find-x9/1.webp",
       "/products/oppo-find-x9/2.webp",
-      "/products/oppo-find-x9/3.webp"
+      "/products/oppo-find-x9/3.webp",
+      "/products/oppo-find-x9/4.webp",
+      "/products/oppo-find-x9/5.webp"
     ],
     "imageFolder": "/products/oppo-find-x9/",
     "inStock": true,
@@ -557,7 +559,9 @@
     "images": [
       "/products/oppo-find-x9/1.webp",
       "/products/oppo-find-x9/2.webp",
-      "/products/oppo-find-x9/3.webp"
+      "/products/oppo-find-x9/3.webp",
+      "/products/oppo-find-x9/4.webp",
+      "/products/oppo-find-x9/5.webp"
     ],
     "imageFolder": "/products/oppo-find-x9/",
     "inStock": true,
@@ -589,7 +593,9 @@
     "batteryHealthPercent": 100,
     "images": [
       "/products/oppo-reno15-c/1.webp",
-      "/products/oppo-reno15-c/2.jpg"
+      "/products/oppo-reno15-c/2.webp",
+      "/products/oppo-reno15-c/3.webp",
+      "/products/oppo-reno15-c/4.webp"
     ],
     "imageFolder": "/products/oppo-reno15-c/",
     "inStock": true,
@@ -621,7 +627,9 @@
     "batteryHealthPercent": 100,
     "images": [
       "/products/oppo-reno15-c/1.webp",
-      "/products/oppo-reno15-c/2.jpg"
+      "/products/oppo-reno15-c/2.webp",
+      "/products/oppo-reno15-c/3.webp",
+      "/products/oppo-reno15-c/4.webp"
     ],
     "imageFolder": "/products/oppo-reno15-c/",
     "inStock": true,
