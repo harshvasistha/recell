@@ -46,7 +46,11 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-a6c-4g/1.webp",
+      "/products/oppo-a6c-4g/2.jpg",
+      "/products/oppo-a6c-4g/3.webp"
+    ],
     "imageFolder": "/products/oppo-a6c-4g/",
     "inStock": true,
     "stockCount": 3,
