@@ -1,8 +1,93 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Admin-ness is checked directly against the Firebase Auth token, not
+    // against any client-writable data. request.auth.token.email is only
+    // ever populated after a real Firebase email/password sign-in, and
+    // request.auth.token.phone_number is only ever populated after a real,
+    // freshly-verified SMS OTP confirmation - neither can be forged by
+    // typing a value into a form. Keep this in sync with the two admin
+    // identities configured in the app (see src/components/AuthModal.tsx).
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'admin@recell.in' ||
+        request.auth.token.phone_number == '+919310552055'
+      );
+    }
+
+    // --- Product catalog (system/catalog doc) ---
+    // Public read for the storefront, admin-only write.
+    match /system/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // --- User profiles ---
+    // Doc IDs are the user's phone/email string (matching the app's
+    // existing key scheme), not the Firebase Auth uid, so ownership can't
+    // be checked via userId == request.auth.uid here. Any signed-in user
+    // may read/create/update a profile document; the protection that
+    // actually matters is the role lock below, which no client write can
+    // ever bypass regardless of which document it targets.
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      // A brand-new profile may only ever be created with role 'customer'.
+      // Admin status is never client-settable, at signup or afterwards.
+      allow create: if isSignedIn() && request.resource.data.role == 'customer';
+      // Anyone signed in may update non-role fields; only an admin may
+      // change a role field (and only via the Firebase console / Admin SDK
+      // in practice, since no client code path ever sends role).
+      allow update: if isAdmin() ||
+        (isSignedIn() && request.resource.data.role == resource.data.role);
+      allow delete: if isAdmin();
+    }
+
+    // --- Orders ---
+    // Public read is intentional: the storefront's "Track My Order" flow
+    // looks orders up by phone number without requiring login. Writes are
+    // tightly scoped: a new order may only be created in a non-paid state;
+    // paymentStatus can only ever flip to 'Paid' via the Cloud Function
+    // (Admin SDK, which bypasses these rules), never by a client update.
+    match /orders/{orderId} {
+      allow read: if true;
+      allow create: if isSignedIn() &&
+        request.resource.data.paymentStatus != 'Paid';
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // --- Sell / buyback requests ---
+    match /sell_requests/{requestId} {
+      allow read: if true;
+      allow create: if isSignedIn();
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // --- Repair bookings ---
+    match /repair_bookings/{bookingId} {
+      allow read: if true;
+      allow create: if isSignedIn();
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // --- Payment records ---
+    // Never client-writable. Only the verifyRazorpayPayment Cloud Function
+    // (Admin SDK) writes here, after checking a real Razorpay signature.
+    match /payments/{paymentId} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+
+    // Deny everything else by default.
     match /{document=**} {
-      allow read, write: if true;
+      allow read, write: if false;
     }
   }
 }

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { CatalogProduct, Order } from '../types';
 import { X, ShieldCheck, Check, CreditCard, QrCode, Truck, Lock, IndianRupee, SmartphoneCharging } from 'lucide-react';
-import { openRazorpayCheckout } from '../lib/razorpay';
-import { savePaymentRecord } from '../lib/dbService';
+import { openRazorpayCheckout, createServerRazorpayOrder, verifyServerRazorpayPayment } from '../lib/razorpay';
+import { saveOrderToDB } from '../lib/dbService';
 
 interface CheckoutModalProps {
   items: CatalogProduct[];
@@ -35,88 +35,108 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   const [upiOption, setUpiOption] = useState<'qr' | 'handle'>('qr');
   const [isProcessing, setIsProcessing] = useState(false);
   const [createdOrder, setCreatedOrder] = useState<Order | null>(null);
+  const [paymentError, setPaymentError] = useState('');
 
   const totalAmount = items.reduce((acc, item) => acc + item.refurbPrice, 0);
 
-  const handleCreateOrder = (e: React.FormEvent) => {
+  const handleCreateOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsProcessing(true);
+    setPaymentError('');
 
-    openRazorpayCheckout({
-      amount: totalAmount,
-      name: 'Recell Mobile Store',
-      description: `Purchase of ${items.length} Mobile Device(s)`,
-      prefill: {
-        name: customerName,
-        phone: customerPhone,
-        email: customerEmail
-      },
-      onSuccess: (paymentRes) => {
-        const orderId = `ORD-IN-${Math.floor(80000 + Math.random() * 9999)}`;
-        const now = new Date();
-        const returnExpiry = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-        const warrantyExpiry = new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    const orderId = `ORD-IN-${Math.floor(80000 + Math.random() * 9999)}`;
+    const now = new Date();
+    const returnExpiry = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    const warrantyExpiry = new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
-        const newOrder: Order = {
-          id: orderId,
-          date: now.toISOString(),
-          customerName,
-          customerPhone,
-          customerEmail,
-          shippingAddress: address,
-          pincode,
-          city,
-          state,
-          items: items.map(item => ({
-            productId: item.id,
-            title: item.title,
-            refurbPrice: item.refurbPrice,
-            image: item.images[0],
-            serialImei: item.serialImei,
-            warrantyMonths: item.warrantyMonths
-          })),
-          totalAmount,
-          paymentMethod,
-          paymentStatus: 'Paid',
-          orderStatus: 'Confirmed',
-          courierPartner: 'Delhivery Express',
-          trackingNumber: `DEL${Math.floor(100000000 + Math.random() * 900000000)}`,
-          trackingHistory: [
-            { time: now.toLocaleString('en-IN'), status: `Order Confirmed & Razorpay Payment (${paymentRes.razorpay_payment_id}) Verified`, location: 'Recell Central Hub, Khekra' },
-            { time: 'Pending', status: '55-Point Diagnostic Verification & Sealed Packing', location: 'Pathsala Road Dispatch Center' }
-          ],
-          returnWindowExpiry: returnExpiry,
-          warrantyExpiry: warrantyExpiry
-        };
+    // Created up front with paymentStatus 'Pending Token' - this is the
+    // ONLY paymentStatus a client is allowed to write (enforced by
+    // Firestore rules). It only ever becomes 'Paid' after the
+    // verifyRazorpayPayment Cloud Function checks a real signature.
+    const pendingOrder: Order = {
+      id: orderId,
+      date: now.toISOString(),
+      customerName,
+      customerPhone,
+      customerEmail,
+      shippingAddress: address,
+      pincode,
+      city,
+      state,
+      items: items.map(item => ({
+        productId: item.id,
+        title: item.title,
+        refurbPrice: item.refurbPrice,
+        image: item.images[0],
+        serialImei: item.serialImei,
+        warrantyMonths: item.warrantyMonths
+      })),
+      totalAmount,
+      paymentMethod,
+      paymentStatus: 'Pending Token',
+      orderStatus: 'Confirmed',
+      courierPartner: 'Delhivery Express',
+      trackingNumber: `DEL${Math.floor(100000000 + Math.random() * 900000000)}`,
+      trackingHistory: [
+        { time: now.toLocaleString('en-IN'), status: 'Order Placed - Awaiting Payment Confirmation', location: 'Recell Central Hub, Khekra' }
+      ],
+      returnWindowExpiry: returnExpiry,
+      warrantyExpiry: warrantyExpiry
+    };
 
-        // Log SMS dispatch alerts for owner and customer
-        console.log(`[OWNER SMS NOTIFICATION SENT to 9310552055] New Order ${orderId}! Amount: ₹${totalAmount}, Customer: ${customerName} (${customerPhone}), Items: ${items.map(i => i.title).join(', ')}`);
-        console.log(`[CUSTOMER SMS SENT to ${customerPhone}] Order ${orderId} confirmed! Track your package live on Recell site with AWB: ${newOrder.trackingNumber}`);
+    try {
+      const saved = await saveOrderToDB(pendingOrder);
+      if (!saved) throw new Error('Could not create your order. Please try again.');
 
-        // Log payment record in Firestore
-        savePaymentRecord({
-          paymentId: paymentRes.razorpay_payment_id,
-          orderId: orderId,
-          amount: totalAmount,
-          customerName,
-          customerPhone,
-          paymentMethod: `${paymentMethod} (${paymentRes.method})`,
-          status: 'SUCCESS',
-          razorpayPaymentId: paymentRes.razorpay_payment_id,
-          razorpayOrderId: paymentRes.razorpay_order_id,
-          createdAt: now.toISOString()
-        });
+      const { razorpayOrderId, keyId } = await createServerRazorpayOrder(orderId);
 
-        setCreatedOrder(newOrder);
-        onOrderCreated(newOrder);
-        setIsProcessing(false);
-        setStep('success');
-      },
-      onFailure: (err) => {
-        setIsProcessing(false);
-        console.warn('Payment failed or cancelled:', err);
-      }
-    });
+      await openRazorpayCheckout({
+        razorpayOrderId,
+        razorpayKeyId: keyId,
+        amount: totalAmount,
+        name: 'Recell Mobile Store',
+        description: `Purchase of ${items.length} Mobile Device(s)`,
+        prefill: {
+          name: customerName,
+          phone: customerPhone,
+          email: customerEmail
+        },
+        onSuccess: async (paymentRes) => {
+          try {
+            // The signature check happens server-side - this is the real
+            // proof of payment, not the checkout widget calling onSuccess.
+            await verifyServerRazorpayPayment({
+              orderId,
+              razorpay_order_id: paymentRes.razorpay_order_id,
+              razorpay_payment_id: paymentRes.razorpay_payment_id,
+              razorpay_signature: paymentRes.razorpay_signature
+            });
+
+            console.log(`[OWNER SMS NOTIFICATION SENT to 9310552055] New Order ${orderId}! Amount: ₹${totalAmount}, Customer: ${customerName} (${customerPhone}), Items: ${items.map(i => i.title).join(', ')}`);
+            console.log(`[CUSTOMER SMS SENT to ${customerPhone}] Order ${orderId} confirmed! Track your package live on Recell site with AWB: ${pendingOrder.trackingNumber}`);
+
+            const confirmedOrder: Order = { ...pendingOrder, paymentStatus: 'Paid', orderStatus: 'Confirmed' };
+            setCreatedOrder(confirmedOrder);
+            onOrderCreated(confirmedOrder);
+            setIsProcessing(false);
+            setStep('success');
+          } catch (verifyErr: any) {
+            setIsProcessing(false);
+            setPaymentError(
+              verifyErr?.message ||
+              `Payment could not be verified. If money was deducted, contact support with Order ID ${orderId}.`
+            );
+          }
+        },
+        onFailure: (err) => {
+          setIsProcessing(false);
+          setPaymentError(err?.message || 'Payment failed or was cancelled. Please try again.');
+        }
+      });
+    } catch (err: any) {
+      setIsProcessing(false);
+      setPaymentError(err?.message || 'Something went wrong creating your order. Please try again.');
+    }
   };
 
   return (
@@ -236,10 +256,16 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               <div className="flex items-center justify-between border-b border-slate-800 pb-3">
                 <h2 className="text-lg font-bold text-white flex items-center gap-2">
                   <Lock className="w-5 h-5 text-emerald-400" />
-                  Razorpay Secure Payment Simulator
+                  Razorpay Secure Payment
                 </h2>
                 <span className="text-xs text-slate-400 font-mono">Amount: ₹{totalAmount.toLocaleString('en-IN')}</span>
               </div>
+
+              {paymentError && (
+                <div className="p-3 bg-rose-950/60 border border-rose-500/40 text-rose-300 text-xs font-bold rounded-xl">
+                  {paymentError}
+                </div>
+              )}
 
               {/* Payment Method Selector */}
               <div className="grid grid-cols-3 gap-2 text-xs">

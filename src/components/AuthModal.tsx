@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { RecellLogo } from './RecellLogo';
 import { X, CheckCircle2, ArrowRight, Smartphone, Mail, Lock, User, ShieldCheck, MapPin, LogOut, Package } from 'lucide-react';
-import { saveUserProfile } from '../lib/dbService';
+import { ensureUserProfile, getUserProfile, UserProfile } from '../lib/dbService';
 import { auth } from '../lib/firebase';
-import { RecaptchaVerifier, signInWithPhoneNumber, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendEmailVerification
+} from 'firebase/auth';
+
+// Local-dev-only OTP shortcut so you can test the phone flow without live SMS
+// billing enabled. import.meta.env.DEV is always false in a production build
+// (Vite strips this branch entirely), so this never ships to recell.co.in.
+const DEV_OTP_BYPASS = import.meta.env.DEV ? '520055' : null;
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -99,114 +110,140 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       return;
     }
 
-    // If signing up, we ALWAYS send OTP
-    if (mode === 'signup') {
-      setIsSubmitting(true);
-      
-      try {
-        if (authMethod === 'phone') {
-          // Send Real SMS OTP via Firebase
-          const formattedPhone = phone.trim().startsWith('+') ? phone.trim() : `+91${phone.trim()}`;
-          try {
-            const appVerifier = (window as any).recaptchaVerifier;
-            const confirmation = await signInWithPhoneNumber(auth, formattedPhone, appVerifier);
-            setConfirmationResult(confirmation);
-            setSuccessMsg('Real SMS OTP sent successfully!');
-          } catch (firebaseErr: any) {
-            console.warn("Firebase Phone Auth Failed:", firebaseErr);
-            // Fallback for simulation if Firebase billing/config fails
-            setSuccessMsg('Demo OTP sent (Firebase SMS failed or not configured). Use 520055.');
-          }
-        } else {
-          // For Email OTP, Firebase doesn't natively send a 6-digit code easily without custom functions.
-          // We will simulate the email OTP flow.
-          setSuccessMsg(`OTP sent to ${email}. (Demo: use 520055)`);
-        }
-        
+    setIsSubmitting(true);
+
+    try {
+      if (authMethod === 'phone') {
+        // Phone always requires a real, freshly-verified Firebase SMS OTP -
+        // for both signup AND signin. There is no password check for phone;
+        // OTP possession of the device is the credential.
+        const formattedPhone = phone.trim().startsWith('+') ? phone.trim() : `+91${phone.trim()}`;
+        const appVerifier = (window as any).recaptchaVerifier;
+        const confirmation = await signInWithPhoneNumber(auth, formattedPhone, appVerifier);
+        setConfirmationResult(confirmation);
+        setSuccessMsg('OTP sent to your phone.');
         setIsSubmitting(false);
         setStep('otp');
-      } catch (err) {
-        setIsSubmitting(false);
-        setErrorMsg('Failed to send OTP. Please try again.');
+        return;
       }
-      return;
+
+      // Email/password uses real Firebase Authentication - no OTP step needed,
+      // the password itself is the verified credential.
+      if (mode === 'signup') {
+        const cred = await createUserWithEmailAndPassword(auth, email.trim(), password);
+        try { await sendEmailVerification(cred.user); } catch { /* non-fatal */ }
+        await finishLogin(email.trim(), { isNewSignup: true });
+      } else {
+        await signInWithEmailAndPassword(auth, email.trim(), password);
+        await finishLogin(email.trim(), { isNewSignup: false });
+      }
+      setIsSubmitting(false);
+    } catch (err: any) {
+      setIsSubmitting(false);
+      setErrorMsg(mapAuthError(err));
+    }
+  };
+
+  // Shared completion step once a real credential (phone OTP or Firebase
+  // email/password) has been verified. Role is ALWAYS read from the existing
+  // Firestore profile (or defaulted to 'customer' on first creation) - it is
+  // never computed from whatever the user typed into the form.
+  const finishLogin = async (
+    docKey: string,
+    opts: { isNewSignup: boolean }
+  ) => {
+    const cleanPhone = phone.replace(/\D/g, '');
+    const formattedPhone = authMethod === 'phone'
+      ? (phone.trim().startsWith('+') ? phone.trim() : `+91 ${phone.trim()}`)
+      : undefined;
+    const userDisplayName = fullName.trim() || (authMethod === 'email' ? email.split('@')[0] : `User ${cleanPhone.slice(-4)}`);
+
+    let profile: UserProfile | null;
+
+    if (opts.isNewSignup) {
+      profile = await ensureUserProfile(docKey, {
+        uid: docKey,
+        name: userDisplayName,
+        phone: formattedPhone || '',
+        email: authMethod === 'email' ? email.trim() : undefined,
+        pincode: pincode.trim() || '250101'
+      });
+    } else {
+      profile = await getUserProfile(docKey);
+      if (!profile) {
+        // Phone sign-in for a number with no existing account - treat as
+        // first-time signup rather than a dead end.
+        if (authMethod === 'phone') {
+          profile = await ensureUserProfile(docKey, {
+            uid: docKey,
+            name: userDisplayName,
+            phone: formattedPhone || '',
+            pincode: pincode.trim() || '250101'
+          });
+        } else {
+          throw new Error('No account found. Please create an account first.');
+        }
+      }
     }
 
-    // Direct Sign In (No OTP required for signin as per typical flow, but we can do it if needed. We'll skip OTP for sign in)
-    handleVerifyAndComplete();
+    setIsSubmitting(false);
+    onSuccess({
+      name: profile.name,
+      phone: profile.phone,
+      role: profile.role,
+      email: profile.email,
+      pincode: profile.pincode
+    });
+
+    if (profile.role === 'admin') {
+      document.dispatchEvent(new CustomEvent('NAVIGATE_ADMIN'));
+    } else {
+      document.dispatchEvent(new CustomEvent('NAVIGATE_HOME'));
+    }
+
+    handleClose();
+  };
+
+  const mapAuthError = (err: any): string => {
+    const code = err?.code || '';
+    if (code === 'auth/email-already-in-use') return 'An account with this email already exists. Try signing in instead.';
+    if (code === 'auth/wrong-password' || code === 'auth/invalid-credential') return 'Incorrect email or password.';
+    if (code === 'auth/user-not-found') return 'No account found with this email. Please sign up.';
+    if (code === 'auth/weak-password') return 'Password is too weak - use at least 6 characters.';
+    if (code === 'auth/invalid-phone-number') return 'Please enter a valid mobile number.';
+    if (code === 'auth/too-many-requests') return 'Too many attempts. Please try again later.';
+    return err?.message || 'Failed to authenticate. Please check your details and try again.';
   };
 
   const handleVerifyAndComplete = async () => {
-    if (mode === 'signup' && step === 'otp') {
-      if (otpInput.trim().length !== 6) {
-        setErrorMsg('Please enter the 6-digit OTP code.');
-        return;
-      }
+    if (otpInput.trim().length !== 6) {
+      setErrorMsg('Please enter the 6-digit OTP code.');
+      return;
     }
 
     setIsSubmitting(true);
     setErrorMsg('');
 
     try {
-      // If Phone Auth was used and we have a confirmation result, verify it
-      if (mode === 'signup' && authMethod === 'phone' && confirmationResult && otpInput !== '520055') {
+      const isDevBypass = DEV_OTP_BYPASS !== null && otpInput === DEV_OTP_BYPASS;
+
+      if (!isDevBypass) {
+        if (!confirmationResult) {
+          throw new Error('OTP session expired. Please request a new code.');
+        }
         try {
           await confirmationResult.confirm(otpInput);
         } catch (e) {
           throw new Error('Invalid SMS OTP.');
         }
-      } else if (mode === 'signup' && otpInput !== '520055' && !confirmationResult) {
-        // Fallback demo code
-        throw new Error('Invalid OTP. Please use 520055 for demo.');
       }
 
-      const cleanPhone = phone.replace(/\D/g, '') || '9310552055';
-      const userDisplayName = fullName.trim() || (authMethod === 'email' ? email.split('@')[0] : `User ${cleanPhone.slice(-4)}`);
-      
-      const isAdmin = (email.trim().toLowerCase() === 'admin@recell.in' || phone.includes('9310552055'));
-      
-      const userProfileData: import('../lib/dbService').UserProfile = {
-        uid: `USR-${Date.now()}`,
-        name: userDisplayName,
-        phone: authMethod === 'phone' ? (phone.trim().startsWith('+') ? phone.trim() : `+91 ${phone.trim()}`) : '+91 0000000000',
-        email: authMethod === 'email' ? email.trim() : `${cleanPhone}@recell.in`,
-        pincode: pincode.trim() || '250101',
-        role: (isAdmin ? 'admin' : 'customer') as 'admin' | 'customer',
-        createdAt: new Date().toISOString()
-      };
-
-      // Save user profile to Firestore, but timeout after 2 seconds so it doesn't hang!
-      try {
-        await Promise.race([
-          saveUserProfile(userProfileData),
-          new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 2000))
-        ]);
-      } catch (dbErr) {
-        console.warn('Firestore save timeout or error, proceeding anyway', dbErr);
-      }
-
-      setIsSubmitting(false);
-      onSuccess({
-        name: userDisplayName,
-        phone: userProfileData.phone,
-        role: userProfileData.role,
-        email: userProfileData.email,
-        pincode: userProfileData.pincode
-      });
-      
-      // Navigate to tracking or admin via reload/hash
-      if (isAdmin) {
-        document.dispatchEvent(new CustomEvent('NAVIGATE_ADMIN'));
-      } else {
-        document.dispatchEvent(new CustomEvent('NAVIGATE_HOME'));
-      }
-      
-      handleClose();
-
+      const cleanPhone = phone.trim().startsWith('+') ? phone.trim() : `+91 ${phone.trim()}`;
+      await finishLogin(cleanPhone, { isNewSignup: mode === 'signup' });
     } catch (err: any) {
       console.error('Auth error:', err);
       setIsSubmitting(false);
-      setErrorMsg(err.message || 'Failed to authenticate. Please check credentials.');
+      setErrorMsg(mapAuthError(err));
     }
   };
 

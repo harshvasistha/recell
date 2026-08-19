@@ -36,15 +36,40 @@ export interface UserProfile {
 // 1. User Profile Management
 export async function saveUserProfile(user: UserProfile): Promise<void> {
   try {
+    // role is intentionally never written here - it must never be settable by client
+    // form data. Role changes only happen via ensureUserProfile (first-create default)
+    // or a direct edit by a trusted operator in the Firebase console / Admin SDK.
+    const { role, ...safeFields } = user;
     const userRef = doc(db, COLLECTIONS.USERS, user.phone || user.uid);
     await setDoc(userRef, {
-      ...user,
+      ...safeFields,
       updatedAt: new Date().toISOString()
     }, { merge: true });
     console.log('[Firestore] User profile saved:', user.phone);
   } catch (err) {
     console.warn('[Firestore] Error saving user profile:', err);
   }
+}
+
+// Fetch an existing profile by its doc key, or create a new one defaulting to
+// role: 'customer'. Never overwrites an existing profile's role - that field is
+// only ever set once on first creation, or manually by a trusted operator.
+export async function ensureUserProfile(
+  docKey: string,
+  data: Omit<UserProfile, 'role'>
+): Promise<UserProfile> {
+  const userRef = doc(db, COLLECTIONS.USERS, docKey);
+  const existing = await getDoc(userRef);
+  if (existing.exists()) {
+    return existing.data() as UserProfile;
+  }
+  const newProfile: UserProfile = {
+    ...data,
+    role: 'customer',
+    createdAt: new Date().toISOString()
+  };
+  await setDoc(userRef, newProfile);
+  return newProfile;
 }
 
 export async function getUserProfile(phoneOrUid: string): Promise<UserProfile | null> {
