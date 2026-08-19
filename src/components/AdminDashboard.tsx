@@ -50,8 +50,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   // Bulk CSV Upload & Paste Modal
   const [showBulkUploadModal, setShowBulkUploadModal] = useState(false);
   const [showDriveImportModal, setShowDriveImportModal] = useState(false);
+  const [showJsonPasteModal, setShowJsonPasteModal] = useState(false);
   const [bulkCsvText, setBulkCsvText] = useState('');
   const [bulkJsonText, setBulkJsonText] = useState('');
+  const [jsonPasteText, setJsonPasteText] = useState('');
   const [bulkUploadMsg, setBulkUploadMsg] = useState('');
   const [showGradingGuide, setShowGradingGuide] = useState(false);
 
@@ -442,6 +444,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               >
                 <Upload className="w-3.5 h-3.5 text-indigo-600" />
                 <span>Bulk CSV Upload</span>
+              </button>
+
+              <button
+                onClick={() => setShowJsonPasteModal(true)}
+                className="bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold px-3.5 py-2 rounded-full text-xs flex items-center gap-1.5 border border-purple-200 transition-all cursor-pointer"
+                title="Paste a full-detail JSON array (multiple images, specs, storage variants per product)"
+              >
+                <Upload className="w-3.5 h-3.5 text-purple-600" />
+                <span>Paste Product JSON</span>
               </button>
 
               <button
@@ -866,6 +877,80 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 type="button"
                 onClick={() => parseAndAddJsonProducts(bulkJsonText)}
                 disabled={!bulkJsonText.trim()}
+                className="bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 text-white font-bold px-5 py-2.5 rounded-xl text-xs flex items-center gap-2 shadow-md transition-all cursor-pointer font-heading"
+              >
+                <Upload className="w-4 h-4" />
+                <span>Parse &amp; Add JSON Products</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Standalone Paste Product JSON Modal */}
+      {showJsonPasteModal && (
+        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white border border-slate-200 rounded-3xl max-w-2xl w-full p-6 space-y-4 text-xs shadow-2xl text-slate-900">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div className="flex items-center gap-2">
+                <Upload className="w-5 h-5 text-purple-600" />
+                <div>
+                  <h3 className="text-base font-bold text-slate-900 font-heading">Paste Product JSON</h3>
+                  <p className="text-[11px] text-slate-500">Bulk-import full-detail products - multiple images, specs, and storage variants per listing</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowJsonPasteModal(false)}
+                className="p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors"
+              >
+                ✕
+              </button>
+            </div>
+
+            {bulkUploadMsg && (
+              <div className={`p-3.5 rounded-2xl text-xs font-bold flex items-center gap-2 ${
+                bulkUploadMsg.includes('Successfully')
+                  ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                  : 'bg-rose-50 text-rose-800 border border-rose-200'
+              }`}>
+                {bulkUploadMsg.includes('Successfully') ? (
+                  <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                ) : (
+                  <Info className="w-4 h-4 text-rose-600 shrink-0" />
+                )}
+                <span>{bulkUploadMsg}</span>
+              </div>
+            )}
+
+            <div>
+              <p className="text-[11px] text-slate-500 mb-1.5">
+                Paste an array of products. Entries sharing the same brand + model become storage
+                variants of one listing on the product page. Fields: title, brand, model, storage,
+                color, originalPrice (strike price), refurbPrice (selling price), images (array of
+                3-6 URLs), specs {'{'}screen, processor, camera, battery, os{'}'}, conditionGrade
+                ("Open Box" defaults warranty to 12 months).
+              </p>
+              <textarea
+                rows={12}
+                value={jsonPasteText}
+                onChange={(e) => setJsonPasteText(e.target.value)}
+                placeholder={`[\n  {\n    "title": "OPPO A6X (4GB+64GB)",\n    "brand": "Oppo",\n    "model": "OPPO A6X",\n    "storage": "4GB+64GB",\n    "originalPrice": 17999,\n    "refurbPrice": 17142,\n    "conditionGrade": "Open Box",\n    "images": ["https://...jpg", "https://...jpg"],\n    "specs": {"screen": "6.7\\" HD+", "processor": "MediaTek", "camera": "50MP AI", "battery": "5800mAh"}\n  }\n]`}
+                className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-3 text-xs font-mono text-slate-900 focus:ring-2 focus:ring-[#0052FF] outline-none"
+              />
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+              <button
+                type="button"
+                onClick={() => setShowJsonPasteModal(false)}
+                className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-bold hover:bg-slate-50 transition-all cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => parseAndAddJsonProducts(jsonPasteText)}
+                disabled={!jsonPasteText.trim()}
                 className="bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 text-white font-bold px-5 py-2.5 rounded-xl text-xs flex items-center gap-2 shadow-md transition-all cursor-pointer font-heading"
               >
                 <Upload className="w-4 h-4" />
