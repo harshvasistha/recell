@@ -229,19 +229,31 @@ export async function saveCatalogToDB(catalog: CatalogProduct[]): Promise<void> 
   }
 }
 
-// Returns null when there's no catalog doc yet or the fetch failed, and the
-// real (possibly empty) array otherwise. Callers must NOT treat null and []
-// the same way - [] is a deliberately cleared catalog and must stick, not
-// fall back to seed data.
-export async function fetchCatalogFromDB(): Promise<CatalogProduct[] | null> {
+// Deliberately distinguishes THREE outcomes, because collapsing them into
+// one null used to cause real, permanent data loss: a transient read error
+// (network blip, momentary rules/auth hiccup) was indistinguishable from
+// "no catalog doc exists yet", so callers fell back to seed/localStorage
+// data and then immediately persisted that fallback back to Firestore -
+// silently wiping out real catalog data (including admin-imported
+// products) any time a fetch merely failed once. Callers must NOT persist
+// anything on status 'error'; only 'not-found' is a legitimate reason to
+// seed fresh data, and [] from 'ok' is a deliberately cleared catalog that
+// must stick, not fall back to seed data.
+export type CatalogFetchResult =
+  | { status: 'ok'; products: CatalogProduct[] }
+  | { status: 'not-found' }
+  | { status: 'error' };
+
+export async function fetchCatalogFromDB(): Promise<CatalogFetchResult> {
   try {
     const docRef = doc(db, 'system', 'catalog');
     const snap = await getDoc(docRef);
     if (snap.exists()) {
-      return (snap.data().products as CatalogProduct[]) || [];
+      return { status: 'ok', products: (snap.data().products as CatalogProduct[]) || [] };
     }
+    return { status: 'not-found' };
   } catch (err) {
     console.error('[Firestore] Error fetching catalog:', err);
+    return { status: 'error' };
   }
-  return null;
 }

@@ -131,27 +131,44 @@ export default function App() {
 
   useEffect(() => {
     // Firestore is the source of truth. Admin catalog edits must survive a
-    // page reload, so this only ever falls back to localStorage/seed data
-    // when there's genuinely no catalog doc yet (brand-new deployment) or
-    // the fetch failed - never just because the saved catalog is empty.
-    fetchCatalogFromDB().then(dbCatalog => {
-      if (dbCatalog !== null) {
-        setCatalog(dbCatalog);
-      } else {
-        const stored = localStorage.getItem('recellCatalog');
-        if (stored) {
-          try {
-            const parsed = JSON.parse(stored);
-            setCatalog(Array.isArray(parsed) ? parsed : SEED_CATALOG);
-          } catch {
-            setCatalog(SEED_CATALOG);
-          }
-        } else {
+    // page reload, so seed/localStorage data is ONLY ever used - and ONLY
+    // ever persisted back to Firestore - when the catalog doc genuinely
+    // doesn't exist yet (a brand-new deployment). A fetch ERROR (network
+    // blip, transient auth/rules hiccup) must NEVER flip catalogLoaded to
+    // true, because that would arm the persistence effect below and it
+    // would immediately overwrite the real Firestore catalog with stale
+    // local data - this previously caused real admin-imported products to
+    // be silently wiped. On error we show cached localStorage data
+    // read-only (persistence stays disarmed) and keep retrying the fetch
+    // until it actually succeeds.
+    let cancelled = false;
+    const attemptLoad = () => {
+      fetchCatalogFromDB().then(result => {
+        if (cancelled) return;
+        if (result.status === 'ok') {
+          setCatalog(result.products);
+          setCatalogLoaded(true);
+        } else if (result.status === 'not-found') {
           setCatalog(SEED_CATALOG);
+          setCatalogLoaded(true);
+        } else {
+          // 'error': show cached data if we have it, but do NOT arm
+          // persistence, and retry shortly instead of giving up.
+          const stored = localStorage.getItem('recellCatalog');
+          if (stored) {
+            try {
+              const parsed = JSON.parse(stored);
+              setCatalog(Array.isArray(parsed) ? parsed : SEED_CATALOG);
+            } catch {
+              // keep whatever is currently rendered
+            }
+          }
+          setTimeout(attemptLoad, 8000);
         }
-      }
-      setCatalogLoaded(true);
-    });
+      });
+    };
+    attemptLoad();
+    return () => { cancelled = true; };
   }, []);
 
   useEffect(() => {
