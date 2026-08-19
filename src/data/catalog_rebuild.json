@@ -453,7 +453,12 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-a6-pro/1.jpg",
+      "/products/oppo-a6-pro/2.webp",
+      "/products/oppo-a6-pro/3.jpg",
+      "/products/oppo-a6-pro/4.jpg"
+    ],
     "imageFolder": "/products/oppo-a6-pro/",
     "inStock": true,
     "stockCount": 3,
@@ -482,7 +487,12 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-a6-pro/1.jpg",
+      "/products/oppo-a6-pro/2.webp",
+      "/products/oppo-a6-pro/3.jpg",
+      "/products/oppo-a6-pro/4.jpg"
+    ],
     "imageFolder": "/products/oppo-a6-pro/",
     "inStock": true,
     "stockCount": 3,
@@ -577,7 +587,10 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-reno15-c/1.webp",
+      "/products/oppo-reno15-c/2.jpg"
+    ],
     "imageFolder": "/products/oppo-reno15-c/",
     "inStock": true,
     "stockCount": 3,
@@ -606,7 +619,10 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-reno15-c/1.webp",
+      "/products/oppo-reno15-c/2.jpg"
+    ],
     "imageFolder": "/products/oppo-reno15-c/",
     "inStock": true,
     "stockCount": 3,
@@ -976,8 +992,10 @@
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
     "images": [
-      "/products/oppo-find-x9-ultra/1.webp",
-      "/products/oppo-find-x9-ultra/2.webp"
+      "/products/oppo-find-x9-ultra/1.jpg",
+      "/products/oppo-find-x9-ultra/2.webp",
+      "/products/oppo-find-x9-ultra/3.webp",
+      "/products/oppo-find-x9-ultra/4.webp"
     ],
     "imageFolder": "/products/oppo-find-x9-ultra/",
     "inStock": true,
