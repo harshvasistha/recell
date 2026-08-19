@@ -354,9 +354,11 @@ export const DEFAULT_PRICING_RULES: PricingRules = {
   minMarginPercent: 18
 };
 
-import { generateOpenBoxSeed, generateRefurbishedSeed } from "./loadSeedData";
-
-export const SEED_CATALOG: CatalogProduct[] = [...generateOpenBoxSeed(), ...generateRefurbishedSeed()];
+// Catalog is being rebuilt from scratch via the admin dashboard - starts
+// empty. generateOpenBoxSeed()/generateRefurbishedSeed() (loadSeedData.ts)
+// held the old demo catalog; no longer used here, left in place in case
+// they're useful reference data later.
+export const SEED_CATALOG: CatalogProduct[] = [];
 
 export const SEED_BUY_REQUESTS: BuyQuoteRequest[] = [];
 

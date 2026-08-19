@@ -125,42 +125,40 @@ export default function App() {
 
   // App Master Data State
   const [catalog, setCatalog] = useState<CatalogProduct[]>(SEED_CATALOG);
+  // Guards against the persistence effect below firing (and stomping real
+  // Firestore data) before the initial load below has actually resolved.
+  const [catalogLoaded, setCatalogLoaded] = useState(false);
 
   useEffect(() => {
-    // Force reset to the latest seed catalog to ensure the newly uploaded
-    // Open Box devices (Redmi Note 14/15, Oppo, etc.) are live on the frontend
-    // and override any stale empty state or old catalog items.
-    setCatalog(SEED_CATALOG);
-    saveCatalogToDB(SEED_CATALOG);
-    localStorage.setItem('recellCatalog', JSON.stringify(SEED_CATALOG));
-    
-    /* Previous fetch logic commented out temporarily for hard reset
+    // Firestore is the source of truth. Admin catalog edits must survive a
+    // page reload, so this only ever falls back to localStorage/seed data
+    // when there's genuinely no catalog doc yet (brand-new deployment) or
+    // the fetch failed - never just because the saved catalog is empty.
     fetchCatalogFromDB().then(dbCatalog => {
-      if (dbCatalog && dbCatalog.length > 0) {
+      if (dbCatalog !== null) {
         setCatalog(dbCatalog);
       } else {
         const stored = localStorage.getItem('recellCatalog');
         if (stored) {
+          try {
             const parsed = JSON.parse(stored);
-            if (parsed && parsed.length > 0) {
-                setCatalog(parsed);
-            } else {
-                setCatalog(SEED_CATALOG);
-            }
-        } else {
+            setCatalog(Array.isArray(parsed) ? parsed : SEED_CATALOG);
+          } catch {
             setCatalog(SEED_CATALOG);
+          }
+        } else {
+          setCatalog(SEED_CATALOG);
         }
       }
+      setCatalogLoaded(true);
     });
-    */
   }, []);
 
   useEffect(() => {
-    if (catalog !== SEED_CATALOG) {
-      localStorage.setItem('recellCatalog', JSON.stringify(catalog));
-      saveCatalogToDB(catalog);
-    }
-  }, [catalog]);
+    if (!catalogLoaded) return;
+    localStorage.setItem('recellCatalog', JSON.stringify(catalog));
+    saveCatalogToDB(catalog);
+  }, [catalog, catalogLoaded]);
 
   const [buyRequests, setBuyRequests] = useState<BuyQuoteRequest[]>(SEED_BUY_REQUESTS);
   const [orders, setOrders] = useState<Order[]>(SEED_ORDERS);

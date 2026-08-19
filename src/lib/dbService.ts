@@ -229,15 +229,19 @@ export async function saveCatalogToDB(catalog: CatalogProduct[]): Promise<void> 
   }
 }
 
-export async function fetchCatalogFromDB(): Promise<CatalogProduct[]> {
+// Returns null when there's no catalog doc yet or the fetch failed, and the
+// real (possibly empty) array otherwise. Callers must NOT treat null and []
+// the same way - [] is a deliberately cleared catalog and must stick, not
+// fall back to seed data.
+export async function fetchCatalogFromDB(): Promise<CatalogProduct[] | null> {
   try {
     const docRef = doc(db, 'system', 'catalog');
     const snap = await getDoc(docRef);
     if (snap.exists()) {
-      return snap.data().products as CatalogProduct[];
+      return (snap.data().products as CatalogProduct[]) || [];
     }
   } catch (err) {
     console.error('[Firestore] Error fetching catalog:', err);
   }
-  return [];
+  return null;
 }
