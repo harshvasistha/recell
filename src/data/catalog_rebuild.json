@@ -511,7 +511,11 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-find-x9/1.webp",
+      "/products/oppo-find-x9/2.webp",
+      "/products/oppo-find-x9/3.webp"
+    ],
     "imageFolder": "/products/oppo-find-x9/",
     "inStock": true,
     "stockCount": 3,
@@ -540,7 +544,11 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-find-x9/1.webp",
+      "/products/oppo-find-x9/2.webp",
+      "/products/oppo-find-x9/3.webp"
+    ],
     "imageFolder": "/products/oppo-find-x9/",
     "inStock": true,
     "stockCount": 3,
@@ -897,7 +905,13 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-find-x9s/1.webp",
+      "/products/oppo-find-x9s/2.jpg",
+      "/products/oppo-find-x9s/3.jpg",
+      "/products/oppo-find-x9s/4.jpg",
+      "/products/oppo-find-x9s/5.jpg"
+    ],
     "imageFolder": "/products/oppo-find-x9s/",
     "inStock": true,
     "stockCount": 3,
@@ -926,7 +940,13 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-find-x9s/1.webp",
+      "/products/oppo-find-x9s/2.jpg",
+      "/products/oppo-find-x9s/3.jpg",
+      "/products/oppo-find-x9s/4.jpg",
+      "/products/oppo-find-x9s/5.jpg"
+    ],
     "imageFolder": "/products/oppo-find-x9s/",
     "inStock": true,
     "stockCount": 3,
@@ -955,7 +975,10 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-find-x9-ultra/1.webp",
+      "/products/oppo-find-x9-ultra/2.webp"
+    ],
     "imageFolder": "/products/oppo-find-x9-ultra/",
     "inStock": true,
     "stockCount": 3,
@@ -1223,7 +1246,12 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-k14/1.webp",
+      "/products/oppo-k14/2.jpg",
+      "/products/oppo-k14/3.jpg",
+      "/products/oppo-k14/4.jpg"
+    ],
     "imageFolder": "/products/oppo-k14/",
     "inStock": true,
     "stockCount": 3,
