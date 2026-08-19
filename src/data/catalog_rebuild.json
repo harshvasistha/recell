@@ -724,7 +724,12 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-f33-pro/1.webp",
+      "/products/oppo-f33-pro/2.jpg",
+      "/products/oppo-f33-pro/3.jpg",
+      "/products/oppo-f33-pro/4.jpg"
+    ],
     "imageFolder": "/products/oppo-f33-pro/",
     "inStock": true,
     "stockCount": 3,
@@ -753,7 +758,12 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-f33-pro/1.webp",
+      "/products/oppo-f33-pro/2.jpg",
+      "/products/oppo-f33-pro/3.jpg",
+      "/products/oppo-f33-pro/4.jpg"
+    ],
     "imageFolder": "/products/oppo-f33-pro/",
     "inStock": true,
     "stockCount": 3,
@@ -782,7 +792,13 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-f33/1.jpg",
+      "/products/oppo-f33/2.jpg",
+      "/products/oppo-f33/3.jpg",
+      "/products/oppo-f33/4.jpg",
+      "/products/oppo-f33/5.jpg"
+    ],
     "imageFolder": "/products/oppo-f33/",
     "inStock": true,
     "stockCount": 3,
@@ -811,7 +827,13 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-f33/1.jpg",
+      "/products/oppo-f33/2.jpg",
+      "/products/oppo-f33/3.jpg",
+      "/products/oppo-f33/4.jpg",
+      "/products/oppo-f33/5.jpg"
+    ],
     "imageFolder": "/products/oppo-f33/",
     "inStock": true,
     "stockCount": 3,
@@ -840,7 +862,13 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-f33/1.jpg",
+      "/products/oppo-f33/2.jpg",
+      "/products/oppo-f33/3.jpg",
+      "/products/oppo-f33/4.jpg",
+      "/products/oppo-f33/5.jpg"
+    ],
     "imageFolder": "/products/oppo-f33/",
     "inStock": true,
     "stockCount": 3,
