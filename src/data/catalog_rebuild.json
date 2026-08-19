@@ -27,10 +27,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "4GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.75\" IPS LCD, 120Hz, 720x1570 HD+ (19.5:9), 1125 nits peak",
+      "Processor": "Qualcomm Snapdragon 685 / SM6225 (6nm)",
+      "Rear Camera": "13MP Main + monochrome lens, autofocus",
+      "Front Camera": "5MP, f/2.2",
+      "Battery": "6500mAh, no fast charging (standard charging only, 5W reverse wired)",
+      "OS": "Android 15, ColorOS 15",
+      "Dimensions & Weight": "166.6 x 78.5 x 8.6mm, 210g",
+      "Security & Ports": "Side-mounted Fingerprint, Dual Nano-SIM, USB Type-C 2.0 (OTG), 3.5mm jack, IP64 rated",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -60,10 +65,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "6.75\" HD+ 120Hz LCD",
-      "processor": "UNISOC T7250",
-      "ram": "4GB",
-      "camera": "13MP Rear / 5MP Front"
+      "Display": "6.75\" LCD, 120Hz, 720x1570 HD+",
+      "Processor": "UNISOC T7250 (Octa-core, Mali-G57 GPU)",
+      "Rear Camera": "13MP, f/2.2, autofocus",
+      "Front Camera": "5MP, f/2.2",
+      "Battery": "7000mAh, 15W wired charging (reverse wired charging supported)",
+      "OS": "Android 15, ColorOS 15",
+      "Dimensions & Weight": "166.5 x 78.2 x 9.0mm, 215g",
+      "Security & Ports": "Side-mounted Fingerprint, Dual Nano-SIM, USB Type-C, 3.5mm headphone jack",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -94,10 +104,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "6.72\" HD+ 120Hz LCD",
-      "processor": "Snapdragon 685",
-      "ram": "4GB",
-      "camera": "13MP Rear / 5MP Front"
+      "Display": "6.75\" IPS LCD, 120Hz, 720x1570 HD+ (19.5:9), 1125 nits peak",
+      "Processor": "MediaTek Dimensity 6300 (6nm)",
+      "Rear Camera": "13MP, f/2.2, autofocus",
+      "Front Camera": "5MP, f/2.2",
+      "Battery": "6500mAh, 45W wired fast charging, 33W PPS/13.5W PD (5W reverse wired)",
+      "OS": "Android 15, ColorOS 15",
+      "Dimensions & Weight": "166.6 x 78.5 x 8.6mm, 212g",
+      "Security & Ports": "Side-mounted Fingerprint, Dual Nano-SIM, USB Type-C 2.0 (OTG), 3.5mm jack, IP64 rated",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -128,10 +143,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "6.72\" HD+ 120Hz LCD",
-      "processor": "Snapdragon 685",
-      "ram": "4GB",
-      "camera": "13MP Rear / 5MP Front"
+      "Display": "6.75\" IPS LCD, 120Hz, 720x1570 HD+ (19.5:9), 1125 nits peak",
+      "Processor": "MediaTek Dimensity 6300 (6nm)",
+      "Rear Camera": "13MP, f/2.2, autofocus",
+      "Front Camera": "5MP, f/2.2",
+      "Battery": "6500mAh, 45W wired fast charging, 33W PPS/13.5W PD (5W reverse wired)",
+      "OS": "Android 15, ColorOS 15",
+      "Dimensions & Weight": "166.6 x 78.5 x 8.6mm, 212g",
+      "Security & Ports": "Side-mounted Fingerprint, Dual Nano-SIM, USB Type-C 2.0 (OTG), 3.5mm jack, IP64 rated",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -162,10 +182,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "6.72\" HD+ 120Hz LCD",
-      "processor": "Snapdragon 685",
-      "ram": "6GB",
-      "camera": "13MP Rear / 5MP Front"
+      "Display": "6.75\" IPS LCD, 120Hz, 720x1570 HD+ (19.5:9), 1125 nits peak",
+      "Processor": "MediaTek Dimensity 6300 (6nm)",
+      "Rear Camera": "13MP, f/2.2, autofocus",
+      "Front Camera": "5MP, f/2.2",
+      "Battery": "6500mAh, 45W wired fast charging, 33W PPS/13.5W PD (5W reverse wired)",
+      "OS": "Android 15, ColorOS 15",
+      "Dimensions & Weight": "166.6 x 78.5 x 8.6mm, 212g",
+      "Security & Ports": "Side-mounted Fingerprint, Dual Nano-SIM, USB Type-C 2.0 (OTG), 3.5mm jack, IP64 rated",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -196,10 +221,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "4GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.75\" IPS LCD, 120Hz, HD+ 720x1570, 1125 nits peak",
+      "Processor": "MediaTek Dimensity 6300",
+      "Rear Camera": "50MP Main (f/1.8, AF) + 2MP Mono",
+      "Front Camera": "5MP (f/2.2)",
+      "Battery": "6500mAh, 45W SUPERVOOC Fast Charging",
+      "OS": "Android 15, ColorOS 15",
+      "Dimensions & Weight": "166.6 x 78.5 x 8.6mm, 212g",
+      "Security & Ports": "Side-mounted Fingerprint, Dual Nano-SIM, USB Type-C 2.0, 3.5mm headphone jack present",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -230,10 +260,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "4GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.75\" IPS LCD, 120Hz, HD+ 720x1570, 1125 nits peak",
+      "Processor": "MediaTek Dimensity 6300",
+      "Rear Camera": "50MP Main (f/1.8, AF) + 2MP Mono",
+      "Front Camera": "5MP (f/2.2)",
+      "Battery": "6500mAh, 45W SUPERVOOC Fast Charging",
+      "OS": "Android 15, ColorOS 15",
+      "Dimensions & Weight": "166.6 x 78.5 x 8.6mm, 212g",
+      "Security & Ports": "Side-mounted Fingerprint, Dual Nano-SIM, USB Type-C 2.0, 3.5mm headphone jack present",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -264,10 +299,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "6GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.75\" IPS LCD, 120Hz, HD+ 720x1570, 1125 nits peak",
+      "Processor": "MediaTek Dimensity 6300",
+      "Rear Camera": "50MP Main (f/1.8, AF) + 2MP Mono",
+      "Front Camera": "5MP (f/2.2)",
+      "Battery": "6500mAh, 45W SUPERVOOC Fast Charging",
+      "OS": "Android 15, ColorOS 15",
+      "Dimensions & Weight": "166.6 x 78.5 x 8.6mm, 212g",
+      "Security & Ports": "Side-mounted Fingerprint, Dual Nano-SIM, USB Type-C 2.0, 3.5mm headphone jack present",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -298,10 +338,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "6.75\" HD+ 120Hz LCD",
-      "processor": "MediaTek Dimensity 6300",
-      "ram": "4GB",
-      "camera": "50MP+2MP Rear / 5MP Front"
+      "Display": "6.75\" IPS LCD, 120Hz, 720x1570 HD+ (19.5:9), 1125 nits peak",
+      "Processor": "MediaTek Dimensity 6300 (6nm)",
+      "Rear Camera": "50MP Main (f/1.8, PDAF), dual camera setup",
+      "Front Camera": "5MP, f/2.2",
+      "Battery": "6500mAh, 45W wired fast charging, 33W PPS/13.5W PD (5W reverse wired)",
+      "OS": "Android 15, ColorOS 15",
+      "Dimensions & Weight": "166.6 x 78.5 x 8.6mm, 212g",
+      "Security & Ports": "Side-mounted Fingerprint, Dual Nano-SIM, USB Type-C 2.0 (OTG), 3.5mm jack, IP64 rated",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -332,10 +377,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "6.75\" HD+ 120Hz LCD",
-      "processor": "MediaTek Dimensity 6300",
-      "ram": "6GB",
-      "camera": "50MP+2MP Rear / 5MP Front"
+      "Display": "6.75\" IPS LCD, 120Hz, 720x1570 HD+ (19.5:9), 1125 nits peak",
+      "Processor": "MediaTek Dimensity 6300 (6nm)",
+      "Rear Camera": "50MP Main (f/1.8, PDAF), dual camera setup",
+      "Front Camera": "5MP, f/2.2",
+      "Battery": "6500mAh, 45W wired fast charging, 33W PPS/13.5W PD (5W reverse wired)",
+      "OS": "Android 15, ColorOS 15",
+      "Dimensions & Weight": "166.6 x 78.5 x 8.6mm, 212g",
+      "Security & Ports": "Side-mounted Fingerprint, Dual Nano-SIM, USB Type-C 2.0 (OTG), 3.5mm jack, IP64 rated",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -366,10 +416,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "6.75\" HD+ 120Hz LCD",
-      "processor": "MediaTek Dimensity 6300",
-      "ram": "4GB",
-      "camera": "50MP+2MP Rear / 8MP Front"
+      "Display": "6.75\" IPS LCD, 120Hz, 720x1570 HD+ (19.5:9), 1125 nits peak",
+      "Processor": "MediaTek Dimensity 6300 (6nm)",
+      "Rear Camera": "50MP Main (f/1.8, PDAF) + secondary lens, dual camera setup",
+      "Front Camera": "8MP, f/2.0",
+      "Battery": "7000mAh, 45W wired fast charging (5W reverse wired)",
+      "OS": "Android 15, ColorOS 15",
+      "Dimensions & Weight": "166.6 x 78.5 x 8.6mm, 216g",
+      "Security & Ports": "Side-mounted Fingerprint, Dual Nano-SIM, USB Type-C 2.0, no 3.5mm jack",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -400,10 +455,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "6.75\" HD+ 120Hz LCD",
-      "processor": "MediaTek Dimensity 6300",
-      "ram": "6GB",
-      "camera": "50MP+2MP Rear / 8MP Front"
+      "Display": "6.75\" IPS LCD, 120Hz, 720x1570 HD+ (19.5:9), 1125 nits peak",
+      "Processor": "MediaTek Dimensity 6300 (6nm)",
+      "Rear Camera": "50MP Main (f/1.8, PDAF) + secondary lens, dual camera setup",
+      "Front Camera": "8MP, f/2.0",
+      "Battery": "7000mAh, 45W wired fast charging (5W reverse wired)",
+      "OS": "Android 15, ColorOS 15",
+      "Dimensions & Weight": "166.6 x 78.5 x 8.6mm, 216g",
+      "Security & Ports": "Side-mounted Fingerprint, Dual Nano-SIM, USB Type-C 2.0, no 3.5mm jack",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -434,10 +494,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "6.75\" HD+ 120Hz LCD",
-      "processor": "MediaTek Dimensity 6300",
-      "ram": "6GB",
-      "camera": "50MP+2MP Rear / 8MP Front"
+      "Display": "6.75\" IPS LCD, 120Hz, 720x1570 HD+ (19.5:9), 1125 nits peak",
+      "Processor": "MediaTek Dimensity 6300 (6nm)",
+      "Rear Camera": "50MP Main (f/1.8, PDAF) + secondary lens, dual camera setup",
+      "Front Camera": "8MP, f/2.0",
+      "Battery": "7000mAh, 45W wired fast charging (5W reverse wired)",
+      "OS": "Android 15, ColorOS 15",
+      "Dimensions & Weight": "166.6 x 78.5 x 8.6mm, 216g",
+      "Security & Ports": "Side-mounted Fingerprint, Dual Nano-SIM, USB Type-C 2.0, no 3.5mm jack",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -468,10 +533,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "6.75\" HD+ 120Hz LCD",
-      "processor": "MediaTek Dimensity 6300",
-      "ram": "8GB",
-      "camera": "50MP+2MP Rear / 16MP Front"
+      "Display": "6.75\" IPS LCD, 120Hz, 720x1570 HD+ (19.5:9), 1125 nits peak",
+      "Processor": "MediaTek Dimensity 6300 (6nm)",
+      "Rear Camera": "50MP Main (f/1.8, PDAF), dual camera setup",
+      "Front Camera": "16MP, f/2.4",
+      "Battery": "7000mAh, 80W SUPERVOOC wired fast charging (5W reverse wired)",
+      "OS": "Android 15, ColorOS 15",
+      "Dimensions & Weight": "166.6 x 78.5 x 8.6mm, 216g",
+      "Security & Ports": "Side-mounted Fingerprint, Dual Nano-SIM, USB Type-C 2.0 (OTG), no 3.5mm jack",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -502,10 +572,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "6.75\" HD+ 120Hz LCD",
-      "processor": "MediaTek Dimensity 6300",
-      "ram": "8GB",
-      "camera": "50MP+2MP Rear / 16MP Front"
+      "Display": "6.75\" IPS LCD, 120Hz, 720x1570 HD+ (19.5:9), 1125 nits peak",
+      "Processor": "MediaTek Dimensity 6300 (6nm)",
+      "Rear Camera": "50MP Main (f/1.8, PDAF), dual camera setup",
+      "Front Camera": "16MP, f/2.4",
+      "Battery": "7000mAh, 80W SUPERVOOC wired fast charging (5W reverse wired)",
+      "OS": "Android 15, ColorOS 15",
+      "Dimensions & Weight": "166.6 x 78.5 x 8.6mm, 216g",
+      "Security & Ports": "Side-mounted Fingerprint, Dual Nano-SIM, USB Type-C 2.0 (OTG), no 3.5mm jack",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -537,10 +612,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "12GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.59\" AMOLED, 120Hz, 1256x2760 FHD+, ~460ppi",
+      "Processor": "MediaTek Dimensity 9500 (3nm)",
+      "Rear Camera": "Triple 50MP wide (f/1.6, OIS) + 50MP periscope telephoto 3x (f/2.6) + 50MP ultrawide (f/2.0, 120°)",
+      "Front Camera": "32MP, f/2.4",
+      "Battery": "7025mAh, 80W SUPERVOOC wired + 50W wireless charging",
+      "OS": "Android 16, ColorOS 16",
+      "Dimensions & Weight": "157.0 x 73.9 x 8.0mm, 203g",
+      "Security & Ports": "Under-display Ultrasonic Fingerprint, Dual Nano-SIM + eSIM, USB Type-C (OTG), IP68/IP69 rating",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -572,10 +652,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "16GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.59\" AMOLED, 120Hz, 1256x2760 FHD+, ~460ppi",
+      "Processor": "MediaTek Dimensity 9500 (3nm)",
+      "Rear Camera": "Triple 50MP wide (f/1.6, OIS) + 50MP periscope telephoto 3x (f/2.6) + 50MP ultrawide (f/2.0, 120°)",
+      "Front Camera": "32MP, f/2.4",
+      "Battery": "7025mAh, 80W SUPERVOOC wired + 50W wireless charging",
+      "OS": "Android 16, ColorOS 16",
+      "Dimensions & Weight": "157.0 x 73.9 x 8.0mm, 203g",
+      "Security & Ports": "Under-display Ultrasonic Fingerprint, Dual Nano-SIM + eSIM, USB Type-C (OTG), IP68/IP69 rating",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -606,10 +691,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "8GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.57\" AMOLED, 120Hz, 1080x2372 FHD+, Gorilla Glass+, ~397ppi",
+      "Processor": "Qualcomm Snapdragon 6 Gen 1 (SM6450, 4nm)",
+      "Rear Camera": "Triple 50MP wide (f/1.8, 26mm, PDAF+OIS) + 8MP ultrawide (f/2.2, 112°) + 2MP macro",
+      "Front Camera": "50MP, f/2.0, 100° ultrawide, autofocus",
+      "Battery": "7000mAh Si/C Li-Ion, 80W wired (55W PPS, 13.5W PD/QC) charging",
+      "OS": "Android 16, ColorOS 16",
+      "Dimensions & Weight": "158.2 x 74.9 x 8.1mm, 195g",
+      "Security & Ports": "In-display Optical Fingerprint, Dual Nano-SIM, USB Type-C 2.0 (OTG), IP68/IP69 rating",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -640,10 +730,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "12GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.57\" AMOLED, 120Hz, 1080x2372 FHD+, Gorilla Glass+, ~397ppi",
+      "Processor": "Qualcomm Snapdragon 6 Gen 1 (SM6450, 4nm)",
+      "Rear Camera": "Triple 50MP wide (f/1.8, 26mm, PDAF+OIS) + 8MP ultrawide (f/2.2, 112°) + 2MP macro",
+      "Front Camera": "50MP, f/2.0, 100° ultrawide, autofocus",
+      "Battery": "7000mAh Si/C Li-Ion, 80W wired (55W PPS, 13.5W PD/QC) charging",
+      "OS": "Android 16, ColorOS 16",
+      "Dimensions & Weight": "158.2 x 74.9 x 8.1mm, 195g",
+      "Security & Ports": "In-display Optical Fingerprint, Dual Nano-SIM, USB Type-C 2.0 (OTG), IP68/IP69 rating",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -703,10 +798,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "12GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.32\" AMOLED, 120Hz, HDR10+, 1216x2640 FHD+, Gorilla Glass 7i, ~460ppi",
+      "Processor": "MediaTek Dimensity 8450 (4nm)",
+      "Rear Camera": "Triple 200MP wide (f/1.8, 24mm, OIS) + 50MP telephoto 3.5x (f/2.8, 85mm) + 50MP ultrawide (f/2.0, 16mm, 116°, autofocus)",
+      "Front Camera": "50MP, f/2.0, 18mm, 100° ultrawide, autofocus",
+      "Battery": "6200mAh, 80W wired (13.5W PD, 55W PPS), 0-100% in ~53 min",
+      "OS": "Android 16, ColorOS 16",
+      "Dimensions & Weight": "151.2 x 72.4 x 8.0mm, 187g",
+      "Security & Ports": "In-display Optical Fingerprint, Dual Nano-SIM, USB Type-C 2.0 (OTG), IP68/IP69 rating",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -737,10 +837,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "12GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.32\" AMOLED, 120Hz, HDR10+, 1216x2640 FHD+, Gorilla Glass 7i, ~460ppi",
+      "Processor": "MediaTek Dimensity 8450 (4nm)",
+      "Rear Camera": "Triple 200MP wide (f/1.8, 24mm, OIS) + 50MP telephoto 3.5x (f/2.8, 85mm) + 50MP ultrawide (f/2.0, 16mm, 116°, autofocus)",
+      "Front Camera": "50MP, f/2.0, 18mm, 100° ultrawide, autofocus",
+      "Battery": "6200mAh, 80W wired (13.5W PD, 55W PPS), 0-100% in ~53 min",
+      "OS": "Android 16, ColorOS 16",
+      "Dimensions & Weight": "151.2 x 72.4 x 8.0mm, 187g",
+      "Security & Ports": "In-display Optical Fingerprint, Dual Nano-SIM, USB Type-C 2.0 (OTG), IP68/IP69 rating",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -771,10 +876,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "8GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.67\" AMOLED, 120Hz, FHD+ 1080x2372, 1400 nits peak",
+      "Processor": "MediaTek Dimensity 6360 Max",
+      "Rear Camera": "50MP Main (f/1.8, PDAF) + 2MP Mono/Depth (f/2.4)",
+      "Front Camera": "50MP (f/2.0, 100° FOV, autofocus)",
+      "Battery": "7000mAh, 80W SUPERVOOC Fast Charging",
+      "OS": "Android 16, ColorOS 16",
+      "Dimensions & Weight": "158.4 x 75.2 x 8.3mm, 194g",
+      "Security & Ports": "Under-display Fingerprint, Dual Nano-SIM, USB Type-C 2.0, no 3.5mm jack",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -805,10 +915,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "8GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.67\" AMOLED, 120Hz, FHD+ 1080x2372, 1400 nits peak",
+      "Processor": "MediaTek Dimensity 6360 Max",
+      "Rear Camera": "50MP Main (f/1.8, PDAF) + 2MP Mono/Depth (f/2.4)",
+      "Front Camera": "50MP (f/2.0, 100° FOV, autofocus)",
+      "Battery": "7000mAh, 80W SUPERVOOC Fast Charging",
+      "OS": "Android 16, ColorOS 16",
+      "Dimensions & Weight": "158.4 x 75.2 x 8.3mm, 194g",
+      "Security & Ports": "Under-display Fingerprint, Dual Nano-SIM, USB Type-C 2.0, no 3.5mm jack",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -840,10 +955,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "6GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.67\" AMOLED, 120Hz, FHD+ 1080x2372, 1400 nits peak",
+      "Processor": "MediaTek Dimensity 6360 Max",
+      "Rear Camera": "50MP Main (f/1.8, PDAF) + 2MP Mono/Depth (f/2.4)",
+      "Front Camera": "16MP (f/2.4)",
+      "Battery": "7000mAh, 80W SUPERVOOC Fast Charging",
+      "OS": "Android 16, ColorOS 16",
+      "Dimensions & Weight": "158.2 x 75.0 x 8.0mm, 189g",
+      "Security & Ports": "Under-display Fingerprint, Dual Nano-SIM, USB Type-C 2.0, no 3.5mm jack",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -875,10 +995,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "8GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.67\" AMOLED, 120Hz, FHD+ 1080x2372, 1400 nits peak",
+      "Processor": "MediaTek Dimensity 6360 Max",
+      "Rear Camera": "50MP Main (f/1.8, PDAF) + 2MP Mono/Depth (f/2.4)",
+      "Front Camera": "16MP (f/2.4)",
+      "Battery": "7000mAh, 80W SUPERVOOC Fast Charging",
+      "OS": "Android 16, ColorOS 16",
+      "Dimensions & Weight": "158.2 x 75.0 x 8.0mm, 189g",
+      "Security & Ports": "Under-display Fingerprint, Dual Nano-SIM, USB Type-C 2.0, no 3.5mm jack",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -910,10 +1035,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "8GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.67\" AMOLED, 120Hz, FHD+ 1080x2372, 1400 nits peak",
+      "Processor": "MediaTek Dimensity 6360 Max",
+      "Rear Camera": "50MP Main (f/1.8, PDAF) + 2MP Mono/Depth (f/2.4)",
+      "Front Camera": "16MP (f/2.4)",
+      "Battery": "7000mAh, 80W SUPERVOOC Fast Charging",
+      "OS": "Android 16, ColorOS 16",
+      "Dimensions & Weight": "158.2 x 75.0 x 8.0mm, 189g",
+      "Security & Ports": "Under-display Fingerprint, Dual Nano-SIM, USB Type-C 2.0, no 3.5mm jack",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -945,10 +1075,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "12GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.59\" AMOLED, 120Hz (3840Hz PWM), 1256x2760 FHD+, Dolby Vision, Gorilla Glass 7i, ~460ppi",
+      "Processor": "MediaTek Dimensity 9500s (3nm)",
+      "Rear Camera": "Triple 50MP wide (f/1.8, 24mm, PDAF+OIS) + 50MP periscope telephoto 3x (f/2.6, 73mm) + 50MP ultrawide (f/2.0, 15mm, 120°)",
+      "Front Camera": "32MP, f/2.4, 21mm",
+      "Battery": "7025mAh, 80W wired (55W PPS, 13.5W PD) charging",
+      "OS": "Android 16, ColorOS 16.0",
+      "Dimensions & Weight": "157.0 x 73.9 x 8.0mm, 202g",
+      "Security & Ports": "Under-display Ultrasonic Fingerprint, Dual Nano-SIM + eSIM, USB Type-C (OTG), IP68/IP69 rating",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -980,10 +1115,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "12GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.59\" AMOLED, 120Hz (3840Hz PWM), 1256x2760 FHD+, Dolby Vision, Gorilla Glass 7i, ~460ppi",
+      "Processor": "MediaTek Dimensity 9500s (3nm)",
+      "Rear Camera": "Triple 50MP wide (f/1.8, 24mm, PDAF+OIS) + 50MP periscope telephoto 3x (f/2.6, 73mm) + 50MP ultrawide (f/2.0, 15mm, 120°)",
+      "Front Camera": "32MP, f/2.4, 21mm",
+      "Battery": "7025mAh, 80W wired (55W PPS, 13.5W PD) charging",
+      "OS": "Android 16, ColorOS 16.0",
+      "Dimensions & Weight": "157.0 x 73.9 x 8.0mm, 202g",
+      "Security & Ports": "Under-display Ultrasonic Fingerprint, Dual Nano-SIM + eSIM, USB Type-C (OTG), IP68/IP69 rating",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -1014,10 +1154,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "12GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.82\" LTPO AMOLED, 144Hz, 1440x3168 QHD+, Dolby Vision/HDR10+, ~510ppi",
+      "Processor": "Qualcomm Snapdragon 8 Elite Gen 5 (3nm)",
+      "Rear Camera": "Quad 200MP wide (f/1.5, OIS) + 200MP periscope telephoto 3x (f/2.2, 70mm) + 50MP periscope telephoto 10x (f/3.5, 230mm) + 50MP ultrawide (f/2.0, 14mm)",
+      "Front Camera": "50MP, f/2.4, PDAF",
+      "Battery": "7050mAh, 100W wired (55W PPS) + 50W wireless charging",
+      "OS": "Android 16, ColorOS 16 (up to 5 major OS updates)",
+      "Dimensions & Weight": "163.2 x 77.0 x 8.7mm, 235g",
+      "Security & Ports": "Under-display Ultrasonic Fingerprint, Dual Nano-SIM + eSIM, USB Type-C 3.2, IP68/IP69 rating",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -1049,10 +1194,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "8GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.57\" AMOLED, 120Hz, 1080x2372 FHD+, Crystal Guard glass, ~397ppi",
+      "Processor": "MediaTek Dimensity 7300 Energy (4nm)",
+      "Rear Camera": "Triple 50MP wide (f/1.8, 26mm, PDAF+OIS) + 50MP telephoto 3.5x (f/2.8, 92mm) + 8MP ultrawide (f/2.2, 15mm, 116°)",
+      "Front Camera": "50MP, f/2.0, 18mm, 100° ultrawide",
+      "Battery": "7000mAh Si/C Li-Ion, 80W wired (55W PPS, 13.5W PD/QC) charging",
+      "OS": "Android 16, ColorOS 16",
+      "Dimensions & Weight": "158.2 x 74.9 x 8.4mm, 195g/197g (variant dependent)",
+      "Security & Ports": "In-display Optical Fingerprint, Dual Nano-SIM, USB Type-C 2.0 (OTG), IP68/IP69K rating (1.5m/30min)",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -1084,10 +1234,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "8GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.57\" AMOLED, 120Hz, 1080x2372 FHD+, Crystal Guard glass, ~397ppi",
+      "Processor": "MediaTek Dimensity 7300 Energy (4nm)",
+      "Rear Camera": "Triple 50MP wide (f/1.8, 26mm, PDAF+OIS) + 50MP telephoto 3.5x (f/2.8, 92mm) + 8MP ultrawide (f/2.2, 15mm, 116°)",
+      "Front Camera": "50MP, f/2.0, 18mm, 100° ultrawide",
+      "Battery": "7000mAh Si/C Li-Ion, 80W wired (55W PPS, 13.5W PD/QC) charging",
+      "OS": "Android 16, ColorOS 16",
+      "Dimensions & Weight": "158.2 x 74.9 x 8.4mm, 195g/197g (variant dependent)",
+      "Security & Ports": "In-display Optical Fingerprint, Dual Nano-SIM, USB Type-C 2.0 (OTG), IP68/IP69K rating (1.5m/30min)",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -1119,10 +1274,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "12GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.57\" AMOLED, 120Hz, 1080x2372 FHD+, Crystal Guard glass, ~397ppi",
+      "Processor": "MediaTek Dimensity 7300 Energy (4nm)",
+      "Rear Camera": "Triple 50MP wide (f/1.8, 26mm, PDAF+OIS) + 50MP telephoto 3.5x (f/2.8, 92mm) + 8MP ultrawide (f/2.2, 15mm, 116°)",
+      "Front Camera": "50MP, f/2.0, 18mm, 100° ultrawide",
+      "Battery": "7000mAh Si/C Li-Ion, 80W wired (55W PPS, 13.5W PD/QC) charging",
+      "OS": "Android 16, ColorOS 16",
+      "Dimensions & Weight": "158.2 x 74.9 x 8.4mm, 195g/197g (variant dependent)",
+      "Security & Ports": "In-display Optical Fingerprint, Dual Nano-SIM, USB Type-C 2.0 (OTG), IP68/IP69K rating (1.5m/30min)",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -1154,10 +1314,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "8GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.32\" AMOLED, 120Hz, FHD+ 1216x2640",
+      "Processor": "Qualcomm Snapdragon 7 Gen 4",
+      "Rear Camera": "50MP Main (f/1.8, OIS) + 50MP Telephoto (3.5x optical, f/2.8, OIS) + 50MP Ultrawide (f/2.0)",
+      "Front Camera": "50MP Ultrawide (f/2.0)",
+      "Battery": "6700mAh, 80W SUPERVOOC Fast Charging",
+      "OS": "Android 16, ColorOS 16",
+      "Dimensions & Weight": "151.2 x 72.4 x 8.2mm, 188g",
+      "Security & Ports": "Under-display Fingerprint, IP68/IP69K rated, Dual Nano-SIM (5G), USB Type-C 2.0, no 3.5mm jack",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -1189,10 +1354,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "12GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.32\" AMOLED, 120Hz, FHD+ 1216x2640",
+      "Processor": "Qualcomm Snapdragon 7 Gen 4",
+      "Rear Camera": "50MP Main (f/1.8, OIS) + 50MP Telephoto (3.5x optical, f/2.8, OIS) + 50MP Ultrawide (f/2.0)",
+      "Front Camera": "50MP Ultrawide (f/2.0)",
+      "Battery": "6700mAh, 80W SUPERVOOC Fast Charging",
+      "OS": "Android 16, ColorOS 16",
+      "Dimensions & Weight": "151.2 x 72.4 x 8.2mm, 188g",
+      "Security & Ports": "Under-display Fingerprint, IP68/IP69K rated, Dual Nano-SIM (5G), USB Type-C 2.0, no 3.5mm jack",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
@@ -1221,10 +1391,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "8GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "12.1\" IPS LCD, up to 144Hz, 2800x1980 (~QHD+), 900 nits peak, Dolby Vision",
+      "Processor": "MediaTek Dimensity 7300-Ultra",
+      "Rear Camera": "8MP (f/2.0)",
+      "Front Camera": "8MP (f/2.0)",
+      "Battery": "10050mAh, 33W SUPERVOOC Fast Charging",
+      "OS": "Android 16, ColorOS 16",
+      "Dimensions & Weight": "266.0 x 192.8 x 6.83mm, 597g (WiFi) / 599g (5G variant)",
+      "Security & Ports": "No fingerprint sensor, WiFi 6 + optional 5G cellular variant, Bluetooth 5.4, USB Type-C, no 3.5mm jack, stylus support",
+      "Box Contents": "Tablet, Power Adapter, USB-C Cable, Warranty Card"
     }
   },
   {
@@ -1253,10 +1428,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "8GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "12.1\" IPS LCD, up to 144Hz, 2800x1980 (~QHD+), 900 nits peak, Dolby Vision",
+      "Processor": "MediaTek Dimensity 7300-Ultra",
+      "Rear Camera": "8MP (f/2.0)",
+      "Front Camera": "8MP (f/2.0)",
+      "Battery": "10050mAh, 33W SUPERVOOC Fast Charging",
+      "OS": "Android 16, ColorOS 16",
+      "Dimensions & Weight": "266.0 x 192.8 x 6.83mm, 597g (WiFi) / 599g (5G variant)",
+      "Security & Ports": "No fingerprint sensor, WiFi 6 + optional 5G cellular variant, Bluetooth 5.4, USB Type-C, no 3.5mm jack, stylus support",
+      "Box Contents": "Tablet, Power Adapter, USB-C Cable, Warranty Card"
     }
   },
   {
@@ -1287,10 +1467,15 @@
     "boxChargerIncluded": true,
     "isOpenBox": true,
     "specs": {
-      "screen": "HD+/FHD+ 120Hz LCD/AMOLED Display",
-      "processor": "Octa-Core Processor",
-      "ram": "6GB",
-      "camera": "AI Multi-Camera System"
+      "Display": "6.75\" IPS LCD, 120Hz, HD+ 720x1570, 1125 nits peak",
+      "Processor": "MediaTek Dimensity 6300",
+      "Rear Camera": "50MP Main (f/1.8, AF) + 2MP Mono (f/2.4)",
+      "Front Camera": "8MP (f/2.0)",
+      "Battery": "7000mAh, 45W SUPERVOOC Fast Charging",
+      "OS": "Android 15, ColorOS 15",
+      "Dimensions & Weight": "166.6 x 78.5 x 8.6mm, 216g",
+      "Security & Ports": "Side-mounted Fingerprint, Dual Nano-SIM, USB Type-C 2.0, no 3.5mm jack (Type-C audio)",
+      "Box Contents": "Handset, Power Adapter, USB-C Cable, SIM Tool, Warranty Card"
     }
   },
   {
