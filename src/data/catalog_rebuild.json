@@ -656,7 +656,12 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-reno15-pro-mini/1.jpg",
+      "/products/oppo-reno15-pro-mini/2.jpg",
+      "/products/oppo-reno15-pro-mini/3.jpg",
+      "/products/oppo-reno15-pro-mini/4.jpg"
+    ],
     "imageFolder": "/products/oppo-reno15-pro-mini/",
     "inStock": true,
     "stockCount": 3,
@@ -685,7 +690,12 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-reno15-pro-mini/1.jpg",
+      "/products/oppo-reno15-pro-mini/2.jpg",
+      "/products/oppo-reno15-pro-mini/3.jpg",
+      "/products/oppo-reno15-pro-mini/4.jpg"
+    ],
     "imageFolder": "/products/oppo-reno15-pro-mini/",
     "inStock": true,
     "stockCount": 3,
@@ -946,7 +956,13 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-reno16-c/1.webp",
+      "/products/oppo-reno16-c/2.jpg",
+      "/products/oppo-reno16-c/3.jpg",
+      "/products/oppo-reno16-c/4.jpg",
+      "/products/oppo-reno16-c/5.jpg"
+    ],
     "imageFolder": "/products/oppo-reno16-c/",
     "inStock": true,
     "stockCount": 3,
@@ -975,7 +991,13 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-reno16-c/1.webp",
+      "/products/oppo-reno16-c/2.jpg",
+      "/products/oppo-reno16-c/3.jpg",
+      "/products/oppo-reno16-c/4.jpg",
+      "/products/oppo-reno16-c/5.jpg"
+    ],
     "imageFolder": "/products/oppo-reno16-c/",
     "inStock": true,
     "stockCount": 3,
@@ -1004,7 +1026,13 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-reno16-c/1.webp",
+      "/products/oppo-reno16-c/2.jpg",
+      "/products/oppo-reno16-c/3.jpg",
+      "/products/oppo-reno16-c/4.jpg",
+      "/products/oppo-reno16-c/5.jpg"
+    ],
     "imageFolder": "/products/oppo-reno16-c/",
     "inStock": true,
     "stockCount": 3,
@@ -1033,7 +1061,13 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-reno16/1.webp",
+      "/products/oppo-reno16/2.jpg",
+      "/products/oppo-reno16/3.jpg",
+      "/products/oppo-reno16/4.jpg",
+      "/products/oppo-reno16/5.jpg"
+    ],
     "imageFolder": "/products/oppo-reno16/",
     "inStock": true,
     "stockCount": 3,
@@ -1062,7 +1096,13 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-reno16/1.webp",
+      "/products/oppo-reno16/2.jpg",
+      "/products/oppo-reno16/3.jpg",
+      "/products/oppo-reno16/4.jpg",
+      "/products/oppo-reno16/5.jpg"
+    ],
     "imageFolder": "/products/oppo-reno16/",
     "inStock": true,
     "stockCount": 3,
@@ -1091,7 +1131,10 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-pad-5/1.webp",
+      "/products/oppo-pad-5/2.webp"
+    ],
     "imageFolder": "/products/oppo-pad-5/",
     "inStock": true,
     "stockCount": 3,
@@ -1120,7 +1163,10 @@
     "warrantyMonths": 12,
     "brandWarrantyMonths": 12,
     "batteryHealthPercent": 100,
-    "images": [],
+    "images": [
+      "/products/oppo-pad-5/1.webp",
+      "/products/oppo-pad-5/2.webp"
+    ],
     "imageFolder": "/products/oppo-pad-5/",
     "inStock": true,
     "stockCount": 3,
