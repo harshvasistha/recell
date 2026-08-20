@@ -123,7 +123,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'motorola',
     name: 'Motorola',
-    logoUrl: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%230014C7'/><text x='50' y='65' font-family='Arial, sans-serif' font-weight='bold' font-size='40' fill='%23fff' text-anchor='middle'>M</text></svg>", logoText: 'motorola',
+    logoUrl: "/brand-logos/motorola.png", logoText: 'motorola',
     tagline: 'Moto Edge 50 Ultra, Razr 50, G Series',
     modelsCount: 38,
     sellStartingFrom: 4200,
@@ -147,7 +147,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'poco',
     name: 'Poco',
-    logoUrl: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50' y='60' font-family='Arial, sans-serif' font-weight='bold' font-size='30' fill='%23FFCC00' text-anchor='middle' stroke='%23000' stroke-width='2'>POCO</text></svg>", logoText: 'POCO',
+    logoUrl: "/brand-logos/poco.png", logoText: 'POCO',
     tagline: 'Poco F6 5G, X6 Pro, M6 Pro 5G',
     modelsCount: 29,
     sellStartingFrom: 3800,
