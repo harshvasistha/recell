@@ -192,6 +192,16 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
             {filteredModels.length > 0 ? (
               filteredModels.map(m => {
                 const visual = getBrandVisual(m.brand);
+                // Models we've sourced a real (model-specific or brand-
+                // flagship) photo for use that photo directly. Models still
+                // on the old generic Unsplash desk photo (brands we haven't
+                // sourced real images for yet) keep the gradient + brand-
+                // logo icon tile instead, so nobody sees a photo that
+                // doesn't actually match the phone. If a real photo URL
+                // ever fails to load (these are hotlinked from manufacturer/
+                // GSMArena/Wikimedia URLs, not hosted by us), onError swaps
+                // it out for the same icon tile fallback.
+                const hasRealPhoto = !!m.imageUrl && !m.imageUrl.includes('unsplash.com');
                 return (
                   <button
                     key={m.id}
@@ -201,13 +211,31 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
                     }}
                     className="p-4 bg-white border border-slate-200 rounded-2xl hover:border-indigo-500 hover:shadow-md transition-all flex flex-col items-center gap-3 text-center"
                   >
-                    <div className={`w-28 h-28 rounded-2xl bg-gradient-to-br ${visual.gradient} flex items-center justify-center relative shadow-inner`}>
-                      <Smartphone className="w-12 h-12 text-white/90" strokeWidth={1.5} />
+                    <div className={`w-28 h-28 rounded-2xl bg-gradient-to-br ${visual.gradient} flex items-center justify-center relative shadow-inner overflow-hidden`}>
+                      {hasRealPhoto && (
+                        <img
+                          src={m.imageUrl}
+                          alt={m.name}
+                          loading="lazy"
+                          className="absolute inset-0 w-full h-full object-cover"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                            const fallback = e.currentTarget.nextElementSibling as HTMLElement | null;
+                            if (fallback) fallback.style.display = 'flex';
+                          }}
+                        />
+                      )}
+                      <div
+                        className="w-full h-full items-center justify-center"
+                        style={{ display: hasRealPhoto ? 'none' : 'flex' }}
+                      >
+                        <Smartphone className="w-12 h-12 text-white/90" strokeWidth={1.5} />
+                      </div>
                       {visual.logoUrl && (
                         <img
                           src={visual.logoUrl}
                           alt={m.brand}
-                          className="w-6 h-6 absolute bottom-2 right-2 rounded-full bg-white/95 p-0.5 shadow-md object-contain"
+                          className="w-6 h-6 absolute bottom-2 right-2 rounded-full bg-white/95 p-0.5 shadow-md object-contain z-10"
                         />
                       )}
                     </div>
