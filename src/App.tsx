@@ -66,7 +66,7 @@ export default function App() {
   useEffect(() => {
     if (user) {
       localStorage.setItem('recellUser', JSON.stringify(user));
-     
+    } else {
       localStorage.removeItem('recellUser');
     }
   }, [user]);
@@ -110,8 +110,6 @@ export default function App() {
       if (route.legalTab) {
         setLegalTab(route.legalTab);
         setIsLegalOpen(true);
-       
-        setIsLegalOpen(false);
       }
     };
 
@@ -228,11 +226,27 @@ export default function App() {
   };
 
   const handleQuickBuy = (product: CatalogProduct) => {
+    // Checkout writes an order document, which Firestore rules only allow
+    // for a signed-in user (see firestore.rules: orders/create requires
+    // isSignedIn()). Prompt login first instead of letting the customer
+    // hit a silent "could not create your order" failure at payment time.
+    if (!user) {
+      setIsAuthOpen(true);
+      return;
+    }
+    setCheckoutItems([product]);
+    setIsCheckoutOpen(true);
   };
 
   const handleCartCheckout = () => {
+    if (!user) {
+      setIsCartOpen(false);
+      setIsAuthOpen(true);
+      return;
+    }
     setCheckoutItems(cart);
     setIsCartOpen(false);
+    setIsCheckoutOpen(true);
   };
 
   // Handlers for data updates

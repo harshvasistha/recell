@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CatalogProduct, Order } from '../types';
 import { X, ShieldCheck, Check, CreditCard, QrCode, Truck, Lock, IndianRupee, SmartphoneCharging } from 'lucide-react';
 import { openRazorpayCheckout, createServerRazorpayOrder, verifyServerRazorpayPayment } from '../lib/razorpay';
@@ -17,8 +17,16 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   onClose,
   onOrderCreated
 }) => {
-  if (!isOpen || items.length === 0) return null;
-
+  // Hooks must run unconditionally on every render of this component -
+  // this modal stays mounted for the app's whole lifetime (App.tsx always
+  // renders <CheckoutModal isOpen={...} .../>, it never unmounts it), so an
+  // early return placed BEFORE these hooks used to make React execute a
+  // different number of hooks between the "closed" and "open" renders of
+  // the very same component instance. That is a Rules-of-Hooks violation
+  // and made React throw ("Rendered more hooks than during the previous
+  // render") - crashing to the ErrorBoundary the first time a customer
+  // actually opened checkout. The isOpen/items.length guard now lives
+  // AFTER all hooks are declared, right before the JSX return instead.
   const [step, setStep] = useState<'shipping' | 'payment' | 'success'>('shipping');
 
   // Customer Form - empty defaults
@@ -38,6 +46,20 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   const [paymentError, setPaymentError] = useState('');
 
   const totalAmount = items.reduce((acc, item) => acc + item.refurbPrice, 0);
+
+  // Since this component now stays mounted across opens/closes (fixing the
+  // hooks-order bug above means it can no longer unmount to reset its own
+  // state for free), reset back to a clean shipping-details form each time
+  // it's opened - otherwise a second purchase would reopen showing the
+  // previous order's success screen or a stale payment error.
+  useEffect(() => {
+    if (isOpen) {
+      setStep('shipping');
+      setPaymentError('');
+      setIsProcessing(false);
+      setCreatedOrder(null);
+    }
+  }, [isOpen]);
 
   const handleCreateOrder = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -138,6 +160,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       setPaymentError(err?.message || 'Something went wrong creating your order. Please try again.');
     }
   };
+
+  if (!isOpen || items.length === 0) return null;
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
