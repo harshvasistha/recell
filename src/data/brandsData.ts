@@ -27,7 +27,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'apple',
     name: 'Apple',
-    logoUrl: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='%23000' d='M50.4 46.5c.2-7.2 5.9-10.6 6.1-10.8-3.4-4.9-8.6-5.6-10.5-5.7-4.5-.4-8.8 2.6-11.1 2.6-2.3 0-5.8-2.6-9.5-2.5-4.8.1-9.3 2.8-11.8 7.1-5.1 8.8-1.3 21.8 3.6 28.9 2.4 3.5 5.2 7.4 9 7.3 3.6-.1 5-2.3 9.4-2.3 4.4 0 5.6 2.3 9.4 2.3 4 0 6.4-3.5 8.7-6.9 2.8-4 3.9-7.9 4-8.1-.1-.1-7.5-2.9-7.3-11.9zM48 23.9c2-2.4 3.3-5.7 2.9-9.1-3 .1-6.5 2-8.5 4.4-1.8 1.9-3.3 5.3-2.9 8.6 3.4.3 6.6-1.6 8.5-3.9z'/></svg>", logoText: 'Apple',
+    logoUrl: "/brand-logos/apple.jpg", logoText: 'Apple',
     tagline: 'iPhone 16, 15 Pro, 14, 13, 12, SE',
     modelsCount: 42,
     sellStartingFrom: 18000,
@@ -39,7 +39,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'samsung',
     name: 'Samsung',
-    logoUrl: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><ellipse cx='50' cy='50' rx='45' ry='25' fill='%231428a0'/><text x='50' y='57' font-family='Arial, sans-serif' font-weight='bold' font-size='18' fill='%23fff' text-anchor='middle'>SAMSUNG</text></svg>", logoText: 'SAMSUNG',
+    logoUrl: "/brand-logos/samsung.webp", logoText: 'SAMSUNG',
     tagline: 'Galaxy S24 Ultra, S23, Z Fold, A Series',
     modelsCount: 58,
     sellStartingFrom: 6500,
@@ -51,7 +51,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'oneplus',
     name: 'OnePlus',
-    logoUrl: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='80' height='80' x='10' y='10' rx='10' fill='%23EB0029'/><text x='50' y='65' font-family='Arial, sans-serif' font-weight='bold' font-size='45' fill='%23fff' text-anchor='middle'>1+</text></svg>", logoText: 'ONEPLUS',
+    logoUrl: "/brand-logos/oneplus.png", logoText: 'ONEPLUS',
     tagline: 'OnePlus 12, 11R, Nord 4, Open',
     modelsCount: 34,
     sellStartingFrom: 8500,
@@ -63,7 +63,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'xiaomi',
     name: 'Xiaomi / Redmi',
-    logoUrl: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='80' height='80' x='10' y='10' rx='20' fill='%23FF6900'/><text x='50' y='65' font-family='Arial, sans-serif' font-weight='bold' font-size='45' fill='%23fff' text-anchor='middle'>mi</text></svg>", logoText: 'Xiaomi',
+    logoUrl: "/brand-logos/xiaomi.png", logoText: 'Xiaomi',
     tagline: 'Xiaomi 14, Redmi Note 13 Pro+, K Series',
     modelsCount: 65,
     sellStartingFrom: 4500,
@@ -75,7 +75,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'vivo',
     name: 'Vivo',
-    logoUrl: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50' y='60' font-family='Arial, sans-serif' font-weight='bold' font-size='30' fill='%23415FFF' text-anchor='middle'>vivo</text></svg>", logoText: 'vivo',
+    logoUrl: "/brand-logos/vivo.jpg", logoText: 'vivo',
     tagline: 'Vivo X100 Pro, V30 Pro, T3 5G, Y Series',
     modelsCount: 48,
     sellStartingFrom: 5000,
@@ -87,7 +87,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'oppo',
     name: 'Oppo',
-    logoUrl: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50' y='60' font-family='Arial, sans-serif' font-weight='bold' font-size='30' fill='%2300665E' text-anchor='middle'>oppo</text></svg>", logoText: 'oppo',
+    logoUrl: "/brand-logos/oppo.png", logoText: 'oppo',
     tagline: 'Oppo Find N3 Flip, Reno 12 Pro, F Series',
     modelsCount: 45,
     sellStartingFrom: 4800,
@@ -99,7 +99,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'realme',
     name: 'Realme',
-    logoUrl: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='80' height='80' x='10' y='10' fill='%23FFC200'/><text x='50' y='57' font-family='Arial, sans-serif' font-weight='bold' font-size='20' fill='%23000' text-anchor='middle'>realme</text></svg>", logoText: 'realme',
+    logoUrl: "/brand-logos/realme.jpeg", logoText: 'realme',
     tagline: 'Realme GT 6, 12 Pro+, Narzo 70 Pro',
     modelsCount: 52,
     sellStartingFrom: 4000,
@@ -111,7 +111,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'google',
     name: 'Google Pixel',
-    logoUrl: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50' y='65' font-family='Arial, sans-serif' font-weight='bold' font-size='45' fill='%234285F4' text-anchor='middle'>G</text></svg>", logoText: 'Google Pixel',
+    logoUrl: "/brand-logos/google.jpg", logoText: 'Google Pixel',
     tagline: 'Pixel 9 Pro, Pixel 8a, 7 Pro, 6a',
     modelsCount: 18,
     sellStartingFrom: 11000,
@@ -135,7 +135,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'nothing',
     name: 'Nothing',
-    logoUrl: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='80' height='80' x='10' y='10' fill='%23000'/><text x='50' y='55' font-family='Courier New, monospace' font-weight='bold' font-size='14' fill='%23fff' text-anchor='middle' letter-spacing='2'>NOTHING</text></svg>", logoText: 'NOTHING',
+    logoUrl: "/brand-logos/nothing.jpeg", logoText: 'NOTHING',
     tagline: 'Nothing Phone 2a, Phone 2, Phone 1',
     modelsCount: 6,
     sellStartingFrom: 12000,
@@ -159,7 +159,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'iqoo',
     name: 'iQOO',
-    logoUrl: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50' y='60' font-family='Arial, sans-serif' font-weight='bold' font-style='italic' font-size='30' fill='%23000' text-anchor='middle'>iQOO</text></svg>", logoText: 'iQOO',
+    logoUrl: "/brand-logos/iqoo.png", logoText: 'iQOO',
     tagline: 'iQOO 12 5G, Neo 9 Pro, Z9 5G',
     modelsCount: 22,
     sellStartingFrom: 7000,
@@ -171,7 +171,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'asus',
     name: 'Asus / ROG',
-    logoUrl: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50' y='60' font-family='Arial, sans-serif' font-weight='bold' font-size='30' fill='%2300539B' text-anchor='middle'>ASUS</text></svg>", logoText: 'ASUS ROG',
+    logoUrl: "/brand-logos/asus.png", logoText: 'ASUS ROG',
     tagline: 'ROG Phone 8 Pro, Zenfone 10, ROG 7',
     modelsCount: 12,
     sellStartingFrom: 14000,
@@ -183,7 +183,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'honor',
     name: 'Honor',
-    logoUrl: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50' y='60' font-family='Arial, sans-serif' font-weight='bold' font-size='28' fill='%23000' text-anchor='middle' letter-spacing='1'>HONOR</text></svg>", logoText: 'HONOR',
+    logoUrl: "/brand-logos/honor.jpg", logoText: 'HONOR',
     tagline: 'Honor 200 Pro, Magic 6 Pro, X9b',
     modelsCount: 16,
     sellStartingFrom: 6000,
@@ -195,7 +195,7 @@ export const MAJOR_MOBILE_BRANDS: BrandCategory[] = [
   {
     id: 'infinix',
     name: 'Infinix / Tecno',
-    logoUrl: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50' y='60' font-family='Arial, sans-serif' font-weight='bold' font-size='26' fill='%2300874E' text-anchor='middle'>Infinix</text></svg>", logoText: 'Infinix',
+    logoUrl: "/brand-logos/infinix.jpg", logoText: 'Infinix',
     tagline: 'Infinix GT 20 Pro, Phantom V Fold, Zero 30',
     modelsCount: 30,
     sellStartingFrom: 3200,
