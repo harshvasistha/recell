@@ -4,6 +4,28 @@ import { calculateRoughQuote, isLocalPincode } from '../utils/pricingEngine';
 import { Smartphone, Check, AlertCircle, Camera, Upload, Calendar, Clock, MapPin, IndianRupee, Sparkles, ShieldCheck, ArrowRight, ArrowLeft, ChevronRight, CheckCircle2 } from 'lucide-react';
 import { MAJOR_MOBILE_BRANDS } from '../data/brandsData';
 
+// The model catalog (initialData.ts) reused the same handful of generic
+// Unsplash desk-photo URLs across every model of a brand - every card in
+// the model grid literally showed the same picture. Real per-model photos
+// for 300+ legacy models across 15 brands isn't realistic to source, so
+// each model now gets a clean per-brand icon tile instead: the brand's own
+// gradient + logo mark (already defined in brandsData.ts) behind a phone
+// silhouette. Brand names aren't always spelled identically between the two
+// data files (e.g. "Xiaomi" vs "Xiaomi / Redmi", "Google" vs "Google
+// Pixel"), so this matches loosely in both directions rather than requiring
+// an exact string match.
+const getBrandVisual = (brandName: string) => {
+  const needle = brandName.toLowerCase();
+  const match = MAJOR_MOBILE_BRANDS.find(b => {
+    const hay = b.name.toLowerCase();
+    return hay.includes(needle) || needle.includes(hay.split(' / ')[0].toLowerCase());
+  });
+  return {
+    gradient: match?.gradient || 'from-slate-700 to-slate-900',
+    logoUrl: match?.logoUrl
+  };
+};
+
 interface SellPhoneWizardProps {
   deviceModels: DeviceModel[];
   pricingRules: PricingRules;
@@ -168,26 +190,34 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-h-[600px] overflow-y-auto pr-2">
             {filteredModels.length > 0 ? (
-              filteredModels.map(m => (
-                <button
-                  key={m.id}
-                  onClick={() => {
-                    setSelectedModel(m);
-                    setStep(3);
-                  }}
-                  className="p-4 bg-white border border-slate-200 rounded-2xl hover:border-indigo-500 hover:shadow-md transition-all flex flex-col items-center gap-3 text-center"
-                >
-                  <img
-                    src={m.imageUrl}
-                    alt={m.name}
-                    className="w-28 h-28 object-contain"
-                  />
-                  <div>
-                    <h3 className="font-bold text-slate-900 text-sm leading-tight">{m.name}</h3>
-                    <p className="text-xs text-slate-500 mt-1">{m.variant}</p>
-                  </div>
-                </button>
-              ))
+              filteredModels.map(m => {
+                const visual = getBrandVisual(m.brand);
+                return (
+                  <button
+                    key={m.id}
+                    onClick={() => {
+                      setSelectedModel(m);
+                      setStep(3);
+                    }}
+                    className="p-4 bg-white border border-slate-200 rounded-2xl hover:border-indigo-500 hover:shadow-md transition-all flex flex-col items-center gap-3 text-center"
+                  >
+                    <div className={`w-28 h-28 rounded-2xl bg-gradient-to-br ${visual.gradient} flex items-center justify-center relative shadow-inner`}>
+                      <Smartphone className="w-12 h-12 text-white/90" strokeWidth={1.5} />
+                      {visual.logoUrl && (
+                        <img
+                          src={visual.logoUrl}
+                          alt={m.brand}
+                          className="w-6 h-6 absolute bottom-2 right-2 rounded-full bg-white/95 p-0.5 shadow-md object-contain"
+                        />
+                      )}
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-slate-900 text-sm leading-tight">{m.name}</h3>
+                      <p className="text-xs text-slate-500 mt-1">{m.variant}</p>
+                    </div>
+                  </button>
+                );
+              })
             ) : (
               <div className="col-span-full py-12 text-center text-slate-500 font-medium">
                 No models found for {selectedBrand}. <br />
