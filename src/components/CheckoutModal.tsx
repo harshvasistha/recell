@@ -4,11 +4,11 @@ import { X, ShieldCheck, Check, CreditCard, QrCode, Truck, Lock, IndianRupee, Sm
 import { openRazorpayCheckout, createServerRazorpayOrder, verifyServerRazorpayPayment } from '../lib/razorpay';
 import { saveOrderToDB } from '../lib/dbService';
 
-// Must match COD_TOKEN_AMOUNT_RUPEES in functions/src/index.ts - this value
-// here is only ever used for display; the Cloud Function decides the real
-// charge amount server-side from the order's paymentMethod, never trusting
-// anything the client sends.
-const COD_TOKEN_AMOUNT = 499;
+// Must match COD_DEPOSIT_PERCENT in functions/src/index.ts - this value here
+// is only ever used for display; the Cloud Function decides the real charge
+// amount server-side from the order's paymentMethod and totalAmount, never
+// trusting anything the client sends.
+const COD_DEPOSIT_PERCENT = 0.10;
 
 interface CheckoutModalProps {
   items: CatalogProduct[];
@@ -53,8 +53,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
   const totalAmount = items.reduce((acc, item) => acc + item.refurbPrice, 0);
   const isCod = paymentMethod === 'COD (Deposit Paid)';
-  const chargeNowAmount = isCod ? COD_TOKEN_AMOUNT : totalAmount;
-  const codBalanceDue = Math.max(0, totalAmount - COD_TOKEN_AMOUNT);
+  const codDepositAmount = Math.round(totalAmount * COD_DEPOSIT_PERCENT);
+  const chargeNowAmount = isCod ? codDepositAmount : totalAmount;
+  const codBalanceDue = Math.max(0, totalAmount - codDepositAmount);
 
   // Since this component now stays mounted across opens/closes (fixing the
   // hooks-order bug above means it can no longer unmount to reset its own
@@ -127,7 +128,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
         amount: chargeNowAmount,
         name: 'Recell Mobile Store',
         description: isCod
-          ? `₹${COD_TOKEN_AMOUNT} booking token for ${items.length} Mobile Device(s) - balance on delivery`
+          ? `₹${chargeNowAmount} (10% deposit) for ${items.length} Mobile Device(s) - balance on delivery`
           : `Purchase of ${items.length} Mobile Device(s)`,
         prefill: {
           name: customerName,
@@ -152,7 +153,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               ...pendingOrder,
               paymentStatus: 'Paid',
               orderStatus: 'Confirmed',
-              ...(isCod ? { codTokenAmount: COD_TOKEN_AMOUNT, codBalanceDue: codBalanceDue } : {})
+              ...(isCod ? { codTokenAmount: codDepositAmount, codBalanceDue: codBalanceDue } : {})
             };
             setCreatedOrder(confirmedOrder);
             onOrderCreated(confirmedOrder);
@@ -299,7 +300,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   Razorpay Secure Payment
                 </h2>
                 <span className="text-xs text-slate-400 font-mono">
-                  {isCod ? `Booking Token: ₹${chargeNowAmount.toLocaleString('en-IN')}` : `Amount: ₹${chargeNowAmount.toLocaleString('en-IN')}`}
+                  {isCod ? `Deposit (10%): ₹${chargeNowAmount.toLocaleString('en-IN')}` : `Amount: ₹${chargeNowAmount.toLocaleString('en-IN')}`}
                 </span>
               </div>
 
@@ -314,7 +315,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 {[
                   { key: 'Razorpay UPI', label: 'UPI / GPay', icon: QrCode },
                   { key: 'Razorpay Card', label: 'Debit / Credit Card', icon: CreditCard },
-                  { key: 'COD (Deposit Paid)', label: 'COD (₹499 Token)', icon: Truck }
+                  { key: 'COD (Deposit Paid)', label: `COD (${COD_DEPOSIT_PERCENT * 100}% Deposit)`, icon: Truck }
                 ].map((pm) => {
                   const Icon = pm.icon;
                   return (
@@ -364,10 +365,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 text-center space-y-2">
                   <div className="flex items-center justify-center gap-2 text-emerald-400">
                     <Truck className="w-4 h-4" />
-                    <span className="text-xs font-bold">₹{COD_TOKEN_AMOUNT} booking token via Razorpay now</span>
+                    <span className="text-xs font-bold">₹{chargeNowAmount.toLocaleString('en-IN')} (10% deposit) via Razorpay now</span>
                   </div>
                   <p className="text-[11px] text-slate-400">
-                    The remaining <strong className="text-slate-200">₹{codBalanceDue.toLocaleString('en-IN')}</strong> is collected by our courier in cash/UPI at delivery.
+                    The remaining <strong className="text-slate-200">₹{codBalanceDue.toLocaleString('en-IN')}</strong> (90%) is collected by our courier in cash/UPI at delivery.
                   </p>
                 </div>
               )}
@@ -392,7 +393,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     </>
                   ) : (
                     <>
-                      Pay ₹{chargeNowAmount.toLocaleString('en-IN')}{isCod ? ' Token' : ''} & Confirm Order
+                      Pay ₹{chargeNowAmount.toLocaleString('en-IN')}{isCod ? ' Deposit' : ''} & Confirm Order
                     </>
                   )}
                 </button>
@@ -436,7 +437,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 {createdOrder.codTokenAmount != null && (
                   <>
                     <div className="flex justify-between">
-                      <span className="text-slate-400">Booking Token Paid:</span>
+                      <span className="text-slate-400">Deposit Paid (10%):</span>
                       <span className="font-bold text-emerald-400">₹{createdOrder.codTokenAmount.toLocaleString('en-IN')}</span>
                     </div>
                     <div className="flex justify-between">

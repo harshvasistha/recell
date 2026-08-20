@@ -10,12 +10,15 @@ const db = admin.firestore();
 const RAZORPAY_KEY_ID = defineSecret('RAZORPAY_KEY_ID');
 const RAZORPAY_KEY_SECRET = defineSecret('RAZORPAY_KEY_SECRET');
 
-// COD orders only ever collect this fixed refundable booking token through
-// Razorpay up front - the remaining balance is collected in cash/UPI by the
-// courier on delivery. Charge amount is decided here, server-side, from the
-// order's paymentMethod - never from anything the client sends - so a COD
-// order can never be tricked into charging (or skipping) the full amount.
-const COD_TOKEN_AMOUNT_RUPEES = 499;
+// COD orders only ever collect this percentage of the order total as a
+// refundable deposit through Razorpay up front - the remaining balance is
+// collected in cash/UPI by the courier on delivery. Charge amount is decided
+// here, server-side, from the order's paymentMethod and its own totalAmount
+// (both read from Firestore) - never from anything the client sends - so a
+// COD order can never be tricked into charging (or skipping) the full amount.
+const COD_DEPOSIT_PERCENT = 0.10;
+const computeCodDepositRupees = (totalAmount: number): number =>
+  Math.round(Number(totalAmount) * COD_DEPOSIT_PERCENT);
 
 /**
  * Creates a real Razorpay order server-side for an existing, still-pending
@@ -47,7 +50,9 @@ export const createRazorpayOrder = onCall(
     }
 
     const isCodOrder = order.paymentMethod === 'COD (Deposit Paid)';
-    const chargeRupees = isCodOrder ? COD_TOKEN_AMOUNT_RUPEES : Number(order.totalAmount);
+    const chargeRupees = isCodOrder
+      ? computeCodDepositRupees(order.totalAmount)
+      : Number(order.totalAmount);
     const amountPaise = Math.round(chargeRupees * 100);
     if (!amountPaise || amountPaise <= 0) {
       throw new HttpsError('failed-precondition', 'Order has no valid amount.');
@@ -64,7 +69,7 @@ export const createRazorpayOrder = onCall(
       receipt: orderId,
       notes: {
         recellOrderId: orderId,
-        chargeType: isCodOrder ? 'COD booking token' : 'Full order amount'
+        chargeType: isCodOrder ? `COD ${COD_DEPOSIT_PERCENT * 100}% deposit` : 'Full order amount'
       }
     });
 
@@ -136,20 +141,21 @@ export const verifyRazorpayPayment = onCall(
 
     const now = new Date();
     const isCodOrder = order.paymentMethod === 'COD (Deposit Paid)';
-    const chargedAmount = isCodOrder ? COD_TOKEN_AMOUNT_RUPEES : Number(order.totalAmount);
+    const codDepositRupees = computeCodDepositRupees(order.totalAmount);
+    const chargedAmount = isCodOrder ? codDepositRupees : Number(order.totalAmount);
 
     await orderRef.update({
       paymentStatus: 'Paid',
       orderStatus: 'Confirmed',
       razorpayPaymentId: razorpay_payment_id,
       ...(isCodOrder ? {
-        codTokenAmount: COD_TOKEN_AMOUNT_RUPEES,
-        codBalanceDue: Math.max(0, Number(order.totalAmount) - COD_TOKEN_AMOUNT_RUPEES)
+        codTokenAmount: codDepositRupees,
+        codBalanceDue: Math.max(0, Number(order.totalAmount) - codDepositRupees)
       } : {}),
       trackingHistory: admin.firestore.FieldValue.arrayUnion({
         time: now.toLocaleString('en-IN'),
         status: isCodOrder
-          ? `Order Confirmed - Razorpay Booking Token (${razorpay_payment_id}) Verified. Balance due on delivery.`
+          ? `Order Confirmed - Razorpay Deposit (${razorpay_payment_id}) Verified. Balance due on delivery.`
           : `Order Confirmed - Razorpay Payment (${razorpay_payment_id}) Verified`,
         location: 'Recell Central Hub, Khekra'
       })
