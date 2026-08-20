@@ -35,7 +35,7 @@ export const SEED_DEVICE_MODELS: DeviceModel[] = [
   { id: 'm-xi-15pro', brand: 'Xiaomi', name: 'Xiaomi 15 Pro 5G', variant: '256GB / 512GB', baseMarketPrice: 62000, imageUrl: '/sell-flow-brand-photos/xiaomi.webp', releaseYear: 2025 },
   { id: 'm-xi-14u', brand: 'Xiaomi', name: 'Xiaomi 14 Ultra 5G', variant: '512GB', baseMarketPrice: 72000, imageUrl: '/sell-flow-brand-photos/xiaomi.webp', releaseYear: 2024, popular: true },
   { id: 'm-xi-14', brand: 'Xiaomi', name: 'Xiaomi 14 5G', variant: '256GB', baseMarketPrice: 46000, imageUrl: '/sell-flow-brand-photos/xiaomi.webp', releaseYear: 2024 },
-  { id: 'm9', brand: 'Xiaomi', name: 'Redmi Note 14 Pro+ 5G', variant: '256GB', baseMarketPrice: 22000, imageUrl: '/sell-flow-brand-photos/xiaomi.webp', releaseYear: 2024, popular: true },
+  { id: 'm9', brand: 'Xiaomi', name: 'Redmi Note 14 Pro+ 5G', variant: '256GB', baseMarketPrice: 22000, imageUrl: '/products/redmi-note-14-pro-plus/1.webp', releaseYear: 2024, popular: true },
   { id: 'm-xi-rn13pro', brand: 'Xiaomi', name: 'Redmi Note 13 Pro+ 5G', variant: '256GB', baseMarketPrice: 19500, imageUrl: '/sell-flow-brand-photos/xiaomi.webp', releaseYear: 2024, popular: true },
   { id: 'm-xi-rn13', brand: 'Xiaomi', name: 'Redmi Note 13 5G', variant: '128GB', baseMarketPrice: 12500, imageUrl: '/sell-flow-brand-photos/xiaomi.webp', releaseYear: 2024 },
   { id: 'm-vv-x100pro', brand: 'Vivo', name: 'Vivo X100 Pro 5G', variant: '512GB', baseMarketPrice: 64000, imageUrl: 'https://asia-exstatic-vivofs.vivo.com/PSee2l50xoirPK7y/1702882620686/2948ef675bc40de94b1ee85acdafe210.png', releaseYear: 2024, popular: true },
