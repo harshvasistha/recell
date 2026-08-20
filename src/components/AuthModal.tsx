@@ -3,13 +3,20 @@ import { RecellLogo } from './RecellLogo';
 import { X, CheckCircle2, ArrowRight, Smartphone, Mail, Lock, User, ShieldCheck, MapPin, LogOut, Package } from 'lucide-react';
 import { resolveUserProfile, UserProfile } from '../lib/dbService';
 import { auth } from '../lib/firebase';
-import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+import { RecaptchaVerifier, signInWithPhoneNumber, signInWithEmailAndPassword } from 'firebase/auth';
 import { sendEmailSignInLink } from '../lib/emailLinkAuth';
 
 // Local-dev-only OTP shortcut so you can test the phone flow without live SMS
 // billing enabled. import.meta.env.DEV is always false in a production build
 // (Vite strips this branch entirely), so this never ships to recell.co.in.
 const DEV_OTP_BYPASS = import.meta.env.DEV ? '520055' : null;
+
+// admin@recell.in is a placeholder address, not a real inbox - it can never
+// receive a passwordless sign-in link. It's the one account still allowed to
+// use classic email+password auth (the account already exists in Firebase
+// Auth with a password from before the OTP/email-link change), matched
+// case-insensitively against whatever the operator types in.
+const ADMIN_EMAIL = 'admin@recell.in';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -39,6 +46,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [pincode, setPincode] = useState('');
   
   const [otpInput, setOtpInput] = useState('');
+  const [adminPassword, setAdminPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
@@ -68,6 +76,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     setEmail('');
     setPincode('');
     setOtpInput('');
+    setAdminPassword('');
     setStep('form');
     setErrorMsg('');
     setSuccessMsg('');
@@ -75,12 +84,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     onClose();
   };
 
+  const isAdminEmail = authMethod === 'email' && email.trim().toLowerCase() === ADMIN_EMAIL;
+
   const handleSendOtpStep = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg('');
     setSuccessMsg('');
 
-    if (mode === 'signup' && !fullName.trim()) {
+    if (mode === 'signup' && !fullName.trim() && !isAdminEmail) {
       setErrorMsg('Please enter your full name.');
       return;
     }
@@ -94,6 +105,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     } else {
       if (!email.includes('@')) {
         setErrorMsg('Please enter a valid email address.');
+        return;
+      }
+      if (isAdminEmail && !adminPassword) {
+        setErrorMsg('Please enter the admin password.');
         return;
       }
     }
@@ -112,6 +127,16 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         setSuccessMsg('OTP sent to your phone.');
         setIsSubmitting(false);
         setStep('otp');
+        return;
+      }
+
+      if (isAdminEmail) {
+        // admin@recell.in isn't a real inbox, so it's excluded from the
+        // passwordless email-link flow and kept on classic email+password
+        // auth instead - the account already exists in Firebase Auth with a
+        // password from before the OTP change.
+        await signInWithEmailAndPassword(auth, ADMIN_EMAIL, adminPassword);
+        await finishLoginForEmail(ADMIN_EMAIL, { isNewSignup: false });
         return;
       }
 
@@ -171,6 +196,39 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     handleClose();
   };
 
+  // Same completion step as finishLogin, but for the email+password admin
+  // path - keyed by email instead of phone (mirrors how the passwordless
+  // email-link flow in App.tsx resolves its profile).
+  const finishLoginForEmail = async (
+    emailKey: string,
+    opts: { isNewSignup: boolean }
+  ) => {
+    const profile: UserProfile = await resolveUserProfile(emailKey, opts.isNewSignup, {
+      uid: emailKey,
+      name: fullName.trim() || emailKey.split('@')[0],
+      phone: '',
+      email: emailKey,
+      pincode: pincode.trim() || '250101'
+    });
+
+    setIsSubmitting(false);
+    onSuccess({
+      name: profile.name,
+      phone: profile.phone,
+      role: profile.role,
+      email: profile.email,
+      pincode: profile.pincode
+    });
+
+    if (profile.role === 'admin') {
+      document.dispatchEvent(new CustomEvent('NAVIGATE_ADMIN'));
+    } else {
+      document.dispatchEvent(new CustomEvent('NAVIGATE_HOME'));
+    }
+
+    handleClose();
+  };
+
   const mapAuthError = (err: any): string => {
     const code = err?.code || '';
     if (code === 'auth/invalid-email') return 'Please enter a valid email address.';
@@ -181,6 +239,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     }
     if (code === 'auth/operation-not-allowed') {
       return 'Email sign-in link is not enabled yet on this account. Please contact support.';
+    }
+    if (code === 'auth/wrong-password' || code === 'auth/invalid-credential') {
+      return 'Incorrect admin password.';
+    }
+    if (code === 'auth/user-not-found') {
+      return 'Admin account not found. Contact support.';
     }
     return err?.message || 'Failed to authenticate. Please check your details and try again.';
   };
@@ -459,18 +523,38 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                       </div>
                     </div>
                   ) : (
-                    <div>
-                      <label className="text-xs font-bold text-slate-700 block mb-1">Email Address</label>
-                      <div className="relative">
-                        <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                        <input
-                          type="email"
-                          required
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          className="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-[#0052FF] outline-none"
-                        />
+                    <div className="space-y-4">
+                      <div>
+                        <label className="text-xs font-bold text-slate-700 block mb-1">Email Address</label>
+                        <div className="relative">
+                          <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                          <input
+                            type="email"
+                            required
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-[#0052FF] outline-none"
+                          />
+                        </div>
                       </div>
+                      {isAdminEmail && (
+                        <div>
+                          <label className="text-xs font-bold text-slate-700 block mb-1">Admin Password</label>
+                          <div className="relative">
+                            <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                            <input
+                              type="password"
+                              required
+                              value={adminPassword}
+                              onChange={(e) => setAdminPassword(e.target.value)}
+                              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-[#0052FF] outline-none"
+                            />
+                          </div>
+                          <p className="text-[10px] text-slate-400 mt-1">
+                            admin@recell.in isn't a real inbox, so this account signs in with a password instead of an email link.
+                          </p>
+                        </div>
+                      )}
                     </div>
                   )}
 
@@ -484,6 +568,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     ) : authMethod === 'phone' ? (
                       <>
                         <span>{mode === 'signup' ? 'Get OTP & Activate Account' : 'Get OTP & Sign In'}</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </>
+                    ) : isAdminEmail ? (
+                      <>
+                        <span>Sign In as Admin</span>
                         <ArrowRight className="w-4 h-4" />
                       </>
                     ) : (
