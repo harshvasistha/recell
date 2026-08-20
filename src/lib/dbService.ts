@@ -219,13 +219,20 @@ export async function savePaymentRecord(payment: PaymentRecord): Promise<void> {
 
 // 6. Catalog Sync
 
-export async function saveCatalogToDB(catalog: CatalogProduct[]): Promise<void> {
+// Returns whether the write actually succeeded. Callers must surface a
+// failure to the admin - a permission-denied write (e.g. the admin's
+// session having silently changed identity) used to fail here completely
+// silently, so catalog edits that looked fine in the UI were never really
+// persisted and vanished on the next reload.
+export async function saveCatalogToDB(catalog: CatalogProduct[]): Promise<boolean> {
   try {
     const docRef = doc(db, 'system', 'catalog');
     await setDoc(docRef, { products: catalog });
     console.log('[Firestore] Catalog saved successfully.');
+    return true;
   } catch (err) {
     console.error('[Firestore] Error saving catalog:', err);
+    return false;
   }
 }
 

@@ -3,7 +3,28 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, User,
 import firebaseConfig from '../../firebase-applet-config.json';
 import { CatalogProduct } from '../types';
 
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+// CRITICAL: this must be a SEPARATE, named Firebase App instance, not the
+// app returned by getApp() with no name.  src/lib/firebase.ts also
+// initializes the (unnamed/default) app and exports `auth`/`db` from it for
+// the whole rest of the site, including the admin login. Auth instances
+// created from the SAME app share one signed-in user. Previously this file
+// called getApp() with no name, which resolves to that same default app -
+// so signInWithPopup() here (connecting Google Drive) silently REPLACED the
+// admin's signed-in session (admin@recell.in) with the admin's personal
+// Google account the moment they connected Drive, and logoutGoogleDrive()
+// signed that shared session out entirely. Firestore's isAdmin() rule
+// checks request.auth.token.email == 'admin@recell.in', so every catalog
+// save after connecting Drive was silently rejected as permission-denied -
+// the newly "published" products only ever existed in local React state,
+// never actually in Firestore, and vanished on the next reload/logout.
+// Using a distinct named app here keeps Drive's Google OAuth session fully
+// isolated from the admin's real login, exactly as Firebase's own docs
+// recommend for "sign in to get a token for another API without switching
+// your primary user."
+const DRIVE_AUTH_APP_NAME = 'recell-drive-oauth';
+const app = getApps().some(a => a.name === DRIVE_AUTH_APP_NAME)
+  ? getApp(DRIVE_AUTH_APP_NAME)
+  : initializeApp(firebaseConfig, DRIVE_AUTH_APP_NAME);
 export const auth = getAuth(app);
 
 const driveProvider = new GoogleAuthProvider();

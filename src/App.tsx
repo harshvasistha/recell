@@ -171,10 +171,17 @@ export default function App() {
     return () => { cancelled = true; };
   }, []);
 
+  // Surfaces a visible warning when a catalog save is rejected (e.g. the
+  // admin's Firestore write permission failing) instead of failing
+  // completely silently - this used to mean products the admin "published"
+  // only ever existed in local browser state and vanished on next reload,
+  // with zero indication anything had gone wrong.
+  const [catalogSaveError, setCatalogSaveError] = useState(false);
+
   useEffect(() => {
     if (!catalogLoaded) return;
     localStorage.setItem('recellCatalog', JSON.stringify(catalog));
-    saveCatalogToDB(catalog);
+    saveCatalogToDB(catalog).then(success => setCatalogSaveError(!success));
   }, [catalog, catalogLoaded]);
 
   const [buyRequests, setBuyRequests] = useState<BuyQuoteRequest[]>(SEED_BUY_REQUESTS);
@@ -477,6 +484,11 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-slate-900 font-sans selection:bg-[#0052FF] selection:text-white flex flex-col justify-between pb-20 lg:pb-0">
+      {catalogSaveError && currentTab === 'admin' && (
+        <div className="fixed top-0 inset-x-0 z-[200] bg-rose-600 text-white text-xs sm:text-sm font-bold text-center py-2 px-4">
+          Your last catalog change failed to save to the database - it will be lost on reload. Check that you're still signed in as admin (reconnecting Google Drive can sign you out of admin) and try the edit again.
+        </div>
+      )}
       <div>
         {isAppFrame ? (
           <CapacitorAppWrapper onExit={() => setIsAppFrame(false)}>
