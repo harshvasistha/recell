@@ -405,29 +405,58 @@ export default function App() {
         />
       )}
 
-      {currentTab === 'product' && currentProductId && (
-        <ProductDetailsPage
-          product={catalog.find(p => p.id === currentProductId) || catalog[0]}
-          catalog={catalog}
-          onSelectProduct={handleSelectProduct}
-          onAddToCart={handleAddToCart}
-          onBuyNow={handleQuickBuy}
-          onBack={() => {
-            const viewedProduct = catalog.find(p => p.id === currentProductId);
-            setCurrentTab(viewedProduct?.conditionGrade === 'Open Box' ? 'open-box' : 'buy');
-            setCurrentProductId(undefined);
-          }}
-          onNavigateHome={() => {
-            setCurrentTab('landing');
-            setCurrentProductId(undefined);
-          }}
-          onNavigateCategory={() => {
-            const viewedProduct = catalog.find(p => p.id === currentProductId);
-            setCurrentTab(viewedProduct?.conditionGrade === 'Open Box' ? 'open-box' : 'buy');
-            setCurrentProductId(undefined);
-          }}
-        />
+      {currentTab === 'product' && currentProductId && !catalogLoaded && (
+        // Reloading or navigating Back straight onto a product URL used to
+        // crash here: catalog starts as an EMPTY seed array before the
+        // Firestore fetch resolves, so `catalog.find(...) || catalog[0]`
+        // evaluated to undefined, and the page immediately read
+        // `product.originalPrice` etc. on an undefined product. Show a
+        // simple loading state instead of rendering the page at all until
+        // the real catalog has actually loaded.
+        <div className="min-h-screen flex items-center justify-center pt-24">
+          <div className="text-slate-400 text-sm font-medium animate-pulse">Loading product...</div>
+        </div>
       )}
+
+      {currentTab === 'product' && currentProductId && catalogLoaded && (() => {
+        const viewedProduct = catalog.find(p => p.id === currentProductId);
+        if (!viewedProduct) {
+          // Genuinely missing (bad/stale link) - never silently fall back
+          // to catalog[0], which showed a random, wrong product.
+          return (
+            <div className="min-h-screen flex flex-col items-center justify-center gap-4 pt-24 text-center px-6">
+              <p className="text-slate-600 font-semibold">This product could not be found.</p>
+              <button
+                onClick={() => { setCurrentTab('landing'); setCurrentProductId(undefined); }}
+                className="text-blue-600 font-bold text-sm hover:underline"
+              >
+                Back to Home
+              </button>
+            </div>
+          );
+        }
+        return (
+          <ProductDetailsPage
+            product={viewedProduct}
+            catalog={catalog}
+            onSelectProduct={handleSelectProduct}
+            onAddToCart={handleAddToCart}
+            onBuyNow={handleQuickBuy}
+            onBack={() => {
+              setCurrentTab(viewedProduct.conditionGrade === 'Open Box' ? 'open-box' : 'buy');
+              setCurrentProductId(undefined);
+            }}
+            onNavigateHome={() => {
+              setCurrentTab('landing');
+              setCurrentProductId(undefined);
+            }}
+            onNavigateCategory={() => {
+              setCurrentTab(viewedProduct.conditionGrade === 'Open Box' ? 'open-box' : 'buy');
+              setCurrentProductId(undefined);
+            }}
+          />
+        );
+      })()}
 
       {currentTab === 'admin' && (
         <AdminDashboard
