@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { parseRouteFromLocation, syncUrlWithRoute } from './utils/routing';
+import { parseRouteFromLocation, syncUrlWithRoute, buildRouteUrl } from './utils/routing';
 import {
   SEED_DEVICE_MODELS,
   DEFAULT_PRICING_RULES,
@@ -38,7 +38,7 @@ import { ContactUs } from './components/Pages/ContactUs';
 import { OpenBoxMobiles } from './components/Pages/OpenBoxMobiles';
 import { ProductDetailsPage } from './components/Pages/ProductDetailsPage';
 import { AuthModal } from './components/AuthModal';
-import { UserProfileModal } from './components/UserProfileModal';
+import { ProfilePage } from './components/Pages/ProfilePage';
 import { saveOrderToDB, saveSellRequestToDB, fetchCatalogFromDB, saveCatalogToDB, resolveUserProfile } from './lib/dbService';
 import { isEmailSignInLink, completeEmailSignIn, getPendingEmailAuth, clearPendingEmailAuth } from './lib/emailLinkAuth';
 import { MegaMenu } from './components/MegaMenu';
@@ -58,7 +58,6 @@ export default function App() {
 
   // User & Auth State
   const [isAuthOpen, setIsAuthOpen] = useState<boolean>(false);
-  const [isProfileOpen, setIsProfileOpen] = useState<boolean>(false);
   const [user, setUser] = useState<{ name: string; phone: string; role: string; email?: string; pincode?: string } | null>(() => {
     const stored = localStorage.getItem('recellUser');
     return stored ? JSON.parse(stored) : null;
@@ -155,6 +154,18 @@ export default function App() {
     syncUrlWithRoute(currentTab, searchQuery, isLegalOpen ? legalTab : undefined, currentProductId);
     window.scrollTo(0, 0);
   }, [currentTab, searchQuery, isLegalOpen, legalTab, currentProductId]);
+
+  // The profile page needs a signed-in user (it's opened in a fresh new tab,
+  // which has no in-memory state of its own yet - only whatever localStorage/
+  // Firebase Auth persistence already restored by the time this runs). If
+  // someone reaches /profile without a session, send them home and prompt
+  // login instead of rendering a page with nothing to show.
+  useEffect(() => {
+    if (currentTab === 'profile' && !user) {
+      setCurrentTab('landing');
+      setIsAuthOpen(true);
+    }
+  }, [currentTab, user]);
 
   // Listen to hash and popstate changes (e.g. browser Back/Forward or new tab navigation)
   useEffect(() => {
@@ -463,7 +474,7 @@ export default function App() {
           onSubmitReturn={handleNewReturn}
           onSubmitWarranty={handleNewWarranty}
           user={user}
-          onOpenProfile={() => setIsProfileOpen(true)}
+          onOpenProfile={() => window.open(buildRouteUrl('profile'), '_blank')}
         />
       )}
 
@@ -555,6 +566,17 @@ export default function App() {
           warrantyClaims={warrantyClaims}
         />
       )}
+
+      {currentTab === 'profile' && user && (
+        <ProfilePage
+          user={user}
+          onSignOut={() => {
+            setUser(null);
+            setCurrentTab('landing');
+          }}
+          onBackHome={() => setCurrentTab('landing')}
+        />
+      )}
     </main>
   );
 
@@ -587,7 +609,7 @@ export default function App() {
               onOpenLegal={openLegalModal}
               onOpenBrand={handleSelectBrand}
               onOpenAuth={() => setIsAuthOpen(true)}
-              onOpenProfile={() => setIsProfileOpen(true)}
+              onOpenProfile={() => window.open(buildRouteUrl('profile'), '_blank')}
               user={user}
             />
             {renderMainContent()}
@@ -607,7 +629,7 @@ export default function App() {
               onOpenLegal={openLegalModal}
               onOpenBrand={handleSelectBrand}
               onOpenAuth={() => setIsAuthOpen(true)}
-              onOpenProfile={() => setIsProfileOpen(true)}
+              onOpenProfile={() => window.open(buildRouteUrl('profile'), '_blank')}
               user={user}
             />
             {renderMainContent()}
@@ -734,7 +756,7 @@ export default function App() {
         onOrderCreated={handleOrderCreated}
       />
 
-      {/* User Authentication & Profile Modal */}
+      {/* User Authentication Modal */}
       <AuthModal
         isOpen={isAuthOpen}
         onClose={() => setIsAuthOpen(false)}
@@ -744,15 +766,7 @@ export default function App() {
         }}
         user={user}
         onSignOut={() => setUser(null)}
-        onNavigateToTrack={() => setCurrentTab('track')}
-      />
-
-      <UserProfileModal
-        isOpen={isProfileOpen}
-        onClose={() => setIsProfileOpen(false)}
-        user={user}
-        onSignOut={() => setUser(null)}
-        onOpenTrackOrders={() => setCurrentTab('track')}
+        onNavigateToTrack={() => window.open(buildRouteUrl('profile'), '_blank')}
       />
 
       {/* Cart Drawer */}
@@ -826,7 +840,7 @@ export default function App() {
         openCart={() => setIsCartOpen(true)}
         onOpenMegaMenu={() => setIsMegaMenuOpen(true)}
         onOpenAuth={() => setIsAuthOpen(true)}
-        onOpenProfile={() => setIsProfileOpen(true)}
+        onOpenProfile={() => window.open(buildRouteUrl('profile'), '_blank')}
         user={user}
       />
 

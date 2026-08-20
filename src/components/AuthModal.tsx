@@ -272,7 +272,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   className="w-full bg-[#0052FF] hover:bg-[#0043CC] text-white font-bold py-3 rounded-xl text-xs flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer font-heading"
                 >
                   <Package className="w-4 h-4" />
-                  View My Orders &amp; Track Warranty
+                  Open My Profile (New Tab)
                   <ArrowRight className="w-4 h-4" />
                 </button>
                 <button

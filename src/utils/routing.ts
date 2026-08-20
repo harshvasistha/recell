@@ -20,7 +20,8 @@ const VALID_TABS: TabType[] = [
   'contact',
   'agent',
   'admin',
-  'product'
+  'product',
+  'profile'
 ];
 
 export function buildRouteUrl(
