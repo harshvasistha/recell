@@ -217,6 +217,14 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   // originalPrice/refurbPrice - everything else gets a sane default.
   // Multiple entries sharing the same brand+model become storage variants
   // of one listing (see the product detail page's variant switcher).
+  // Key used to match an incoming JSON row against an existing catalog
+  // product, so re-pasting an updated export (fixed specs, swapped
+  // images, corrected pricing) refreshes matching products in place
+  // instead of creating duplicates. Every previous paste always minted a
+  // brand-new id, so re-uploading corrected data doubled up the catalog.
+  const productIdentityKey = (brand: string, model: string, storage: string, conditionGrade: string) =>
+    [brand, model, storage, conditionGrade].map(s => (s || '').trim().toLowerCase()).join('|');
+
   const parseAndAddJsonProducts = (rawText: string) => {
     setBulkUploadMsg('');
     let parsed: any;
@@ -228,49 +236,58 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     }
 
     const rows: any[] = Array.isArray(parsed) ? parsed : [parsed];
-    if (catalog.length + rows.length > 500) {
-      setBulkUploadMsg(`This would exceed the 500-product catalog limit (currently ${catalog.length}).`);
-      return;
+
+    const existingByKey = new Map<string, CatalogProduct>();
+    for (const p of catalog) {
+      existingByKey.set(productIdentityKey(p.brand, p.model, p.storage, p.conditionGrade), p);
     }
 
     const newProducts: CatalogProduct[] = [];
+    const updatedIds = new Set<string>();
     for (let i = 0; i < rows.length; i++) {
       const r = rows[i];
       if (!r || !r.title || !r.brand || !r.model || r.refurbPrice == null) continue;
 
       const conditionGrade: CatalogProduct['conditionGrade'] = r.conditionGrade || 'Open Box';
       const isOpenBox = r.isOpenBox ?? (conditionGrade === 'Open Box');
+      const key = productIdentityKey(r.brand, r.model, r.storage || '128GB', conditionGrade);
+      const existing = existingByKey.get(key);
 
-      newProducts.push({
-        id: `cat-json-${Date.now()}-${i}`,
+      const product: CatalogProduct = {
+        id: existing?.id || `cat-json-${Date.now()}-${i}`,
         title: r.title,
         brand: r.brand,
         model: r.model,
         storage: r.storage || '128GB',
-        color: r.color || 'Assorted Official',
+        color: r.color || existing?.color || 'Assorted Official',
         originalPrice: Number(r.originalPrice) || Number(r.refurbPrice),
         refurbPrice: Number(r.refurbPrice),
         conditionGrade,
         warrantyMonths: r.warrantyMonths ?? (isOpenBox ? 12 : 3),
-        batteryHealthPercent: r.batteryHealthPercent,
+        batteryHealthPercent: r.batteryHealthPercent ?? existing?.batteryHealthPercent,
         images: Array.isArray(r.images) && r.images.length > 0
           ? r.images
-          : ['https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'],
-        inStock: r.inStock ?? true,
-        stockCount: r.stockCount ?? 5,
-        serialImei: r.serialImei || `3590${Math.floor(10000000000 + Math.random() * 90000000000)}`,
+          : existing?.images || ['https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'],
+        inStock: r.inStock ?? existing?.inStock ?? true,
+        stockCount: r.stockCount ?? existing?.stockCount ?? 5,
+        serialImei: r.serialImei || existing?.serialImei || `3590${Math.floor(10000000000 + Math.random() * 90000000000)}`,
         inspectionPassed: true,
-        description: r.description || `${r.title} - ${isOpenBox ? 'Sealed open box unit with 12-month official manufacturer warranty.' : `Certified 55-point inspected device with ${r.warrantyMonths ?? 3}-month warranty.`}`,
-        boxChargerIncluded: r.boxChargerIncluded ?? true,
+        description: r.description || existing?.description || `${r.title} - ${isOpenBox ? 'Sealed open box unit with 12-month official manufacturer warranty.' : `Certified 55-point inspected device with ${r.warrantyMonths ?? 3}-month warranty.`}`,
+        boxChargerIncluded: r.boxChargerIncluded ?? existing?.boxChargerIncluded ?? true,
         isOpenBox,
-        brandWarrantyMonths: r.brandWarrantyMonths ?? (isOpenBox ? 12 : undefined),
-        specs: r.specs || {
+        brandWarrantyMonths: r.brandWarrantyMonths ?? existing?.brandWarrantyMonths ?? (isOpenBox ? 12 : undefined),
+        specs: r.specs || existing?.specs || {
           screen: '6.7" Full HD+ Display',
           processor: 'Octa-Core Processor',
           ram: r.storage || '',
           camera: 'AI Multi-Camera System'
         }
-      });
+      };
+
+      if (existing) {
+        updatedIds.add(existing.id);
+      }
+      newProducts.push(product);
     }
 
     if (newProducts.length === 0) {
@@ -278,8 +295,21 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       return;
     }
 
-    setCatalog(prev => [...newProducts, ...prev]);
-    setBulkUploadMsg(`Successfully uploaded ${newProducts.length} product(s) to live store catalog!`);
+    const addedCount = newProducts.length - updatedIds.size;
+    if (catalog.length + addedCount > 500) {
+      setBulkUploadMsg(`This would exceed the 500-product catalog limit (currently ${catalog.length}).`);
+      return;
+    }
+
+    setCatalog(prev => {
+      const untouched = prev.filter(p => !updatedIds.has(p.id));
+      return [...newProducts, ...untouched];
+    });
+    setBulkUploadMsg(
+      updatedIds.size > 0
+        ? `Uploaded ${newProducts.length} product(s): ${updatedIds.size} updated in place, ${addedCount} newly added.`
+        : `Successfully uploaded ${newProducts.length} product(s) to live store catalog!`
+    );
     setBulkJsonText('');
     setTimeout(() => {
       setShowBulkUploadModal(false);
@@ -406,7 +436,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               <button
                 onClick={() => {
                   if (confirmClear) {
-                    setCatalog([]);
+                    // Scoped to the category currently being viewed only.
+                    // This used to call setCatalog([]) unconditionally,
+                    // which wiped BOTH Open Box and Refurbished catalogs
+                    // together no matter which tab the button was clicked
+                    // from - the "Clear Catalog (N)" label even showed the
+                    // combined total, not the current tab's count, making
+                    // it look scoped when it silently wasn't.
+                    setCatalog(prev => prev.filter(p =>
+                      activeTab === 'openbox_catalog'
+                        ? p.conditionGrade !== 'Open Box'
+                        : p.conditionGrade === 'Open Box'
+                    ));
                     setConfirmClear(false);
                   } else {
                     setConfirmClear(true);
@@ -414,10 +455,14 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   }
                 }}
                 className={`font-bold px-3.5 py-2 rounded-full text-xs flex items-center gap-1.5 transition-all cursor-pointer ${confirmClear ? 'bg-red-500 text-white' : 'bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200'}`}
-                title="Wipe and clean all items currently listed on storefront"
+                title={`Wipe and clean only the ${activeTab === 'openbox_catalog' ? 'Open Box' : 'Refurbished'} items currently listed on storefront - the other category is untouched`}
               >
                 <Trash2 className={`w-3.5 h-3.5 ${confirmClear ? 'text-white' : 'text-rose-600'}`} />
-                <span>{confirmClear ? "Click to Confirm" : `Clear Catalog (${catalog.length})`}</span>
+                <span>
+                  {confirmClear
+                    ? "Click to Confirm"
+                    : `Clear Catalog (${catalog.filter(p => activeTab === 'openbox_catalog' ? p.conditionGrade === 'Open Box' : p.conditionGrade !== 'Open Box').length})`}
+                </span>
               </button>
 
               <button

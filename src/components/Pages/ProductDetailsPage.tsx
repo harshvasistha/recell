@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { CatalogProduct } from '../../types';
-import { 
-  ShieldCheck, CheckCircle2, Truck, PackageCheck, ShoppingCart, 
-  IndianRupee, ChevronRight, Star, CreditCard, Wallet, MapPin, 
-  ArrowLeft, Zap, Smartphone, Cpu, Camera, Battery, Layers, 
-  SlidersHorizontal, Check, Info, Award
+import {
+  ShieldCheck, CheckCircle2, Truck, PackageCheck, ShoppingCart,
+  IndianRupee, ChevronRight, Star, CreditCard, Wallet, MapPin,
+  ArrowLeft, Zap, Smartphone, Cpu, Camera, Battery, Layers,
+  SlidersHorizontal, Check, Info, Award, ZoomIn, X, ChevronLeft
 } from 'lucide-react';
 
 interface ProductDetailsPageProps {
@@ -33,12 +33,60 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
   const [pincodeCheck, setPincodeCheck] = useState<string>('110001');
   const [pincodeStatus, setPincodeStatus] = useState<string>('Express Delivery in 2-3 Days');
 
+  // Amazon/Flipkart-style image zoom: hover over the main image on desktop
+  // to reveal a magnified pane driven by cursor position (no click needed,
+  // same as Amazon's lens), and click the image on any device to open a
+  // full-screen lightbox with click-to-zoom + gallery navigation (Flipkart-
+  // style), since hover doesn't exist on touch screens.
+  const [isHoverZooming, setIsHoverZooming] = useState(false);
+  const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [lightboxZoomed, setLightboxZoomed] = useState(false);
+  const [lightboxZoomPos, setLightboxZoomPos] = useState({ x: 50, y: 50 });
+  const mainImageRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (product.images && product.images.length > 0) {
       setActiveImage(product.images[0]);
     }
     setSelectedGrade(product.conditionGrade || 'Open Box');
+    setIsLightboxOpen(false);
+    setLightboxZoomed(false);
   }, [product]);
+
+  const galleryImages = product.images && product.images.length > 0 ? product.images : [activeImage];
+
+  const handleMainImageMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = mainImageRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setZoomPos({ x: Math.min(100, Math.max(0, x)), y: Math.min(100, Math.max(0, y)) });
+  };
+
+  const openLightbox = () => {
+    setLightboxZoomed(false);
+    setIsLightboxOpen(true);
+  };
+
+  const showRelativeImage = (offset: number) => {
+    const idx = galleryImages.indexOf(activeImage);
+    const nextIdx = (idx + offset + galleryImages.length) % galleryImages.length;
+    setActiveImage(galleryImages[nextIdx]);
+    setLightboxZoomed(false);
+  };
+
+  useEffect(() => {
+    if (!isLightboxOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsLightboxOpen(false);
+      if (e.key === 'ArrowRight') showRelativeImage(1);
+      if (e.key === 'ArrowLeft') showRelativeImage(-1);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLightboxOpen, activeImage]);
 
   const discountAmount = product.originalPrice - product.refurbPrice;
   const discountPercent = Math.round((discountAmount / product.originalPrice) * 100);
@@ -133,9 +181,16 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
                 ))}
               </div>
               
-              {/* Main Image */}
+              {/* Main Image - hover to zoom (desktop), click to open full lightbox (any device) */}
               <div className="flex-1 order-1 md:order-2">
-                <div className="relative w-full aspect-square bg-slate-50 rounded-2xl flex items-center justify-center p-8 border border-slate-100">
+                <div
+                  ref={mainImageRef}
+                  onMouseEnter={() => setIsHoverZooming(true)}
+                  onMouseLeave={() => setIsHoverZooming(false)}
+                  onMouseMove={handleMainImageMouseMove}
+                  onClick={openLightbox}
+                  className="relative w-full aspect-square bg-slate-50 rounded-2xl flex items-center justify-center p-8 border border-slate-100 cursor-zoom-in group"
+                >
                   <img
                     src={activeImage || product.images?.[0] || 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'}
                     alt={cleanTitle}
@@ -152,9 +207,89 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
                       100% Sealed & Unused
                     </div>
                   )}
+
+                  <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm text-slate-700 text-[10px] font-bold px-2.5 py-1.5 rounded-full flex items-center gap-1 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                    <ZoomIn className="w-3.5 h-3.5" /> Click to zoom
+                  </div>
+
+                  {/* Amazon-style hover magnifier pane (desktop only) */}
+                  {isHoverZooming && (
+                    <div
+                      className="hidden lg:block absolute top-0 left-[calc(100%+16px)] w-full aspect-square bg-slate-50 rounded-2xl border border-slate-200 shadow-2xl z-20 overflow-hidden pointer-events-none"
+                      style={{
+                        backgroundImage: `url(${activeImage})`,
+                        backgroundSize: '220%',
+                        backgroundPosition: `${zoomPos.x}% ${zoomPos.y}%`,
+                        backgroundRepeat: 'no-repeat'
+                      }}
+                    />
+                  )}
                 </div>
               </div>
             </div>
+
+            {isLightboxOpen && (
+              <div
+                className="fixed inset-0 z-[100] bg-slate-950/95 flex flex-col items-center justify-center p-4"
+                onClick={() => setIsLightboxOpen(false)}
+              >
+                <button
+                  type="button"
+                  onClick={(e) => { e.stopPropagation(); setIsLightboxOpen(false); }}
+                  className="absolute top-4 right-4 sm:top-6 sm:right-6 bg-white/10 hover:bg-white/20 text-white rounded-full p-2.5 transition-colors"
+                  aria-label="Close"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+
+                {galleryImages.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={(e) => { e.stopPropagation(); showRelativeImage(-1); }}
+                    className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full p-2.5 sm:p-3 transition-colors z-10"
+                    aria-label="Previous image"
+                  >
+                    <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                  </button>
+                )}
+
+                <div
+                  className="relative w-full max-w-3xl aspect-square flex items-center justify-center overflow-hidden"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <img
+                    src={activeImage}
+                    alt={cleanTitle}
+                    onClick={(e) => {
+                      const rect = e.currentTarget.getBoundingClientRect();
+                      const x = ((e.clientX - rect.left) / rect.width) * 100;
+                      const y = ((e.clientY - rect.top) / rect.height) * 100;
+                      setLightboxZoomPos({ x, y });
+                      setLightboxZoomed(z => !z);
+                    }}
+                    onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'; }}
+                    className={`max-w-full max-h-full object-contain transition-transform duration-200 ${lightboxZoomed ? 'scale-[2.2] cursor-zoom-out' : 'cursor-zoom-in'}`}
+                    style={lightboxZoomed ? { transformOrigin: `${lightboxZoomPos.x}% ${lightboxZoomPos.y}%` } : undefined}
+                  />
+                </div>
+
+                {galleryImages.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={(e) => { e.stopPropagation(); showRelativeImage(1); }}
+                    className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full p-2.5 sm:p-3 transition-colors z-10"
+                    aria-label="Next image"
+                  >
+                    <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                  </button>
+                )}
+
+                <p className="text-white/60 text-xs mt-4 font-medium">
+                  {lightboxZoomed ? 'Click image to zoom out' : 'Click image to zoom in'}
+                  {galleryImages.length > 1 && ` · ${galleryImages.indexOf(activeImage) + 1} / ${galleryImages.length}`}
+                </p>
+              </div>
+            )}
 
             {/* Right Column: Details */}
             <div className="lg:col-span-6 p-6 lg:p-10 flex flex-col">
