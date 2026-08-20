@@ -85,6 +85,26 @@ export async function getUserProfile(phoneOrUid: string): Promise<UserProfile | 
   return null;
 }
 
+// Shared by every login path (phone OTP, email link) once a real credential
+// has already been verified by Firebase Auth - this only ever resolves the
+// matching Firestore profile, it never re-checks identity. Signing in with
+// no existing profile is treated as an implicit first-time signup (identical
+// to the phone flow's existing behavior) rather than a dead end, since
+// possession of the verified phone/email IS the credential here - there is
+// no separate password to have "forgotten" to sign up with first.
+export async function resolveUserProfile(
+  docKey: string,
+  isNewSignup: boolean,
+  fallbackData: Omit<UserProfile, 'role'>
+): Promise<UserProfile> {
+  if (isNewSignup) {
+    return ensureUserProfile(docKey, fallbackData);
+  }
+  const existing = await getUserProfile(docKey);
+  if (existing) return existing;
+  return ensureUserProfile(docKey, fallbackData);
+}
+
 // 2. Orders (Buy Refurbished & Open Box)
 export async function saveOrderToDB(order: Order): Promise<boolean> {
   try {

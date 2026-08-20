@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { RecellLogo } from './RecellLogo';
 import { X, CheckCircle2, ArrowRight, Smartphone, Mail, Lock, User, ShieldCheck, MapPin, LogOut, Package } from 'lucide-react';
-import { ensureUserProfile, getUserProfile, UserProfile } from '../lib/dbService';
+import { resolveUserProfile, UserProfile } from '../lib/dbService';
 import { auth } from '../lib/firebase';
-import {
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  sendEmailVerification
-} from 'firebase/auth';
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+import { sendEmailSignInLink } from '../lib/emailLinkAuth';
 
 // Local-dev-only OTP shortcut so you can test the phone flow without live SMS
 // billing enabled. import.meta.env.DEV is always false in a production build
@@ -35,13 +30,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 }) => {
   const [authMethod, setAuthMethod] = useState<'phone' | 'email'>('phone');
   const [mode, setMode] = useState<'signup' | 'signin'>('signup');
-  const [step, setStep] = useState<'form' | 'otp'>('form');
+  const [step, setStep] = useState<'form' | 'otp' | 'emailLinkSent'>('form');
 
   // Form Fields
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [pincode, setPincode] = useState('');
   
   const [otpInput, setOtpInput] = useState('');
@@ -72,7 +66,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     setFullName('');
     setPhone('');
     setEmail('');
-    setPassword('');
     setPincode('');
     setOtpInput('');
     setStep('form');
@@ -105,18 +98,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       }
     }
 
-    if (!password || password.length < 4) {
-      setErrorMsg('Please enter a password with at least 4 characters.');
-      return;
-    }
-
     setIsSubmitting(true);
 
     try {
       if (authMethod === 'phone') {
         // Phone always requires a real, freshly-verified Firebase SMS OTP -
-        // for both signup AND signin. There is no password check for phone;
-        // OTP possession of the device is the credential.
+        // for both signup AND signin. Possession of the device (i.e.
+        // receiving the OTP) is the credential.
         const formattedPhone = phone.trim().startsWith('+') ? phone.trim() : `+91${phone.trim()}`;
         const appVerifier = (window as any).recaptchaVerifier;
         const confirmation = await signInWithPhoneNumber(auth, formattedPhone, appVerifier);
@@ -127,64 +115,43 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         return;
       }
 
-      // Email/password uses real Firebase Authentication - no OTP step needed,
-      // the password itself is the verified credential.
-      if (mode === 'signup') {
-        const cred = await createUserWithEmailAndPassword(auth, email.trim(), password);
-        try { await sendEmailVerification(cred.user); } catch { /* non-fatal */ }
-        await finishLogin(email.trim(), { isNewSignup: true });
-      } else {
-        await signInWithEmailAndPassword(auth, email.trim(), password);
-        await finishLogin(email.trim(), { isNewSignup: false });
-      }
+      // Email uses Firebase's real passwordless "email link" sign-in - a
+      // one-time link sent to the address is the credential (equivalent to
+      // an OTP, but doesn't require a code-entry UI or a separate email-OTP
+      // provider). Completing it happens later, wherever the link is
+      // clicked - see App.tsx's root-level effect - not in this modal.
+      await sendEmailSignInLink({
+        email: email.trim(),
+        fullName: fullName.trim(),
+        pincode: pincode.trim(),
+        isNewSignup: mode === 'signup'
+      });
       setIsSubmitting(false);
+      setStep('emailLinkSent');
     } catch (err: any) {
       setIsSubmitting(false);
       setErrorMsg(mapAuthError(err));
     }
   };
 
-  // Shared completion step once a real credential (phone OTP or Firebase
-  // email/password) has been verified. Role is ALWAYS read from the existing
-  // Firestore profile (or defaulted to 'customer' on first creation) - it is
-  // never computed from whatever the user typed into the form.
+  // Shared completion step once a real credential (phone OTP) has been
+  // verified. Role is ALWAYS read from the existing Firestore profile (or
+  // defaulted to 'customer' on first creation) - it is never computed from
+  // whatever the user typed into the form.
   const finishLogin = async (
     docKey: string,
     opts: { isNewSignup: boolean }
   ) => {
     const cleanPhone = phone.replace(/\D/g, '');
-    const formattedPhone = authMethod === 'phone'
-      ? (phone.trim().startsWith('+') ? phone.trim() : `+91 ${phone.trim()}`)
-      : undefined;
-    const userDisplayName = fullName.trim() || (authMethod === 'email' ? email.split('@')[0] : `User ${cleanPhone.slice(-4)}`);
+    const formattedPhone = phone.trim().startsWith('+') ? phone.trim() : `+91 ${phone.trim()}`;
+    const userDisplayName = fullName.trim() || `User ${cleanPhone.slice(-4)}`;
 
-    let profile: UserProfile | null;
-
-    if (opts.isNewSignup) {
-      profile = await ensureUserProfile(docKey, {
-        uid: docKey,
-        name: userDisplayName,
-        phone: formattedPhone || '',
-        email: authMethod === 'email' ? email.trim() : undefined,
-        pincode: pincode.trim() || '250101'
-      });
-    } else {
-      profile = await getUserProfile(docKey);
-      if (!profile) {
-        // Phone sign-in for a number with no existing account - treat as
-        // first-time signup rather than a dead end.
-        if (authMethod === 'phone') {
-          profile = await ensureUserProfile(docKey, {
-            uid: docKey,
-            name: userDisplayName,
-            phone: formattedPhone || '',
-            pincode: pincode.trim() || '250101'
-          });
-        } else {
-          throw new Error('No account found. Please create an account first.');
-        }
-      }
-    }
+    const profile: UserProfile = await resolveUserProfile(docKey, opts.isNewSignup, {
+      uid: docKey,
+      name: userDisplayName,
+      phone: formattedPhone,
+      pincode: pincode.trim() || '250101'
+    });
 
     setIsSubmitting(false);
     onSuccess({
@@ -206,12 +173,15 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
   const mapAuthError = (err: any): string => {
     const code = err?.code || '';
-    if (code === 'auth/email-already-in-use') return 'An account with this email already exists. Try signing in instead.';
-    if (code === 'auth/wrong-password' || code === 'auth/invalid-credential') return 'Incorrect email or password.';
-    if (code === 'auth/user-not-found') return 'No account found with this email. Please sign up.';
-    if (code === 'auth/weak-password') return 'Password is too weak - use at least 6 characters.';
+    if (code === 'auth/invalid-email') return 'Please enter a valid email address.';
     if (code === 'auth/invalid-phone-number') return 'Please enter a valid mobile number.';
     if (code === 'auth/too-many-requests') return 'Too many attempts. Please try again later.';
+    if (code === 'auth/invalid-action-code' || code === 'auth/expired-action-code') {
+      return 'This sign-in link has expired or was already used. Please request a new one.';
+    }
+    if (code === 'auth/operation-not-allowed') {
+      return 'Email sign-in link is not enabled yet on this account. Please contact support.';
+    }
     return err?.message || 'Failed to authenticate. Please check your details and try again.';
   };
 
@@ -433,7 +403,25 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     onClick={() => setStep('form')}
                     className="w-full text-center text-xs text-slate-500 hover:text-slate-800 font-bold underline cursor-pointer"
                   >
-                    &larr; Change {authMethod === 'phone' ? 'Mobile Number' : 'Email Address'}
+                    &larr; Change Mobile Number
+                  </button>
+                </div>
+              ) : step === 'emailLinkSent' ? (
+                /* EMAIL SIGN-IN LINK SENT VIEW */
+                <div className="space-y-4">
+                  <div className="text-center p-4 bg-emerald-50 rounded-2xl border border-emerald-100">
+                    <Mail className="w-7 h-7 text-emerald-600 mx-auto" />
+                    <h4 className="font-heading font-black text-sm text-slate-900 pt-2">Check Your Email</h4>
+                    <p className="text-xs text-slate-600 mt-1.5">
+                      We've sent a secure sign-in link to <strong>{email}</strong>. Open it on this device to {mode === 'signup' ? 'activate your account' : 'sign in'} - no password needed, and it'll bring you straight back here signed in.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setStep('form')}
+                    className="w-full text-center text-xs text-slate-500 hover:text-slate-800 font-bold underline cursor-pointer"
+                  >
+                    &larr; Change Email Address
                   </button>
                 </div>
               ) : (
@@ -486,21 +474,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     </div>
                   )}
 
-                  <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">Password</label>
-                    <div className="relative">
-                      <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                      <input
-                        type="password"
-                        required
-                        minLength={4}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-[#0052FF] outline-none"
-                      />
-                    </div>
-                  </div>
-
                   <button
                     type="submit"
                     disabled={isSubmitting}
@@ -508,14 +481,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   >
                     {isSubmitting ? (
                       'Processing...'
-                    ) : mode === 'signup' ? (
+                    ) : authMethod === 'phone' ? (
                       <>
-                        <span>Get OTP &amp; Activate Account</span>
+                        <span>{mode === 'signup' ? 'Get OTP & Activate Account' : 'Get OTP & Sign In'}</span>
                         <ArrowRight className="w-4 h-4" />
                       </>
                     ) : (
                       <>
-                        <span>Sign In</span>
+                        <span>{mode === 'signup' ? 'Send Sign-In Link & Activate Account' : 'Send Sign-In Link'}</span>
                         <ArrowRight className="w-4 h-4" />
                       </>
                     )}

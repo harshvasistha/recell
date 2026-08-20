@@ -39,7 +39,8 @@ import { OpenBoxMobiles } from './components/Pages/OpenBoxMobiles';
 import { ProductDetailsPage } from './components/Pages/ProductDetailsPage';
 import { AuthModal } from './components/AuthModal';
 import { UserProfileModal } from './components/UserProfileModal';
-import { saveOrderToDB, saveSellRequestToDB, fetchCatalogFromDB, saveCatalogToDB } from './lib/dbService';
+import { saveOrderToDB, saveSellRequestToDB, fetchCatalogFromDB, saveCatalogToDB, resolveUserProfile } from './lib/dbService';
+import { isEmailSignInLink, completeEmailSignIn, getPendingEmailAuth, clearPendingEmailAuth } from './lib/emailLinkAuth';
 import { MegaMenu } from './components/MegaMenu';
 import { LegalModal } from './components/Legal/LegalModal';
 import { WhatsAppChatWidget } from './components/WhatsAppChatWidget';
@@ -70,6 +71,67 @@ export default function App() {
       localStorage.removeItem('recellUser');
     }
   }, [user]);
+
+  // Completes the email-link (passwordless) sign-in flow: clicking the link
+  // Firebase emailed reloads the app at the home URL with Firebase's own
+  // sign-in params attached. This runs once on mount, finishes the login the
+  // same way AuthModal's phone-OTP flow does, then strips those params back
+  // to a clean home URL - which is also the "redirect to home after
+  // verifying" behavior for this path.
+  const [emailAuthError, setEmailAuthError] = useState('');
+  useEffect(() => {
+    if (!isEmailSignInLink(window.location.href)) return;
+
+    (async () => {
+      let pending = getPendingEmailAuth();
+      let emailToUse = pending?.email;
+
+      if (!emailToUse) {
+        // Link was opened on a different browser/device than it was
+        // requested from, so there's no local record of which email this
+        // is for - Firebase's own recommended fallback is to just ask.
+        emailToUse = window.prompt('Please confirm the email address you signed up with to finish signing in:') || undefined;
+      }
+      if (!emailToUse) {
+        setEmailAuthError('Sign-in link could not be completed - no email address was provided.');
+        return;
+      }
+
+      try {
+        await completeEmailSignIn(emailToUse, window.location.href);
+        const displayName = pending?.fullName?.trim() || emailToUse.split('@')[0];
+        const profile = await resolveUserProfile(emailToUse, pending?.isNewSignup ?? false, {
+          uid: emailToUse,
+          name: displayName,
+          phone: '',
+          email: emailToUse,
+          pincode: pending?.pincode?.trim() || '250101'
+        });
+        setUser({
+          name: profile.name,
+          phone: profile.phone,
+          role: profile.role,
+          email: profile.email,
+          pincode: profile.pincode
+        });
+        clearPendingEmailAuth();
+      } catch (err: any) {
+        setEmailAuthError(
+          err?.code === 'auth/invalid-action-code' || err?.code === 'auth/expired-action-code'
+            ? 'This sign-in link has expired or was already used. Please request a new one.'
+            : (err?.message || 'Could not complete email sign-in. Please try again.')
+        );
+      } finally {
+        // Strip Firebase's oobCode/apiKey/mode query params regardless of
+        // outcome, so a reload doesn't try to replay the same (now spent)
+        // link again.
+        window.history.replaceState(null, '', '/');
+      }
+    })();
+    // Deliberately runs once on mount only - this is a one-time landing
+    // action for whatever URL the page happened to load with.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Modals
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState<boolean>(false);
@@ -501,6 +563,12 @@ export default function App() {
       {catalogSaveError && currentTab === 'admin' && (
         <div className="fixed top-0 inset-x-0 z-[200] bg-rose-600 text-white text-xs sm:text-sm font-bold text-center py-2 px-4">
           Your last catalog change failed to save to the database - it will be lost on reload. Check that you're still signed in as admin (reconnecting Google Drive can sign you out of admin) and try the edit again.
+        </div>
+      )}
+      {emailAuthError && (
+        <div className="fixed top-0 inset-x-0 z-[200] bg-rose-600 text-white text-xs sm:text-sm font-bold text-center py-2 px-4 flex items-center justify-center gap-3">
+          <span>{emailAuthError}</span>
+          <button onClick={() => setEmailAuthError('')} className="underline font-black shrink-0">Dismiss</button>
         </div>
       )}
       <div>
