@@ -113,6 +113,8 @@ export interface Order {
   trackingHistory: { time: string; status: string; location: string }[];
   returnWindowExpiry: string; // ISO date
   warrantyExpiry: string; // ISO date
+  codTokenAmount?: number; // Set once payment is verified, for COD orders only
+  codBalanceDue?: number; // totalAmount - codTokenAmount, collected by the courier on delivery
 }
 
 export interface ReturnRequest {

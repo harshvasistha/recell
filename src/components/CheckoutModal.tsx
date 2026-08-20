@@ -4,6 +4,12 @@ import { X, ShieldCheck, Check, CreditCard, QrCode, Truck, Lock, IndianRupee, Sm
 import { openRazorpayCheckout, createServerRazorpayOrder, verifyServerRazorpayPayment } from '../lib/razorpay';
 import { saveOrderToDB } from '../lib/dbService';
 
+// Must match COD_TOKEN_AMOUNT_RUPEES in functions/src/index.ts - this value
+// here is only ever used for display; the Cloud Function decides the real
+// charge amount server-side from the order's paymentMethod, never trusting
+// anything the client sends.
+const COD_TOKEN_AMOUNT = 499;
+
 interface CheckoutModalProps {
   items: CatalogProduct[];
   isOpen: boolean;
@@ -46,6 +52,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   const [paymentError, setPaymentError] = useState('');
 
   const totalAmount = items.reduce((acc, item) => acc + item.refurbPrice, 0);
+  const isCod = paymentMethod === 'COD (Deposit Paid)';
+  const chargeNowAmount = isCod ? COD_TOKEN_AMOUNT : totalAmount;
+  const codBalanceDue = Math.max(0, totalAmount - COD_TOKEN_AMOUNT);
 
   // Since this component now stays mounted across opens/closes (fixing the
   // hooks-order bug above means it can no longer unmount to reset its own
@@ -115,9 +124,11 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       await openRazorpayCheckout({
         razorpayOrderId,
         razorpayKeyId: keyId,
-        amount: totalAmount,
+        amount: chargeNowAmount,
         name: 'Recell Mobile Store',
-        description: `Purchase of ${items.length} Mobile Device(s)`,
+        description: isCod
+          ? `₹${COD_TOKEN_AMOUNT} booking token for ${items.length} Mobile Device(s) - balance on delivery`
+          : `Purchase of ${items.length} Mobile Device(s)`,
         prefill: {
           name: customerName,
           phone: customerPhone,
@@ -137,7 +148,12 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             console.log(`[OWNER SMS NOTIFICATION SENT to 9310552055] New Order ${orderId}! Amount: ₹${totalAmount}, Customer: ${customerName} (${customerPhone}), Items: ${items.map(i => i.title).join(', ')}`);
             console.log(`[CUSTOMER SMS SENT to ${customerPhone}] Order ${orderId} confirmed! Track your package live on Recell site with AWB: ${pendingOrder.trackingNumber}`);
 
-            const confirmedOrder: Order = { ...pendingOrder, paymentStatus: 'Paid', orderStatus: 'Confirmed' };
+            const confirmedOrder: Order = {
+              ...pendingOrder,
+              paymentStatus: 'Paid',
+              orderStatus: 'Confirmed',
+              ...(isCod ? { codTokenAmount: COD_TOKEN_AMOUNT, codBalanceDue: codBalanceDue } : {})
+            };
             setCreatedOrder(confirmedOrder);
             onOrderCreated(confirmedOrder);
             setIsProcessing(false);
@@ -282,7 +298,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   <Lock className="w-5 h-5 text-emerald-400" />
                   Razorpay Secure Payment
                 </h2>
-                <span className="text-xs text-slate-400 font-mono">Amount: ₹{totalAmount.toLocaleString('en-IN')}</span>
+                <span className="text-xs text-slate-400 font-mono">
+                  {isCod ? `Booking Token: ₹${chargeNowAmount.toLocaleString('en-IN')}` : `Amount: ₹${chargeNowAmount.toLocaleString('en-IN')}`}
+                </span>
               </div>
 
               {paymentError && (
@@ -317,57 +335,40 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 })}
               </div>
 
-              {/* UPI Options */}
+              {/* What happens next, per selected method - the actual UPI QR /
+                  card entry screen is Razorpay's own hosted checkout window,
+                  opened after "Pay" below. There is deliberately no mock
+                  QR/card form here anymore - it looked fillable/scannable
+                  but never did anything, which is confusing at best. */}
               {paymentMethod === 'Razorpay UPI' && (
-                <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 text-center space-y-3">
-                  <span className="text-xs font-bold text-emerald-400">Scan Razorpay UPI QR Code to Pay</span>
-                  <div className="w-36 h-36 bg-white p-2 rounded-xl mx-auto flex items-center justify-center">
-                    {/* Simulated QR Code SVG */}
-                    <div className="w-full h-full border-4 border-slate-950 grid grid-cols-4 gap-1 p-1 bg-slate-900">
-                      <div className="bg-emerald-400 rounded-sm"></div>
-                      <div className="bg-white rounded-sm"></div>
-                      <div className="bg-emerald-400 rounded-sm"></div>
-                      <div className="bg-white rounded-sm"></div>
-                      <div className="bg-white rounded-sm"></div>
-                      <div className="bg-emerald-400 rounded-sm"></div>
-                      <div className="bg-white rounded-sm"></div>
-                      <div className="bg-emerald-400 rounded-sm"></div>
-                      <div className="bg-emerald-400 rounded-sm"></div>
-                      <div className="bg-white rounded-sm"></div>
-                      <div className="bg-emerald-400 rounded-sm"></div>
-                      <div className="bg-white rounded-sm"></div>
-                      <div className="bg-white rounded-sm"></div>
-                      <div className="bg-emerald-400 rounded-sm"></div>
-                      <div className="bg-white rounded-sm"></div>
-                      <div className="bg-emerald-400 rounded-sm"></div>
-                    </div>
+                <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 text-center space-y-2">
+                  <div className="flex items-center justify-center gap-2 text-emerald-400">
+                    <QrCode className="w-4 h-4" />
+                    <span className="text-xs font-bold">You'll pay via Razorpay's secure UPI window</span>
                   </div>
-                  <p className="text-[11px] text-slate-400">Accepts GPay, PhonePe, Paytm, BHIM & All Bank UPI Apps</p>
+                  <p className="text-[11px] text-slate-400">Scan the QR or pay via GPay, PhonePe, Paytm, BHIM & all bank UPI apps - shown after you tap Pay below.</p>
                 </div>
               )}
 
               {paymentMethod === 'Razorpay Card' && (
-                <div className="space-y-3 text-xs bg-slate-950 p-4 rounded-xl border border-slate-800">
-                  <input
-                    type="text"
-                    placeholder="Card Number (4532 •••• •••• 8920)"
-                    defaultValue="4532 8910 2938 8920"
-                    className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white font-mono"
-                  />
-                  <div className="grid grid-cols-2 gap-2">
-                    <input
-                      type="text"
-                      placeholder="MM/YY"
-                      defaultValue="08/28"
-                      className="bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white font-mono"
-                    />
-                    <input
-                      type="password"
-                      placeholder="CVV"
-                      defaultValue="892"
-                      className="bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white font-mono"
-                    />
+                <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 text-center space-y-2">
+                  <div className="flex items-center justify-center gap-2 text-emerald-400">
+                    <CreditCard className="w-4 h-4" />
+                    <span className="text-xs font-bold">You'll enter your card via Razorpay's secure window</span>
                   </div>
+                  <p className="text-[11px] text-slate-400">Debit/credit card details are entered directly on Razorpay's PCI-compliant checkout - never on this page.</p>
+                </div>
+              )}
+
+              {isCod && (
+                <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 text-center space-y-2">
+                  <div className="flex items-center justify-center gap-2 text-emerald-400">
+                    <Truck className="w-4 h-4" />
+                    <span className="text-xs font-bold">₹{COD_TOKEN_AMOUNT} booking token via Razorpay now</span>
+                  </div>
+                  <p className="text-[11px] text-slate-400">
+                    The remaining <strong className="text-slate-200">₹{codBalanceDue.toLocaleString('en-IN')}</strong> is collected by our courier in cash/UPI at delivery.
+                  </p>
                 </div>
               )}
 
@@ -391,7 +392,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     </>
                   ) : (
                     <>
-                      Pay ₹{totalAmount.toLocaleString('en-IN')} & Confirm Order
+                      Pay ₹{chargeNowAmount.toLocaleString('en-IN')}{isCod ? ' Token' : ''} & Confirm Order
                     </>
                   )}
                 </button>
@@ -432,6 +433,18 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   <span className="text-slate-400">3-Month Recell Warranty Active Until:</span>
                   <span className="font-bold text-indigo-400">{createdOrder.warrantyExpiry}</span>
                 </div>
+                {createdOrder.codTokenAmount != null && (
+                  <>
+                    <div className="flex justify-between">
+                      <span className="text-slate-400">Booking Token Paid:</span>
+                      <span className="font-bold text-emerald-400">₹{createdOrder.codTokenAmount.toLocaleString('en-IN')}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-400">Balance Due on Delivery:</span>
+                      <span className="font-bold text-amber-400">₹{(createdOrder.codBalanceDue || 0).toLocaleString('en-IN')}</span>
+                    </div>
+                  </>
+                )}
               </div>
 
               <button
