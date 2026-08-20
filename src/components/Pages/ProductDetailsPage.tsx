@@ -197,10 +197,16 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
                     className="max-w-full max-h-full object-contain drop-shadow-xl transition-all duration-300"
                     onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'; }}
                   />
-                  <div className="absolute top-4 left-4 bg-emerald-600 text-white text-[11px] font-bold px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
-                    <ShieldCheck className="w-3.5 h-3.5" />
-                    {isCurrentOpenBox ? "12 Months Manufacturer Warranty" : "3 Months Recell Warranty"}
-                  </div>
+                  {/* The "3 Months Recell Warranty" badge is intentionally
+                      omitted for Refurbished units - warranty info there
+                      now comes from the Device Grading System selection
+                      below instead of being stamped on the image. */}
+                  {isCurrentOpenBox && (
+                    <div className="absolute top-4 left-4 bg-emerald-600 text-white text-[11px] font-bold px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
+                      <ShieldCheck className="w-3.5 h-3.5" />
+                      12 Months Manufacturer Warranty
+                    </div>
+                  )}
 
                   {isCurrentOpenBox && (
                     <div className="absolute bottom-4 left-4 bg-slate-900/90 backdrop-blur-sm text-white text-[10px] font-bold px-2.5 py-1 rounded-md">
@@ -325,9 +331,6 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
                     </span>
                   )}
                 </div>
-                <div className="inline-block bg-amber-100 text-amber-900 text-xs font-bold px-3 py-1 rounded-full mt-1">
-                  Get additional ₹1,000 instant discount with UPI / Credit Card offers
-                </div>
               </div>
 
               {/* Grading System */}
@@ -388,10 +391,6 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
                 <li className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-emerald-600 shrink-0" />
                   <span><strong>Original Packaging:</strong> Original Box, Charger & Factory Accessories Included</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span><strong>Return Policy:</strong> 7 Days No-Questions-Asked Refund Guarantee</span>
                 </li>
               </ul>
 
