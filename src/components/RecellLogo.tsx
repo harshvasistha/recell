@@ -20,18 +20,25 @@ export const RecellLogo: React.FC<RecellLogoProps> = ({
 
   const currentSize = sizeClasses[size] || sizeClasses.md;
 
-  // Since the user wants the exact logo provided, we use an image tag.
-  // The user needs to ensure the image is uploaded to the public directory as "logo.jpg".
+  // The 3D-rendered logo (public/logo.jpg) has its own dark studio backdrop
+  // baked into the image (no transparency, since it's a JPEG render, not a
+  // cut-out mark) - so it's always shown inside a matching dark rounded chip
+  // rather than sitting directly on whatever background the surrounding page
+  // happens to have. That keeps it looking intentional everywhere it's used
+  // (white header, dark footer, badge) instead of showing as a stray black
+  // rectangle on light backgrounds.
   const logoContent = (
-    <img 
-      src="/logo.jpg" 
-      alt="Recell Logo" 
-      className={`${currentSize} w-auto object-contain ${className}`}
+    <img
+      src="/logo.jpg"
+      alt="Recell Logo"
+      className={`${currentSize} w-auto object-contain rounded-lg ${className}`}
       onError={(e) => {
         // Fallback styling if the image isn't uploaded yet
         e.currentTarget.style.display = 'none';
-        if (e.currentTarget.nextElementSibling) {
-          (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block';
+        const chip = e.currentTarget.closest('[data-logo-chip]') as HTMLElement | null;
+        if (chip) chip.style.display = 'none';
+        if (e.currentTarget.parentElement?.nextElementSibling) {
+          (e.currentTarget.parentElement.nextElementSibling as HTMLElement).style.display = 'block';
         }
       }}
     />
@@ -43,18 +50,11 @@ export const RecellLogo: React.FC<RecellLogoProps> = ({
     </div>
   );
 
-  if (variant === 'badge') {
-    return (
-      <div className={`bg-slate-900 px-3 py-1.5 rounded-xl shadow-md inline-flex items-center ${className}`}>
-        {logoContent}
-        {fallbackContent}
-      </div>
-    );
-  }
-
   return (
     <div className="flex items-center">
-      {logoContent}
+      <div data-logo-chip className="bg-slate-950 px-2.5 py-1.5 rounded-xl shadow-md inline-flex items-center">
+        {logoContent}
+      </div>
       {fallbackContent}
     </div>
   );
