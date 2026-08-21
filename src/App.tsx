@@ -45,6 +45,7 @@ import { MegaMenu } from './components/MegaMenu';
 import { LegalModal } from './components/Legal/LegalModal';
 import { WhatsAppChatWidget } from './components/WhatsAppChatWidget';
 import { MobileBottomNav } from './components/MobileBottomNav';
+import { PRODUCT_IMAGE_FALLBACK } from './utils/productImageFallback';
 import { RecellLogo } from './components/RecellLogo';
 import { MAJOR_MOBILE_BRANDS } from './data/brandsData';
 import { ShoppingBag, X, Trash2, ArrowRight, ShieldCheck, MapPin, Smartphone, Wrench, Leaf, PhoneCall } from 'lucide-react';
@@ -368,7 +369,13 @@ export default function App() {
           conditionGrade: 'Superb',
           warrantyMonths: 3,
           batteryHealthPercent: 88,
-          images: updatedReq.photos.length > 0 ? updatedReq.photos : ['https://images.unsplash.com/photo-1632661674596-df8be070a5c5?auto=format&fit=crop&w=800&q=80'],
+          // If the seller didn't upload photos during the trade-in flow, this
+          // listing used to silently get a random stock photo as its "real"
+          // catalog image once approved - showing up later on the storefront
+          // as an image with nothing to do with the actual phone. Falling
+          // back to the shared placeholder instead makes it obvious a real
+          // photo still needs to be added for this listing.
+          images: updatedReq.photos.length > 0 ? updatedReq.photos : [PRODUCT_IMAGE_FALLBACK],
           inStock: true,
           stockCount: 1,
           serialImei: `35${Math.floor(1000000000000 + Math.random() * 900000000000)}`,

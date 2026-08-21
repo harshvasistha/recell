@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-labelledby="placeholderTitle">
+<title id="placeholderTitle">Photo coming soon</title>
+<rect width="400" height="400" fill="#F8FAFC"/>
+<rect x="152" y="96" width="96" height="176" rx="16" fill="none" stroke="#CBD5E1" stroke-width="6"/>
+<rect x="168" y="118" width="64" height="118" rx="4" fill="#EEF2F7"/>
+<circle cx="200" cy="256" r="5" fill="#CBD5E1"/>
+<g stroke="#94A3B8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none">
+  <path d="M182 150 L196 168 L212 144 L226 168"/>
+  <circle cx="184" cy="132" r="6"/>
+</g>
+<text x="200" y="312" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif" font-size="17" font-weight="700" fill="#94A3B8">Photo coming soon</text>
+</svg>

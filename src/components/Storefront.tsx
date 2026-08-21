@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CatalogProduct } from '../types';
 import { ShieldCheck, Battery, CheckCircle2, Sparkles, Filter, ShoppingCart, Eye, Award, Truck, ArrowUpDown, Smartphone, Wrench, Search, Zap, Check } from 'lucide-react';
+import { PRODUCT_IMAGE_FALLBACK, onProductImageError } from '../utils/productImageFallback';
 
 interface StorefrontProps {
   catalog: CatalogProduct[];
@@ -110,7 +111,7 @@ export const Storefront: React.FC<StorefrontProps> = ({
                 onClick={() => onSelectProduct(item)}
                 className="bg-white/10 hover:bg-white/20 transition-colors cursor-pointer rounded-2xl p-3 flex-1 border border-white/10 text-white"
               >
-                <img onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'; }} src={item.images[0]} alt={item.title} className="w-full h-24 object-contain rounded-xl mb-2 drop-shadow-sm" />
+                <img onError={onProductImageError} src={item.images[0] || PRODUCT_IMAGE_FALLBACK} alt={item.title} className="w-full h-24 object-contain rounded-xl mb-2 drop-shadow-sm" />
                 <p className="text-xs font-bold truncate">{item.title}</p>
                 <p className="text-xs opacity-90 font-mono font-bold mt-0.5">₹{item.refurbPrice.toLocaleString('en-IN')}</p>
               </div>
@@ -221,9 +222,10 @@ export const Storefront: React.FC<StorefrontProps> = ({
                 {/* Image & Badges Container */}
                 <div className="relative h-80 bg-slate-50 overflow-hidden cursor-pointer p-4 flex items-center justify-center" onClick={() => onSelectProduct(product)}>
                   <img
-                    src={product.images[0]}
+                    src={product.images[0] || PRODUCT_IMAGE_FALLBACK}
                     alt={product.title}
                     className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow-lg"
+                    onError={onProductImageError}
                   />
 
                   {/* Top Badges */}

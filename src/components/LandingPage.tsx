@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { MAJOR_MOBILE_BRANDS, PLATFORM_FEATURES } from '../data/brandsData';
 import { BrandLogo } from './BrandLogo';
 import { SellPhoneDiagnosticSection } from './SellPhoneDiagnosticSection';
+import { PRODUCT_IMAGE_FALLBACK, onProductImageError } from '../utils/productImageFallback';
 import { 
   IndianRupee, Zap, Banknote, ShieldCheck, RotateCcw, Smartphone, 
   Lock, Wrench, Leaf, ChevronRight, CheckCircle2, Star,
@@ -365,10 +366,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             >
               <div>
                 <div className="relative h-56 lg:h-64 bg-slate-50 rounded-2xl overflow-hidden mb-4 p-4 flex items-center justify-center">
-                  <img onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'; }} 
-                    src={item.images?.[0] || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80'} 
-                    alt={item.title} 
-                    className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow-md" 
+                  <img onError={onProductImageError}
+                    src={item.images?.[0] || PRODUCT_IMAGE_FALLBACK}
+                    alt={item.title}
+                    className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow-md"
                   />
                   <div className="absolute top-3 left-3 bg-amber-500 text-slate-950 text-[10px] font-black px-2.5 py-1 rounded-full shadow-sm font-mono uppercase tracking-wider">
                     {item.category === 'Open Box Chargers' ? 'CHARGER' : 'SMARTPHONE'}
@@ -451,9 +452,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               <div>
                 <div className="relative rounded-2xl overflow-hidden bg-slate-50 mb-4 aspect-square flex items-center justify-center p-4">
                   <img
-                    src={phone.images?.[0] || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80'}
+                    src={phone.images?.[0] || PRODUCT_IMAGE_FALLBACK}
                     alt={phone.title}
                     className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow-md"
+                    onError={onProductImageError}
                   />
                   <span className="absolute top-2 left-2 bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
                     {phone.conditionGrade}

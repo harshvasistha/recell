@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CatalogProduct } from '../types';
 import { X, ShieldCheck, Battery, CheckCircle2, Truck, PackageCheck, AlertCircle, ShoppingCart, IndianRupee } from 'lucide-react';
+import { PRODUCT_IMAGE_FALLBACK, onProductImageError } from '../utils/productImageFallback';
 
 interface ProductDetailModalProps {
   product: CatalogProduct | null;
@@ -49,9 +50,10 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           <div className="space-y-4">
             <div className="relative h-96 bg-slate-50 rounded-2xl overflow-hidden border border-slate-100 flex items-center justify-center p-4 shadow-sm">
               <img
-                src={activeImage || product.images[0]}
+                src={activeImage || product.images[0] || PRODUCT_IMAGE_FALLBACK}
                 alt={product.title}
                 className="w-full h-full object-contain drop-shadow-md"
+                onError={onProductImageError}
               />
               <span className="absolute top-3 left-3 bg-emerald-500 text-slate-950 text-xs font-black px-3 py-1 rounded-full flex items-center gap-1 shadow-md">
                 <ShieldCheck className="w-3.5 h-3.5" />
@@ -70,7 +72,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                       activeImage === img ? 'border-[#0052FF] ring-2 ring-[#0052FF]/20' : 'border-slate-200 opacity-80'
                     }`}
                   >
-                    <img src={img} alt="" className="w-full h-full object-contain drop-shadow-sm" />
+                    <img src={img} alt="" className="w-full h-full object-contain drop-shadow-sm" onError={onProductImageError} />
                   </button>
                 ))}
               </div>

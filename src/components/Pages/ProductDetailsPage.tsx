@@ -6,6 +6,7 @@ import {
   ArrowLeft, Zap, Smartphone, Cpu, Camera, Battery, Layers,
   SlidersHorizontal, Check, Info, Award, ZoomIn, X, ChevronLeft
 } from 'lucide-react';
+import { PRODUCT_IMAGE_FALLBACK, onProductImageError } from '../../utils/productImageFallback';
 
 interface ProductDetailsPageProps {
   product: CatalogProduct;
@@ -175,7 +176,7 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
                       src={img} 
                       alt={`${product.model} view ${idx + 1}`} 
                       className="w-full h-full object-contain"
-                      onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'; }}
+                      onError={onProductImageError}
                     />
                   </button>
                 ))}
@@ -192,10 +193,10 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
                   className="relative w-full aspect-square bg-slate-50 rounded-2xl flex items-center justify-center p-8 border border-slate-100 cursor-zoom-in group"
                 >
                   <img
-                    src={activeImage || product.images?.[0] || 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'}
+                    src={activeImage || product.images?.[0] || PRODUCT_IMAGE_FALLBACK}
                     alt={cleanTitle}
                     className="max-w-full max-h-full object-contain drop-shadow-xl transition-all duration-300"
-                    onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'; }}
+                    onError={onProductImageError}
                   />
                   {/* The "3 Months Recell Warranty" badge is intentionally
                       omitted for Refurbished units - warranty info there
@@ -273,7 +274,7 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
                       setLightboxZoomPos({ x, y });
                       setLightboxZoomed(z => !z);
                     }}
-                    onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'; }}
+                    onError={onProductImageError}
                     className={`max-w-full max-h-full object-contain transition-transform duration-200 ${lightboxZoomed ? 'scale-[2.2] cursor-zoom-out' : 'cursor-zoom-in'}`}
                     style={lightboxZoomed ? { transformOrigin: `${lightboxZoomPos.x}% ${lightboxZoomPos.y}%` } : undefined}
                   />
@@ -583,11 +584,11 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
               {recommendedProducts.map(rec => (
                 <div key={rec.id} onClick={() => onSelectProduct(rec)} className="bg-white p-4 rounded-2xl border border-slate-200 hover:shadow-lg transition-all cursor-pointer group">
                   <div className="aspect-square bg-slate-50 rounded-xl mb-4 p-4 flex items-center justify-center relative">
-                    <img 
-                      src={rec.images?.[0] || 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'} 
+                    <img
+                      src={rec.images?.[0] || PRODUCT_IMAGE_FALLBACK}
                       alt={rec.title}
-                      className="max-h-full object-contain group-hover:scale-105 transition-transform" 
-                      onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'; }} 
+                      className="max-h-full object-contain group-hover:scale-105 transition-transform"
+                      onError={onProductImageError}
                     />
                   </div>
                   <h3 className="font-bold text-sm text-slate-900 mb-1 truncate">{rec.title.replace(/\s*-\s*Refurbished/gi, '')}</h3>

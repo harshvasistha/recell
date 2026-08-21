@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CatalogProduct } from '../../types';
 import { PackageCheck, ShieldCheck, Sparkles, Filter, CheckCircle2, ShoppingBag, ArrowRight, Clock, Award, Phone } from 'lucide-react';
 import { motion } from 'motion/react';
+import { PRODUCT_IMAGE_FALLBACK, onProductImageError } from '../../utils/productImageFallback';
 
 interface OpenBoxMobilesProps {
   catalog: CatalogProduct[];
@@ -170,9 +171,10 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
                   {/* Image Container */}
                   <div className="relative rounded-2xl overflow-hidden bg-slate-100 aspect-4/3 mb-4">
                     <img
-                      src={product.images[0]}
+                      src={product.images[0] || PRODUCT_IMAGE_FALLBACK}
                       alt={product.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      onError={onProductImageError}
                     />
                   </div>
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CatalogProduct, BuyQuoteRequest, Order, RepairJob, PricingRules, ReturnRequest, WarrantyClaim } from '../types';
 import { Settings, ShoppingBag, Smartphone, Wrench, IndianRupee, ShieldCheck, Truck, Plus, Trash2, CheckCircle, Sliders, RefreshCw, UserCheck, Upload, Download, FileText, Info, HelpCircle, Cloud } from 'lucide-react';
 import { GoogleDriveImportModal } from './GoogleDriveImportModal';
+import { PRODUCT_IMAGE_FALLBACK, onProductImageError } from '../utils/productImageFallback';
 
 interface AdminDashboardProps {
   catalog: CatalogProduct[];
@@ -45,7 +46,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const [newGrade, setNewGrade] = useState<'Grade A' | 'Grade A1' | 'Grade B' | 'Grade B1' | 'Open Box' | 'Like New' | 'Superb' | 'Good'>('Open Box');
   const [newBattery, setNewBattery] = useState(90);
   const [newImei, setNewImei] = useState('359018273641029');
-  const [newImage, setNewImage] = useState('https://images.unsplash.com/photo-1632661674596-df8be070a5c5?auto=format&fit=crop&w=800&q=80');
+  // Starts empty (not a pre-filled stock photo) so it's obvious this field
+  // still needs a real photo before saving - a filled-in demo URL here was
+  // easy to miss and leave in place, silently saving an unrelated stock
+  // photo as if it were the product's real image.
+  const [newImage, setNewImage] = useState('');
 
   // Bulk CSV Upload & Paste Modal
   const [showBulkUploadModal, setShowBulkUploadModal] = useState(false);
@@ -81,7 +86,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       conditionGrade: newGrade,
       warrantyMonths: 3,
       batteryHealthPercent: Number(newBattery),
-      images: [newImage],
+      images: [newImage || PRODUCT_IMAGE_FALLBACK],
       inStock: true,
       stockCount: 1,
       serialImei: newImei,
@@ -164,9 +169,14 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
       const batteryHealthPercent = Number(parts[8]) || 88;
       const serialImei = parts[9] || `3590${Math.floor(10000000000 + Math.random() * 90000000000)}`;
-      const imageUrl = parts[10] && parts[10].startsWith('http') 
-        ? parts[10] 
-        : 'https://images.unsplash.com/photo-1632661674596-df8be070a5c5?auto=format&fit=crop&w=800&q=80';
+      // A CSV row with no working image link used to silently fall back to a
+      // stock Unsplash photo, which then got saved as if it were the real
+      // product photo - showing up later as an "irrelevant" image on the
+      // storefront with no obvious cause. Falling back to the shared
+      // placeholder instead makes a missing photo look like what it is.
+      const imageUrl = parts[10] && parts[10].startsWith('http')
+        ? parts[10]
+        : PRODUCT_IMAGE_FALLBACK;
       const description = parts[11] || `Certified 55-Point Inspected device. Grade ${conditionGrade}. Includes charger and warranty.`;
 
       newProducts.push({
@@ -265,9 +275,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         conditionGrade,
         warrantyMonths: r.warrantyMonths ?? (isOpenBox ? 12 : 3),
         batteryHealthPercent: r.batteryHealthPercent ?? existing?.batteryHealthPercent,
-        images: Array.isArray(r.images) && r.images.length > 0
-          ? r.images
-          : existing?.images || ['https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80'],
+        images: Array.isArray(r.images) && r.images.length > 0 && r.images.some((u: string) => !!u)
+          ? r.images.filter((u: string) => !!u)
+          : existing?.images || [PRODUCT_IMAGE_FALLBACK],
         inStock: r.inStock ?? existing?.inStock ?? true,
         stockCount: r.stockCount ?? existing?.stockCount ?? 5,
         serialImei: r.serialImei || existing?.serialImei || `3590${Math.floor(10000000000 + Math.random() * 90000000000)}`,
@@ -585,7 +595,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 {catalog.filter(item => activeTab === 'openbox_catalog' ? item.conditionGrade === 'Open Box' : item.conditionGrade !== 'Open Box').map(item => (
                   <tr key={item.id} className="hover:bg-slate-50/80 transition-colors">
                     <td className="p-3 font-medium flex items-center gap-3">
-                      <img src={item.images[0]} alt="" className="w-10 h-10 object-cover rounded-xl bg-slate-100 border border-slate-200" />
+                      <img src={item.images[0] || PRODUCT_IMAGE_FALLBACK} alt="" className="w-10 h-10 object-cover rounded-xl bg-slate-100 border border-slate-200" onError={onProductImageError} />
                       <div>
                         <p className="text-slate-900 font-bold">{item.title}</p>
                         <p className="text-[10px] text-slate-400 font-mono">IMEI: {item.serialImei}</p>
@@ -1121,7 +1131,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 </div>
                 {newImage && (
                   <div className="mt-2 flex items-center gap-2 bg-slate-50 p-2 rounded-xl border border-slate-200">
-                    <img src={newImage} alt="Preview" className="w-10 h-10 rounded-lg object-cover border border-slate-200" />
+                    <img src={newImage} alt="Preview" className="w-10 h-10 rounded-lg object-cover border border-slate-200" onError={onProductImageError} />
                     <span className="text-[11px] text-slate-600 font-medium truncate">Product photo loaded &amp; ready</span>
                   </div>
                 )}
