@@ -93,8 +93,17 @@ export function calculateRoughQuote(
   const fifteenPercentDeduction = Math.round((initialEstimate * 0.15) / 100) * 100;
   const estimated = Math.max(0, initialEstimate - fifteenPercentDeduction);
 
-  const minQuote = Math.round((estimated * 0.95) / 100) * 100;
-  const maxQuote = Math.round((estimated * 1.05) / 100) * 100;
+  // Sell Phone quotes only: the final quote range shown to the seller is
+  // uplifted 10% here, in the background, on top of the normal calculation
+  // above - basePrice/deductions/breakdown lines all still reflect the real
+  // underlying numbers, only the bottom-line quote range is raised. This is
+  // scoped to this function (calculateRoughQuote), which is only used by
+  // the Sell Phone flow - it does not touch Buy/catalog pricing.
+  const SELL_QUOTE_UPLIFT = 1.10;
+  const upliftedEstimated = Math.round((estimated * SELL_QUOTE_UPLIFT) / 100) * 100;
+
+  const minQuote = Math.round((upliftedEstimated * 0.95) / 100) * 100;
+  const maxQuote = Math.round((upliftedEstimated * 1.05) / 100) * 100;
 
   return {
     basePrice,
@@ -108,7 +117,7 @@ export function calculateRoughQuote(
     fifteenPercentDeduction,
     roughQuoteMin: minQuote,
     roughQuoteMax: maxQuote,
-    roughQuoteEstimated: estimated,
+    roughQuoteEstimated: upliftedEstimated,
     isLocalRadius: localRadius
   };
 }

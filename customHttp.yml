@@ -1,0 +1,37 @@
+customHeaders:
+  # index.html is the one file every visitor's browser loads first, and it's
+  # what points the browser at the current build's hashed JS/CSS bundle. If
+  # a browser (or Amplify's own CDN) caches an old index.html, the visitor
+  # keeps running an old build indefinitely - pointed at bundle files that
+  # may no longer exist - until they manually hard-refresh. This is the
+  # actual cause of the "changes don't show up without a hard refresh" and
+  # "site disappeared" issues seen repeatedly this session: it's not that
+  # anything broke, it's that a stale cached index.html was still in play.
+  # Forcing index.html to always be revalidated means every visit picks up
+  # whatever build is actually live, automatically, with no user action.
+  - pattern: '/index.html'
+    headers:
+      - key: 'Cache-Control'
+        value: 'no-cache, no-store, must-revalidate'
+  - pattern: '/'
+    headers:
+      - key: 'Cache-Control'
+        value: 'no-cache, no-store, must-revalidate'
+  # Vite fingerprints every JS/CSS bundle filename with a content hash
+  # (e.g. index-Gt4TfuGA.js), so a new build always ships under a new
+  # filename - these are safe to cache aggressively forever, since the
+  # index.html fix above guarantees the browser always asks for the right
+  # (current) filename in the first place.
+  - pattern: '/assets/*'
+    headers:
+      - key: 'Cache-Control'
+        value: 'public, max-age=31536000, immutable'
+  # Product/brand photos under public/ are NOT content-hashed, but this
+  # project always uploads new images under new, unique file paths rather
+  # than overwriting an existing path with different content - so caching
+  # these long-term is safe and makes repeat page loads faster, without
+  # risking anyone seeing a stale photo under the same URL.
+  - pattern: '**/*.@(jpg|jpeg|png|gif|webp|svg|ico)'
+    headers:
+      - key: 'Cache-Control'
+        value: 'public, max-age=31536000, immutable'
