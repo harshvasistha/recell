@@ -155,13 +155,14 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
                 whileHover={{ y: -4 }}
                 className="bg-white border border-slate-200 hover:border-[#0052FF] rounded-3xl p-5 shadow-xs hover:shadow-xl transition-all flex flex-col justify-between group relative overflow-hidden cursor-pointer" onClick={() => onSelectProduct(product)}
               >
-                {/* Age Badge */}
-                <div className="absolute top-4 left-4 z-10 flex flex-col gap-1">
+                {/* Warranty Badge - single badge only; this card previously stacked a
+                    second "{N}M Brand Warranty" pill directly under it showing the
+                    same 12-month figure a different way (and defaulting to a stray
+                    "11M" when brandWarrantyMonths was unset), which just duplicated
+                    the message over the product image. */}
+                <div className="absolute top-4 left-4 z-10">
                   <span className="bg-amber-400 text-slate-950 text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-xs uppercase tracking-wider font-heading">
                     12-Month Warranty
-                  </span>
-                  <span className="bg-slate-950/80 backdrop-blur-md text-emerald-400 text-[9px] font-mono px-2 py-0.5 rounded-full">
-                    {product.brandWarrantyMonths || 11}M Brand Warranty
                   </span>
                 </div>
 
