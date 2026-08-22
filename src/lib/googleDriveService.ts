@@ -2,6 +2,7 @@ import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, User, signOut } from 'firebase/auth';
 import firebaseConfig from '../../firebase-applet-config.json';
 import { CatalogProduct } from '../types';
+import { uploadProductImageBlob, productImageStoragePath } from './storage';
 
 // CRITICAL: this must be a SEPARATE, named Firebase App instance, not the
 // app returned by getApp() with no name.  src/lib/firebase.ts also
@@ -199,7 +200,11 @@ export const parseDriveFileToCatalogProduct = (
     cleanName = `${brand} Mobile Device`;
   }
 
-  // Generate Image URL
+  // Preview-only image URL for the import browser's thumbnail grid.
+  // IMPORTANT: this Google-internal thumbnail link must never be the URL
+  // that actually gets saved to the catalog - see the big comment on
+  // rehostDriveFileImage() below for why. GoogleDriveImportModal replaces
+  // this with a permanent Firebase Storage URL before publishing.
   let imageUrl = `https://lh3.googleusercontent.com/d/${file.id}=s1000`;
   if (file.thumbnailLink) {
     imageUrl = file.thumbnailLink.replace(/=s\d+/, '=s1000');
@@ -241,4 +246,39 @@ export const parseDriveFileToCatalogProduct = (
     }
   };
 };
+
+/**
+ * Downloads a Drive file's actual image bytes (via the Drive API's
+ * authenticated `alt=media` download, not the public thumbnail service)
+ * and re-uploads them to Recell's own Firebase Storage bucket, returning a
+ * permanent, CDN-backed download URL.
+ *
+ * Why this exists: `lh3.googleusercontent.com/d/<fileId>` (used above for
+ * the import browser's preview thumbnails) is Google Drive's internal
+ * thumbnail-rendering endpoint, not a documented or supported hosting API.
+ * It works fine for one person occasionally previewing a file inside
+ * Drive's own UI, but Google throttles and eventually blocks it once a
+ * link gets real third-party traffic - exactly what happens once a photo
+ * imported this way starts being requested by every visitor loading the
+ * storefront. That's the actual mechanism behind "images worked for a few
+ * hours, then disappeared everywhere at once": it's not a caching bug and
+ * it's not random, it's Drive's anti-abuse throttling on a link that was
+ * never meant to serve production traffic. Self-hosting the bytes here
+ * removes that dependency entirely - once uploaded, the photo is served by
+ * Firebase's own Storage CDN and Google Drive is no longer involved at all.
+ */
+export async function rehostDriveFileImage(
+  file: DriveItem,
+  accessToken: string
+): Promise<string> {
+  const res = await fetch(`https://www.googleapis.com/drive/v3/files/${file.id}?alt=media`, {
+    headers: { Authorization: `Bearer ${accessToken}` }
+  });
+  if (!res.ok) {
+    throw new Error(`Could not download "${file.name}" from Google Drive (${res.status}).`);
+  }
+  const blob = await res.blob();
+  const path = productImageStoragePath(`gdrive-${file.id}`, file.mimeType);
+  return uploadProductImageBlob(blob, path);
+}
 

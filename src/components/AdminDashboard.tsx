@@ -3,6 +3,7 @@ import { CatalogProduct, BuyQuoteRequest, Order, RepairJob, PricingRules, Return
 import { Settings, ShoppingBag, Smartphone, Wrench, IndianRupee, ShieldCheck, Truck, Plus, Trash2, CheckCircle, Sliders, RefreshCw, UserCheck, Upload, Download, FileText, Info, HelpCircle, Cloud } from 'lucide-react';
 import { GoogleDriveImportModal } from './GoogleDriveImportModal';
 import { PRODUCT_IMAGE_FALLBACK, onProductImageError } from '../utils/productImageFallback';
+import { uploadProductImageBlob, productImageStoragePath } from '../lib/storage';
 
 interface AdminDashboardProps {
   catalog: CatalogProduct[];
@@ -341,17 +342,30 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     reader.readAsText(file);
   };
 
-  const handlePhotoFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
+
+  const handlePhotoFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      if (event.target?.result) {
-        setNewImage(event.target.result as string);
-      }
-    };
-    reader.readAsDataURL(file);
+    // Uploads straight to Firebase Storage and stores the permanent CDN
+    // URL, rather than embedding the photo as a base64 data: URL inside
+    // the catalog document itself. The whole catalog lives in one Firestore
+    // document (system/catalog, 1MB max) - a few data: URLs in there is
+    // fine, but it doesn't scale to hundreds of products and was never a
+    // real "hosted" photo anywhere. This also keeps every catalog photo,
+    // however it was added, on the same reliable storage path.
+    setUploadingPhoto(true);
+    try {
+      const path = productImageStoragePath(`manual-${Date.now()}`, file.type);
+      const url = await uploadProductImageBlob(file, path);
+      setNewImage(url);
+    } catch (err) {
+      console.error('Photo upload failed:', err);
+      alert('Photo upload failed. Please check your connection and try again.');
+    } finally {
+      setUploadingPhoto(false);
+    }
   };
 
   const handleRemoveProduct = (id: string) => {
@@ -1123,13 +1137,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     placeholder="https://... image link or select file"
                     className="flex-1 bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 font-mono text-xs"
                   />
-                  <label className="bg-indigo-50 hover:bg-indigo-100 text-[#0052FF] font-bold px-3.5 py-2.5 rounded-xl border border-indigo-200 cursor-pointer shrink-0 text-xs flex items-center gap-1.5 transition-colors">
-                    <Upload className="w-3.5 h-3.5" />
-                    <span>Upload File</span>
-                    <input type="file" accept="image/*" onChange={handlePhotoFileUpload} className="hidden" />
+                  <label className={`bg-indigo-50 hover:bg-indigo-100 text-[#0052FF] font-bold px-3.5 py-2.5 rounded-xl border border-indigo-200 shrink-0 text-xs flex items-center gap-1.5 transition-colors ${uploadingPhoto ? 'opacity-50 pointer-events-none' : 'cursor-pointer'}`}>
+                    <Upload className={`w-3.5 h-3.5 ${uploadingPhoto ? 'animate-pulse' : ''}`} />
+                    <span>{uploadingPhoto ? 'Uploading...' : 'Upload File'}</span>
+                    <input type="file" accept="image/*" onChange={handlePhotoFileUpload} disabled={uploadingPhoto} className="hidden" />
                   </label>
                 </div>
-                {newImage && (
+                {newImage && !uploadingPhoto && (
                   <div className="mt-2 flex items-center gap-2 bg-slate-50 p-2 rounded-xl border border-slate-200">
                     <img src={newImage} alt="Preview" className="w-10 h-10 rounded-lg object-cover border border-slate-200" onError={onProductImageError} />
                     <span className="text-[11px] text-slate-600 font-medium truncate">Product photo loaded &amp; ready</span>
@@ -1162,7 +1176,16 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         isOpen={showDriveImportModal}
         onClose={() => setShowDriveImportModal(false)}
         onImportProducts={(importedProducts) => {
-          setCatalog(prev => [...importedProducts, ...prev]);
+          // Upsert by id instead of blindly prepending: each Drive-imported
+          // product gets a deterministic id (gdrive-<fileId> etc), so
+          // re-importing the same file/folder - e.g. to re-host its image
+          // after this fix, or just refreshing a listing - now replaces the
+          // existing entry in place instead of adding a duplicate row into
+          // the single shared catalog document.
+          setCatalog(prev => {
+            const importedIds = new Set(importedProducts.map(p => p.id));
+            return [...importedProducts, ...prev.filter(p => !importedIds.has(p.id))];
+          });
           alert(`Successfully imported ${importedProducts.length} mobile phone photos & listings from Google Drive!`);
         }}
       />

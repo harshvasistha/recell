@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  googleDriveSignIn, 
-  fetchDriveFiles, 
-  parseDriveFileToCatalogProduct, 
-  DriveItem, 
+import {
+  googleDriveSignIn,
+  fetchDriveFiles,
+  parseDriveFileToCatalogProduct,
+  rehostDriveFileImage,
+  DriveItem,
   getCachedDriveAccessToken,
   logoutGoogleDrive
 } from '../lib/googleDriveService';
 import { CatalogProduct } from '../types';
+import { PRODUCT_IMAGE_FALLBACK } from '../utils/productImageFallback';
 import { 
   Folder, 
   Image as ImageIcon, 
@@ -49,8 +51,35 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
   const [isSharedWithMe, setIsSharedWithMe] = useState(false);
 
   const [parsedPreviewMap, setParsedPreviewMap] = useState<Record<string, CatalogProduct>>({});
+  const [publishing, setPublishing] = useState(false);
+  const [publishProgress, setPublishProgress] = useState<{ done: number; total: number } | null>(null);
 
   if (!isOpen) return null;
+
+  // Re-hosts each Drive file's photo into Firebase Storage (see
+  // rehostDriveFileImage's doc comment for why this matters - the Drive
+  // thumbnail link used for the browser preview above is not durable
+  // enough to publish). A file that fails to re-host (permissions changed,
+  // deleted, network hiccup) falls back to the shared placeholder instead
+  // of silently keeping the fragile Drive link, so a real problem shows up
+  // as an honest "no photo yet" rather than a listing that works today and
+  // breaks in a few hours.
+  const rehostImages = async (driveFiles: DriveItem[]): Promise<Record<string, string>> => {
+    if (!accessToken) return {};
+    const result: Record<string, string> = {};
+    setPublishProgress({ done: 0, total: driveFiles.length });
+    for (let i = 0; i < driveFiles.length; i++) {
+      const f = driveFiles[i];
+      try {
+        result[f.id] = await rehostDriveFileImage(f, accessToken);
+      } catch (err) {
+        console.error(`Failed to re-host Drive image "${f.name}":`, err);
+        result[f.id] = PRODUCT_IMAGE_FALLBACK;
+      }
+      setPublishProgress({ done: i + 1, total: driveFiles.length });
+    }
+    return result;
+  };
 
   const handleSignIn = async () => {
     setLoading(true);
@@ -140,51 +169,65 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
     }
   };
 
-  const handleImportToCatalog = () => {
-    const itemsToImport: CatalogProduct[] = [];
-    selectedFileIds.forEach(id => {
-      if (parsedPreviewMap[id]) {
-        itemsToImport.push(parsedPreviewMap[id]);
-      }
-    });
-
-    if (itemsToImport.length === 0) {
+  const handleImportToCatalog = async () => {
+    const selectedFiles = files.filter(f => selectedFileIds.has(f.id));
+    if (selectedFiles.length === 0) {
       alert('Please select at least 1 image file from Google Drive to import.');
       return;
     }
 
-    onImportProducts(itemsToImport);
-    onClose();
+    setPublishing(true);
+    try {
+      const hostedUrls = await rehostImages(selectedFiles);
+      const itemsToImport: CatalogProduct[] = selectedFiles
+        .filter(f => parsedPreviewMap[f.id])
+        .map(f => ({
+          ...parsedPreviewMap[f.id],
+          images: [hostedUrls[f.id] || PRODUCT_IMAGE_FALLBACK]
+        }));
+
+      onImportProducts(itemsToImport);
+      onClose();
+    } finally {
+      setPublishing(false);
+      setPublishProgress(null);
+    }
   };
 
-  const handleCombineSelectedIntoSingleProduct = () => {
-    const itemsToCombine: CatalogProduct[] = [];
-    selectedFileIds.forEach(id => {
-      if (parsedPreviewMap[id]) {
-        itemsToCombine.push(parsedPreviewMap[id]);
-      }
-    });
-
-    if (itemsToCombine.length === 0) {
+  const handleCombineSelectedIntoSingleProduct = async () => {
+    const selectedFiles = files.filter(f => selectedFileIds.has(f.id));
+    if (selectedFiles.length === 0) {
       alert('Please select at least 1 image file to combine.');
       return;
     }
 
-    const firstItem = itemsToCombine[0];
-    const allImages = itemsToCombine.map(item => item.images[0]).filter(Boolean);
+    setPublishing(true);
+    try {
+      const hostedUrls = await rehostImages(selectedFiles);
+      const itemsToCombine = selectedFiles
+        .filter(f => parsedPreviewMap[f.id])
+        .map(f => parsedPreviewMap[f.id]);
+      const firstItem = itemsToCombine[0];
+      const allImages = selectedFiles
+        .map(f => hostedUrls[f.id])
+        .filter((u): u is string => !!u && u !== PRODUCT_IMAGE_FALLBACK);
 
-    // Get current folder name if inside a subfolder
-    const currentFolderName = folderHistory.length > 1 ? folderHistory[folderHistory.length - 1].name : firstItem.model;
+      // Get current folder name if inside a subfolder
+      const currentFolderName = folderHistory.length > 1 ? folderHistory[folderHistory.length - 1].name : firstItem.model;
 
-    const combinedProduct: CatalogProduct = {
-      ...firstItem,
-      id: `gdrive-combined-${Date.now()}`,
-      title: folderHistory.length > 1 ? `${currentFolderName} [${firstItem.conditionGrade}]` : firstItem.title,
-      images: allImages
-    };
+      const combinedProduct: CatalogProduct = {
+        ...firstItem,
+        id: `gdrive-combined-${Date.now()}`,
+        title: folderHistory.length > 1 ? `${currentFolderName} [${firstItem.conditionGrade}]` : firstItem.title,
+        images: allImages.length > 0 ? allImages : [PRODUCT_IMAGE_FALLBACK]
+      };
 
-    onImportProducts([combinedProduct]);
-    onClose();
+      onImportProducts([combinedProduct]);
+      onClose();
+    } finally {
+      setPublishing(false);
+      setPublishProgress(null);
+    }
   };
 
   const handlePublishFolderAsDevice = async (folder: DriveItem) => {
@@ -192,9 +235,9 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
     setLoading(true);
     try {
       const { files: driveFiles } = await fetchDriveFiles(accessToken, folder.id, isSharedWithMe);
-      const imageFiles = driveFiles.filter(f => 
-        f.mimeType.startsWith('image/') || 
-        f.mimeType.includes('pdf') || 
+      const imageFiles = driveFiles.filter(f =>
+        f.mimeType.startsWith('image/') ||
+        f.mimeType.includes('pdf') ||
         f.mimeType.includes('document') ||
         f.mimeType.includes('text')
       );
@@ -206,15 +249,19 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
       }
 
       const firstItem = parseDriveFileToCatalogProduct(imageFiles[0], accessToken, folder.description, folder.name);
+
+      setLoading(false);
+      setPublishing(true);
+      const hostedUrls = await rehostImages(imageFiles);
       const allImages = imageFiles
-        .map(f => parseDriveFileToCatalogProduct(f, accessToken, folder.description, folder.name).images[0])
-        .filter(Boolean);
+        .map(f => hostedUrls[f.id])
+        .filter((u): u is string => !!u && u !== PRODUCT_IMAGE_FALLBACK);
 
       const combinedProduct: CatalogProduct = {
         ...firstItem,
         id: `gdrive-folder-${folder.id}`,
         title: `${folder.name} [${firstItem.conditionGrade}]`,
-        images: allImages
+        images: allImages.length > 0 ? allImages : [PRODUCT_IMAGE_FALLBACK]
       };
 
       onImportProducts([combinedProduct]);
@@ -224,6 +271,8 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
       alert('Failed to publish folder.');
     } finally {
       setLoading(false);
+      setPublishing(false);
+      setPublishProgress(null);
     }
   };
 
@@ -431,7 +480,8 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
                                 e.stopPropagation();
                                 handlePublishFolderAsDevice(f);
                               }}
-                              className="w-full mt-auto bg-indigo-50 hover:bg-indigo-600 hover:text-white text-indigo-700 text-[10px] font-bold py-1.5 rounded-lg flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                              disabled={publishing || loading}
+                              className="w-full mt-auto bg-indigo-50 hover:bg-indigo-600 hover:text-white text-indigo-700 text-[10px] font-bold py-1.5 rounded-lg flex items-center justify-center gap-1.5 transition-colors cursor-pointer disabled:opacity-40 disabled:pointer-events-none"
                             >
                               <Upload className="w-3 h-3" /> Publish Folder
                             </button>
@@ -540,14 +590,22 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
         {accessToken && (
           <div className="px-6 py-4 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
             <div className="text-slate-600 font-medium text-xs">
-              Selected <strong className="text-slate-900 font-bold">{selectedFileIds.size}</strong> device photos to import
+              {publishing ? (
+                <span className="flex items-center gap-2 text-[#0052FF] font-bold">
+                  <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                  Saving photos to Recell storage{publishProgress ? ` (${publishProgress.done}/${publishProgress.total})` : '...'}
+                </span>
+              ) : (
+                <>Selected <strong className="text-slate-900 font-bold">{selectedFileIds.size}</strong> device photos to import</>
+              )}
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-bold hover:bg-slate-100 transition-all cursor-pointer"
+                disabled={publishing}
+                className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-bold hover:bg-slate-100 disabled:opacity-40 transition-all cursor-pointer"
               >
                 Cancel
               </button>
@@ -556,7 +614,8 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
                 <button
                   type="button"
                   onClick={handleCombineSelectedIntoSingleProduct}
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 shadow-md transition-all cursor-pointer font-heading"
+                  disabled={publishing}
+                  className="bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 shadow-md transition-all cursor-pointer font-heading"
                   title="Combine all selected photos into 1 mobile listing with gallery"
                 >
                   <Sparkles className="w-4 h-4 text-amber-300" />
@@ -567,7 +626,7 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
               <button
                 type="button"
                 onClick={handleImportToCatalog}
-                disabled={selectedFileIds.size === 0}
+                disabled={selectedFileIds.size === 0 || publishing}
                 className="bg-[#0052FF] hover:bg-[#0043CC] disabled:opacity-40 text-white font-bold px-6 py-2.5 rounded-xl text-xs flex items-center gap-2 shadow-md transition-all cursor-pointer font-heading"
               >
                 <Upload className="w-4 h-4" />
