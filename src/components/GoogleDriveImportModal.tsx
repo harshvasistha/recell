@@ -56,30 +56,41 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
 
   if (!isOpen) return null;
 
-  // Re-hosts each Drive file's photo into Firebase Storage (see
+  // Re-hosts each Drive file's photo into Cloudinary (see
   // rehostDriveFileImage's doc comment for why this matters - the Drive
   // thumbnail link used for the browser preview above is not durable
   // enough to publish). A file that fails to re-host (permissions changed,
-  // deleted, network hiccup) falls back to the shared placeholder instead
-  // of silently keeping the fragile Drive link, so a real problem shows up
-  // as an honest "no photo yet" rather than a listing that works today and
-  // breaks in a few hours.
-  const rehostImages = async (driveFiles: DriveItem[]): Promise<Record<string, string>> => {
-    if (!accessToken) return {};
-    const result: Record<string, string> = {};
+  // deleted, network hiccup, oversized original) falls back to the shared
+  // placeholder instead of silently keeping the fragile Drive link, so a
+  // real problem shows up as an honest "no photo yet" rather than a
+  // listing that works today and breaks in a few hours. The real reason
+  // for each failure is collected and returned (not just console-logged)
+  // so it can be shown to whoever is publishing, instead of requiring a
+  // trip into devtools to find out why a photo didn't make it.
+  const rehostImages = async (
+    driveFiles: DriveItem[]
+  ): Promise<{ urls: Record<string, string>; failures: { name: string; reason: string }[] }> => {
+    if (!accessToken) return { urls: {}, failures: [] };
+    const urls: Record<string, string> = {};
+    const failures: { name: string; reason: string }[] = [];
     setPublishProgress({ done: 0, total: driveFiles.length });
     for (let i = 0; i < driveFiles.length; i++) {
       const f = driveFiles[i];
       try {
-        result[f.id] = await rehostDriveFileImage(f, accessToken);
-      } catch (err) {
+        urls[f.id] = await rehostDriveFileImage(f, accessToken);
+      } catch (err: any) {
         console.error(`Failed to re-host Drive image "${f.name}":`, err);
-        result[f.id] = PRODUCT_IMAGE_FALLBACK;
+        urls[f.id] = PRODUCT_IMAGE_FALLBACK;
+        failures.push({ name: f.name, reason: err?.message || 'Unknown error' });
       }
       setPublishProgress({ done: i + 1, total: driveFiles.length });
     }
-    return result;
+    return { urls, failures };
   };
+
+  const describeFailures = (failures: { name: string; reason: string }[], total: number) =>
+    `${failures.length} of ${total} photo${total > 1 ? 's' : ''} failed to upload and will show "Photo coming soon" until re-imported:\n\n` +
+    failures.map(f => `• ${f.name}: ${f.reason}`).join('\n');
 
   const handleSignIn = async () => {
     setLoading(true);
@@ -178,7 +189,7 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
 
     setPublishing(true);
     try {
-      const hostedUrls = await rehostImages(selectedFiles);
+      const { urls: hostedUrls, failures } = await rehostImages(selectedFiles);
       const itemsToImport: CatalogProduct[] = selectedFiles
         .filter(f => parsedPreviewMap[f.id])
         .map(f => ({
@@ -188,6 +199,9 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
 
       onImportProducts(itemsToImport);
       onClose();
+      if (failures.length > 0) {
+        alert(describeFailures(failures, selectedFiles.length));
+      }
     } finally {
       setPublishing(false);
       setPublishProgress(null);
@@ -203,7 +217,7 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
 
     setPublishing(true);
     try {
-      const hostedUrls = await rehostImages(selectedFiles);
+      const { urls: hostedUrls, failures } = await rehostImages(selectedFiles);
       const itemsToCombine = selectedFiles
         .filter(f => parsedPreviewMap[f.id])
         .map(f => parsedPreviewMap[f.id]);
@@ -224,6 +238,9 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
 
       onImportProducts([combinedProduct]);
       onClose();
+      if (failures.length > 0) {
+        alert(describeFailures(failures, selectedFiles.length));
+      }
     } finally {
       setPublishing(false);
       setPublishProgress(null);
@@ -252,7 +269,7 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
 
       setLoading(false);
       setPublishing(true);
-      const hostedUrls = await rehostImages(imageFiles);
+      const { urls: hostedUrls, failures } = await rehostImages(imageFiles);
       const allImages = imageFiles
         .map(f => hostedUrls[f.id])
         .filter((u): u is string => !!u && u !== PRODUCT_IMAGE_FALLBACK);
@@ -265,7 +282,14 @@ export const GoogleDriveImportModal: React.FC<GoogleDriveImportModalProps> = ({
       };
 
       onImportProducts([combinedProduct]);
-      alert(`Successfully published folder "${folder.name}" as 1 device with ${allImages.length} photos!`);
+      if (failures.length > 0) {
+        alert(
+          `Published folder "${folder.name}" with ${allImages.length} of ${imageFiles.length} photos.\n\n` +
+            describeFailures(failures, imageFiles.length)
+        );
+      } else {
+        alert(`Successfully published folder "${folder.name}" as 1 device with ${allImages.length} photos!`);
+      }
     } catch (err) {
       console.error('Error publishing folder:', err);
       alert('Failed to publish folder.');

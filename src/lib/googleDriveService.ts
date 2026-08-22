@@ -271,13 +271,34 @@ export async function rehostDriveFileImage(
   file: DriveItem,
   accessToken: string
 ): Promise<string> {
-  const res = await fetch(`https://www.googleapis.com/drive/v3/files/${file.id}?alt=media`, {
-    headers: { Authorization: `Bearer ${accessToken}` }
-  });
-  if (!res.ok) {
-    throw new Error(`Could not download "${file.name}" from Google Drive (${res.status}).`);
+  const download = async (): Promise<Blob> => {
+    const res = await fetch(`https://www.googleapis.com/drive/v3/files/${file.id}?alt=media`, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    if (!res.ok) {
+      if (res.status === 401) {
+        throw new Error(
+          `Could not download "${file.name}" from Google Drive (401 - your Drive sign-in expired mid-import). Disconnect and reconnect Google Drive, then try again.`
+        );
+      }
+      throw new Error(`Could not download "${file.name}" from Google Drive (${res.status}).`);
+    }
+    return res.blob();
+  };
+
+  let blob: Blob;
+  try {
+    blob = await download();
+  } catch (err: any) {
+    // A 401 means the access token itself expired - retrying won't help,
+    // so surface it immediately instead of burning a second attempt.
+    if (err?.message?.includes('401')) throw err;
+    // Otherwise (network blip, transient 5xx) one retry after a short
+    // pause clears most of these without giving up on the photo.
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    blob = await download();
   }
-  const blob = await res.blob();
+
   return uploadProductImageBlob(blob);
 }
 
