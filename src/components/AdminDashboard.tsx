@@ -3,7 +3,7 @@ import { CatalogProduct, BuyQuoteRequest, Order, RepairJob, PricingRules, Return
 import { Settings, ShoppingBag, Smartphone, Wrench, IndianRupee, ShieldCheck, Truck, Plus, Trash2, CheckCircle, Sliders, RefreshCw, UserCheck, Upload, Download, FileText, Info, HelpCircle, Cloud } from 'lucide-react';
 import { GoogleDriveImportModal } from './GoogleDriveImportModal';
 import { PRODUCT_IMAGE_FALLBACK, onProductImageError } from '../utils/productImageFallback';
-import { uploadProductImageBlob, productImageStoragePath } from '../lib/storage';
+import { uploadProductImageBlob } from '../lib/storage';
 
 interface AdminDashboardProps {
   catalog: CatalogProduct[];
@@ -348,17 +348,16 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Uploads straight to Firebase Storage and stores the permanent CDN
-    // URL, rather than embedding the photo as a base64 data: URL inside
-    // the catalog document itself. The whole catalog lives in one Firestore
+    // Uploads straight to Cloudinary and stores the permanent CDN URL,
+    // rather than embedding the photo as a base64 data: URL inside the
+    // catalog document itself. The whole catalog lives in one Firestore
     // document (system/catalog, 1MB max) - a few data: URLs in there is
     // fine, but it doesn't scale to hundreds of products and was never a
     // real "hosted" photo anywhere. This also keeps every catalog photo,
-    // however it was added, on the same reliable storage path.
+    // however it was added, on the same reliable hosting path.
     setUploadingPhoto(true);
     try {
-      const path = productImageStoragePath(`manual-${Date.now()}`, file.type);
-      const url = await uploadProductImageBlob(file, path);
+      const url = await uploadProductImageBlob(file);
       setNewImage(url);
     } catch (err) {
       console.error('Photo upload failed:', err);

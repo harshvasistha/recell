@@ -1,6 +1,3 @@
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import app from './firebase';
-
 // Real, permanent image hosting for catalog product photos.
 //
 // Before this file existed, "importing" a photo from Google Drive meant
@@ -14,28 +11,39 @@ import app from './firebase';
 // just wasn't meant to survive real traffic.
 //
 // The fix is to stop borrowing someone else's link and instead copy the
-// image bytes into Recell's own Firebase Storage bucket once, at import
-// time, and use the permanent download URL that Storage hands back. That
-// URL is served by Firebase's own CDN and does not depend on Google
-// Drive's sharing/throttling behavior at all.
-const storage = getStorage(app);
+// image bytes into a real image host once, at import time, and use the
+// permanent URL that host hands back.
+//
+// This uses Cloudinary's free tier via an unsigned upload preset, rather
+// than Firebase Storage - Firebase now requires the paid Blaze plan just
+// to turn Storage on at all (even to stay within its free-tier usage
+// limits), and this project is staying on Firebase's free Spark plan.
+// Cloudinary's free tier needs no card on file. An "unsigned" upload
+// preset is Cloudinary's supported way to let a browser upload directly
+// without a backend secret key - the cloud name and preset name below are
+// meant to be public, client-visible values (that's how unsigned uploads
+// work by design), never a secret.
+const CLOUDINARY_CLOUD_NAME = 'pks9txyy';
+const CLOUDINARY_UPLOAD_PRESET = 'recell-catalog';
 
-export async function uploadProductImageBlob(blob: Blob, path: string): Promise<string> {
-  const storageRef = ref(storage, path);
-  await uploadBytes(storageRef, blob, { contentType: blob.type || 'image/jpeg' });
-  return getDownloadURL(storageRef);
-}
+export async function uploadProductImageBlob(blob: Blob): Promise<string> {
+  const formData = new FormData();
+  formData.append('file', blob);
+  formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
 
-function extensionForMimeType(mimeType: string | undefined): string {
-  if (!mimeType) return 'jpg';
-  if (mimeType.includes('png')) return 'png';
-  if (mimeType.includes('webp')) return 'webp';
-  if (mimeType.includes('gif')) return 'gif';
-  if (mimeType.includes('heic')) return 'heic';
-  return 'jpg';
-}
+  const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
+    method: 'POST',
+    body: formData
+  });
 
-export function productImageStoragePath(idSeed: string, mimeType?: string): string {
-  const ext = extensionForMimeType(mimeType);
-  return `product-images/${idSeed}.${ext}`;
+  if (!res.ok) {
+    const errText = await res.text();
+    throw new Error(`Cloudinary upload failed (${res.status}): ${errText}`);
+  }
+
+  const data = await res.json();
+  if (!data.secure_url) {
+    throw new Error('Cloudinary upload succeeded but returned no image URL.');
+  }
+  return data.secure_url as string;
 }

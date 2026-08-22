@@ -2,7 +2,7 @@ import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, User, signOut } from 'firebase/auth';
 import firebaseConfig from '../../firebase-applet-config.json';
 import { CatalogProduct } from '../types';
-import { uploadProductImageBlob, productImageStoragePath } from './storage';
+import { uploadProductImageBlob } from './storage';
 
 // CRITICAL: this must be a SEPARATE, named Firebase App instance, not the
 // app returned by getApp() with no name.  src/lib/firebase.ts also
@@ -250,7 +250,7 @@ export const parseDriveFileToCatalogProduct = (
 /**
  * Downloads a Drive file's actual image bytes (via the Drive API's
  * authenticated `alt=media` download, not the public thumbnail service)
- * and re-uploads them to Recell's own Firebase Storage bucket, returning a
+ * and re-uploads them to Cloudinary (see src/lib/storage.ts), returning a
  * permanent, CDN-backed download URL.
  *
  * Why this exists: `lh3.googleusercontent.com/d/<fileId>` (used above for
@@ -265,7 +265,7 @@ export const parseDriveFileToCatalogProduct = (
  * it's not random, it's Drive's anti-abuse throttling on a link that was
  * never meant to serve production traffic. Self-hosting the bytes here
  * removes that dependency entirely - once uploaded, the photo is served by
- * Firebase's own Storage CDN and Google Drive is no longer involved at all.
+ * Cloudinary's own CDN and Google Drive is no longer involved at all.
  */
 export async function rehostDriveFileImage(
   file: DriveItem,
@@ -278,7 +278,6 @@ export async function rehostDriveFileImage(
     throw new Error(`Could not download "${file.name}" from Google Drive (${res.status}).`);
   }
   const blob = await res.blob();
-  const path = productImageStoragePath(`gdrive-${file.id}`, file.mimeType);
-  return uploadProductImageBlob(blob, path);
+  return uploadProductImageBlob(blob);
 }
 
