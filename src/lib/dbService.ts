@@ -244,10 +244,38 @@ export async function savePaymentRecord(payment: PaymentRecord): Promise<void> {
 // session having silently changed identity) used to fail here completely
 // silently, so catalog edits that looked fine in the UI were never really
 // persisted and vanished on the next reload.
+// Firestore's client SDK rejects setDoc() outright if ANY nested field
+// anywhere in the payload is literally `undefined` - not null, not simply
+// missing, specifically the value `undefined` - throwing "Unsupported
+// field value: undefined". Because the whole catalog is saved as ONE
+// document, a single product anywhere in the array with one stray
+// undefined field (e.g. an optional field a bulk import left out, with
+// nothing existing to inherit it from) fails the ENTIRE catalog save -
+// every other legitimate edit in the same batch gets silently rejected
+// right along with it, and the only visible symptom is a generic "failed
+// to save" banner with no hint that the real cause was a data shape
+// problem, not an auth one. Stripping undefined values here, right before
+// the write, is a last line of defense regardless of which code path
+// produced the bad value.
+function stripUndefinedDeep<T>(value: T): T {
+  if (Array.isArray(value)) {
+    return value.map(stripUndefinedDeep) as unknown as T;
+  }
+  if (value && typeof value === 'object') {
+    const result: any = {};
+    for (const [k, v] of Object.entries(value as object)) {
+      if (v === undefined) continue;
+      result[k] = stripUndefinedDeep(v);
+    }
+    return result;
+  }
+  return value;
+}
+
 export async function saveCatalogToDB(catalog: CatalogProduct[]): Promise<boolean> {
   try {
     const docRef = doc(db, 'system', 'catalog');
-    await setDoc(docRef, { products: catalog });
+    await setDoc(docRef, { products: stripUndefinedDeep(catalog) });
     console.log('[Firestore] Catalog saved successfully.');
     return true;
   } catch (err) {

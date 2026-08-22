@@ -264,6 +264,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       const key = productIdentityKey(r.brand, r.model, r.storage || '128GB', conditionGrade);
       const existing = existingByKey.get(key);
 
+      // Both of these are genuinely optional fields (see types.ts) with no
+      // hard fallback - a brand-new product with neither the pasted value
+      // nor an existing entry to inherit from must end up with the key
+      // simply ABSENT, never present with the literal value `undefined`.
+      // Firestore's setDoc() rejects any document containing an undefined
+      // field outright, and because the whole catalog is one document,
+      // that one field on one product used to fail the ENTIRE save - every
+      // other product in the same paste, silently, with a banner that
+      // pointed at "signed out of admin" instead of the real cause.
+      const batteryHealthPercent = r.batteryHealthPercent ?? existing?.batteryHealthPercent;
+      const brandWarrantyMonths = r.brandWarrantyMonths ?? existing?.brandWarrantyMonths ?? (isOpenBox ? 12 : undefined);
+
       const product: CatalogProduct = {
         id: existing?.id || `cat-json-${Date.now()}-${i}`,
         title: r.title,
@@ -275,7 +287,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         refurbPrice: Number(r.refurbPrice),
         conditionGrade,
         warrantyMonths: r.warrantyMonths ?? (isOpenBox ? 12 : 3),
-        batteryHealthPercent: r.batteryHealthPercent ?? existing?.batteryHealthPercent,
+        ...(batteryHealthPercent !== undefined ? { batteryHealthPercent } : {}),
         images: Array.isArray(r.images) && r.images.length > 0 && r.images.some((u: string) => !!u)
           ? r.images.filter((u: string) => !!u)
           : existing?.images || [PRODUCT_IMAGE_FALLBACK],
@@ -286,7 +298,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         description: r.description || existing?.description || `${r.title} - ${isOpenBox ? 'Sealed open box unit with 12-month official manufacturer warranty.' : `Certified 55-point inspected device with ${r.warrantyMonths ?? 3}-month warranty.`}`,
         boxChargerIncluded: r.boxChargerIncluded ?? existing?.boxChargerIncluded ?? true,
         isOpenBox,
-        brandWarrantyMonths: r.brandWarrantyMonths ?? existing?.brandWarrantyMonths ?? (isOpenBox ? 12 : undefined),
+        ...(brandWarrantyMonths !== undefined ? { brandWarrantyMonths } : {}),
         specs: r.specs || existing?.specs || {
           screen: '6.7" Full HD+ Display',
           processor: 'Octa-Core Processor',
