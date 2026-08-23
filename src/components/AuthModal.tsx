@@ -258,7 +258,19 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       return 'This sign-in link has expired or was already used. Please request a new one.';
     }
     if (code === 'auth/operation-not-allowed') {
-      return 'Email sign-in link is not enabled yet on this account. Please contact support.';
+      // This code is thrown by BOTH signInWithPhoneNumber (Phone provider
+      // disabled in Firebase Console) and sendSignInLinkToEmail/
+      // signInWithEmailAndPassword (Email/Password or Email-link provider
+      // disabled) - they are two SEPARATE toggles in the Firebase Console,
+      // and this message used to be hardcoded to the email wording no
+      // matter which flow actually failed. That meant a mobile-number
+      // signup failing because the Phone provider itself was off showed a
+      // confusing "Email sign-in link is not enabled" message while the
+      // Mobile tab was the one selected - looked like a random unrelated
+      // error instead of naming the real, fixable cause.
+      return authMethod === 'phone'
+        ? 'Mobile OTP sign-in is not enabled yet on this account. Please contact support.'
+        : 'Email sign-in link is not enabled yet on this account. Please contact support.';
     }
     if (code === 'auth/wrong-password' || code === 'auth/invalid-credential') {
       return 'Incorrect admin password.';

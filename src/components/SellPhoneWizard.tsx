@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DeviceModel, ConditionAnswers, BuyQuoteRequest, PricingRules } from '../types';
 import { calculateRoughQuote, isLocalPincode } from '../utils/pricingEngine';
 import { Smartphone, Check, AlertCircle, Camera, Upload, Calendar, Clock, MapPin, IndianRupee, Sparkles, ShieldCheck, ArrowRight, ArrowLeft, ChevronRight, CheckCircle2 } from 'lucide-react';
@@ -40,6 +40,18 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
   onNavigateToAgent
 }) => {
   const [step, setStep] = useState<number>(1);
+
+  // Each step's content can be shorter than the previous one (e.g. the long
+  // Diagnostics form in Step 4 vs. the compact Quote card in Step 5) - the
+  // browser has no reason to reset scroll on its own since this is all one
+  // in-page state change, not a real navigation. Without this, advancing a
+  // step while scrolled deep into the previous one left the viewport
+  // wherever it already was, which could land past the new (shorter)
+  // step's content entirely - showing the footer instead of the quote
+  // price that had just loaded in above the fold.
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [step]);
   const [selectedBrand, setSelectedBrand] = useState<string>('');
   const [selectedModel, setSelectedModel] = useState<DeviceModel | null>(null);
   const [searchModelQuery, setSearchModelQuery] = useState<string>('');
