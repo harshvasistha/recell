@@ -24,11 +24,14 @@ export interface PendingEmailAuth {
 
 export async function sendEmailSignInLink(pending: PendingEmailAuth): Promise<void> {
   const actionCodeSettings = {
-    // Land back on the home page - App.tsx's root-level effect detects the
-    // sign-in link, completes it, and strips Firebase's query params from
-    // the URL, so this doubles as the "redirect to home after verifying"
-    // behavior for the email path.
-    url: `${window.location.origin}/`,
+    // Land back on the EXACT page the user was on when they opened the
+    // sign-in modal (e.g. a product page, /buy, /track) instead of always
+    // forcing them back to the home page. App.tsx's root-level effect
+    // detects the sign-in link on that page, completes it, and strips only
+    // Firebase's own query params from the URL - the path itself is left
+    // alone, so parseRouteFromLocation() resolves back to the right tab on
+    // this fresh page load with no extra state-plumbing needed.
+    url: `${window.location.origin}${window.location.pathname}${window.location.search}`,
     handleCodeInApp: true
   };
   await sendSignInLinkToEmail(auth, pending.email, actionCodeSettings);

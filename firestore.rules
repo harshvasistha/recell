@@ -35,7 +35,13 @@ service cloud.firestore {
     // actually matters is the role lock below, which no client write can
     // ever bypass regardless of which document it targets.
     match /users/{userId} {
-      allow read: if isSignedIn();
+      // A single-doc read (get) stays open to any signed-in user - the app
+      // relies on this to look up someone's own profile by phone/email key
+      // during login. A collection-wide read (list) is admin-only, so the
+      // Admin Dashboard's Customers tab can see every registered account
+      // without opening that up to every signed-in customer too.
+      allow get: if isSignedIn();
+      allow list: if isAdmin();
       // A brand-new profile may only ever be created with role 'customer'.
       // Admin status is never client-settable, at signup or afterwards.
       allow create: if isSignedIn() && request.resource.data.role == 'customer';
@@ -75,6 +81,35 @@ service cloud.firestore {
       allow create: if isSignedIn();
       allow update: if isAdmin();
       allow delete: if isAdmin();
+    }
+
+    // --- Return requests (7-Day Return Policy) ---
+    match /returns/{returnId} {
+      allow read: if true;
+      allow create: if isSignedIn();
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // --- Warranty claims (3-Month ReCell Warranty) ---
+    match /warranty_claims/{claimId} {
+      allow read: if true;
+      allow create: if isSignedIn();
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // --- Live "active visitors" presence heartbeat ---
+    // Every visitor (including anonymous, not-signed-in browsing) needs to
+    // write their own heartbeat doc, so this stays open rather than
+    // requiring Firebase Anonymous Auth to be enabled as a separate manual
+    // Console step. Docs carry only a sessionId (random, not tied to any
+    // identity) and a server timestamp - no personal data - so the
+    // exposure from an open write is minimal. Only admins can read the
+    // collection back to compute a live count.
+    match /presence/{sessionId} {
+      allow read: if isAdmin();
+      allow write: if true;
     }
 
     // --- Payment records ---

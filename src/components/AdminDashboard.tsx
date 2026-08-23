@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CatalogProduct, BuyQuoteRequest, Order, RepairJob, PricingRules, ReturnRequest, WarrantyClaim } from '../types';
-import { Settings, ShoppingBag, Smartphone, Wrench, IndianRupee, ShieldCheck, Truck, Plus, Trash2, CheckCircle, Sliders, RefreshCw, UserCheck, Upload, Download, FileText, Info, HelpCircle, Cloud } from 'lucide-react';
+import { Settings, ShoppingBag, Smartphone, Wrench, IndianRupee, ShieldCheck, Truck, Plus, Trash2, CheckCircle, Sliders, RefreshCw, UserCheck, Upload, Download, FileText, Info, HelpCircle, Cloud, Users, Radio } from 'lucide-react';
 import { GoogleDriveImportModal } from './GoogleDriveImportModal';
 import { PRODUCT_IMAGE_FALLBACK, onProductImageError } from '../utils/productImageFallback';
 import { uploadProductImageBlob } from '../lib/storage';
+import { fetchAllUsersFromDB, fetchActiveVisitorCount, UserProfile } from '../lib/dbService';
 
 interface AdminDashboardProps {
   catalog: CatalogProduct[];
@@ -30,10 +31,31 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   returnRequests,
   warrantyClaims
 }) => {
-  const [activeTab, setActiveTab] = useState<'openbox_catalog' | 'refurb_catalog' | 'buys' | 'pricing' | 'orders' | 'repairs' | 'claims'>('openbox_catalog');
-  
+  const [activeTab, setActiveTab] = useState<'openbox_catalog' | 'refurb_catalog' | 'buys' | 'pricing' | 'orders' | 'repairs' | 'claims' | 'customers'>('openbox_catalog');
+
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
   const [confirmClear, setConfirmClear] = useState(false);
+
+  // Registered customers (Admin visibility into who has signed up) and a
+  // live, approximate "active visitors" count driven by the presence
+  // heartbeat every open tab writes (see App.tsx / dbService.ts).
+  const [customers, setCustomers] = useState<UserProfile[]>([]);
+  const [customersLoaded, setCustomersLoaded] = useState(false);
+  const [activeVisitors, setActiveVisitors] = useState<number | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchAllUsersFromDB().then(users => {
+      if (!cancelled) {
+        setCustomers(users);
+        setCustomersLoaded(true);
+      }
+    });
+    const loadVisitors = () => fetchActiveVisitorCount().then(count => { if (!cancelled) setActiveVisitors(count); });
+    loadVisitors();
+    const interval = setInterval(loadVisitors, 25000);
+    return () => { cancelled = true; clearInterval(interval); };
+  }, []);
 
   // Single Catalog Item Modal Form
   const [showAddModal, setShowAddModal] = useState(false);
@@ -426,6 +448,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           <p className="text-xs text-slate-500 mt-0.5">
             Catalog Limit: <strong className="text-emerald-600">{catalog.length} / 500 Max</strong> • Local Radius: <strong>Pincode 250101</strong>
           </p>
+          <div className="mt-2 inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-[11px] font-bold px-2.5 py-1 rounded-full border border-emerald-200">
+            <Radio className="w-3 h-3 text-emerald-600 animate-pulse" />
+            {activeVisitors === null ? 'Checking live visitors...' : `${activeVisitors} active visitor${activeVisitors === 1 ? '' : 's'} right now`}
+          </div>
         </div>
 
         {/* Quick Tabs */}
@@ -437,7 +463,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             { id: 'pricing', label: 'Pricing Rules', icon: Sliders },
             { id: 'orders', label: `Orders (${orders.length})`, icon: Truck },
             { id: 'repairs', label: `Repairs (${repairJobs.length})`, icon: Wrench },
-            { id: 'claims', label: `Claims (${returnRequests.length + warrantyClaims.length})`, icon: ShieldCheck }
+            { id: 'claims', label: `Claims (${returnRequests.length + warrantyClaims.length})`, icon: ShieldCheck },
+            { id: 'customers', label: `Customers (${customers.length})`, icon: Users }
           ].map(tab => {
             const Icon = tab.icon;
             return (
@@ -811,6 +838,54 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               </div>
             ))}
           </div>
+        </div>
+      )}
+
+      {/* TAB 7: REGISTERED CUSTOMERS */}
+      {activeTab === 'customers' && (
+        <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-4">
+          <div>
+            <h2 className="text-lg font-bold text-slate-900">Registered Customers</h2>
+            <p className="text-xs text-slate-500">Everyone who has signed up or signed in on the storefront, most recent first.</p>
+          </div>
+          {!customersLoaded ? (
+            <p className="text-xs text-slate-400 font-medium py-6 text-center">Loading customers...</p>
+          ) : customers.length === 0 ? (
+            <p className="text-xs text-slate-400 font-medium py-6 text-center">No registered customers yet.</p>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs text-slate-700">
+                <thead className="bg-slate-50 text-slate-500 uppercase font-mono border-b border-slate-200">
+                  <tr>
+                    <th className="p-3">Name</th>
+                    <th className="p-3">Mobile</th>
+                    <th className="p-3">Email</th>
+                    <th className="p-3">Pincode</th>
+                    <th className="p-3">Role</th>
+                    <th className="p-3">Joined</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {[...customers]
+                    .sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''))
+                    .map((c) => (
+                      <tr key={c.uid} className="hover:bg-slate-50/80 transition-colors">
+                        <td className="p-3 font-bold text-slate-900">{c.name || '-'}</td>
+                        <td className="p-3 font-mono">{c.phone || '-'}</td>
+                        <td className="p-3 font-mono">{c.email || '-'}</td>
+                        <td className="p-3 font-mono">{c.pincode || '-'}</td>
+                        <td className="p-3">
+                          <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${c.role === 'admin' ? 'bg-indigo-50 text-indigo-700 border border-indigo-100' : 'bg-slate-100 text-slate-600 border border-slate-200'}`}>
+                            {c.role.toUpperCase()}
+                          </span>
+                        </td>
+                        <td className="p-3 text-slate-400">{c.createdAt ? new Date(c.createdAt).toLocaleDateString('en-IN') : '-'}</td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       )}
 

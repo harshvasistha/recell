@@ -8,10 +8,12 @@ import {
   orderBy,
   limit,
   updateDoc,
-  serverTimestamp
+  serverTimestamp,
+  where,
+  Timestamp
 } from 'firebase/firestore';
 import { db } from './firebase';
-import { Order, BuyQuoteRequest, RepairJob, CatalogProduct } from '../types';
+import { Order, BuyQuoteRequest, RepairJob, CatalogProduct, ReturnRequest, WarrantyClaim } from '../types';
 
 // Collection Names
 const COLLECTIONS = {
@@ -19,7 +21,10 @@ const COLLECTIONS = {
   ORDERS: 'orders',
   SELL_REQUESTS: 'sell_requests',
   REPAIR_BOOKINGS: 'repair_bookings',
-  PAYMENTS: 'payments'
+  PAYMENTS: 'payments',
+  RETURNS: 'returns',
+  WARRANTY_CLAIMS: 'warranty_claims',
+  PRESENCE: 'presence'
 };
 
 export interface UserProfile {
@@ -207,6 +212,136 @@ export async function saveRepairBookingToDB(repair: RepairJob): Promise<boolean>
   } catch (err) {
     console.error('[Firestore] Error saving repair booking:', err);
     return false;
+  }
+}
+
+export async function fetchRepairBookingsFromDB(): Promise<RepairJob[]> {
+  try {
+    const q = query(collection(db, COLLECTIONS.REPAIR_BOOKINGS), limit(50));
+    const snap = await getDocs(q);
+    const bookings: RepairJob[] = [];
+    snap.forEach((d) => {
+      bookings.push(d.data() as RepairJob);
+    });
+    return bookings;
+  } catch (err) {
+    console.warn('[Firestore] Error fetching repair bookings:', err);
+    return [];
+  }
+}
+
+// 4b. Return Requests (7-Day Return Policy)
+export async function saveReturnRequestToDB(req: ReturnRequest): Promise<boolean> {
+  try {
+    const ref = doc(db, COLLECTIONS.RETURNS, req.id);
+    await setDoc(ref, {
+      ...req,
+      createdAt: new Date().toISOString(),
+      timestamp: serverTimestamp()
+    });
+    console.log('[Firestore] Return request saved:', req.id);
+    return true;
+  } catch (err) {
+    console.error('[Firestore] Error saving return request:', err);
+    return false;
+  }
+}
+
+export async function fetchReturnRequestsFromDB(): Promise<ReturnRequest[]> {
+  try {
+    const q = query(collection(db, COLLECTIONS.RETURNS), limit(50));
+    const snap = await getDocs(q);
+    const requests: ReturnRequest[] = [];
+    snap.forEach((d) => {
+      requests.push(d.data() as ReturnRequest);
+    });
+    return requests;
+  } catch (err) {
+    console.warn('[Firestore] Error fetching return requests:', err);
+    return [];
+  }
+}
+
+// 4c. Warranty Claims (3-Month ReCell Warranty)
+export async function saveWarrantyClaimToDB(claim: WarrantyClaim): Promise<boolean> {
+  try {
+    const ref = doc(db, COLLECTIONS.WARRANTY_CLAIMS, claim.id);
+    await setDoc(ref, {
+      ...claim,
+      createdAt: new Date().toISOString(),
+      timestamp: serverTimestamp()
+    });
+    console.log('[Firestore] Warranty claim saved:', claim.id);
+    return true;
+  } catch (err) {
+    console.error('[Firestore] Error saving warranty claim:', err);
+    return false;
+  }
+}
+
+export async function fetchWarrantyClaimsFromDB(): Promise<WarrantyClaim[]> {
+  try {
+    const q = query(collection(db, COLLECTIONS.WARRANTY_CLAIMS), limit(50));
+    const snap = await getDocs(q);
+    const claims: WarrantyClaim[] = [];
+    snap.forEach((d) => {
+      claims.push(d.data() as WarrantyClaim);
+    });
+    return claims;
+  } catch (err) {
+    console.warn('[Firestore] Error fetching warranty claims:', err);
+    return [];
+  }
+}
+
+// 4d. Registered Customers (Admin visibility) - every signup/login already
+// writes a profile via ensureUserProfile/resolveUserProfile below; this
+// just lets the Admin Dashboard actually read that collection back so the
+// client can see who has registered. Firestore rules restrict the
+// collection-wide LIST to admins only (a single doc GET stays open to any
+// signed-in user, which the rest of the app already relies on).
+export async function fetchAllUsersFromDB(): Promise<UserProfile[]> {
+  try {
+    const q = query(collection(db, COLLECTIONS.USERS), limit(200));
+    const snap = await getDocs(q);
+    const users: UserProfile[] = [];
+    snap.forEach((d) => {
+      users.push(d.data() as UserProfile);
+    });
+    return users;
+  } catch (err) {
+    console.warn('[Firestore] Error fetching users:', err);
+    return [];
+  }
+}
+
+// 4e. Live "active visitors" presence
+// A lightweight heartbeat, not a real-time listener - each browser tab
+// writes to ONE doc (keyed by a sessionId persisted in sessionStorage, so
+// repeated heartbeats update the same doc rather than growing the
+// collection forever) roughly every 45s while the site is open. The admin
+// dashboard polls (not onSnapshot) and counts docs whose lastSeen falls
+// within the last 2 minutes - approximate by design, to keep reads/writes
+// well within the free Spark plan's daily quota.
+export async function touchPresence(sessionId: string): Promise<void> {
+  try {
+    const ref = doc(db, COLLECTIONS.PRESENCE, sessionId);
+    await setDoc(ref, { lastSeen: serverTimestamp() }, { merge: true });
+  } catch (err) {
+    // Best-effort - a missed heartbeat should never surface to the visitor.
+    console.warn('[Firestore] Error updating presence:', err);
+  }
+}
+
+export async function fetchActiveVisitorCount(): Promise<number> {
+  try {
+    const cutoff = Timestamp.fromMillis(Date.now() - 2 * 60 * 1000);
+    const q = query(collection(db, COLLECTIONS.PRESENCE), where('lastSeen', '>=', cutoff));
+    const snap = await getDocs(q);
+    return snap.size;
+  } catch (err) {
+    console.warn('[Firestore] Error fetching active visitor count:', err);
+    return 0;
   }
 }
 

@@ -39,8 +39,23 @@ import { OpenBoxMobiles } from './components/Pages/OpenBoxMobiles';
 import { ProductDetailsPage } from './components/Pages/ProductDetailsPage';
 import { AuthModal } from './components/AuthModal';
 import { ProfilePage } from './components/Pages/ProfilePage';
-import { saveOrderToDB, saveSellRequestToDB, fetchCatalogFromDB, saveCatalogToDB, resolveUserProfile } from './lib/dbService';
-import { isEmailSignInLink, completeEmailSignIn, getPendingEmailAuth, clearPendingEmailAuth } from './lib/emailLinkAuth';
+import {
+  saveOrderToDB,
+  saveSellRequestToDB,
+  fetchCatalogFromDB,
+  saveCatalogToDB,
+  resolveUserProfile,
+  fetchOrdersFromDB,
+  fetchSellRequestsFromDB,
+  fetchRepairBookingsFromDB,
+  saveRepairBookingToDB,
+  fetchReturnRequestsFromDB,
+  saveReturnRequestToDB,
+  fetchWarrantyClaimsFromDB,
+  saveWarrantyClaimToDB,
+  touchPresence
+} from './lib/dbService';
+import { isEmailSignInLink, completeEmailSignIn, getPendingEmailAuth, clearPendingEmailAuth, PendingEmailAuth } from './lib/emailLinkAuth';
 import { MegaMenu } from './components/MegaMenu';
 import { LegalModal } from './components/Legal/LegalModal';
 import { WhatsAppChatWidget } from './components/WhatsAppChatWidget';
@@ -73,61 +88,74 @@ export default function App() {
   }, [user]);
 
   // Completes the email-link (passwordless) sign-in flow: clicking the link
-  // Firebase emailed reloads the app at the home URL with Firebase's own
-  // sign-in params attached. This runs once on mount, finishes the login the
-  // same way AuthModal's phone-OTP flow does, then strips those params back
-  // to a clean home URL - which is also the "redirect to home after
-  // verifying" behavior for this path.
+  // Firebase emailed reloads the app on whatever page the user originally
+  // signed up/in from (see emailLinkAuth.ts's actionCodeSettings.url) with
+  // Firebase's own sign-in params attached. This runs once on mount,
+  // finishes the login the same way AuthModal's phone-OTP flow does, then
+  // strips only those params back off - keeping the actual path intact, so
+  // the user lands back on the same page instead of always being bounced
+  // home.
   const [emailAuthError, setEmailAuthError] = useState('');
+  // Set only when the sign-in link was opened somewhere with no local
+  // record of which email it's for (e.g. a different browser/device, or a
+  // mobile mail app that opens links in its own in-app browser). Firebase's
+  // own guidance is to just re-ask for the email - this used to do that via
+  // a blocking window.prompt(), which several mobile in-app/WebView
+  // browsers silently no-op (the prompt never appears and the call returns
+  // null), making the whole signup look broken with no visible error. An
+  // in-page form works everywhere a normal <input> works.
+  const [pendingEmailConfirm, setPendingEmailConfirm] = useState(false);
+  const [confirmEmailInput, setConfirmEmailInput] = useState('');
+  const [isConfirmingEmail, setIsConfirmingEmail] = useState(false);
+
+  const completeEmailLinkSignIn = async (emailToUse: string, pending: PendingEmailAuth | null) => {
+    try {
+      await completeEmailSignIn(emailToUse, window.location.href);
+      const displayName = pending?.fullName?.trim() || emailToUse.split('@')[0];
+      const profile = await resolveUserProfile(emailToUse, pending?.isNewSignup ?? false, {
+        uid: emailToUse,
+        name: displayName,
+        phone: '',
+        email: emailToUse,
+        pincode: pending?.pincode?.trim() || '250101'
+      });
+      setUser({
+        name: profile.name,
+        phone: profile.phone,
+        role: profile.role,
+        email: profile.email,
+        pincode: profile.pincode
+      });
+      clearPendingEmailAuth();
+      setPendingEmailConfirm(false);
+    } catch (err: any) {
+      setEmailAuthError(
+        err?.code === 'auth/invalid-action-code' || err?.code === 'auth/expired-action-code'
+          ? 'This sign-in link has expired or was already used. Please request a new one.'
+          : err?.code === 'auth/invalid-email'
+          ? 'That email doesn’t match this sign-in link. Please re-check and try again.'
+          : (err?.message || 'Could not complete email sign-in. Please try again.')
+      );
+      setPendingEmailConfirm(false);
+    } finally {
+      setIsConfirmingEmail(false);
+      // Strip Firebase's oobCode/apiKey/mode query params regardless of
+      // outcome, but keep the current path - so a reload doesn't try to
+      // replay the same (now spent) link again, without also bouncing the
+      // user's URL back to home.
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  };
+
   useEffect(() => {
     if (!isEmailSignInLink(window.location.href)) return;
 
-    (async () => {
-      let pending = getPendingEmailAuth();
-      let emailToUse = pending?.email;
-
-      if (!emailToUse) {
-        // Link was opened on a different browser/device than it was
-        // requested from, so there's no local record of which email this
-        // is for - Firebase's own recommended fallback is to just ask.
-        emailToUse = window.prompt('Please confirm the email address you signed up with to finish signing in:') || undefined;
-      }
-      if (!emailToUse) {
-        setEmailAuthError('Sign-in link could not be completed - no email address was provided.');
-        return;
-      }
-
-      try {
-        await completeEmailSignIn(emailToUse, window.location.href);
-        const displayName = pending?.fullName?.trim() || emailToUse.split('@')[0];
-        const profile = await resolveUserProfile(emailToUse, pending?.isNewSignup ?? false, {
-          uid: emailToUse,
-          name: displayName,
-          phone: '',
-          email: emailToUse,
-          pincode: pending?.pincode?.trim() || '250101'
-        });
-        setUser({
-          name: profile.name,
-          phone: profile.phone,
-          role: profile.role,
-          email: profile.email,
-          pincode: profile.pincode
-        });
-        clearPendingEmailAuth();
-      } catch (err: any) {
-        setEmailAuthError(
-          err?.code === 'auth/invalid-action-code' || err?.code === 'auth/expired-action-code'
-            ? 'This sign-in link has expired or was already used. Please request a new one.'
-            : (err?.message || 'Could not complete email sign-in. Please try again.')
-        );
-      } finally {
-        // Strip Firebase's oobCode/apiKey/mode query params regardless of
-        // outcome, so a reload doesn't try to replay the same (now spent)
-        // link again.
-        window.history.replaceState(null, '', '/');
-      }
-    })();
+    const pending = getPendingEmailAuth();
+    if (pending?.email) {
+      completeEmailLinkSignIn(pending.email, pending);
+    } else {
+      setPendingEmailConfirm(true);
+    }
     // Deliberately runs once on mount only - this is a one-time landing
     // action for whatever URL the page happened to load with.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -263,6 +291,39 @@ export default function App() {
   const [returnRequests, setReturnRequests] = useState<ReturnRequest[]>(SEED_RETURN_REQUESTS);
   const [warrantyClaims, setWarrantyClaims] = useState<WarrantyClaim[]>(SEED_WARRANTY_CLAIMS);
 
+  // Real customer activity (orders, sell requests, repair bookings, returns,
+  // warranty claims) is already WRITTEN to Firestore the moment it happens
+  // (see the handlers below) - but until now nothing ever read it back, so
+  // the Admin Dashboard only ever showed the static demo seed data and the
+  // client had no visibility into real activity on the site. Seed data
+  // stays as the fallback shown before this resolves / if a collection is
+  // genuinely still empty; a non-empty Firestore result replaces it.
+  useEffect(() => {
+    let cancelled = false;
+    fetchOrdersFromDB().then(fetched => { if (!cancelled && fetched.length > 0) setOrders(fetched); });
+    fetchSellRequestsFromDB().then(fetched => { if (!cancelled && fetched.length > 0) setBuyRequests(fetched); });
+    fetchRepairBookingsFromDB().then(fetched => { if (!cancelled && fetched.length > 0) setRepairJobs(fetched); });
+    fetchReturnRequestsFromDB().then(fetched => { if (!cancelled && fetched.length > 0) setReturnRequests(fetched); });
+    fetchWarrantyClaimsFromDB().then(fetched => { if (!cancelled && fetched.length > 0) setWarrantyClaims(fetched); });
+    return () => { cancelled = true; };
+  }, []);
+
+  // Live "active visitors" heartbeat - one lightweight write roughly every
+  // 45s per open tab, keyed by a sessionId persisted in sessionStorage so
+  // repeated heartbeats update the same doc instead of creating a new one
+  // each time. The Admin Dashboard polls the resulting presence collection
+  // to show an approximate live visitor count.
+  useEffect(() => {
+    let sessionId = sessionStorage.getItem('recellSessionId');
+    if (!sessionId) {
+      sessionId = `sess-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+      sessionStorage.setItem('recellSessionId', sessionId);
+    }
+    touchPresence(sessionId);
+    const interval = setInterval(() => touchPresence(sessionId as string), 45000);
+    return () => clearInterval(interval);
+  }, []);
+
   // Cart State
   const [cart, setCart] = useState<CatalogProduct[]>([]);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
@@ -355,6 +416,7 @@ export default function App() {
         }
       };
       setRepairJobs([newJob, ...repairJobs]);
+      saveRepairBookingToDB(newJob);
     } else if (updatedReq.finalAgreedPrice) {
       if (catalog.length < 500) {
         const newCatProduct: CatalogProduct = {
@@ -402,10 +464,12 @@ export default function App() {
 
   const handleNewReturn = (req: ReturnRequest) => {
     setReturnRequests([req, ...returnRequests]);
+    saveReturnRequestToDB(req);
   };
 
   const handleNewWarranty = (claim: WarrantyClaim) => {
     setWarrantyClaims([claim, ...warrantyClaims]);
+    saveWarrantyClaimToDB(claim);
 
     const newJob: RepairJob = {
       id: `REP-${new Date().getFullYear()}-${Math.floor(100 + Math.random() * 900)}`,
@@ -429,6 +493,7 @@ export default function App() {
       }
     };
     setRepairJobs([newJob, ...repairJobs]);
+    saveRepairBookingToDB(newJob);
   };
 
   // Render Inner Content View
@@ -598,6 +663,56 @@ export default function App() {
         <div className="fixed top-0 inset-x-0 z-[200] bg-rose-600 text-white text-xs sm:text-sm font-bold text-center py-2 px-4 flex items-center justify-center gap-3">
           <span>{emailAuthError}</span>
           <button onClick={() => setEmailAuthError('')} className="underline font-black shrink-0">Dismiss</button>
+        </div>
+      )}
+
+      {/* Confirm-email step for a sign-in link opened on a different
+          device/browser than it was requested from - replaces a blocking
+          window.prompt(), which some mobile in-app browsers silently
+          no-op. */}
+      {pendingEmailConfirm && (
+        <div className="fixed inset-0 z-[300] bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              const email = confirmEmailInput.trim();
+              if (!email) return;
+              setIsConfirmingEmail(true);
+              completeEmailLinkSignIn(email, null);
+            }}
+            className="bg-white rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-slate-200"
+          >
+            <h3 className="text-base font-black text-slate-900 font-heading">Confirm Your Email</h3>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              This sign-in link was opened somewhere Recell doesn't recognize. Please re-enter the email
+              address you signed up with to finish signing in.
+            </p>
+            <input
+              type="email"
+              required
+              autoFocus
+              value={confirmEmailInput}
+              onChange={(e) => setConfirmEmailInput(e.target.value)}
+              placeholder="you@example.com"
+              className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 focus:ring-2 focus:ring-[#0052FF] outline-none"
+            />
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => { setPendingEmailConfirm(false); window.history.replaceState(null, '', window.location.pathname); }}
+                className="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={isConfirmingEmail}
+                className="flex-1 bg-[#0052FF] hover:bg-[#0043CC] disabled:opacity-50 text-white font-bold px-4 py-2.5 rounded-xl text-xs font-heading"
+              >
+                {isConfirmingEmail ? 'Confirming...' : 'Confirm & Sign In'}
+              </button>
+            </div>
+          </form>
         </div>
       )}
       <div>

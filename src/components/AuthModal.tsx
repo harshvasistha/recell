@@ -81,6 +81,22 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     setErrorMsg('');
     setSuccessMsg('');
     setConfirmationResult(null);
+    // An invisible reCAPTCHA's challenge response gets consumed by the one
+    // signInWithPhoneNumber call it backed - reusing the same verifier
+    // instance for a later attempt (e.g. the user closes the modal after a
+    // failed/abandoned attempt and reopens it) can silently fail with a
+    // stale/expired captcha response. Clearing it here means a fresh
+    // verifier - and a fresh challenge - gets created next time the modal
+    // opens, instead of a single global instance living for the whole tab
+    // session.
+    if ((window as any).recaptchaVerifier) {
+      try {
+        (window as any).recaptchaVerifier.clear();
+      } catch (e) {
+        // ignore - best-effort cleanup
+      }
+      delete (window as any).recaptchaVerifier;
+    }
     onClose();
   };
 
@@ -187,10 +203,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       pincode: profile.pincode
     });
 
+    // Admins land on the admin dashboard - that's an intentional, expected
+    // jump. Customers used to ALWAYS get forced home too, even if they
+    // opened the login modal from the middle of browsing the storefront,
+    // a product page, or checkout - wiping out whatever they were doing
+    // right before signing in. A customer should just stay exactly where
+    // they were; the modal simply closes below.
     if (profile.role === 'admin') {
       document.dispatchEvent(new CustomEvent('NAVIGATE_ADMIN'));
-    } else {
-      document.dispatchEvent(new CustomEvent('NAVIGATE_HOME'));
     }
 
     handleClose();
@@ -220,10 +240,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       pincode: profile.pincode
     });
 
+    // See the matching comment in finishLogin above - only admin gets a
+    // forced redirect, customers stay on the page they were already on.
     if (profile.role === 'admin') {
       document.dispatchEvent(new CustomEvent('NAVIGATE_ADMIN'));
-    } else {
-      document.dispatchEvent(new CustomEvent('NAVIGATE_HOME'));
     }
 
     handleClose();

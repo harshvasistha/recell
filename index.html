@@ -10,6 +10,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <script>
+      // Run this as early as physically possible - before the bundled
+      // module script even parses - so the browser's own scroll-position
+      // restore-on-reload/back-forward-nav never gets a chance to fire and
+      // land the page somewhere other than the top (e.g. the footer, on a
+      // long page). main.tsx sets this too, but that runs later once the
+      // module script loads; setting it here as well is pure defense in
+      // depth for browsers/navigation types where that turns out to be too
+      // late.
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual';
+      }
+
       function isExtErr(e) {
         if (!e) return false;
         var str = '';
