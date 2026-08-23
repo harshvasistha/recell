@@ -170,6 +170,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       setIsSubmitting(false);
       setStep('emailLinkSent');
     } catch (err: any) {
+      // This catch covers BOTH the phone-OTP-send call and the email-link-
+      // send call - unlike the OTP-verification catch below, it never
+      // logged the raw Firebase error, so a failure here (e.g. a real
+      // auth/operation-not-allowed even when the relevant provider LOOKS
+      // enabled in the Console) had no way to be diagnosed beyond the
+      // friendly mapped message. Logging the raw code/message here too.
+      console.error('Auth send-step error:', err?.code, err?.message, err);
       setIsSubmitting(false);
       setErrorMsg(mapAuthError(err));
     }
