@@ -30,7 +30,7 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
   onNavigateCategory
 }) => {
   const [activeImage, setActiveImage] = useState<string>(product.images?.[0] || '');
-  const [selectedGrade, setSelectedGrade] = useState<string>(product.conditionGrade || 'Open Box');
+  const selectedGrade = product.conditionGrade || 'Open Box';
   const [pincodeCheck, setPincodeCheck] = useState<string>('110001');
   const [pincodeStatus, setPincodeStatus] = useState<string>('Express Delivery in 2-3 Days');
 
@@ -50,7 +50,6 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
     if (product.images && product.images.length > 0) {
       setActiveImage(product.images[0]);
     }
-    setSelectedGrade(product.conditionGrade || 'Open Box');
     setIsLightboxOpen(false);
     setLightboxZoomed(false);
   }, [product]);
@@ -112,7 +111,7 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
     .filter(p => p.brand === product.brand && p.model === product.model)
     .sort((a, b) => a.refurbPrice - b.refurbPrice);
 
-  const isCurrentOpenBox = selectedGrade === 'Open Box' || product.conditionGrade === 'Open Box';
+  const isCurrentOpenBox = product.conditionGrade === 'Open Box';
   const cleanTitle = product.title.replace(/\s*-\s*Refurbished/gi, '').replace(/\[Grade.*?\]/gi, '').trim();
 
   // Specs object
@@ -344,7 +343,10 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
                   <span className="text-xs text-slate-500 font-medium">Selected: <strong className="text-slate-900">{selectedGrade}</strong></span>
                 </div>
                 
-                {/* Grading System: Open Box, A, A1, B, B1 */}
+                {/* Grading System: Open Box, A, A1, B, B1 — display only.
+                    The grade is fixed per listing (set in the catalog), not a
+                    user-selectable option, so these render as static
+                    indicators rather than clickable buttons. */}
                 <div className="grid grid-cols-5 gap-1.5 sm:gap-2">
                   {[
                     { id: 'Open Box', label: 'Open Box', desc: 'Sealed 12M' },
@@ -353,19 +355,18 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
                     { id: 'Grade B', label: 'Grade B', desc: 'Good' },
                     { id: 'Grade B1', label: 'Grade B1', desc: 'Fair' }
                   ].map((grade) => (
-                    <button
+                    <div
                       key={grade.id}
-                      type="button"
-                      onClick={() => setSelectedGrade(grade.id)}
-                      className={`py-2.5 px-1 text-center rounded-xl border-2 transition-all ${
-                        selectedGrade === grade.id 
-                          ? 'border-emerald-600 bg-emerald-50 text-emerald-900 shadow-sm' 
-                          : 'border-slate-200 text-slate-600 hover:border-slate-300 bg-white'
+                      aria-current={selectedGrade === grade.id}
+                      className={`py-2.5 px-1 text-center rounded-xl border-2 ${
+                        selectedGrade === grade.id
+                          ? 'border-emerald-600 bg-emerald-50 text-emerald-900 shadow-sm'
+                          : 'border-slate-200 text-slate-400 bg-white opacity-60'
                       }`}
                     >
                       <span className="block text-xs font-black leading-tight">{grade.label}</span>
                       <span className="text-[10px] text-slate-500 block mt-0.5">{grade.desc}</span>
-                    </button>
+                    </div>
                   ))}
                 </div>
 
