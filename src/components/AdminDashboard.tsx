@@ -296,7 +296,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       // other product in the same paste, silently, with a banner that
       // pointed at "signed out of admin" instead of the real cause.
       const batteryHealthPercent = r.batteryHealthPercent ?? existing?.batteryHealthPercent;
-      const brandWarrantyMonths = r.brandWarrantyMonths ?? existing?.brandWarrantyMonths ?? (isOpenBox ? 12 : undefined);
+      const brandWarrantyMonths = r.brandWarrantyMonths ?? existing?.brandWarrantyMonths ?? (isOpenBox ? 11 : undefined);
 
       const product: CatalogProduct = {
         id: existing?.id || `cat-json-${Date.now()}-${i}`,
@@ -308,7 +308,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         originalPrice: Number(r.originalPrice) || Number(r.refurbPrice),
         refurbPrice: Number(r.refurbPrice),
         conditionGrade,
-        warrantyMonths: r.warrantyMonths ?? (isOpenBox ? 12 : 3),
+        warrantyMonths: r.warrantyMonths ?? (isOpenBox ? 11 : 3),
         ...(batteryHealthPercent !== undefined ? { batteryHealthPercent } : {}),
         images: Array.isArray(r.images) && r.images.length > 0 && r.images.some((u: string) => !!u)
           ? r.images.filter((u: string) => !!u)
@@ -317,7 +317,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         stockCount: r.stockCount ?? existing?.stockCount ?? 5,
         serialImei: r.serialImei || existing?.serialImei || `3590${Math.floor(10000000000 + Math.random() * 90000000000)}`,
         inspectionPassed: true,
-        description: r.description || existing?.description || `${r.title} - ${isOpenBox ? 'Sealed open box unit with 12-month official manufacturer warranty.' : `Certified 55-point inspected device with ${r.warrantyMonths ?? 3}-month warranty.`}`,
+        description: r.description || existing?.description || `${r.title} - ${isOpenBox ? 'Sealed open box unit with 6 to 11-month official manufacturer warranty.' : `Certified 55-point inspected device with ${r.warrantyMonths ?? 3}-month warranty.`}`,
         boxChargerIncluded: r.boxChargerIncluded ?? existing?.boxChargerIncluded ?? true,
         isOpenBox,
         ...(brandWarrantyMonths !== undefined ? { brandWarrantyMonths } : {}),
@@ -1008,7 +1008,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   variants of one listing on the product page. Fields: title, brand, model, storage,
                   color, originalPrice (strike price), refurbPrice (selling price), images (array of
                   3-6 URLs), specs {'{'}screen, processor, camera, battery, os{'}'}, conditionGrade
-                  ("Open Box" defaults warranty to 12 months).
+                  ("Open Box" defaults warranty to 6 to 11 months).
                 </p>
                 <textarea
                   rows={6}
@@ -1083,7 +1083,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 variants of one listing on the product page. Fields: title, brand, model, storage,
                 color, originalPrice (strike price), refurbPrice (selling price), images (array of
                 3-6 URLs), specs {'{'}screen, processor, camera, battery, os{'}'}, conditionGrade
-                ("Open Box" defaults warranty to 12 months).
+                ("Open Box" defaults warranty to 6 to 11 months).
               </p>
               <textarea
                 rows={12}
@@ -1188,7 +1188,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     <option value="Grade A1">Grade A1: New Condition + ReCell Warranty</option>
                     <option value="Grade B">Grade B: Minor Scuffs (Never Repaired) + ReCell Warranty</option>
                     <option value="Grade B1">Grade B1: Repaired Phone (Folder/Jack/Mic) - No Warranty</option>
-                    <option value="Open Box">Open Box (Sealed, 12-Month Warranty)</option>
+                    <option value="Open Box">Open Box (Sealed, 6 to 11-Month Warranty)</option>
                   </select>
                 </div>
                 <div>

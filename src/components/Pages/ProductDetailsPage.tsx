@@ -204,7 +204,7 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
                   {isCurrentOpenBox && (
                     <div className="absolute top-4 left-4 bg-emerald-600 text-white text-[11px] font-bold px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
                       <ShieldCheck className="w-3.5 h-3.5" />
-                      12 Months Manufacturer Warranty
+                      6 to 11 Months Manufacturer Warranty
                     </div>
                   )}
 
@@ -349,7 +349,7 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
                     indicators rather than clickable buttons. */}
                 <div className="grid grid-cols-5 gap-1.5 sm:gap-2">
                   {[
-                    { id: 'Open Box', label: 'Open Box', desc: 'Sealed 12M' },
+                    { id: 'Open Box', label: 'Open Box', desc: 'Sealed 6-11M' },
                     { id: 'Grade A', label: 'Grade A', desc: 'Like New' },
                     { id: 'Grade A1', label: 'Grade A1', desc: 'Superb' },
                     { id: 'Grade B', label: 'Grade B', desc: 'Good' },
@@ -374,7 +374,7 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                   <p className="text-xs text-emerald-900 font-medium leading-relaxed">
                     {selectedGrade === 'Open Box' 
-                      ? 'Open Box: 100% Sealed & Unused unit with original packaging, accessories, and 12-Month Official Manufacturer Warranty.' 
+                      ? 'Open Box: 100% Sealed & Unused unit with original packaging, accessories, and 6 to 11-Month Official Manufacturer Warranty.'
                       : `${selectedGrade}: Certified thoroughly inspected unit with 3-Month Recell Warranty and 7-day refund policy.`}
                   </p>
                 </div>
@@ -388,7 +388,7 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span><strong>Warranty:</strong> {isCurrentOpenBox ? '12 Months Official Manufacturer Warranty' : '3 Months Comprehensive Recell Warranty'}</span>
+                  <span><strong>Warranty:</strong> {isCurrentOpenBox ? '6 to 11 Months Official Manufacturer Warranty' : '3 Months Comprehensive Recell Warranty'}</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-emerald-600 shrink-0" />
@@ -611,7 +611,7 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
              <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
                <ShieldCheck className="w-6 h-6" />
              </div>
-             <h3 className="font-bold text-slate-900 mb-1">12-Month Brand Warranty</h3>
+             <h3 className="font-bold text-slate-900 mb-1">6 to 11-Month Brand Warranty</h3>
              <p className="text-xs text-slate-500">Official manufacturer warranty support valid across all authorized service centers.</p>
           </div>
           <div className="bg-white p-6 rounded-2xl border border-slate-200 text-center shadow-sm">

@@ -64,7 +64,7 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
           </h1>
 
           <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-sans">
-            Brand new sealed pack mobile phones. Comes with <strong className="text-white">Original Box, Bill, Accessories</strong> and <strong className="text-amber-300">12 Months Official Manufacturer Warranty</strong> — priced 25% to 35% below MRP!
+            Brand new sealed pack mobile phones. Comes with <strong className="text-white">Original Box, Bill, Accessories</strong> and <strong className="text-amber-300">6 to 11 Months Official Manufacturer Warranty</strong> — priced 25% to 35% below MRP!
           </p>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 text-xs">
@@ -80,7 +80,7 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
               <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0" />
               <div>
                 <span className="block font-black text-white">Brand Warranty</span>
-                <span className="text-[10px] text-slate-400">11+ Months Official</span>
+                <span className="text-[10px] text-slate-400">6 to 11 Months Official</span>
               </div>
             </div>
 
@@ -163,7 +163,7 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
                     the message over the product image. */}
                 <div className="absolute top-4 left-4 z-10">
                   <span className="bg-amber-400 text-slate-950 text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-xs uppercase tracking-wider font-heading">
-                    12-Month Warranty
+                    6 to 11-Month Warranty
                   </span>
                 </div>
 

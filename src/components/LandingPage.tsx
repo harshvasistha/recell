@@ -384,7 +384,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                     {item.storage} {item.color ? `- ${item.color}` : ''}
                   </p>
                   <p className="text-[11px] text-emerald-600 font-bold bg-emerald-50 px-2.5 py-1 rounded-md inline-block">
-                    {item.brandWarrantyMonths ? `${item.brandWarrantyMonths}M Brand Warranty` : `${item.warrantyMonths}M Warranty`}
+                    {item.conditionGrade === 'Open Box' ? '6-11M Brand Warranty' : item.brandWarrantyMonths ? `${item.brandWarrantyMonths}M Brand Warranty` : `${item.warrantyMonths}M Warranty`}
                   </p>
                 </div>
               </div>

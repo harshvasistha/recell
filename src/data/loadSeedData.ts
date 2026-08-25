@@ -26,11 +26,11 @@ export const generateOpenBoxSeed = (): CatalogProduct[] => {
     inStock: true,
     stockCount: 2,
     inspectionPassed: true,
-    description: `Sealed device. 100% original condition with 12-Month manufacturer warranty. ZERO scratches or dents.`,
+    description: `Sealed device. 100% original condition with 6 to 11-Month manufacturer warranty. ZERO scratches or dents.`,
     boxChargerIncluded: true,
-    
-    brandWarrantyMonths: 12,
-    warrantyMonths: 12,
+
+    brandWarrantyMonths: 11,
+    warrantyMonths: 11,
     specs: ((d as any).specs) ? (d as any).specs : {
       screen: 'AMOLED Display',
       processor: 'High Performance Octa-Core',

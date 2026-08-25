@@ -56,7 +56,7 @@ export const Storefront: React.FC<StorefrontProps> = ({
               </span>
               <span className="bg-emerald-50 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full border border-emerald-100 flex items-center gap-1">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                Up to 12-Month Warranty
+                Up to 11-Month Warranty
               </span>
             </div>
             <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
@@ -71,7 +71,7 @@ export const Storefront: React.FC<StorefrontProps> = ({
             <div className="bg-slate-50 p-3 rounded-2xl border border-slate-100 flex items-center gap-2.5">
               <ShieldCheck className="w-5 h-5 text-indigo-600 shrink-0" />
               <div>
-                <p className="font-bold text-slate-900 text-xs">Up to 12-Mo Warranty</p>
+                <p className="font-bold text-slate-900 text-xs">Up to 11-Mo Warranty</p>
                 <p className="text-[10px] text-slate-500">Free door repair</p>
               </div>
             </div>
@@ -232,7 +232,7 @@ export const Storefront: React.FC<StorefrontProps> = ({
                   <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
                     <span className="bg-emerald-500 text-white text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1">
                       <ShieldCheck className="w-3 h-3" />
-                      {product.conditionGrade === 'Open Box' ? '12-Mo Warranty' : '3-Mo Warranty'}
+                      {product.conditionGrade === 'Open Box' ? '6 to 11-Mo Warranty' : '3-Mo Warranty'}
                     </span>
                   </div>
 
