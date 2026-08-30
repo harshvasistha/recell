@@ -385,9 +385,17 @@ export default function App() {
   };
 
   // Handlers for data updates
-  const handleNewBuyRequest = (req: BuyQuoteRequest) => {
-    setBuyRequests([req, ...buyRequests]);
-    saveSellRequestToDB(req);
+  const handleNewBuyRequest = async (req: BuyQuoteRequest): Promise<boolean> => {
+    // Firestore rules require a signed-in user to create a sell_requests
+    // doc - SellPhoneWizard now enforces that before ever calling this,
+    // but this only updates the visible (local + Admin Dashboard) list
+    // once the database write is actually confirmed, instead of always
+    // showing the request as booked even when the save silently failed.
+    const success = await saveSellRequestToDB(req);
+    if (success) {
+      setBuyRequests([req, ...buyRequests]);
+    }
+    return success;
   };
 
   const handleUpdateBuyRequest = (updatedReq: BuyQuoteRequest, sendToRepair: boolean) => {
@@ -517,6 +525,8 @@ export default function App() {
           pricingRules={pricingRules}
           onSubmitBuyRequest={handleNewBuyRequest}
           onNavigateToAgent={() => setCurrentTab('agent')}
+          user={user}
+          onRequireAuth={() => setIsAuthOpen(true)}
         />
       )}
 

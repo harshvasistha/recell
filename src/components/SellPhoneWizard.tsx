@@ -29,15 +29,23 @@ const getBrandVisual = (brandName: string) => {
 interface SellPhoneWizardProps {
   deviceModels: DeviceModel[];
   pricingRules: PricingRules;
-  onSubmitBuyRequest: (req: BuyQuoteRequest) => void;
+  // Returns whether the booking was actually saved - the wizard only
+  // advances to the success screen on true, instead of always showing
+  // "Pickup Scheduled Successfully!" regardless of whether the write
+  // actually reached the database (see handleSubmitSchedule below).
+  onSubmitBuyRequest: (req: BuyQuoteRequest) => Promise<boolean>;
   onNavigateToAgent: () => void;
+  user?: { name: string; phone: string; role: string; email?: string; pincode?: string } | null;
+  onRequireAuth: () => void;
 }
 
 export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
   deviceModels,
   pricingRules,
   onSubmitBuyRequest,
-  onNavigateToAgent
+  onNavigateToAgent,
+  user,
+  onRequireAuth
 }) => {
   const [step, setStep] = useState<number>(1);
 
@@ -79,6 +87,8 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
   const [upiId, setUpiId] = useState<string>('');
   const [scheduledDate, setScheduledDate] = useState<string>('');
   const [scheduledSlot, setScheduledSlot] = useState<string>('02:00 PM - 04:00 PM');
+  const [isSubmittingPickup, setIsSubmittingPickup] = useState(false);
+  const [pickupSubmitError, setPickupSubmitError] = useState('');
 
   const filteredModels = deviceModels.filter(m => {
     const matchesBrand = selectedBrand === '' || m.brand.toLowerCase() === selectedBrand.toLowerCase();
@@ -91,9 +101,24 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
     ? calculateRoughQuote(selectedModel.baseMarketPrice, answers, pricingRules)
     : null;
 
-  const handleSubmitSchedule = (e: React.FormEvent) => {
+  const handleSubmitSchedule = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedModel || !currentQuoteBreakdown) return;
+
+    // Firestore's rules only allow a signed-in user to create a
+    // sell_requests document (matching how checkout already requires
+    // login). This form used to let anyone submit regardless, and the
+    // wizard always jumped to "Pickup Scheduled Successfully!" whether or
+    // not the actual save to the database worked - so a request from
+    // someone who wasn't signed in looked identical, on screen, to a real
+    // booking, but silently never reached the database or the Admin
+    // Dashboard at all. Requiring login here, before the write is even
+    // attempted, closes that gap the same way the checkout flow already
+    // does.
+    if (!user) {
+      onRequireAuth();
+      return;
+    }
 
     const isLocal = isLocalPincode(answers.pincode);
 
@@ -119,8 +144,20 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
       photos: [selectedModel.imageUrl]
     };
 
-    onSubmitBuyRequest(newReq);
-    setStep(6); // Confirmation step
+    setIsSubmittingPickup(true);
+    setPickupSubmitError('');
+    const saved = await onSubmitBuyRequest(newReq);
+    setIsSubmittingPickup(false);
+
+    if (saved) {
+      setStep(6); // Confirmation step
+    } else {
+      // Never silently show a fake success screen again - if the database
+      // write actually fails (network issue, rules rejection, etc.), say
+      // so and let the seller retry instead of believing a pickup is
+      // booked when nothing was actually recorded anywhere.
+      setPickupSubmitError('Could not save your pickup request - please check your connection and try again.');
+    }
   };
 
   const years = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018];
@@ -511,7 +548,29 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
                   <input required type="text" value={answers.pincode} onChange={e => setAnswers({...answers, pincode: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="250101" />
                 </div>
               </div>
-              
+
+              {/* Doorstep pickup by an in-person agent is only real in the
+                  Khekra (250101) area - everywhere else in India gets a
+                  courier pickup instead. The confirmation screen used to
+                  promise "our certified agent will visit your address" to
+                  EVERY pincode regardless, which is what led a seller
+                  outside the service area to expect (and call about) an
+                  agent visit that was never actually going to happen. This
+                  sets the right expectation before they even submit. */}
+              {answers.pincode.trim().length >= 5 && (
+                isLocalPincode(answers.pincode) ? (
+                  <div className="bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3 text-xs text-emerald-800 font-medium flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Great news - this pincode is in our doorstep coverage area. A Recell agent will visit in person to inspect, pay, and collect the device.</span>
+                  </div>
+                ) : (
+                  <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-xs text-amber-800 font-medium flex items-start gap-2">
+                    <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                    <span>Doorstep agent visits are currently available only in the Khekra (250101) area. For this pincode, pickup will be arranged via courier instead of an in-person agent visit - our team will contact you to confirm courier details.</span>
+                  </div>
+                )
+              )}
+
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-slate-700">UPI ID for Payment (Optional, can provide to agent)</label>
                 <input type="text" value={upiId} onChange={e => setUpiId(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="rahul@oksbi" />
@@ -534,8 +593,21 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
                 </div>
               </div>
 
-              <button type="submit" className="w-full bg-slate-900 hover:bg-black text-white font-black py-4 rounded-xl shadow-lg mt-6 transition-all flex items-center justify-center gap-2">
-                Book Free Pickup & Lock Price <ArrowRight className="w-4 h-4" />
+              {pickupSubmitError && (
+                <div className="bg-rose-50 border border-rose-200 rounded-xl px-4 py-3 text-xs text-rose-700 font-bold flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0" />
+                  <span>{pickupSubmitError}</span>
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={isSubmittingPickup}
+                className="w-full bg-slate-900 hover:bg-black disabled:opacity-60 text-white font-black py-4 rounded-xl shadow-lg mt-6 transition-all flex items-center justify-center gap-2"
+              >
+                {isSubmittingPickup ? 'Booking...' : (
+                  <>Book Free Pickup & Lock Price <ArrowRight className="w-4 h-4" /></>
+                )}
               </button>
             </form>
           </div>
@@ -550,7 +622,11 @@ export const SellPhoneWizard: React.FC<SellPhoneWizardProps> = ({
            </div>
            <h2 className="text-3xl font-black text-slate-900 font-heading">Pickup Scheduled Successfully!</h2>
            <p className="text-slate-600 mt-4 leading-relaxed font-medium">
-             Our certified agent will visit <strong>{address}</strong> on <strong>{scheduledDate}</strong> between <strong>{scheduledSlot}</strong>.
+             {isLocalPincode(answers.pincode) ? (
+               <>Our certified agent will visit <strong>{address}</strong> on <strong>{scheduledDate}</strong> between <strong>{scheduledSlot}</strong>.</>
+             ) : (
+               <>Your pincode is outside our doorstep-agent coverage area (Khekra 250101), so this will be a <strong>courier pickup</strong> from <strong>{address}</strong> - our team will call you to confirm courier details for <strong>{scheduledDate}</strong>, <strong>{scheduledSlot}</strong>.</>
+             )}
            </p>
            <div className="bg-slate-50 rounded-2xl p-6 mt-8 border border-slate-100 text-left">
              <h4 className="font-bold text-slate-900 mb-3 border-b border-slate-200 pb-2">Next Steps</h4>
