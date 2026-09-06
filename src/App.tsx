@@ -590,7 +590,7 @@ export default function App() {
         // simple loading state instead of rendering the page at all until
         // the real catalog has actually loaded.
         <div className="min-h-screen flex items-center justify-center pt-24">
-          <div className="text-slate-400 text-sm font-medium animate-pulse">Loading product...</div>
+          <div className="text-stone-400 text-sm font-medium animate-pulse">Loading product...</div>
         </div>
       )}
 
@@ -601,10 +601,10 @@ export default function App() {
           // to catalog[0], which showed a random, wrong product.
           return (
             <div className="min-h-screen flex flex-col items-center justify-center gap-4 pt-24 text-center px-6">
-              <p className="text-slate-600 font-semibold">This product could not be found.</p>
+              <p className="text-stone-600 font-semibold">This product could not be found.</p>
               <button
                 onClick={() => { setCurrentTab('landing'); setCurrentProductId(undefined); }}
-                className="text-blue-600 font-bold text-sm hover:underline"
+                className="text-orange-600 font-bold text-sm hover:underline"
               >
                 Back to Home
               </button>
@@ -663,7 +663,7 @@ export default function App() {
   );
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 font-sans selection:bg-[#0052FF] selection:text-white flex flex-col justify-between pb-20 lg:pb-0">
+    <div className="min-h-screen bg-[#FBF7F0] text-stone-900 font-sans selection:bg-[#C2410C] selection:text-white flex flex-col justify-between pb-20 lg:pb-0">
       {catalogSaveError && currentTab === 'admin' && (
         <div className="fixed top-0 inset-x-0 z-[200] bg-rose-600 text-white text-xs sm:text-sm font-bold text-center py-2 px-4">
           Your last catalog change failed to save to the database - it will be lost on reload. Check that you're still signed in as admin (reconnecting Google Drive can sign you out of admin) and try the edit again.
@@ -681,7 +681,7 @@ export default function App() {
           window.prompt(), which some mobile in-app browsers silently
           no-op. */}
       {pendingEmailConfirm && (
-        <div className="fixed inset-0 z-[300] bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[300] bg-stone-950/70 backdrop-blur-sm flex items-center justify-center p-4">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -690,10 +690,10 @@ export default function App() {
               setIsConfirmingEmail(true);
               completeEmailLinkSignIn(email, null);
             }}
-            className="bg-white rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-slate-200"
+            className="bg-white rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-stone-200"
           >
-            <h3 className="text-base font-black text-slate-900 font-heading">Confirm Your Email</h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
+            <h3 className="text-base font-black text-stone-900 font-heading">Confirm Your Email</h3>
+            <p className="text-xs text-stone-600 leading-relaxed">
               This sign-in link was opened somewhere Recell doesn't recognize. Please re-enter the email
               address you signed up with to finish signing in.
             </p>
@@ -704,20 +704,20 @@ export default function App() {
               value={confirmEmailInput}
               onChange={(e) => setConfirmEmailInput(e.target.value)}
               placeholder="you@example.com"
-              className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 focus:ring-2 focus:ring-[#0052FF] outline-none"
+              className="w-full px-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm text-stone-900 focus:ring-2 focus:ring-[#C2410C] outline-none"
             />
             <div className="flex gap-2">
               <button
                 type="button"
                 onClick={() => { setPendingEmailConfirm(false); window.history.replaceState(null, '', window.location.pathname); }}
-                className="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-50"
+                className="flex-1 px-4 py-2.5 rounded-xl border border-stone-200 text-stone-700 font-bold text-xs hover:bg-stone-50"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isConfirmingEmail}
-                className="flex-1 bg-[#0052FF] hover:bg-[#0043CC] disabled:opacity-50 text-white font-bold px-4 py-2.5 rounded-xl text-xs font-heading"
+                className="flex-1 bg-[#C2410C] hover:bg-[#9A3412] disabled:opacity-50 text-white font-bold px-4 py-2.5 rounded-xl text-xs font-heading"
               >
                 {isConfirmingEmail ? 'Confirming...' : 'Confirm & Sign In'}
               </button>
@@ -775,19 +775,19 @@ export default function App() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.5 }}
-        className="bg-slate-950 text-white border-t border-slate-800 text-xs sm:text-sm"
+        className="bg-stone-950 text-white border-t border-stone-800 text-xs sm:text-sm"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
             {/* Col 1: Brand Info */}
             <div className="lg:col-span-2 space-y-4">
               <RecellLogo variant="badge" />
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-sm font-sans font-medium">
+              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed max-w-sm font-sans font-medium">
                 India's transparent mobile ReCommerce platform. Get 60-second AI trade-in quotes, instant doorstep spot UPI cash, 32-point diagnostic checks, and 3-Month warranted certified pre-owned devices.
               </p>
-              <div className="flex flex-col gap-1 text-blue-400 font-mono text-xs font-black drop-shadow-xs">
+              <div className="flex flex-col gap-1 text-orange-400 font-mono text-xs font-black drop-shadow-xs">
                 <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-blue-400 animate-pulse shrink-0" />
+                  <MapPin className="w-4 h-4 text-orange-400 animate-pulse shrink-0" />
                   <span>Recell store, Pathsala road, Khekra, Baghpat, U.P., 250101</span>
                 </div>
                 <div className="flex items-center gap-2 text-emerald-400">
@@ -800,35 +800,35 @@ export default function App() {
             {/* Col 2: Services & Pages */}
             <div className="space-y-3">
               <h4 className="font-extrabold text-white text-xs uppercase tracking-wider font-mono drop-shadow-sm">Platform Services</h4>
-              <ul className="space-y-2 text-slate-300 text-xs sm:text-sm font-medium">
-                <li><a href="/sell" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('sell'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> Sell Phone (60s Quote)</a></li>
-                <li><a href="/buy" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('buy'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> Buy Certified Pre-Owned</a></li>
+              <ul className="space-y-2 text-stone-300 text-xs sm:text-sm font-medium">
+                <li><a href="/sell" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('sell'); } }} className="hover:text-orange-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#C2410C]">&bull;</span> Sell Phone (60s Quote)</a></li>
+                <li><a href="/buy" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('buy'); } }} className="hover:text-orange-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#C2410C]">&bull;</span> Buy Certified Pre-Owned</a></li>
                 <li><a href="/repair" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('repair'); } }} className="hover:text-amber-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-amber-400">&bull;</span> 30-Min Doorstep Repair</a></li>
-                <li><a href="/track" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('track'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> Track Order &amp; Warranty</a></li>
-                <li><a href="/how-it-works" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('how-it-works'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> How Recell Works</a></li>
-                <li><a href="/about" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('about'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> About Us</a></li>
+                <li><a href="/track" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('track'); } }} className="hover:text-orange-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#C2410C]">&bull;</span> Track Order &amp; Warranty</a></li>
+                <li><a href="/how-it-works" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('how-it-works'); } }} className="hover:text-orange-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#C2410C]">&bull;</span> How Recell Works</a></li>
+                <li><a href="/about" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('about'); } }} className="hover:text-orange-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#C2410C]">&bull;</span> About Us</a></li>
                 <li><a href="/recycle" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('recycle'); } }} className="hover:text-emerald-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-emerald-400">&bull;</span> E-Waste Recycle</a></li>
-                <li><a href="/contact" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('contact'); } }} className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#0052FF]">&bull;</span> Contact Support</a></li>
+                <li><a href="/contact" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); setCurrentTab('contact'); } }} className="hover:text-orange-400 transition-colors cursor-pointer flex items-center gap-1.5"><span className="text-[#C2410C]">&bull;</span> Contact Support</a></li>
               </ul>
             </div>
 
             {/* Col 3: 15 Mobile Brands */}
             <div className="space-y-3">
               <h4 className="font-extrabold text-white text-xs uppercase tracking-wider font-mono drop-shadow-sm">15 Mobile Brands</h4>
-              <div className="grid grid-cols-2 gap-1.5 text-xs text-slate-300 font-medium">
+              <div className="grid grid-cols-2 gap-1.5 text-xs text-stone-300 font-medium">
                 {MAJOR_MOBILE_BRANDS.slice(0, 10).map((b) => (
                   <a 
                     key={b.id} 
                     href={`/buy?brand=${encodeURIComponent(b.name)}`}
                     onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); handleSelectBrand(b.name); } }}
-                    className="hover:text-blue-400 text-left transition-colors truncate cursor-pointer py-0.5 block"
+                    className="hover:text-orange-400 text-left transition-colors truncate cursor-pointer py-0.5 block"
                   >
                     {b.name}
                   </a>
                 ))}
                 <button 
                   onClick={() => setIsMegaMenuOpen(true)}
-                  className="text-blue-400 font-black col-span-2 text-left hover:underline mt-1 cursor-pointer text-xs"
+                  className="text-orange-400 font-black col-span-2 text-left hover:underline mt-1 cursor-pointer text-xs"
                 >
                   View All 15 Brands &rarr;
                 </button>
@@ -838,7 +838,7 @@ export default function App() {
             {/* Col 4: Legal & Policies */}
             <div className="space-y-3">
               <h4 className="font-extrabold text-white text-xs uppercase tracking-wider font-mono drop-shadow-sm">Legal &amp; Trust Policies</h4>
-              <ul className="space-y-2 text-slate-300 text-xs sm:text-sm font-medium">
+              <ul className="space-y-2 text-stone-300 text-xs sm:text-sm font-medium">
                 <li><a href="/privacy" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); openLegalModal('privacy'); } }} className="hover:text-amber-400 transition-colors cursor-pointer block">Privacy &amp; Data Wipe Policy</a></li>
                 <li><a href="/terms" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); openLegalModal('terms'); } }} className="hover:text-amber-400 transition-colors cursor-pointer block">Terms &amp; Trade-In Guidelines</a></li>
                 <li><a href="/warranty" onClick={(e) => { if (!e.metaKey && !e.ctrlKey && e.button !== 1) { e.preventDefault(); openLegalModal('warranty'); } }} className="hover:text-amber-400 transition-colors cursor-pointer block">3-Month Recell Warranty</a></li>
@@ -848,17 +848,31 @@ export default function App() {
             </div>
           </div>
 
-          <div className="border-t border-slate-800 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-300 font-semibold">
+          <div className="border-t border-stone-800 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-stone-300 font-semibold">
             <div className="flex flex-wrap items-center gap-4">
               <span>Razorpay Payments</span>
-              <span className="text-slate-600">&bull;</span>
+              <span className="text-stone-600">&bull;</span>
               <span>Delhivery Express</span>
-              <span className="text-slate-600">&bull;</span>
+              <span className="text-stone-600">&bull;</span>
               <span>Shiprocket Partner</span>
             </div>
-            <div className="text-slate-300 font-mono">
-              &copy; 2026 Recell Mobile Solutions &bull; Recell store, Pathsala road, Khekra, Baghpat, U.P., 250101 &bull; Helpline: 9310552055
+            <div className="text-stone-300 font-mono">
+              &copy; 2026 Recell Mobile Solutions by ALM_TECH &bull; Recell store, Pathsala road, Khekra, Baghpat, U.P., 250101 &bull; Helpline: 9310552055
             </div>
+          </div>
+
+          <div className="border-t border-stone-900 pt-4 flex justify-center sm:justify-end">
+            <span className="text-[10px] text-stone-400 font-medium">
+              Built and maintained by{' '}
+              <a
+                href="https://risedigitalindia.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-orange-400 hover:text-orange-300 hover:underline underline-offset-2 transition-colors"
+              >
+                risedigitalindia.com
+              </a>
+            </span>
           </div>
         </div>
       </motion.footer>
@@ -903,37 +917,37 @@ export default function App() {
 
       {/* Cart Drawer */}
       {isCartOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex justify-end">
-          <div className="bg-white border-l border-slate-200 w-full max-w-md h-full p-6 text-slate-900 flex flex-col justify-between shadow-2xl">
+        <div className="fixed inset-0 z-50 bg-stone-900/40 backdrop-blur-sm flex justify-end">
+          <div className="bg-white border-l border-stone-200 w-full max-w-md h-full p-6 text-stone-900 flex flex-col justify-between shadow-2xl">
             <div className="space-y-4">
-              <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+              <div className="flex items-center justify-between border-b border-stone-200 pb-4">
                 <div className="flex items-center gap-2">
-                  <ShoppingBag className="w-5 h-5 text-indigo-600" />
-                  <h2 className="font-bold text-lg text-slate-900">Your Shopping Cart ({cart.length})</h2>
+                  <ShoppingBag className="w-5 h-5 text-orange-600" />
+                  <h2 className="font-bold text-lg text-stone-900">Your Shopping Cart ({cart.length})</h2>
                 </div>
-                <button onClick={() => setIsCartOpen(false)} className="p-1 text-slate-400 hover:text-slate-900 rounded-full hover:bg-slate-100">
+                <button onClick={() => setIsCartOpen(false)} className="p-1 text-stone-400 hover:text-stone-900 rounded-full hover:bg-stone-100">
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
               {cart.length === 0 ? (
                 <div className="text-center py-16 space-y-2">
-                  <ShoppingBag className="w-12 h-12 text-slate-300 mx-auto" />
-                  <p className="text-sm font-semibold text-slate-500">Your cart is currently empty.</p>
-                  <p className="text-xs text-slate-400">Browse live listings to add certified refurbished devices.</p>
+                  <ShoppingBag className="w-12 h-12 text-stone-300 mx-auto" />
+                  <p className="text-sm font-semibold text-stone-500">Your cart is currently empty.</p>
+                  <p className="text-xs text-stone-400">Browse live listings to add certified refurbished devices.</p>
                 </div>
               ) : (
                 <div className="space-y-3 max-h-[60vh] overflow-y-auto pr-1">
                   {cart.map(item => (
-                    <div key={item.id} className="p-3 bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-between gap-3 text-xs">
+                    <div key={item.id} className="p-3 bg-stone-50 rounded-2xl border border-stone-200 flex items-center justify-between gap-3 text-xs">
                       <img src={item.images[0]} alt="" className="w-12 h-12 object-cover rounded-xl" />
                       <div className="flex-1">
-                        <p className="font-bold text-slate-900 line-clamp-1">{item.title}</p>
-                        <p className="text-indigo-600 font-mono font-bold mt-0.5">₹{item.refurbPrice.toLocaleString('en-IN')}</p>
+                        <p className="font-bold text-stone-900 line-clamp-1">{item.title}</p>
+                        <p className="text-orange-600 font-mono font-bold mt-0.5">₹{item.refurbPrice.toLocaleString('en-IN')}</p>
                       </div>
                       <button
                         onClick={() => handleRemoveFromCart(item.id)}
-                        className="p-1.5 text-slate-400 hover:text-rose-600 rounded-full hover:bg-rose-50"
+                        className="p-1.5 text-stone-400 hover:text-rose-600 rounded-full hover:bg-rose-50"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -944,16 +958,16 @@ export default function App() {
             </div>
 
             {cart.length > 0 && (
-              <div className="pt-4 border-t border-slate-200 space-y-3">
-                <div className="flex justify-between font-bold text-sm text-slate-900">
+              <div className="pt-4 border-t border-stone-200 space-y-3">
+                <div className="flex justify-between font-bold text-sm text-stone-900">
                   <span>Total Payable:</span>
-                  <span className="text-indigo-600 font-mono text-base">
+                  <span className="text-orange-600 font-mono text-base">
                     ₹{cart.reduce((acc, item) => acc + item.refurbPrice, 0).toLocaleString('en-IN')}
                   </span>
                 </div>
                 <button
                   onClick={handleCartCheckout}
-                  className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3.5 rounded-2xl shadow-md shadow-indigo-600/20 flex items-center justify-center gap-2 text-sm transition-all"
+                  className="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-3.5 rounded-2xl shadow-md shadow-orange-600/20 flex items-center justify-center gap-2 text-sm transition-all"
                 >
                   Checkout with Razorpay
                   <ArrowRight className="w-4 h-4" />

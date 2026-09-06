@@ -112,7 +112,7 @@ export async function openRazorpayCheckout(options: RazorpayOptions): Promise<vo
       customer_phone: options.prefill.phone
     },
     theme: {
-      color: '#0052FF'
+      color: '#C2410C'
     },
     modal: {
       ondismiss: function () {

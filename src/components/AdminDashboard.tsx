@@ -436,16 +436,16 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 text-slate-900">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 text-stone-900">
       {/* Admin Suite Header */}
-      <div className="bg-white border border-slate-200 rounded-3xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-sm">
+      <div className="bg-white border border-stone-200 rounded-3xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-sm">
         <div>
-          <span className="bg-indigo-50 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full border border-indigo-100 flex items-center gap-1 w-fit mb-2">
-            <Settings className="w-3.5 h-3.5 text-indigo-600" />
+          <span className="bg-orange-50 text-orange-700 text-xs font-bold px-3 py-1 rounded-full border border-orange-100 flex items-center gap-1 w-fit mb-2">
+            <Settings className="w-3.5 h-3.5 text-orange-600" />
             Central ReCommerce Admin Suite
           </span>
-          <h1 className="text-2xl font-black text-slate-900">Platform Control Dashboard</h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <h1 className="text-2xl font-black text-stone-900">Platform Control Dashboard</h1>
+          <p className="text-xs text-stone-500 mt-0.5">
             Catalog Limit: <strong className="text-emerald-600">{catalog.length} / 500 Max</strong> • Local Radius: <strong>Pincode 250101</strong>
           </p>
           <div className="mt-2 inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-[11px] font-bold px-2.5 py-1 rounded-full border border-emerald-200">
@@ -455,7 +455,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         </div>
 
         {/* Quick Tabs */}
-        <div className="flex flex-wrap items-center gap-1.5 bg-slate-100 p-1.5 rounded-full border border-slate-200 text-xs font-semibold">
+        <div className="flex flex-wrap items-center gap-1.5 bg-stone-100 p-1.5 rounded-full border border-stone-200 text-xs font-semibold">
           {[
             { id: 'openbox_catalog', label: `Open Box Catalog (${catalog.filter(c => c.conditionGrade === 'Open Box').length}/500)`, icon: ShoppingBag },
             { id: 'refurb_catalog', label: `Refurbished Catalog (${catalog.filter(c => c.conditionGrade !== 'Open Box').length}/500)`, icon: ShoppingBag },
@@ -473,8 +473,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full transition-all ${
                   activeTab === tab.id
-                    ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                    ? 'bg-orange-600 text-white font-bold shadow-xs'
+                    : 'text-stone-600 hover:text-stone-900 hover:bg-stone-200/60'
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -487,11 +487,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
       {/* TAB 1: CATALOG MANAGEMENT */}
       {(activeTab === 'openbox_catalog' || activeTab === 'refurb_catalog') && (
-        <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+        <div className="bg-white border border-stone-200 rounded-3xl p-6 shadow-sm space-y-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-stone-100 pb-4">
             <div>
-              <h2 className="text-lg font-bold text-slate-900">{activeTab === 'openbox_catalog' ? 'Open Box Phones Catalog' : 'Refurbished Phones Catalog'}</h2>
-              <p className="text-xs text-slate-500">Manage up to 500 live items on pan-India storefront</p>
+              <h2 className="text-lg font-bold text-stone-900">{activeTab === 'openbox_catalog' ? 'Open Box Phones Catalog' : 'Refurbished Phones Catalog'}</h2>
+              <p className="text-xs text-stone-500">Manage up to 500 live items on pan-India storefront</p>
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
@@ -529,16 +529,16 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
               <button
                 onClick={handleDownloadSampleCsv}
-                className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3.5 py-2 rounded-full text-xs flex items-center gap-1.5 border border-slate-200 transition-all cursor-pointer"
+                className="bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold px-3.5 py-2 rounded-full text-xs flex items-center gap-1.5 border border-stone-200 transition-all cursor-pointer"
                 title="Download sample CSV template for bulk product import"
               >
-                <Download className="w-3.5 h-3.5 text-slate-500" />
+                <Download className="w-3.5 h-3.5 text-stone-500" />
                 <span>CSV Template</span>
               </button>
 
               <button
                 onClick={() => setShowDriveImportModal(true)}
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded-full text-xs flex items-center gap-1.5 shadow-sm transition-all cursor-pointer font-heading"
+                className="bg-orange-600 hover:bg-orange-700 text-white font-bold px-4 py-2 rounded-full text-xs flex items-center gap-1.5 shadow-sm transition-all cursor-pointer font-heading"
                 title="Directly import mobile phone photos & descriptions from Google Drive"
               >
                 <Cloud className="w-3.5 h-3.5 text-white" />
@@ -547,9 +547,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
               <button
                 onClick={() => setShowBulkUploadModal(true)}
-                className="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold px-3.5 py-2 rounded-full text-xs flex items-center gap-1.5 border border-indigo-200 transition-all cursor-pointer"
+                className="bg-orange-50 hover:bg-orange-100 text-orange-700 font-bold px-3.5 py-2 rounded-full text-xs flex items-center gap-1.5 border border-orange-200 transition-all cursor-pointer"
               >
-                <Upload className="w-3.5 h-3.5 text-indigo-600" />
+                <Upload className="w-3.5 h-3.5 text-orange-600" />
                 <span>Bulk CSV Upload</span>
               </button>
 
@@ -573,66 +573,66 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           </div>
 
           {/* Physical & Technical Grading System Explainer Card */}
-          <div className="bg-blue-50/60 border border-blue-200 rounded-2xl p-4 text-xs text-slate-700 space-y-2">
+          <div className="bg-orange-50/60 border border-orange-200 rounded-2xl p-4 text-xs text-stone-700 space-y-2">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 font-bold text-blue-900 text-sm font-heading">
-                <ShieldCheck className="w-4 h-4 text-[#0052FF]" />
+              <div className="flex items-center gap-2 font-bold text-orange-900 text-sm font-heading">
+                <ShieldCheck className="w-4 h-4 text-[#C2410C]" />
                 <span>Recell Standardised Physical &amp; Technical Grading Matrix</span>
               </div>
               <button
                 type="button"
                 onClick={() => setShowGradingGuide(!showGradingGuide)}
-                className="text-xs text-[#0052FF] font-bold hover:underline cursor-pointer flex items-center gap-1"
+                className="text-xs text-[#C2410C] font-bold hover:underline cursor-pointer flex items-center gap-1"
               >
                 <HelpCircle className="w-3.5 h-3.5" />
                 <span>{showGradingGuide ? 'Hide Grading Details' : 'View Full Grading Rules'}</span>
               </button>
             </div>
 
-            <p className="text-slate-600">
+            <p className="text-stone-600">
               All inventory uploaded is categorized according to strict physical condition (body, screen, back glass) and technical inspection (55-point diagnostic check, original OEM parts, battery health %).
             </p>
 
             {showGradingGuide && (
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-3 pt-3 border-t border-blue-200/60 font-medium">
-                <div className="bg-white p-3 rounded-xl border border-blue-100 space-y-1">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-3 pt-3 border-t border-orange-200/60 font-medium">
+                <div className="bg-white p-3 rounded-xl border border-orange-100 space-y-1">
                   <span className="bg-emerald-100 text-emerald-800 text-[10px] font-black px-2 py-0.5 rounded-md uppercase">
                     Grade A
                   </span>
-                  <p className="font-bold text-slate-900 text-[11px]">Official Center Warranty</p>
-                  <p className="text-[10px] text-slate-500">Mobile phone under active brand warranty from official service center. 100% original.</p>
+                  <p className="font-bold text-stone-900 text-[11px]">Official Center Warranty</p>
+                  <p className="text-[10px] text-stone-500">Mobile phone under active brand warranty from official service center. 100% original.</p>
                 </div>
 
-                <div className="bg-white p-3 rounded-xl border border-blue-100 space-y-1">
-                  <span className="bg-blue-100 text-blue-800 text-[10px] font-black px-2 py-0.5 rounded-md uppercase">
+                <div className="bg-white p-3 rounded-xl border border-orange-100 space-y-1">
+                  <span className="bg-orange-100 text-orange-800 text-[10px] font-black px-2 py-0.5 rounded-md uppercase">
                     Grade A1
                   </span>
-                  <p className="font-bold text-slate-900 text-[11px]">New Condition + ReCell Warranty</p>
-                  <p className="text-[10px] text-slate-500">Like New phone with ReCell warranty. Pristine condition, zero functional or cosmetic issues.</p>
+                  <p className="font-bold text-stone-900 text-[11px]">New Condition + ReCell Warranty</p>
+                  <p className="text-[10px] text-stone-500">Like New phone with ReCell warranty. Pristine condition, zero functional or cosmetic issues.</p>
                 </div>
 
-                <div className="bg-white p-3 rounded-xl border border-blue-100 space-y-1">
+                <div className="bg-white p-3 rounded-xl border border-orange-100 space-y-1">
                   <span className="bg-amber-100 text-amber-800 text-[10px] font-black px-2 py-0.5 rounded-md uppercase">
                     Grade B
                   </span>
-                  <p className="font-bold text-slate-900 text-[11px]">Minor Scuffs + Never Repaired</p>
-                  <p className="text-[10px] text-slate-500">Minor rough cosmetic marks, 100% NEVER REPAIRED, includes ReCell warranty.</p>
+                  <p className="font-bold text-stone-900 text-[11px]">Minor Scuffs + Never Repaired</p>
+                  <p className="text-[10px] text-stone-500">Minor rough cosmetic marks, 100% NEVER REPAIRED, includes ReCell warranty.</p>
                 </div>
 
-                <div className="bg-white p-3 rounded-xl border border-blue-100 space-y-1">
+                <div className="bg-white p-3 rounded-xl border border-orange-100 space-y-1">
                   <span className="bg-purple-100 text-purple-800 text-[10px] font-black px-2 py-0.5 rounded-md uppercase">
                     Grade B1 (Budget)
                   </span>
-                  <p className="font-bold text-slate-900 text-[11px]">Repaired Parts + No Warranty</p>
-                  <p className="text-[10px] text-slate-500">Repaired phone (Folder screen/jack/mic/speaker replaced). Fully tested, lowest price.</p>
+                  <p className="font-bold text-stone-900 text-[11px]">Repaired Parts + No Warranty</p>
+                  <p className="text-[10px] text-stone-500">Repaired phone (Folder screen/jack/mic/speaker replaced). Fully tested, lowest price.</p>
                 </div>
               </div>
             )}
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-slate-700">
-              <thead className="bg-slate-50 text-slate-500 uppercase font-mono border-b border-slate-200">
+            <table className="w-full text-left text-xs text-stone-700">
+              <thead className="bg-stone-50 text-stone-500 uppercase font-mono border-b border-stone-200">
                 <tr>
                   <th className="p-3">Device & IMEI</th>
                   <th className="p-3">Grade</th>
@@ -643,23 +643,23 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   <th className="p-3 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-stone-100">
                 {catalog.filter(item => activeTab === 'openbox_catalog' ? item.conditionGrade === 'Open Box' : item.conditionGrade !== 'Open Box').map(item => (
-                  <tr key={item.id} className="hover:bg-slate-50/80 transition-colors">
+                  <tr key={item.id} className="hover:bg-stone-50/80 transition-colors">
                     <td className="p-3 font-medium flex items-center gap-3">
-                      <img src={item.images[0] || PRODUCT_IMAGE_FALLBACK} alt="" className="w-10 h-10 object-cover rounded-xl bg-slate-100 border border-slate-200" onError={onProductImageError} />
+                      <img src={item.images[0] || PRODUCT_IMAGE_FALLBACK} alt="" className="w-10 h-10 object-cover rounded-xl bg-stone-100 border border-stone-200" onError={onProductImageError} />
                       <div>
-                        <p className="text-slate-900 font-bold">{item.title}</p>
-                        <p className="text-[10px] text-slate-400 font-mono">IMEI: {item.serialImei}</p>
+                        <p className="text-stone-900 font-bold">{item.title}</p>
+                        <p className="text-[10px] text-stone-400 font-mono">IMEI: {item.serialImei}</p>
                       </div>
                     </td>
                     <td className="p-3">
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-100">
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-orange-50 text-orange-700 border border-orange-100">
                         {item.conditionGrade}
                       </span>
                     </td>
                     <td className="p-3 font-mono text-emerald-600 font-bold">N/A</td>
-                    <td className="p-3 font-mono text-slate-400">₹{item.originalPrice.toLocaleString('en-IN')}</td>
+                    <td className="p-3 font-mono text-stone-400">₹{item.originalPrice.toLocaleString('en-IN')}</td>
                     <td className="p-3 font-mono text-emerald-600 font-bold">₹{item.refurbPrice.toLocaleString('en-IN')}</td>
                     <td className="p-3">
                       <span className="text-[10px] bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">
@@ -686,22 +686,22 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
       {/* TAB 2: BUY REQUESTS & PICKUPS */}
       {activeTab === 'buys' && (
-        <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-4">
-          <h2 className="text-lg font-bold text-slate-900">Local Sell Requests (Pincode 250101 Radius)</h2>
+        <div className="bg-white border border-stone-200 rounded-3xl p-6 shadow-sm space-y-4">
+          <h2 className="text-lg font-bold text-stone-900">Local Sell Requests (Pincode 250101 Radius)</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {buyRequests.map(req => (
-              <div key={req.id} className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2 text-xs">
+              <div key={req.id} className="p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-2 text-xs">
                 <div className="flex justify-between items-center">
-                  <span className="font-mono text-indigo-600 font-bold">{req.id}</span>
-                  <span className="bg-indigo-100 text-indigo-800 px-2.5 py-0.5 rounded-full font-bold text-[10px]">
+                  <span className="font-mono text-orange-600 font-bold">{req.id}</span>
+                  <span className="bg-orange-100 text-orange-800 px-2.5 py-0.5 rounded-full font-bold text-[10px]">
                     {req.status}
                   </span>
                 </div>
-                <h3 className="font-bold text-slate-900 text-sm">{req.modelName}</h3>
-                <p className="text-slate-500">Seller: {req.sellerName} ({req.sellerPhone})</p>
-                <p className="text-slate-500">Address: {req.address} ({req.pincode})</p>
-                <div className="pt-2 border-t border-slate-200 flex justify-between font-bold">
-                  <span className="text-slate-400">Rough Quote:</span>
+                <h3 className="font-bold text-stone-900 text-sm">{req.modelName}</h3>
+                <p className="text-stone-500">Seller: {req.sellerName} ({req.sellerPhone})</p>
+                <p className="text-stone-500">Address: {req.address} ({req.pincode})</p>
+                <div className="pt-2 border-t border-stone-200 flex justify-between font-bold">
+                  <span className="text-stone-400">Rough Quote:</span>
                   <span className="text-emerald-600 font-mono">₹{req.roughQuoteMin.toLocaleString('en-IN')} - ₹{req.roughQuoteMax.toLocaleString('en-IN')}</span>
                 </div>
               </div>
@@ -712,41 +712,41 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
       {/* TAB 3: PRICING ENGINE RULE EDITOR */}
       {activeTab === 'pricing' && (
-        <form onSubmit={handleSavePricingRules} className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-6">
+        <form onSubmit={handleSavePricingRules} className="bg-white border border-stone-200 rounded-3xl p-6 shadow-sm space-y-6">
           <div>
-            <h2 className="text-lg font-bold text-slate-900">Dynamic Pricing Engine Rules</h2>
-            <p className="text-xs text-slate-500">Adjust multipliers & local demand factors. Changes apply live to rough quote calculations.</p>
+            <h2 className="text-lg font-bold text-stone-900">Dynamic Pricing Engine Rules</h2>
+            <p className="text-xs text-stone-500">Adjust multipliers & local demand factors. Changes apply live to rough quote calculations.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
-            <div className="p-5 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
-              <label className="font-bold text-slate-900 block">1. Local Pincode 250101 Demand Multiplier</label>
+            <div className="p-5 bg-stone-50 rounded-2xl border border-stone-200 space-y-3">
+              <label className="font-bold text-stone-900 block">1. Local Pincode 250101 Demand Multiplier</label>
               <input
                 type="number"
                 step="0.01"
                 value={demand250101}
                 onChange={(e) => setDemand250101(Number(e.target.value))}
-                className="w-full bg-white border border-slate-200 rounded-xl p-2.5 text-slate-900 font-mono font-bold"
+                className="w-full bg-white border border-stone-200 rounded-xl p-2.5 text-stone-900 font-mono font-bold"
               />
-              <p className="text-[11px] text-slate-500">e.g., 1.05 gives a 5% bonus quote for local high-demand town items.</p>
+              <p className="text-[11px] text-stone-500">e.g., 1.05 gives a 5% bonus quote for local high-demand town items.</p>
             </div>
 
-            <div className="p-5 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
-              <label className="font-bold text-slate-900 block">2. Flawless Screen Multiplier</label>
+            <div className="p-5 bg-stone-50 rounded-2xl border border-stone-200 space-y-3">
+              <label className="font-bold text-stone-900 block">2. Flawless Screen Multiplier</label>
               <input
                 type="number"
                 step="0.01"
                 value={flawlessScreenMult}
                 onChange={(e) => setFlawlessScreenMult(Number(e.target.value))}
-                className="w-full bg-white border border-slate-200 rounded-xl p-2.5 text-slate-900 font-mono font-bold"
+                className="w-full bg-white border border-stone-200 rounded-xl p-2.5 text-stone-900 font-mono font-bold"
               />
-              <p className="text-[11px] text-slate-500">1.0 = 100% of base value for scratchless screens.</p>
+              <p className="text-[11px] text-stone-500">1.0 = 100% of base value for scratchless screens.</p>
             </div>
           </div>
 
           <button
             type="submit"
-            className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-full text-xs shadow-sm flex items-center gap-2 transition-all"
+            className="bg-orange-600 hover:bg-orange-500 text-white font-bold px-6 py-3 rounded-full text-xs shadow-sm flex items-center gap-2 transition-all"
           >
             <RefreshCw className="w-4 h-4" />
             Save & Update Valuation Rules
@@ -756,18 +756,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
       {/* TAB 4: ORDERS & PAN-INDIA SHIPMENTS */}
       {activeTab === 'orders' && (
-        <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-4">
-          <h2 className="text-lg font-bold text-slate-900">Pan-India Orders & Delhivery Express Tracking</h2>
+        <div className="bg-white border border-stone-200 rounded-3xl p-6 shadow-sm space-y-4">
+          <h2 className="text-lg font-bold text-stone-900">Pan-India Orders & Delhivery Express Tracking</h2>
           <div className="space-y-3">
             {orders.map(order => (
-              <div key={order.id} className="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-xs space-y-2">
+              <div key={order.id} className="p-4 bg-stone-50 rounded-2xl border border-stone-200 text-xs space-y-2">
                 <div className="flex justify-between items-center">
-                  <span className="font-mono font-bold text-indigo-600">{order.id}</span>
+                  <span className="font-mono font-bold text-orange-600">{order.id}</span>
                   <span className="bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold text-[10px]">{order.orderStatus}</span>
                 </div>
-                <p className="font-bold text-slate-900">{order.customerName} ({order.customerPhone})</p>
-                <p className="text-slate-500">Tracking: {order.courierPartner} - {order.trackingNumber}</p>
-                <p className="text-slate-500">Address: {order.shippingAddress}, {order.city} ({order.pincode})</p>
+                <p className="font-bold text-stone-900">{order.customerName} ({order.customerPhone})</p>
+                <p className="text-stone-500">Tracking: {order.courierPartner} - {order.trackingNumber}</p>
+                <p className="text-stone-500">Address: {order.shippingAddress}, {order.city} ({order.pincode})</p>
               </div>
             ))}
           </div>
@@ -776,25 +776,25 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
       {/* TAB 5: REPAIR QUEUE & TECHNICIANS */}
       {activeTab === 'repairs' && (
-        <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-4">
-          <h2 className="text-lg font-bold text-slate-900">In-House Repair Queue & Technician Workbench</h2>
+        <div className="bg-white border border-stone-200 rounded-3xl p-6 shadow-sm space-y-4">
+          <h2 className="text-lg font-bold text-stone-900">In-House Repair Queue & Technician Workbench</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {repairJobs.map(job => (
-              <div key={job.id} className="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-xs space-y-3">
+              <div key={job.id} className="p-4 bg-stone-50 rounded-2xl border border-stone-200 text-xs space-y-3">
                 <div className="flex justify-between items-center">
-                  <span className="font-mono font-bold text-indigo-600">{job.id}</span>
+                  <span className="font-mono font-bold text-orange-600">{job.id}</span>
                   <span className="bg-purple-100 text-purple-800 px-2.5 py-0.5 rounded-full font-bold text-[10px]">{job.status}</span>
                 </div>
-                <h3 className="font-bold text-slate-900 text-sm">{job.deviceName}</h3>
-                <p className="text-slate-500">Defect: {job.defectSummary}</p>
-                <p className="text-slate-500">Assigned Tech: <strong>{job.technician}</strong></p>
+                <h3 className="font-bold text-stone-900 text-sm">{job.deviceName}</h3>
+                <p className="text-stone-500">Defect: {job.defectSummary}</p>
+                <p className="text-stone-500">Assigned Tech: <strong>{job.technician}</strong></p>
 
-                <div className="flex items-center gap-2 pt-2 border-t border-slate-200">
-                  <span className="text-slate-500 font-medium">Change Status:</span>
+                <div className="flex items-center gap-2 pt-2 border-t border-stone-200">
+                  <span className="text-stone-500 font-medium">Change Status:</span>
                   <select
                     value={job.status}
                     onChange={(e) => handleUpdateRepairStatus(job.id, e.target.value as any)}
-                    className="bg-white border border-slate-200 rounded-xl p-1.5 text-xs text-slate-900 font-bold"
+                    className="bg-white border border-stone-200 rounded-xl p-1.5 text-xs text-stone-900 font-bold"
                   >
                     <option value="Booked">Booked</option>
                     <option value="Diagnosing">Diagnosing</option>
@@ -811,30 +811,30 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
       {/* TAB 6: RETURNS & WARRANTY CLAIMS */}
       {activeTab === 'claims' && (
-        <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-6">
+        <div className="bg-white border border-stone-200 rounded-3xl p-6 shadow-sm space-y-6">
           <div className="space-y-3">
-            <h2 className="text-base font-bold text-slate-900">7-Day Return Requests</h2>
+            <h2 className="text-base font-bold text-stone-900">7-Day Return Requests</h2>
             {returnRequests.map(ret => (
-              <div key={ret.id} className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 text-xs space-y-1">
+              <div key={ret.id} className="p-3.5 bg-stone-50 rounded-2xl border border-stone-200 text-xs space-y-1">
                 <div className="flex justify-between font-bold text-emerald-700">
                   <span>{ret.id} (Order: {ret.orderId})</span>
                   <span>{ret.status}</span>
                 </div>
-                <p className="text-slate-900 font-medium">{ret.itemTitle} - Reason: {ret.reason}</p>
+                <p className="text-stone-900 font-medium">{ret.itemTitle} - Reason: {ret.reason}</p>
               </div>
             ))}
           </div>
 
-          <div className="space-y-3 pt-4 border-t border-slate-100">
-            <h2 className="text-base font-bold text-slate-900">3-Month Warranty Claims</h2>
+          <div className="space-y-3 pt-4 border-t border-stone-100">
+            <h2 className="text-base font-bold text-stone-900">3-Month Warranty Claims</h2>
             {warrantyClaims.map(war => (
-              <div key={war.id} className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 text-xs space-y-1">
-                <div className="flex justify-between font-bold text-indigo-700">
+              <div key={war.id} className="p-3.5 bg-stone-50 rounded-2xl border border-stone-200 text-xs space-y-1">
+                <div className="flex justify-between font-bold text-orange-700">
                   <span>{war.id} (IMEI: {war.serialImei})</span>
                   <span>{war.status}</span>
                 </div>
-                <p className="text-slate-900 font-medium">Customer: {war.customerName} ({war.customerPhone})</p>
-                <p className="text-slate-500">Issue: {war.issueType} - {war.issueDetails}</p>
+                <p className="text-stone-900 font-medium">Customer: {war.customerName} ({war.customerPhone})</p>
+                <p className="text-stone-500">Issue: {war.issueType} - {war.issueDetails}</p>
               </div>
             ))}
           </div>
@@ -843,19 +843,19 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
       {/* TAB 7: REGISTERED CUSTOMERS */}
       {activeTab === 'customers' && (
-        <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-4">
+        <div className="bg-white border border-stone-200 rounded-3xl p-6 shadow-sm space-y-4">
           <div>
-            <h2 className="text-lg font-bold text-slate-900">Registered Customers</h2>
-            <p className="text-xs text-slate-500">Everyone who has signed up or signed in on the storefront, most recent first.</p>
+            <h2 className="text-lg font-bold text-stone-900">Registered Customers</h2>
+            <p className="text-xs text-stone-500">Everyone who has signed up or signed in on the storefront, most recent first.</p>
           </div>
           {!customersLoaded ? (
-            <p className="text-xs text-slate-400 font-medium py-6 text-center">Loading customers...</p>
+            <p className="text-xs text-stone-400 font-medium py-6 text-center">Loading customers...</p>
           ) : customers.length === 0 ? (
-            <p className="text-xs text-slate-400 font-medium py-6 text-center">No registered customers yet.</p>
+            <p className="text-xs text-stone-400 font-medium py-6 text-center">No registered customers yet.</p>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs text-slate-700">
-                <thead className="bg-slate-50 text-slate-500 uppercase font-mono border-b border-slate-200">
+              <table className="w-full text-left text-xs text-stone-700">
+                <thead className="bg-stone-50 text-stone-500 uppercase font-mono border-b border-stone-200">
                   <tr>
                     <th className="p-3">Name</th>
                     <th className="p-3">Mobile</th>
@@ -865,21 +865,21 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     <th className="p-3">Joined</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-stone-100">
                   {[...customers]
                     .sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''))
                     .map((c) => (
-                      <tr key={c.uid} className="hover:bg-slate-50/80 transition-colors">
-                        <td className="p-3 font-bold text-slate-900">{c.name || '-'}</td>
+                      <tr key={c.uid} className="hover:bg-stone-50/80 transition-colors">
+                        <td className="p-3 font-bold text-stone-900">{c.name || '-'}</td>
                         <td className="p-3 font-mono">{c.phone || '-'}</td>
                         <td className="p-3 font-mono">{c.email || '-'}</td>
                         <td className="p-3 font-mono">{c.pincode || '-'}</td>
                         <td className="p-3">
-                          <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${c.role === 'admin' ? 'bg-indigo-50 text-indigo-700 border border-indigo-100' : 'bg-slate-100 text-slate-600 border border-slate-200'}`}>
+                          <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${c.role === 'admin' ? 'bg-orange-50 text-orange-700 border border-orange-100' : 'bg-stone-100 text-stone-600 border border-stone-200'}`}>
                             {c.role.toUpperCase()}
                           </span>
                         </td>
-                        <td className="p-3 text-slate-400">{c.createdAt ? new Date(c.createdAt).toLocaleDateString('en-IN') : '-'}</td>
+                        <td className="p-3 text-stone-400">{c.createdAt ? new Date(c.createdAt).toLocaleDateString('en-IN') : '-'}</td>
                       </tr>
                     ))}
                 </tbody>
@@ -891,19 +891,19 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
       {/* Bulk CSV Upload Modal */}
       {showBulkUploadModal && (
-        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
-          <div className="bg-white border border-slate-200 rounded-3xl max-w-2xl w-full p-6 space-y-5 text-xs shadow-2xl text-slate-900">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div className="fixed inset-0 z-50 bg-stone-900/50 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white border border-stone-200 rounded-3xl max-w-2xl w-full p-6 space-y-5 text-xs shadow-2xl text-stone-900">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
               <div className="flex items-center gap-2">
-                <Upload className="w-5 h-5 text-[#0052FF]" />
+                <Upload className="w-5 h-5 text-[#C2410C]" />
                 <div>
-                  <h3 className="text-base font-bold text-slate-900 font-heading">Bulk Upload Products (CSV or Paste)</h3>
-                  <p className="text-[11px] text-slate-500">Add multiple devices with physical &amp; technical state grading at once</p>
+                  <h3 className="text-base font-bold text-stone-900 font-heading">Bulk Upload Products (CSV or Paste)</h3>
+                  <p className="text-[11px] text-stone-500">Add multiple devices with physical &amp; technical state grading at once</p>
                 </div>
               </div>
               <button
                 onClick={() => setShowBulkUploadModal(false)}
-                className="p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors"
+                className="p-2 rounded-full hover:bg-stone-100 text-stone-400 hover:text-stone-600 transition-colors"
               >
                 ✕
               </button>
@@ -925,22 +925,22 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             )}
 
             {/* Step 1: Download CSV template */}
-            <div className="p-4 bg-slate-50 border border-slate-200 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div className="p-4 bg-stone-50 border border-stone-200 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div>
-                <p className="font-bold text-slate-900 flex items-center gap-1.5 text-xs">
-                  <FileText className="w-4 h-4 text-[#0052FF]" />
+                <p className="font-bold text-stone-900 flex items-center gap-1.5 text-xs">
+                  <FileText className="w-4 h-4 text-[#C2410C]" />
                   Need the exact CSV format?
                 </p>
-                <p className="text-[11px] text-slate-500 mt-0.5">
+                <p className="text-[11px] text-stone-500 mt-0.5">
                   Download our pre-formatted spreadsheet template containing sample grades, prices, and IMEI fields.
                 </p>
               </div>
               <button
                 type="button"
                 onClick={handleDownloadSampleCsv}
-                className="bg-white hover:bg-slate-100 text-slate-800 font-bold px-4 py-2 rounded-xl border border-slate-300 text-xs shadow-xs transition-all flex items-center gap-1.5 shrink-0 cursor-pointer"
+                className="bg-white hover:bg-stone-100 text-stone-800 font-bold px-4 py-2 rounded-xl border border-stone-300 text-xs shadow-xs transition-all flex items-center gap-1.5 shrink-0 cursor-pointer"
               >
-                <Download className="w-3.5 h-3.5 text-[#0052FF]" />
+                <Download className="w-3.5 h-3.5 text-[#C2410C]" />
                 <span>Download Sample CSV</span>
               </button>
             </div>
@@ -948,29 +948,29 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             {/* Step 2: Upload CSV File OR Paste Raw CSV */}
             <div className="space-y-3">
               <div>
-                <label className="block text-slate-700 font-bold mb-1">Method 1: Upload CSV File</label>
+                <label className="block text-stone-700 font-bold mb-1">Method 1: Upload CSV File</label>
                 <input
                   type="file"
                   accept=".csv,.txt"
                   onChange={handleFileUpload}
-                  className="block w-full text-xs text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-50 file:text-[#0052FF] hover:file:bg-blue-100 border border-slate-200 rounded-2xl p-1 bg-slate-50/50 cursor-pointer"
+                  className="block w-full text-xs text-stone-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-orange-50 file:text-[#C2410C] hover:file:bg-orange-100 border border-stone-200 rounded-2xl p-1 bg-stone-50/50 cursor-pointer"
                 />
               </div>
 
               <div className="relative flex py-1 items-center">
-                <div className="flex-grow border-t border-slate-200"></div>
-                <span className="shrink mx-3 text-[10px] uppercase font-mono font-bold text-slate-400">OR PASTE CSV ROWS BELOW</span>
-                <div className="flex-grow border-t border-slate-200"></div>
+                <div className="flex-grow border-t border-stone-200"></div>
+                <span className="shrink mx-3 text-[10px] uppercase font-mono font-bold text-stone-400">OR PASTE CSV ROWS BELOW</span>
+                <div className="flex-grow border-t border-stone-200"></div>
               </div>
 
               <div>
-                <label className="block text-slate-700 font-bold mb-1">Method 2: Paste Raw CSV Data</label>
+                <label className="block text-stone-700 font-bold mb-1">Method 2: Paste Raw CSV Data</label>
                 <textarea
                   rows={5}
                   value={bulkCsvText}
                   onChange={(e) => setBulkCsvText(e.target.value)}
                   placeholder={`Title,Brand,Model,Storage,Color,OriginalPrice,RefurbPrice,ConditionGrade,BatteryHealth,SerialIMEI\niPhone 14,Apple,iPhone 14,128GB,Blue,69900,42900,Like New,96,359018273641011`}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-3 text-xs font-mono text-slate-900 focus:ring-2 focus:ring-[#0052FF] outline-none"
+                  className="w-full bg-stone-50 border border-stone-200 rounded-2xl p-3 text-xs font-mono text-stone-900 focus:ring-2 focus:ring-[#C2410C] outline-none"
                 />
               </div>
 
@@ -978,7 +978,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 <button
                   type="button"
                   onClick={() => setShowBulkUploadModal(false)}
-                  className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-bold hover:bg-slate-50 transition-all cursor-pointer"
+                  className="px-4 py-2.5 rounded-xl border border-stone-200 text-stone-700 font-bold hover:bg-stone-50 transition-all cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -986,7 +986,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   type="button"
                   onClick={() => parseAndAddCsvProducts(bulkCsvText)}
                   disabled={!bulkCsvText.trim()}
-                  className="bg-[#0052FF] hover:bg-[#0043CC] disabled:opacity-40 text-white font-bold px-5 py-2.5 rounded-xl text-xs flex items-center gap-2 shadow-md transition-all cursor-pointer font-heading"
+                  className="bg-[#C2410C] hover:bg-[#9A3412] disabled:opacity-40 text-white font-bold px-5 py-2.5 rounded-xl text-xs flex items-center gap-2 shadow-md transition-all cursor-pointer font-heading"
                 >
                   <Upload className="w-4 h-4" />
                   <span>Parse &amp; Add CSV Products</span>
@@ -994,16 +994,16 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               </div>
 
               <div className="relative flex py-1 items-center">
-                <div className="flex-grow border-t border-slate-200"></div>
-                <span className="shrink mx-3 text-[10px] uppercase font-mono font-bold text-slate-400">OR: FULL-DETAIL JSON IMPORT</span>
-                <div className="flex-grow border-t border-slate-200"></div>
+                <div className="flex-grow border-t border-stone-200"></div>
+                <span className="shrink mx-3 text-[10px] uppercase font-mono font-bold text-stone-400">OR: FULL-DETAIL JSON IMPORT</span>
+                <div className="flex-grow border-t border-stone-200"></div>
               </div>
 
               <div>
-                <label className="block text-slate-700 font-bold mb-1">
+                <label className="block text-stone-700 font-bold mb-1">
                   Method 3: Paste Product JSON (supports multiple images, full specs, storage variants)
                 </label>
-                <p className="text-[11px] text-slate-500 mb-1.5">
+                <p className="text-[11px] text-stone-500 mb-1.5">
                   Paste an array of products. Entries sharing the same brand + model become storage
                   variants of one listing on the product page. Fields: title, brand, model, storage,
                   color, originalPrice (strike price), refurbPrice (selling price), images (array of
@@ -1015,16 +1015,16 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   value={bulkJsonText}
                   onChange={(e) => setBulkJsonText(e.target.value)}
                   placeholder={`[\n  {\n    "title": "OPPO A6X (4GB+64GB)",\n    "brand": "Oppo",\n    "model": "OPPO A6X",\n    "storage": "4GB+64GB",\n    "originalPrice": 17999,\n    "refurbPrice": 17142,\n    "conditionGrade": "Open Box",\n    "images": ["https://...jpg", "https://...jpg"],\n    "specs": {"screen": "6.7\\" HD+", "processor": "MediaTek", "camera": "50MP AI", "battery": "5800mAh"}\n  }\n]`}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-3 text-xs font-mono text-slate-900 focus:ring-2 focus:ring-[#0052FF] outline-none"
+                  className="w-full bg-stone-50 border border-stone-200 rounded-2xl p-3 text-xs font-mono text-stone-900 focus:ring-2 focus:ring-[#C2410C] outline-none"
                 />
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-stone-100">
               <button
                 type="button"
                 onClick={() => setShowBulkUploadModal(false)}
-                className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-bold hover:bg-slate-50 transition-all cursor-pointer"
+                className="px-4 py-2.5 rounded-xl border border-stone-200 text-stone-700 font-bold hover:bg-stone-50 transition-all cursor-pointer"
               >
                 Cancel
               </button>
@@ -1044,19 +1044,19 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
       {/* Standalone Paste Product JSON Modal */}
       {showJsonPasteModal && (
-        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
-          <div className="bg-white border border-slate-200 rounded-3xl max-w-2xl w-full p-6 space-y-4 text-xs shadow-2xl text-slate-900">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div className="fixed inset-0 z-50 bg-stone-900/50 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white border border-stone-200 rounded-3xl max-w-2xl w-full p-6 space-y-4 text-xs shadow-2xl text-stone-900">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
               <div className="flex items-center gap-2">
                 <Upload className="w-5 h-5 text-purple-600" />
                 <div>
-                  <h3 className="text-base font-bold text-slate-900 font-heading">Paste Product JSON</h3>
-                  <p className="text-[11px] text-slate-500">Bulk-import full-detail products - multiple images, specs, and storage variants per listing</p>
+                  <h3 className="text-base font-bold text-stone-900 font-heading">Paste Product JSON</h3>
+                  <p className="text-[11px] text-stone-500">Bulk-import full-detail products - multiple images, specs, and storage variants per listing</p>
                 </div>
               </div>
               <button
                 onClick={() => setShowJsonPasteModal(false)}
-                className="p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors"
+                className="p-2 rounded-full hover:bg-stone-100 text-stone-400 hover:text-stone-600 transition-colors"
               >
                 ✕
               </button>
@@ -1078,7 +1078,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             )}
 
             <div>
-              <p className="text-[11px] text-slate-500 mb-1.5">
+              <p className="text-[11px] text-stone-500 mb-1.5">
                 Paste an array of products. Entries sharing the same brand + model become storage
                 variants of one listing on the product page. Fields: title, brand, model, storage,
                 color, originalPrice (strike price), refurbPrice (selling price), images (array of
@@ -1090,15 +1090,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 value={jsonPasteText}
                 onChange={(e) => setJsonPasteText(e.target.value)}
                 placeholder={`[\n  {\n    "title": "OPPO A6X (4GB+64GB)",\n    "brand": "Oppo",\n    "model": "OPPO A6X",\n    "storage": "4GB+64GB",\n    "originalPrice": 17999,\n    "refurbPrice": 17142,\n    "conditionGrade": "Open Box",\n    "images": ["https://...jpg", "https://...jpg"],\n    "specs": {"screen": "6.7\\" HD+", "processor": "MediaTek", "camera": "50MP AI", "battery": "5800mAh"}\n  }\n]`}
-                className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-3 text-xs font-mono text-slate-900 focus:ring-2 focus:ring-[#0052FF] outline-none"
+                className="w-full bg-stone-50 border border-stone-200 rounded-2xl p-3 text-xs font-mono text-stone-900 focus:ring-2 focus:ring-[#C2410C] outline-none"
               />
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-stone-100">
               <button
                 type="button"
                 onClick={() => setShowJsonPasteModal(false)}
-                className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-bold hover:bg-slate-50 transition-all cursor-pointer"
+                className="px-4 py-2.5 rounded-xl border border-stone-200 text-stone-700 font-bold hover:bg-stone-50 transition-all cursor-pointer"
               >
                 Cancel
               </button>
@@ -1118,71 +1118,71 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
       {/* Single Add Product Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-200 rounded-3xl max-w-lg w-full p-6 space-y-4 text-xs shadow-2xl text-slate-900">
-            <h3 className="text-base font-bold text-slate-900 font-heading">Add Product to Store Catalog</h3>
+        <div className="fixed inset-0 z-50 bg-stone-900/40 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white border border-stone-200 rounded-3xl max-w-lg w-full p-6 space-y-4 text-xs shadow-2xl text-stone-900">
+            <h3 className="text-base font-bold text-stone-900 font-heading">Add Product to Store Catalog</h3>
             <form onSubmit={handleAddCatalogProduct} className="space-y-3">
               <div>
-                <label className="block text-slate-700 mb-1 font-bold">Title</label>
+                <label className="block text-stone-700 mb-1 font-bold">Title</label>
                 <input
                   type="text"
                   required
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 font-medium"
+                  className="w-full bg-stone-50 border border-stone-200 rounded-xl p-2.5 text-stone-900 font-medium"
                 />
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-slate-700 mb-1 font-bold">Brand</label>
+                  <label className="block text-stone-700 mb-1 font-bold">Brand</label>
                   <input
                     type="text"
                     required
                     value={newBrand}
                     onChange={(e) => setNewBrand(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 font-medium"
+                    className="w-full bg-stone-50 border border-stone-200 rounded-xl p-2.5 text-stone-900 font-medium"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-700 mb-1 font-bold">Model</label>
+                  <label className="block text-stone-700 mb-1 font-bold">Model</label>
                   <input
                     type="text"
                     required
                     value={newModel}
                     onChange={(e) => setNewModel(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 font-medium"
+                    className="w-full bg-stone-50 border border-stone-200 rounded-xl p-2.5 text-stone-900 font-medium"
                   />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-slate-700 mb-1 font-bold">Original Price (₹)</label>
+                  <label className="block text-stone-700 mb-1 font-bold">Original Price (₹)</label>
                   <input
                     type="number"
                     required
                     value={newOrigPrice}
                     onChange={(e) => setNewOrigPrice(Number(e.target.value))}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 font-mono font-bold"
+                    className="w-full bg-stone-50 border border-stone-200 rounded-xl p-2.5 text-stone-900 font-mono font-bold"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-700 mb-1 font-bold">Refurb Price (₹)</label>
+                  <label className="block text-stone-700 mb-1 font-bold">Refurb Price (₹)</label>
                   <input
                     type="number"
                     required
                     value={newRefurbPrice}
                     onChange={(e) => setNewRefurbPrice(Number(e.target.value))}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 font-mono font-bold"
+                    className="w-full bg-stone-50 border border-stone-200 rounded-xl p-2.5 text-stone-900 font-mono font-bold"
                   />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-slate-700 mb-1 font-bold">Physical &amp; Tech Grade</label>
+                  <label className="block text-stone-700 mb-1 font-bold">Physical &amp; Tech Grade</label>
                   <select
                     value={newGrade}
                     onChange={(e) => setNewGrade(e.target.value as any)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 font-medium"
+                    className="w-full bg-stone-50 border border-stone-200 rounded-xl p-2.5 text-stone-900 font-medium"
                   >
                     <option value="Grade A">Grade A: Official Service Center Warranty</option>
                     <option value="Grade A1">Grade A1: New Condition + ReCell Warranty</option>
@@ -1192,47 +1192,47 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   </select>
                 </div>
                 <div>
-                  <label className="block text-slate-700 mb-1 font-bold">Battery Health (%)</label>
+                  <label className="block text-stone-700 mb-1 font-bold">Battery Health (%)</label>
                   <input
                     type="number"
                     required
                     value={newBattery}
                     onChange={(e) => setNewBattery(Number(e.target.value))}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 font-mono font-bold"
+                    className="w-full bg-stone-50 border border-stone-200 rounded-xl p-2.5 text-stone-900 font-mono font-bold"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-slate-700 mb-1 font-bold">Serial IMEI Number</label>
+                <label className="block text-stone-700 mb-1 font-bold">Serial IMEI Number</label>
                 <input
                   type="text"
                   required
                   value={newImei}
                   onChange={(e) => setNewImei(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 font-mono font-bold"
+                  className="w-full bg-stone-50 border border-stone-200 rounded-xl p-2.5 text-stone-900 font-mono font-bold"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-700 mb-1 font-bold">Product Photo (URL or Upload Image File)</label>
+                <label className="block text-stone-700 mb-1 font-bold">Product Photo (URL or Upload Image File)</label>
                 <div className="flex gap-2 items-center">
                   <input
                     type="text"
                     value={newImage}
                     onChange={(e) => setNewImage(e.target.value)}
                     placeholder="https://... image link or select file"
-                    className="flex-1 bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 font-mono text-xs"
+                    className="flex-1 bg-stone-50 border border-stone-200 rounded-xl p-2.5 text-stone-900 font-mono text-xs"
                   />
-                  <label className={`bg-indigo-50 hover:bg-indigo-100 text-[#0052FF] font-bold px-3.5 py-2.5 rounded-xl border border-indigo-200 shrink-0 text-xs flex items-center gap-1.5 transition-colors ${uploadingPhoto ? 'opacity-50 pointer-events-none' : 'cursor-pointer'}`}>
+                  <label className={`bg-orange-50 hover:bg-orange-100 text-[#C2410C] font-bold px-3.5 py-2.5 rounded-xl border border-orange-200 shrink-0 text-xs flex items-center gap-1.5 transition-colors ${uploadingPhoto ? 'opacity-50 pointer-events-none' : 'cursor-pointer'}`}>
                     <Upload className={`w-3.5 h-3.5 ${uploadingPhoto ? 'animate-pulse' : ''}`} />
                     <span>{uploadingPhoto ? 'Uploading...' : 'Upload File'}</span>
                     <input type="file" accept="image/*" onChange={handlePhotoFileUpload} disabled={uploadingPhoto} className="hidden" />
                   </label>
                 </div>
                 {newImage && !uploadingPhoto && (
-                  <div className="mt-2 flex items-center gap-2 bg-slate-50 p-2 rounded-xl border border-slate-200">
-                    <img src={newImage} alt="Preview" className="w-10 h-10 rounded-lg object-cover border border-slate-200" onError={onProductImageError} />
-                    <span className="text-[11px] text-slate-600 font-medium truncate">Product photo loaded &amp; ready</span>
+                  <div className="mt-2 flex items-center gap-2 bg-stone-50 p-2 rounded-xl border border-stone-200">
+                    <img src={newImage} alt="Preview" className="w-10 h-10 rounded-lg object-cover border border-stone-200" onError={onProductImageError} />
+                    <span className="text-[11px] text-stone-600 font-medium truncate">Product photo loaded &amp; ready</span>
                   </div>
                 )}
               </div>
@@ -1241,7 +1241,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-4 py-2 rounded-full border border-slate-200 text-slate-700 font-bold"
+                  className="px-4 py-2 rounded-full border border-stone-200 text-stone-700 font-bold"
                 >
                   Cancel
                 </button>

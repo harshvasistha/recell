@@ -29,7 +29,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
       label: 'Home',
       icon: Home,
       badge: null,
-      color: 'text-[#0052FF]'
+      color: 'text-[#C2410C]'
     },
     {
       id: 'sell' as TabType,
@@ -43,7 +43,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
       label: 'Buy',
       icon: ShoppingBag,
       badge: cartCount > 0 ? `${cartCount}` : null,
-      color: 'text-indigo-600'
+      color: 'text-orange-600'
     },
     {
       id: 'repair' as TabType,
@@ -57,12 +57,12 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
       label: user ? 'Account' : 'Track/More',
       icon: user ? User : ShieldCheck,
       badge: user ? user.name.split(' ')[0] : null,
-      color: 'text-blue-600'
+      color: 'text-orange-600'
     }
   ];
 
   return (
-    <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200/90 shadow-2xl px-2 py-1.5 font-sans">
+    <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200/90 shadow-2xl px-2 py-1.5 font-sans">
       <div className="grid grid-cols-5 items-center justify-around max-w-md mx-auto">
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -83,13 +83,13 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
               }}
               className={`relative flex flex-col items-center justify-center py-1.5 px-1 rounded-2xl transition-all cursor-pointer min-h-[48px] ${
                 isActive
-                  ? 'text-[#0052FF] font-extrabold scale-105'
-                  : 'text-slate-500 font-medium hover:text-slate-900'
+                  ? 'text-[#C2410C] font-extrabold scale-105'
+                  : 'text-stone-500 font-medium hover:text-stone-900'
               }`}
             >
               {/* Active Indicator Bar */}
               {isActive && (
-                <span className="absolute -top-1.5 w-6 h-1 bg-[#0052FF] rounded-full shadow-xs animate-fadeIn"></span>
+                <span className="absolute -top-1.5 w-6 h-1 bg-[#C2410C] rounded-full shadow-xs animate-fadeIn"></span>
               )}
 
               <div className="relative">
@@ -104,10 +104,10 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
                   <span
                     className={`absolute -top-2 -right-3 text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full border shadow-2xs ${
                       item.id === 'buy' && cartCount > 0
-                        ? 'bg-[#0052FF] text-white border-blue-400 animate-bounce'
+                        ? 'bg-[#C2410C] text-white border-orange-400 animate-bounce'
                         : item.id === 'sell'
                         ? 'bg-emerald-500 text-white border-emerald-400'
-                        : 'bg-amber-500 text-slate-950 border-amber-400'
+                        : 'bg-amber-500 text-stone-950 border-amber-400'
                     }`}
                   >
                     {item.badge}
@@ -116,7 +116,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
               </div>
 
               <span className={`text-[10px] mt-0.5 tracking-tight truncate max-w-full font-heading ${
-                isActive ? 'font-black text-[#0052FF]' : 'font-semibold text-slate-600'
+                isActive ? 'font-black text-[#C2410C]' : 'font-semibold text-stone-600'
               }`}>
                 {item.label}
               </span>

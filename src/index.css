@@ -1,19 +1,41 @@
 @import "tailwindcss";
 
 :root {
-  --brand-primary: #0052FF;
-  --brand-hover: #0043CC;
-  --brand-light: #EFF6FF;
-  --brand-border: #BFDBFE;
+  /* Brand accent - dark burnt orange (was blue #0052FF) */
+  --brand-primary: #C2410C;
+  --brand-hover: #9A3412;
+  --brand-light: #FFF3EB;
+  --brand-border: #F3CBAA;
+
+  /* Base palette - warm creamy background + near-black ink */
+  --color-cream: #FBF7F0;
+  --color-cream-soft: #F5EEE1;
+  --color-ink: #1A1A1A;
+  --color-ink-strong: #141414;
+}
+
+@theme {
+  --font-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 @layer base {
   body {
-    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
   h1, h2, h3, h4, h5, h6, .font-heading {
     font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   }
+}
+
+/* Soft, diffused "premium" shadow treatment - warm-tinted, not heavy/dark */
+.shadow-card {
+  box-shadow: 0 1px 2px rgba(26, 20, 14, 0.04), 0 12px 28px -8px rgba(26, 20, 14, 0.10);
+}
+.shadow-card-hover:hover {
+  box-shadow: 0 2px 6px rgba(26, 20, 14, 0.06), 0 20px 40px -10px rgba(194, 65, 12, 0.14);
+}
+.text-shadow-soft {
+  text-shadow: 0 1px 3px rgba(26, 20, 14, 0.08);
 }
 
 @keyframes marquee {
@@ -54,20 +76,20 @@
 }
 
 .bg-brand {
-  background-color: #0052FF;
+  background-color: #C2410C;
 }
 .hover\:bg-brand:hover {
-  background-color: #0043CC;
+  background-color: #9A3412;
 }
 .text-brand {
-  color: #0052FF;
+  color: #C2410C;
 }
 .border-brand {
-  border-color: #0052FF;
+  border-color: #C2410C;
 }
 .bg-brand-light {
-  background-color: #EFF6FF;
+  background-color: #FFF3EB;
 }
 .border-brand-light {
-  border-color: #BFDBFE;
+  border-color: #F3CBAA;
 }

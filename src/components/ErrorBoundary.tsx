@@ -26,10 +26,10 @@ export class ErrorBoundary extends (React.Component as any) {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center p-6 text-center font-sans">
-          <div className="max-w-md bg-slate-900 border border-slate-800 rounded-2xl p-8 space-y-4 shadow-2xl">
+        <div className="min-h-screen bg-stone-950 text-white flex flex-col items-center justify-center p-6 text-center font-sans">
+          <div className="max-w-md bg-stone-900 border border-stone-800 rounded-2xl p-8 space-y-4 shadow-2xl">
             <h2 className="text-xl font-bold text-red-400">Something went wrong</h2>
-            <p className="text-sm text-slate-300">
+            <p className="text-sm text-stone-300">
               An unexpected error occurred. Please refresh the page.
             </p>
             <button
@@ -37,7 +37,7 @@ export class ErrorBoundary extends (React.Component as any) {
                 this.setState({ hasError: false });
                 window.location.reload();
               }}
-              className="bg-[#0052FF] hover:bg-blue-600 text-white font-bold px-6 py-2.5 rounded-xl transition-all cursor-pointer text-sm"
+              className="bg-[#C2410C] hover:bg-orange-600 text-white font-bold px-6 py-2.5 rounded-xl transition-all cursor-pointer text-sm"
             >
               Reload Platform
             </button>

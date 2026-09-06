@@ -181,17 +181,17 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   if (!isOpen || items.length === 0) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full text-white shadow-2xl relative my-8 overflow-hidden">
+    <div className="fixed inset-0 z-50 bg-stone-950/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+      <div className="bg-stone-900 border border-stone-800 rounded-3xl max-w-2xl w-full text-white shadow-2xl relative my-8 overflow-hidden">
         {/* Header bar */}
-        <div className="bg-slate-950 px-6 py-4 border-b border-slate-800 flex items-center justify-between">
+        <div className="bg-stone-950 px-6 py-4 border-b border-stone-800 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-emerald-500 text-slate-950 font-black flex items-center justify-center text-sm">
+            <div className="w-7 h-7 rounded-lg bg-emerald-500 text-stone-950 font-black flex items-center justify-center text-sm">
               R
             </div>
             <span className="font-bold text-white text-sm">RePhone Pan-India Express Checkout</span>
           </div>
-          <button onClick={onClose} className="p-1 rounded-lg text-slate-400 hover:text-white">
+          <button onClick={onClose} className="p-1 rounded-lg text-stone-400 hover:text-white">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -200,84 +200,84 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
           {step === 'shipping' && (
             <form onSubmit={() => setStep('payment')} className="space-y-4">
               <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                <Truck className="w-5 h-5 text-indigo-400" />
+                <Truck className="w-5 h-5 text-orange-400" />
                 Shipping & Delivery Address
               </h2>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                 <div>
-                  <label className="block text-slate-300 mb-1 font-semibold">Full Name</label>
+                  <label className="block text-stone-300 mb-1 font-semibold">Full Name</label>
                   <input
                     type="text"
                     required
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white"
+                    className="w-full bg-stone-800 border border-stone-700 rounded-xl p-2.5 text-white"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-300 mb-1 font-semibold">Phone Number (For Tracking Updates)</label>
+                  <label className="block text-stone-300 mb-1 font-semibold">Phone Number (For Tracking Updates)</label>
                   <input
                     type="tel"
                     required
                     value={customerPhone}
                     onChange={(e) => setCustomerPhone(e.target.value)}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white"
+                    className="w-full bg-stone-800 border border-stone-700 rounded-xl p-2.5 text-white"
                   />
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="block text-slate-300 mb-1 font-semibold">Email Address</label>
+                  <label className="block text-stone-300 mb-1 font-semibold">Email Address</label>
                   <input
                     type="email"
                     required
                     value={customerEmail}
                     onChange={(e) => setCustomerEmail(e.target.value)}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white"
+                    className="w-full bg-stone-800 border border-stone-700 rounded-xl p-2.5 text-white"
                   />
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="block text-slate-300 mb-1 font-semibold">Address (Flat/Street/Locality)</label>
+                  <label className="block text-stone-300 mb-1 font-semibold">Address (Flat/Street/Locality)</label>
                   <input
                     type="text"
                     required
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white"
+                    className="w-full bg-stone-800 border border-stone-700 rounded-xl p-2.5 text-white"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-300 mb-1 font-semibold">Pincode</label>
+                  <label className="block text-stone-300 mb-1 font-semibold">Pincode</label>
                   <input
                     type="text"
                     required
                     maxLength={6}
                     value={pincode}
                     onChange={(e) => setPincode(e.target.value)}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white font-mono"
+                    className="w-full bg-stone-800 border border-stone-700 rounded-xl p-2.5 text-white font-mono"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-300 mb-1 font-semibold">City / District</label>
+                  <label className="block text-stone-300 mb-1 font-semibold">City / District</label>
                   <input
                     type="text"
                     required
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white"
+                    className="w-full bg-stone-800 border border-stone-700 rounded-xl p-2.5 text-white"
                   />
                 </div>
               </div>
 
               {/* Order Summary Box */}
-              <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2 text-xs">
-                <span className="font-bold text-slate-300">Order Items ({items.length}):</span>
+              <div className="p-4 bg-stone-950 rounded-xl border border-stone-800 space-y-2 text-xs">
+                <span className="font-bold text-stone-300">Order Items ({items.length}):</span>
                 {items.map((item, idx) => (
-                  <div key={idx} className="flex justify-between items-center text-slate-400">
+                  <div key={idx} className="flex justify-between items-center text-stone-400">
                     <span>{item.title}</span>
                     <span className="font-mono font-bold text-white">₹{item.refurbPrice.toLocaleString('en-IN')}</span>
                   </div>
                 ))}
-                <div className="pt-2 border-t border-slate-800 flex justify-between font-bold text-sm text-white">
+                <div className="pt-2 border-t border-stone-800 flex justify-between font-bold text-sm text-white">
                   <span>Total Payable:</span>
                   <span className="text-emerald-400 font-mono">₹{totalAmount.toLocaleString('en-IN')}</span>
                 </div>
@@ -285,7 +285,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
               <button
                 type="submit"
-                className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-indigo-600/30 text-sm"
+                className="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-orange-600/30 text-sm"
               >
                 Proceed to Razorpay Payment
               </button>
@@ -294,12 +294,12 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
           {step === 'payment' && (
             <form onSubmit={handleCreateOrder} className="space-y-4">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div className="flex items-center justify-between border-b border-stone-800 pb-3">
                 <h2 className="text-lg font-bold text-white flex items-center gap-2">
                   <Lock className="w-5 h-5 text-emerald-400" />
                   Razorpay Secure Payment
                 </h2>
-                <span className="text-xs text-slate-400 font-mono">
+                <span className="text-xs text-stone-400 font-mono">
                   {isCod ? `Deposit (10%): ₹${chargeNowAmount.toLocaleString('en-IN')}` : `Amount: ₹${chargeNowAmount.toLocaleString('en-IN')}`}
                 </span>
               </div>
@@ -325,11 +325,11 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       onClick={() => setPaymentMethod(pm.key as any)}
                       className={`p-3 rounded-xl border flex flex-col items-center gap-1.5 transition-all ${
                         paymentMethod === pm.key
-                          ? 'bg-indigo-600/20 border-indigo-500 text-white font-bold'
-                          : 'bg-slate-800 border-slate-700 text-slate-400'
+                          ? 'bg-orange-600/20 border-orange-500 text-white font-bold'
+                          : 'bg-stone-800 border-stone-700 text-stone-400'
                       }`}
                     >
-                      <Icon className="w-5 h-5 text-indigo-400" />
+                      <Icon className="w-5 h-5 text-orange-400" />
                       <span>{pm.label}</span>
                     </button>
                   );
@@ -342,33 +342,33 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   QR/card form here anymore - it looked fillable/scannable
                   but never did anything, which is confusing at best. */}
               {paymentMethod === 'Razorpay UPI' && (
-                <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 text-center space-y-2">
+                <div className="p-4 bg-stone-950 rounded-xl border border-stone-800 text-center space-y-2">
                   <div className="flex items-center justify-center gap-2 text-emerald-400">
                     <QrCode className="w-4 h-4" />
                     <span className="text-xs font-bold">You'll pay via Razorpay's secure UPI window</span>
                   </div>
-                  <p className="text-[11px] text-slate-400">Scan the QR or pay via GPay, PhonePe, Paytm, BHIM & all bank UPI apps - shown after you tap Pay below.</p>
+                  <p className="text-[11px] text-stone-400">Scan the QR or pay via GPay, PhonePe, Paytm, BHIM & all bank UPI apps - shown after you tap Pay below.</p>
                 </div>
               )}
 
               {paymentMethod === 'Razorpay Card' && (
-                <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 text-center space-y-2">
+                <div className="p-4 bg-stone-950 rounded-xl border border-stone-800 text-center space-y-2">
                   <div className="flex items-center justify-center gap-2 text-emerald-400">
                     <CreditCard className="w-4 h-4" />
                     <span className="text-xs font-bold">You'll enter your card via Razorpay's secure window</span>
                   </div>
-                  <p className="text-[11px] text-slate-400">Debit/credit card details are entered directly on Razorpay's PCI-compliant checkout - never on this page.</p>
+                  <p className="text-[11px] text-stone-400">Debit/credit card details are entered directly on Razorpay's PCI-compliant checkout - never on this page.</p>
                 </div>
               )}
 
               {isCod && (
-                <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 text-center space-y-2">
+                <div className="p-4 bg-stone-950 rounded-xl border border-stone-800 text-center space-y-2">
                   <div className="flex items-center justify-center gap-2 text-emerald-400">
                     <Truck className="w-4 h-4" />
                     <span className="text-xs font-bold">₹{chargeNowAmount.toLocaleString('en-IN')} (10% deposit) via Razorpay now</span>
                   </div>
-                  <p className="text-[11px] text-slate-400">
-                    The remaining <strong className="text-slate-200">₹{codBalanceDue.toLocaleString('en-IN')}</strong> (90%) is collected by our courier in cash/UPI at delivery.
+                  <p className="text-[11px] text-stone-400">
+                    The remaining <strong className="text-stone-200">₹{codBalanceDue.toLocaleString('en-IN')}</strong> (90%) is collected by our courier in cash/UPI at delivery.
                   </p>
                 </div>
               )}
@@ -377,14 +377,14 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 <button
                   type="button"
                   onClick={() => setStep('shipping')}
-                  className="text-xs text-slate-400 hover:text-white"
+                  className="text-xs text-stone-400 hover:text-white"
                 >
                   Back to Address
                 </button>
                 <button
                   type="submit"
                   disabled={isProcessing}
-                  className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black px-8 py-3.5 rounded-xl shadow-xl shadow-emerald-500/25 text-sm flex items-center gap-2"
+                  className="bg-emerald-500 hover:bg-emerald-400 text-stone-950 font-black px-8 py-3.5 rounded-xl shadow-xl shadow-emerald-500/25 text-sm flex items-center gap-2"
                 >
                   {isProcessing ? (
                     <>
@@ -412,36 +412,36 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   Order ID: {createdOrder.id}
                 </span>
                 <h2 className="text-2xl font-black text-white mt-3">Order Confirmed!</h2>
-                <p className="text-xs text-slate-300 mt-1">
+                <p className="text-xs text-stone-300 mt-1">
                   Thank you, <strong>{createdOrder.customerName}</strong>! Your order has been placed successfully and dispatched via <strong>{createdOrder.courierPartner}</strong>.
                 </p>
               </div>
 
-              <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 text-left text-xs space-y-2">
+              <div className="p-4 bg-stone-950 rounded-xl border border-stone-800 text-left text-xs space-y-2">
                 <div className="p-2.5 bg-emerald-950/60 border border-emerald-500/40 rounded-lg text-emerald-300 text-[11px] font-mono flex items-center justify-between">
                   <span>📱 SMS Alert Dispatched:</span>
                   <span className="font-bold">Sent to Owner (+91 9310552055) &amp; Customer ({createdOrder.customerPhone})</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-400">Tracking AWB Number:</span>
+                  <span className="text-stone-400">Tracking AWB Number:</span>
                   <span className="font-mono font-bold text-emerald-400">{createdOrder.trackingNumber}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-400">Shipping Address:</span>
-                  <span className="text-slate-200">{createdOrder.shippingAddress}, {createdOrder.city} ({createdOrder.pincode})</span>
+                  <span className="text-stone-400">Shipping Address:</span>
+                  <span className="text-stone-200">{createdOrder.shippingAddress}, {createdOrder.city} ({createdOrder.pincode})</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-400">3-Month Recell Warranty Active Until:</span>
-                  <span className="font-bold text-indigo-400">{createdOrder.warrantyExpiry}</span>
+                  <span className="text-stone-400">3-Month Recell Warranty Active Until:</span>
+                  <span className="font-bold text-orange-400">{createdOrder.warrantyExpiry}</span>
                 </div>
                 {createdOrder.codTokenAmount != null && (
                   <>
                     <div className="flex justify-between">
-                      <span className="text-slate-400">Deposit Paid (10%):</span>
+                      <span className="text-stone-400">Deposit Paid (10%):</span>
                       <span className="font-bold text-emerald-400">₹{createdOrder.codTokenAmount.toLocaleString('en-IN')}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-400">Balance Due on Delivery:</span>
+                      <span className="text-stone-400">Balance Due on Delivery:</span>
                       <span className="font-bold text-amber-400">₹{(createdOrder.codBalanceDue || 0).toLocaleString('en-IN')}</span>
                     </div>
                   </>
@@ -450,7 +450,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
               <button
                 onClick={onClose}
-                className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-8 py-3 rounded-xl text-sm shadow-lg shadow-indigo-600/30"
+                className="bg-orange-600 hover:bg-orange-500 text-white font-bold px-8 py-3 rounded-xl text-sm shadow-lg shadow-orange-600/30"
               >
                 Continue Shopping / Track Order
               </button>

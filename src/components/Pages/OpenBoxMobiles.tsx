@@ -43,15 +43,15 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
   const brands = ['All', 'Apple', 'Samsung', 'OnePlus', 'Google', 'Xiaomi', 'Oppo'];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-10 text-slate-900">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-10 text-stone-900">
       {/* Banner / Header */}
-      <div className="relative rounded-3xl bg-slate-950 text-white p-6 sm:p-10 overflow-hidden shadow-2xl border border-slate-800">
-        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-96 h-96 bg-gradient-to-br from-[#0052FF]/30 to-amber-500/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="relative rounded-3xl bg-stone-950 text-white p-6 sm:p-10 overflow-hidden shadow-2xl border border-stone-800">
+        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-96 h-96 bg-gradient-to-br from-[#C2410C]/30 to-amber-500/20 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="relative z-10 max-w-3xl space-y-4">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="bg-amber-400 text-slate-950 text-xs font-black px-3.5 py-1 rounded-full uppercase tracking-wider font-heading inline-flex items-center gap-1.5 shadow-md">
-              <Sparkles className="w-4 h-4 text-slate-950" />
+            <span className="bg-amber-400 text-stone-950 text-xs font-black px-3.5 py-1 rounded-full uppercase tracking-wider font-heading inline-flex items-center gap-1.5 shadow-md">
+              <Sparkles className="w-4 h-4 text-stone-950" />
               100% Genuine Open Box Delivery
             </span>
             <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold px-3 py-1 rounded-full font-mono">
@@ -63,40 +63,40 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
             Open Box Delivery Smartphones
           </h1>
 
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-sans">
+          <p className="text-sm sm:text-base text-stone-300 leading-relaxed font-sans">
             Brand new sealed pack mobile phones. Comes with <strong className="text-white">Original Box, Bill, Accessories</strong> and <strong className="text-amber-300">6 to 11 Months Official Manufacturer Warranty</strong> — priced 25% to 35% below MRP!
           </p>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 text-xs">
-            <div className="p-3 bg-slate-900/80 border border-slate-800 rounded-2xl flex items-center gap-2.5">
+            <div className="p-3 bg-stone-900/80 border border-stone-800 rounded-2xl flex items-center gap-2.5">
               <Clock className="w-5 h-5 text-amber-400 shrink-0" />
               <div>
                 <span className="block font-black text-white">Sealed Box</span>
-                <span className="text-[10px] text-slate-400">Mint Unboxed Condition</span>
+                <span className="text-[10px] text-stone-400">Mint Unboxed Condition</span>
               </div>
             </div>
 
-            <div className="p-3 bg-slate-900/80 border border-slate-800 rounded-2xl flex items-center gap-2.5">
+            <div className="p-3 bg-stone-900/80 border border-stone-800 rounded-2xl flex items-center gap-2.5">
               <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0" />
               <div>
                 <span className="block font-black text-white">Brand Warranty</span>
-                <span className="text-[10px] text-slate-400">6 to 11 Months Official</span>
+                <span className="text-[10px] text-stone-400">6 to 11 Months Official</span>
               </div>
             </div>
 
-            <div className="p-3 bg-slate-900/80 border border-slate-800 rounded-2xl flex items-center gap-2.5">
-              <PackageCheck className="w-5 h-5 text-blue-400 shrink-0" />
+            <div className="p-3 bg-stone-900/80 border border-stone-800 rounded-2xl flex items-center gap-2.5">
+              <PackageCheck className="w-5 h-5 text-orange-400 shrink-0" />
               <div>
                 <span className="block font-black text-white">Original Box &amp; GST Bill</span>
-                <span className="text-[10px] text-slate-400">Complete Kit</span>
+                <span className="text-[10px] text-stone-400">Complete Kit</span>
               </div>
             </div>
 
-            <div className="p-3 bg-slate-900/80 border border-slate-800 rounded-2xl flex items-center gap-2.5">
+            <div className="p-3 bg-stone-900/80 border border-stone-800 rounded-2xl flex items-center gap-2.5">
               <Award className="w-5 h-5 text-purple-400 shrink-0" />
               <div>
                 <span className="block font-black text-white">25% Price Cut</span>
-                <span className="text-[10px] text-slate-400">Instant Savings</span>
+                <span className="text-[10px] text-stone-400">Instant Savings</span>
               </div>
             </div>
           </div>
@@ -104,19 +104,19 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-xs">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-stone-200 shadow-xs">
         {/* Brand Pills */}
         <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0 scrollbar-none">
-          <Filter className="w-4 h-4 text-slate-400 shrink-0 ml-1" />
-          <span className="text-xs font-bold text-slate-500 shrink-0 font-heading">Brand:</span>
+          <Filter className="w-4 h-4 text-stone-400 shrink-0 ml-1" />
+          <span className="text-xs font-bold text-stone-500 shrink-0 font-heading">Brand:</span>
           {brands.map((b) => (
             <button
               key={b}
               onClick={() => setSelectedBrand(b)}
               className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all shrink-0 cursor-pointer font-heading ${
                 selectedBrand === b
-                  ? 'bg-[#0052FF] text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  ? 'bg-[#C2410C] text-white shadow-xs'
+                  : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
               }`}
             >
               {b}
@@ -131,17 +131,17 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
             placeholder="Search open box iPhone, Galaxy, OnePlus..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-medium focus:ring-2 focus:ring-[#0052FF] outline-none text-slate-900"
+            className="w-full bg-stone-50 border border-stone-200 rounded-xl px-3.5 py-2 text-xs font-medium focus:ring-2 focus:ring-[#C2410C] outline-none text-stone-900"
           />
         </div>
       </div>
 
       {/* Products Grid */}
       {groupedProducts.length === 0 ? (
-        <div className="p-12 text-center bg-white border border-slate-200 rounded-3xl space-y-3">
-          <PackageCheck className="w-12 h-12 text-slate-300 mx-auto" />
-          <h3 className="text-lg font-bold text-slate-800 font-heading">No Open Box Mobiles Found</h3>
-          <p className="text-xs text-slate-500">Try changing your brand filter or search query.</p>
+        <div className="p-12 text-center bg-white border border-stone-200 rounded-3xl space-y-3">
+          <PackageCheck className="w-12 h-12 text-stone-300 mx-auto" />
+          <h3 className="text-lg font-bold text-stone-800 font-heading">No Open Box Mobiles Found</h3>
+          <p className="text-xs text-stone-500">Try changing your brand filter or search query.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -154,7 +154,7 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
               <motion.div
                 key={`${product.brand}|${product.model}`}
                 whileHover={{ y: -4 }}
-                className="bg-white border border-slate-200 hover:border-[#0052FF] rounded-3xl p-5 shadow-xs hover:shadow-xl transition-all flex flex-col justify-between group relative overflow-hidden cursor-pointer" onClick={() => onSelectProduct(product)}
+                className="bg-white border border-stone-200 hover:border-[#C2410C] rounded-3xl p-5 shadow-xs hover:shadow-xl transition-all flex flex-col justify-between group relative overflow-hidden cursor-pointer" onClick={() => onSelectProduct(product)}
               >
                 {/* Warranty Badge - single badge only; this card previously stacked a
                     second "{N}M Brand Warranty" pill directly under it showing the
@@ -162,14 +162,14 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
                     "11M" when brandWarrantyMonths was unset), which just duplicated
                     the message over the product image. */}
                 <div className="absolute top-4 left-4 z-10">
-                  <span className="bg-amber-400 text-slate-950 text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-xs uppercase tracking-wider font-heading">
+                  <span className="bg-amber-400 text-stone-950 text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-xs uppercase tracking-wider font-heading">
                     6 to 11-Month Warranty
                   </span>
                 </div>
 
                 <div>
                   {/* Image Container */}
-                  <div className="relative rounded-2xl overflow-hidden bg-slate-100 aspect-4/3 mb-4">
+                  <div className="relative rounded-2xl overflow-hidden bg-stone-100 aspect-4/3 mb-4">
                     <img
                       src={product.images[0] || PRODUCT_IMAGE_FALLBACK}
                       alt={product.title}
@@ -179,17 +179,17 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
                   </div>
 
                   {/* Title & Specs */}
-                  <span className="text-[10px] font-black text-indigo-600 uppercase tracking-wider font-heading block">
+                  <span className="text-[10px] font-black text-orange-600 uppercase tracking-wider font-heading block">
                     {product.brand} &bull; Open Box Delivery
                   </span>
-                  <h3 className="font-heading text-sm font-black text-slate-900 group-hover:text-[#0052FF] transition-colors leading-snug line-clamp-2 mt-0.5">
+                  <h3 className="font-heading text-sm font-black text-stone-900 group-hover:text-[#C2410C] transition-colors leading-snug line-clamp-2 mt-0.5">
                     {product.model}
                   </h3>
                   {variantCount > 1 && (
-                    <span className="text-[10px] text-slate-500 font-semibold">{variantCount} storage options</span>
+                    <span className="text-[10px] text-stone-500 font-semibold">{variantCount} storage options</span>
                   )}
 
-                  <div className="mt-3 p-2.5 bg-slate-50 border border-slate-100 rounded-xl space-y-1 text-[11px] text-slate-600">
+                  <div className="mt-3 p-2.5 bg-stone-50 border border-stone-100 rounded-xl space-y-1 text-[11px] text-stone-600">
                     <div className="flex items-center gap-1.5">
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                       <span>Original Tax Invoice &amp; Accessories</span>
@@ -202,13 +202,13 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
                 </div>
 
                 {/* Price & Buy Action */}
-                <div className="mt-5 pt-4 border-t border-slate-100 space-y-3">
+                <div className="mt-5 pt-4 border-t border-stone-100 space-y-3">
                   <div className="flex items-baseline justify-between">
                     <div>
-                      <span className="text-[10px] text-slate-400 line-through font-mono block">
+                      <span className="text-[10px] text-stone-400 line-through font-mono block">
                         ₹{product.originalPrice.toLocaleString('en-IN')}
                       </span>
-                      <span className="font-mono text-lg font-black text-[#0052FF]">
+                      <span className="font-mono text-lg font-black text-[#C2410C]">
                         {variantCount > 1 ? 'From ' : ''}₹{product.refurbPrice.toLocaleString('en-IN')}
                       </span>
                     </div>
@@ -219,7 +219,7 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
 
                   <button
                     onClick={() => onSelectProduct(product)}
-                    className="w-full bg-[#0052FF] hover:bg-blue-700 text-white font-extrabold py-2.5 rounded-full text-xs shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer font-heading"
+                    className="w-full bg-[#C2410C] hover:bg-orange-700 text-white font-extrabold py-2.5 rounded-full text-xs shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer font-heading"
                   >
                     <ShoppingBag className="w-4 h-4" />
                     Buy Open Box Mobile
@@ -232,10 +232,10 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
       )}
 
       {/* Trust & Guarantee Callout */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="bg-gradient-to-r from-orange-50 to-orange-50 border border-orange-200 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="space-y-2">
-          <h3 className="text-xl font-black text-slate-900 font-heading">Need Help Selecting an Open Box Mobile?</h3>
-          <p className="text-xs text-slate-600 max-w-xl">
+          <h3 className="text-xl font-black text-stone-900 font-heading">Need Help Selecting an Open Box Mobile?</h3>
+          <p className="text-xs text-stone-600 max-w-xl">
             Visit our physical store at <strong>Recell store, Pathsala road, Khekra, Baghpat, U.P., 250101</strong> or call our Customer Helpline for live video inspection of device condition before dispatch.
           </p>
         </div>
@@ -243,7 +243,7 @@ export const OpenBoxMobiles: React.FC<OpenBoxMobilesProps> = ({
         <div className="flex flex-wrap items-center gap-3">
           <a
             href="tel:9310552055"
-            className="bg-slate-950 hover:bg-slate-800 text-white font-bold px-5 py-3 rounded-full text-xs flex items-center gap-2 transition-all font-heading"
+            className="bg-stone-950 hover:bg-stone-800 text-white font-bold px-5 py-3 rounded-full text-xs flex items-center gap-2 transition-all font-heading"
           >
             <Phone className="w-4 h-4 text-emerald-400" />
             Helpline: +91 9310552055

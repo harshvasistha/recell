@@ -30,20 +30,20 @@ export const DoorstepRepair: React.FC = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10 space-y-10 text-slate-900">
+    <div className="max-w-5xl mx-auto px-4 py-10 space-y-10 text-stone-900">
       {/* Title Banner */}
-      <div className="bg-slate-900 text-white rounded-3xl p-8 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+      <div className="bg-stone-900 text-white rounded-3xl p-8 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
         <div className="space-y-3 relative z-10">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="bg-amber-500 text-slate-950 text-xs font-black px-3.5 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5">
+            <span className="bg-amber-500 text-stone-950 text-xs font-black px-3.5 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5">
               <Wrench className="w-3.5 h-3.5" /> Express Doorstep Service
             </span>
-            <span className="bg-emerald-500 text-slate-950 text-xs font-black px-3.5 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5 animate-pulse">
+            <span className="bg-emerald-500 text-stone-950 text-xs font-black px-3.5 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5 animate-pulse">
               <Gift className="w-3.5 h-3.5" /> Free Pickup For First 1,000 Users
             </span>
           </div>
           <h1 className="text-2xl sm:text-4xl font-black">30-Minute Mobile Repair at Your Doorstep</h1>
-          <p className="text-xs sm:text-sm text-slate-300 max-w-xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-stone-300 max-w-xl leading-relaxed">
             Don't leave your phone at risky market repair shops. Watch our certified technician replace screen glass, battery, or charging port right inside your home or office with ESD safety.
           </p>
         </div>
@@ -57,12 +57,12 @@ export const DoorstepRepair: React.FC = () => {
       {/* Free Pickup Offer Callout */}
       <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-center justify-between gap-3 flex-wrap">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-amber-500 text-slate-950 font-black flex items-center justify-center shrink-0 shadow-xs">
+          <div className="w-10 h-10 rounded-full bg-amber-500 text-stone-950 font-black flex items-center justify-center shrink-0 shadow-xs">
             🎁
           </div>
           <div>
-            <h4 className="font-black text-slate-900 text-sm">No Pickup & Doorstep Visit Charges!</h4>
-            <p className="text-xs text-slate-600">Zero technician visit fee for the first 1,000 users in Khekra, Baghpat & 250101 area.</p>
+            <h4 className="font-black text-stone-900 text-sm">No Pickup & Doorstep Visit Charges!</h4>
+            <p className="text-xs text-stone-600">Zero technician visit fee for the first 1,000 users in Khekra, Baghpat & 250101 area.</p>
           </div>
         </div>
         <span className="text-xs font-bold text-amber-800 bg-amber-200/60 px-3 py-1 rounded-full border border-amber-300">
@@ -72,37 +72,37 @@ export const DoorstepRepair: React.FC = () => {
 
       {/* Feature Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-medium">
-        <div className="p-4 bg-white border border-slate-200 rounded-2xl flex items-center gap-3 shadow-xs">
-          <ShieldCheck className="w-8 h-8 text-indigo-600 shrink-0" />
+        <div className="p-4 bg-white border border-stone-200 rounded-2xl flex items-center gap-3 shadow-xs">
+          <ShieldCheck className="w-8 h-8 text-orange-600 shrink-0" />
           <div>
-            <p className="font-bold text-slate-900">100% Live Visual Repair</p>
-            <p className="text-slate-500">Phone never leaves your sight during service.</p>
+            <p className="font-bold text-stone-900">100% Live Visual Repair</p>
+            <p className="text-stone-500">Phone never leaves your sight during service.</p>
           </div>
         </div>
 
-        <div className="p-4 bg-white border border-slate-200 rounded-2xl flex items-center gap-3 shadow-xs">
+        <div className="p-4 bg-white border border-stone-200 rounded-2xl flex items-center gap-3 shadow-xs">
           <Clock className="w-8 h-8 text-amber-600 shrink-0" />
           <div>
-            <p className="font-bold text-slate-900">30-Min Fast Turnaround</p>
-            <p className="text-slate-500">Quick ESD-safe component replacement.</p>
+            <p className="font-bold text-stone-900">30-Min Fast Turnaround</p>
+            <p className="text-stone-500">Quick ESD-safe component replacement.</p>
           </div>
         </div>
 
-        <div className="p-4 bg-white border border-slate-200 rounded-2xl flex items-center gap-3 shadow-xs">
+        <div className="p-4 bg-white border border-stone-200 rounded-2xl flex items-center gap-3 shadow-xs">
           <CheckCircle2 className="w-8 h-8 text-emerald-600 shrink-0" />
           <div>
-            <p className="font-bold text-slate-900">Grade-A Certified Spares</p>
-            <p className="text-slate-500">OEM quality displays & original battery cells.</p>
+            <p className="font-bold text-stone-900">Grade-A Certified Spares</p>
+            <p className="text-stone-500">OEM quality displays & original battery cells.</p>
           </div>
         </div>
       </div>
 
       {/* Interactive Booking Widget */}
-      <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm max-w-3xl mx-auto space-y-6">
-        <div className="border-b border-slate-100 pb-4 flex items-center justify-between flex-wrap gap-2">
+      <div className="bg-white border border-stone-200 rounded-3xl p-6 sm:p-8 shadow-sm max-w-3xl mx-auto space-y-6">
+        <div className="border-b border-stone-100 pb-4 flex items-center justify-between flex-wrap gap-2">
           <div>
-            <h2 className="text-xl font-black text-slate-900">Book Instant Doorstep Repair Slot</h2>
-            <p className="text-xs text-slate-500 mt-0.5">Active in Khekra, Baghpat (250101) &amp; NCR region with zero pickup charge.</p>
+            <h2 className="text-xl font-black text-stone-900">Book Instant Doorstep Repair Slot</h2>
+            <p className="text-xs text-stone-500 mt-0.5">Active in Khekra, Baghpat (250101) &amp; NCR region with zero pickup charge.</p>
           </div>
           <span className="bg-emerald-50 text-emerald-800 text-[11px] font-extrabold px-3 py-1 rounded-full border border-emerald-200">
             ₹0 Doorstep Visit Fee
@@ -116,8 +116,8 @@ export const DoorstepRepair: React.FC = () => {
             <p className="text-xs text-emerald-700 max-w-md mx-auto">
               Our certified technician will call <strong>{customerPhone}</strong> shortly to confirm arrival at Pincode {pincode}.
             </p>
-            <div className="p-4 bg-white border border-emerald-200 rounded-xl text-xs text-slate-800 max-w-sm mx-auto space-y-1 text-left">
-              <p className="font-bold text-slate-900 border-b border-slate-100 pb-1">Booking Summary:</p>
+            <div className="p-4 bg-white border border-emerald-200 rounded-xl text-xs text-stone-800 max-w-sm mx-auto space-y-1 text-left">
+              <p className="font-bold text-stone-900 border-b border-stone-100 pb-1">Booking Summary:</p>
               <p>• <strong>Device:</strong> {selectedBrand} {selectedModel}</p>
               <p>• <strong>Service:</strong> {selectedRepair} (Starts @ ₹{currentOption.startPrice})</p>
               <p>• <strong>Pickup Charge:</strong> <span className="text-emerald-600 font-bold">FREE (₹0 for 1,000 Users)</span></p>
@@ -139,11 +139,11 @@ export const DoorstepRepair: React.FC = () => {
           <form onSubmit={handleBookRepair} className="space-y-5 text-xs">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-slate-700 font-bold mb-1">Select Brand</label>
+                <label className="block text-stone-700 font-bold mb-1">Select Brand</label>
                 <select
                   value={selectedBrand}
                   onChange={(e) => setSelectedBrand(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-semibold text-slate-900"
+                  className="w-full bg-stone-50 border border-stone-200 rounded-xl p-3 font-semibold text-stone-900"
                 >
                   <option value="Apple">Apple iPhone</option>
                   <option value="Samsung">Samsung Galaxy</option>
@@ -160,8 +160,8 @@ export const DoorstepRepair: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-slate-700 font-bold mb-1">
-                  Device Model <span className="text-slate-400 font-normal">(If not listed, type below)</span>
+                <label className="block text-stone-700 font-bold mb-1">
+                  Device Model <span className="text-stone-400 font-normal">(If not listed, type below)</span>
                 </label>
                 <input
                   type="text"
@@ -169,16 +169,16 @@ export const DoorstepRepair: React.FC = () => {
                   value={selectedModel}
                   onChange={(e) => setSelectedModel(e.target.value)}
                   placeholder="e.g. iPhone 13 / S23 Ultra / Redmi Note 12"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-semibold text-slate-900"
+                  className="w-full bg-stone-50 border border-stone-200 rounded-xl p-3 font-semibold text-stone-900"
                 />
               </div>
             </div>
 
             {/* Repair Type Options with Minimum Price */}
             <div>
-              <label className="block text-slate-700 font-bold mb-1.5 flex items-center justify-between">
+              <label className="block text-stone-700 font-bold mb-1.5 flex items-center justify-between">
                 <span>Select Repair Service Type</span>
-                <span className="text-[11px] text-[#0052FF] font-semibold">Minimum prices listed for each repair</span>
+                <span className="text-[11px] text-[#C2410C] font-semibold">Minimum prices listed for each repair</span>
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {repairOptions.map((option) => (
@@ -188,14 +188,14 @@ export const DoorstepRepair: React.FC = () => {
                     className={`p-3 rounded-xl border cursor-pointer flex items-center justify-between transition-all ${
                       selectedRepair === option.type
                         ? 'bg-amber-50 border-amber-500 font-bold text-amber-950 shadow-xs ring-2 ring-amber-500/20'
-                        : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                        : 'bg-stone-50 border-stone-200 text-stone-700 hover:bg-stone-100'
                     }`}
                   >
                     <div className="flex items-center gap-2">
                       <span className="text-base">{option.icon}</span>
                       <div>
-                        <p className="font-bold text-xs text-slate-900">{option.type}</p>
-                        <p className="text-[10px] text-slate-500 font-normal">{option.desc}</p>
+                        <p className="font-bold text-xs text-stone-900">{option.type}</p>
+                        <p className="text-[10px] text-stone-500 font-normal">{option.desc}</p>
                       </div>
                     </div>
                     <span className="font-mono text-amber-700 font-extrabold text-xs whitespace-nowrap bg-amber-100/60 px-2 py-0.5 rounded-lg border border-amber-200">
@@ -207,17 +207,17 @@ export const DoorstepRepair: React.FC = () => {
             </div>
 
             {/* Custom Instruction / Unlisted Model Box */}
-            <div className="p-4 bg-indigo-50/50 border border-indigo-100 rounded-2xl space-y-2">
+            <div className="p-4 bg-orange-50/50 border border-orange-100 rounded-2xl space-y-2">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-bold text-indigo-950 flex items-center gap-1.5 font-heading">
-                  <FileText className="w-4 h-4 text-[#0052FF]" />
+                <label className="text-xs font-bold text-orange-950 flex items-center gap-1.5 font-heading">
+                  <FileText className="w-4 h-4 text-[#C2410C]" />
                   Custom Instruction / Unlisted Model & Issue Box
                 </label>
-                <span className="text-[10px] text-indigo-700 font-semibold bg-indigo-100 px-2 py-0.5 rounded-full">
+                <span className="text-[10px] text-orange-700 font-semibold bg-orange-100 px-2 py-0.5 rounded-full">
                   Optional
                 </span>
               </div>
-              <p className="text-[11px] text-slate-600">
+              <p className="text-[11px] text-stone-600">
                 If your phone model is not in the list, or your specific repair requirement is not available above (e.g., motherboard IC repair, liquid damage cleaning, custom glass fitting), write your instructions here:
               </p>
               <textarea
@@ -225,44 +225,44 @@ export const DoorstepRepair: React.FC = () => {
                 value={customInstruction}
                 onChange={(e) => setCustomInstruction(e.target.value)}
                 placeholder="e.g. My model is iPhone 11 Pro Max. Need front glass replacement + speaker mesh cleaning. Please call before arriving."
-                className="w-full bg-white border border-indigo-200 rounded-xl p-3 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0052FF] font-medium"
+                className="w-full bg-white border border-orange-200 rounded-xl p-3 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#C2410C] font-medium"
               />
             </div>
 
             {/* Customer Details */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
               <div>
-                <label className="block text-slate-700 font-bold mb-1">Your Full Name *</label>
+                <label className="block text-stone-700 font-bold mb-1">Your Full Name *</label>
                 <input
                   type="text"
                   required
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
                   placeholder="Enter Name"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-slate-900 font-medium"
+                  className="w-full bg-stone-50 border border-stone-200 rounded-xl p-3 text-stone-900 font-medium"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-700 font-bold mb-1">Mobile Number *</label>
+                <label className="block text-stone-700 font-bold mb-1">Mobile Number *</label>
                 <input
                   type="tel"
                   required
                   value={customerPhone}
                   onChange={(e) => setCustomerPhone(e.target.value)}
                   placeholder="+91 Mobile Number"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-slate-900 font-medium"
+                  className="w-full bg-stone-50 border border-stone-200 rounded-xl p-3 text-stone-900 font-medium"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-700 font-bold mb-1">Pincode *</label>
+                <label className="block text-stone-700 font-bold mb-1">Pincode *</label>
                 <input
                   type="text"
                   required
                   value={pincode}
                   onChange={(e) => setPincode(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-mono font-bold text-slate-900"
+                  className="w-full bg-stone-50 border border-stone-200 rounded-xl p-3 font-mono font-bold text-stone-900"
                 />
               </div>
             </div>
@@ -270,7 +270,7 @@ export const DoorstepRepair: React.FC = () => {
             {/* Confirm Button without Price */}
             <button
               type="submit"
-              className="w-full bg-[#0052FF] hover:bg-blue-700 text-white font-extrabold py-3.5 rounded-full text-xs shadow-md flex items-center justify-center gap-2 transition-all mt-4 cursor-pointer font-heading"
+              className="w-full bg-[#C2410C] hover:bg-orange-700 text-white font-extrabold py-3.5 rounded-full text-xs shadow-md flex items-center justify-center gap-2 transition-all mt-4 cursor-pointer font-heading"
             >
               Confirm Doorstep Repair Booking
               <ChevronRight className="w-4 h-4" />

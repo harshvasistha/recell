@@ -25,12 +25,12 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
   if (!isOpen || !user) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-fade-in">
-      <div className="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border border-slate-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/70 backdrop-blur-sm animate-fade-in">
+      <div className="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border border-stone-200">
         
         {/* Header Profile Banner */}
-        <div className="bg-slate-950 p-6 text-white relative overflow-hidden">
-          <div className="absolute -right-8 -bottom-8 w-32 h-32 bg-[#0052FF]/20 rounded-full blur-2xl"></div>
+        <div className="bg-stone-950 p-6 text-white relative overflow-hidden">
+          <div className="absolute -right-8 -bottom-8 w-32 h-32 bg-[#C2410C]/20 rounded-full blur-2xl"></div>
           
           <div className="absolute top-4 right-4 flex items-center gap-2">
             <button
@@ -53,7 +53,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
           </div>
 
           <div className="flex items-center gap-4 relative z-10 pt-2">
-            <div className="w-16 h-16 rounded-2xl bg-[#0052FF] text-white font-black text-2xl flex items-center justify-center shadow-lg shadow-blue-500/30 border-2 border-blue-400/40">
+            <div className="w-16 h-16 rounded-2xl bg-[#C2410C] text-white font-black text-2xl flex items-center justify-center shadow-lg shadow-orange-500/30 border-2 border-orange-400/40">
               {user.name.charAt(0).toUpperCase()}
             </div>
             <div>
@@ -64,8 +64,8 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                   Verified Profile
                 </span>
               </div>
-              <p className="text-xs text-slate-300 font-mono mt-0.5">
-                Role: <strong className="text-blue-400 uppercase">{user.role}</strong>
+              <p className="text-xs text-stone-300 font-mono mt-0.5">
+                Role: <strong className="text-orange-400 uppercase">{user.role}</strong>
               </p>
             </div>
           </div>
@@ -74,45 +74,45 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
         {/* Profile Details List */}
         <div className="p-6 space-y-5">
           <div className="space-y-3">
-            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider font-heading">
+            <h4 className="text-xs font-bold text-stone-400 uppercase tracking-wider font-heading">
               Registered Contact Details
             </h4>
 
-            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-3.5 space-y-2.5 text-xs">
+            <div className="bg-stone-50 border border-stone-200 rounded-2xl p-3.5 space-y-2.5 text-xs">
               <div className="flex items-center justify-between">
-                <span className="flex items-center gap-2 text-slate-600 font-medium">
-                  <Smartphone className="w-4 h-4 text-[#0052FF]" />
+                <span className="flex items-center gap-2 text-stone-600 font-medium">
+                  <Smartphone className="w-4 h-4 text-[#C2410C]" />
                   Mobile Number:
                 </span>
-                <strong className="font-mono text-slate-900">{user.phone}</strong>
+                <strong className="font-mono text-stone-900">{user.phone}</strong>
               </div>
 
-              <div className="flex items-center justify-between pt-2 border-t border-slate-200/60">
-                <span className="flex items-center gap-2 text-slate-600 font-medium">
-                  <Mail className="w-4 h-4 text-blue-500" />
+              <div className="flex items-center justify-between pt-2 border-t border-stone-200/60">
+                <span className="flex items-center gap-2 text-stone-600 font-medium">
+                  <Mail className="w-4 h-4 text-orange-500" />
                   Email Address:
                 </span>
-                <strong className="font-mono text-slate-900">{user.email || 'Not provided'}</strong>
+                <strong className="font-mono text-stone-900">{user.email || 'Not provided'}</strong>
               </div>
 
-              <div className="flex items-center justify-between pt-2 border-t border-slate-200/60">
-                <span className="flex items-center gap-2 text-slate-600 font-medium">
+              <div className="flex items-center justify-between pt-2 border-t border-stone-200/60">
+                <span className="flex items-center gap-2 text-stone-600 font-medium">
                   <MapPin className="w-4 h-4 text-emerald-500" />
                   Service Hub / Pincode:
                 </span>
-                <strong className="font-mono text-slate-900">{user.pincode || 'Khekra 250101'}</strong>
+                <strong className="font-mono text-stone-900">{user.pincode || 'Khekra 250101'}</strong>
               </div>
             </div>
           </div>
 
-          <div className="bg-blue-50/70 border border-blue-200 rounded-2xl p-4 flex items-center justify-between">
+          <div className="bg-orange-50/70 border border-orange-200 rounded-2xl p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="p-2.5 bg-blue-100 rounded-xl text-[#0052FF]">
+              <div className="p-2.5 bg-orange-100 rounded-xl text-[#C2410C]">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <div>
-                <h5 className="text-xs font-bold text-slate-900">3-Month Guarantee Active</h5>
-                <p className="text-[11px] text-slate-600">All buyback quotes & refurbished phones include warranty.</p>
+                <h5 className="text-xs font-bold text-stone-900">3-Month Guarantee Active</h5>
+                <p className="text-[11px] text-stone-600">All buyback quotes & refurbished phones include warranty.</p>
               </div>
             </div>
           </div>
@@ -137,7 +137,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                 onClose();
                 onOpenTrackOrders();
               }}
-              className="w-full bg-[#0052FF] hover:bg-[#0043CC] text-white font-bold py-3 rounded-2xl text-xs flex items-center justify-center gap-2 shadow-md cursor-pointer transition-all font-heading"
+              className="w-full bg-[#C2410C] hover:bg-[#9A3412] text-white font-bold py-3 rounded-2xl text-xs flex items-center justify-center gap-2 shadow-md cursor-pointer transition-all font-heading"
             >
               <PackageCheck className="w-4 h-4" />
               View Orders &amp; Doorstep Trackers
@@ -145,9 +145,9 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
             </button>
             <button
               onClick={onClose}
-              className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 rounded-2xl text-xs flex items-center justify-center gap-2 border border-slate-300 cursor-pointer transition-all font-heading"
+              className="w-full bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold py-2.5 rounded-2xl text-xs flex items-center justify-center gap-2 border border-stone-300 cursor-pointer transition-all font-heading"
             >
-              <ArrowLeft className="w-4 h-4 text-slate-500" />
+              <ArrowLeft className="w-4 h-4 text-stone-500" />
               Close Profile
             </button>
             <button

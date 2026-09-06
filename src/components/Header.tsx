@@ -67,9 +67,9 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white text-slate-900 shadow-md border-b border-slate-200">
+    <header className="sticky top-0 z-40 bg-white text-stone-900 shadow-md border-b border-stone-200">
       {/* Top Banner (Optional, keep for branding) */}
-      <div className="bg-[#0052FF] text-white text-[11px] sm:text-xs py-2 px-4 font-bold flex items-center justify-center overflow-hidden">
+      <div className="bg-[#C2410C] text-white text-[11px] sm:text-xs py-2 px-4 font-bold flex items-center justify-center overflow-hidden">
         <div className="animate-marquee-ltr-fast w-full max-w-7xl mx-auto flex items-center justify-between gap-12 whitespace-nowrap">
            <span className="inline-flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5" />Doorstep Coverage: Khekra 250101</span>
            <span>&bull;</span>
@@ -85,7 +85,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center gap-3 lg:hidden">
           <button
             onClick={() => setMobileMenuOpen(true)}
-            className="p-1 text-slate-700 cursor-pointer"
+            className="p-1 text-stone-700 cursor-pointer"
             aria-label="Toggle navigation menu"
           >
             <Menu className="w-6 h-6" />
@@ -111,10 +111,10 @@ export const Header: React.FC<HeaderProps> = ({
             placeholder="Search for iPhone 15, Galaxy S23 Ultra..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-slate-50 border border-slate-300 rounded-full pl-5 pr-12 py-2.5 text-sm text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-[#0052FF] focus:border-[#0052FF] transition-all font-medium shadow-inner"
+            className="w-full bg-stone-50 border border-stone-300 rounded-full pl-5 pr-12 py-2.5 text-sm text-stone-900 placeholder-stone-500 focus:outline-none focus:ring-1 focus:ring-[#C2410C] focus:border-[#C2410C] transition-all font-medium shadow-inner"
           />
-          <div className="absolute right-1 top-1 bottom-1 w-10 flex items-center justify-center bg-slate-100 rounded-full cursor-pointer hover:bg-slate-200 shadow-sm border border-slate-200">
-             <Search className="w-4 h-4 text-slate-600" />
+          <div className="absolute right-1 top-1 bottom-1 w-10 flex items-center justify-center bg-stone-100 rounded-full cursor-pointer hover:bg-stone-200 shadow-sm border border-stone-200">
+             <Search className="w-4 h-4 text-stone-600" />
           </div>
         </div>
 
@@ -122,29 +122,29 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center gap-3 sm:gap-5 flex-shrink-0">
           {/* Contact Support */}
           <a href="tel:08069212228" className="hidden lg:flex items-center gap-2 cursor-pointer group">
-             <div className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center group-hover:border-[#0052FF] transition-colors bg-slate-50">
-               <Phone className="w-4 h-4 text-slate-600 group-hover:text-[#0052FF]" />
+             <div className="w-8 h-8 rounded-full border border-stone-300 flex items-center justify-center group-hover:border-[#C2410C] transition-colors bg-stone-50">
+               <Phone className="w-4 h-4 text-stone-600 group-hover:text-[#C2410C]" />
              </div>
              <div className="flex flex-col">
-               <span className="text-[10px] text-slate-500 font-medium uppercase leading-none mb-1">CALL US</span>
-               <span className="text-[13px] font-bold text-slate-800 leading-none">9310552055</span>
+               <span className="text-[10px] text-stone-500 font-medium uppercase leading-none mb-1">CALL US</span>
+               <span className="text-[13px] font-bold text-stone-800 leading-none">9310552055</span>
              </div>
           </a>
 
           {/* Wishlist Icon */}
-          <button className="hidden sm:flex relative p-2 text-slate-700 hover:text-[#0052FF] transition-colors cursor-pointer" title="Wishlist">
+          <button className="hidden sm:flex relative p-2 text-stone-700 hover:text-[#C2410C] transition-colors cursor-pointer" title="Wishlist">
             <Heart className="w-5 h-5" />
           </button>
 
           {/* Cart Icon */}
           <button
             onClick={openCart}
-            className="relative p-2 text-slate-700 hover:text-[#0052FF] transition-colors cursor-pointer flex items-center"
+            className="relative p-2 text-stone-700 hover:text-[#C2410C] transition-colors cursor-pointer flex items-center"
             title="View Cart"
           >
             <ShoppingBag className="w-5 h-5" />
             {cartCount > 0 && (
-              <span className="absolute top-0 right-0 bg-[#0052FF] text-white font-bold text-[9px] w-4 h-4 rounded-full flex items-center justify-center shadow-sm">
+              <span className="absolute top-0 right-0 bg-[#C2410C] text-white font-bold text-[9px] w-4 h-4 rounded-full flex items-center justify-center shadow-sm">
                 {cartCount}
               </span>
             )}
@@ -165,9 +165,9 @@ export const Header: React.FC<HeaderProps> = ({
 
              <button
                onClick={() => onOpenProfile ? onOpenProfile() : onOpenAuth()}
-               className="hidden sm:flex items-center gap-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 px-4 py-2 rounded-full text-sm font-semibold text-slate-800 cursor-pointer transition-all font-heading shadow-sm"
+               className="hidden sm:flex items-center gap-2 bg-stone-100 hover:bg-stone-200 border border-stone-200 px-4 py-2 rounded-full text-sm font-semibold text-stone-800 cursor-pointer transition-all font-heading shadow-sm"
              >
-               <User className="w-4 h-4 text-[#0052FF]" />
+               <User className="w-4 h-4 text-[#C2410C]" />
                <span className="truncate max-w-[100px]">{user.name}</span>
              </button>
           ) : (
@@ -189,26 +189,26 @@ export const Header: React.FC<HeaderProps> = ({
             placeholder="Search for iPhone 15, Galaxy S23..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-slate-50 border border-slate-300 rounded-full pl-4 pr-10 py-2.5 text-sm text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-[#0052FF] focus:border-[#0052FF] transition-all font-medium shadow-inner"
+            className="w-full bg-stone-50 border border-stone-300 rounded-full pl-4 pr-10 py-2.5 text-sm text-stone-900 placeholder-stone-500 focus:outline-none focus:ring-1 focus:ring-[#C2410C] focus:border-[#C2410C] transition-all font-medium shadow-inner"
           />
-          <div className="absolute right-1 top-1 bottom-1 w-10 flex items-center justify-center bg-slate-100 rounded-full border border-slate-200 shadow-sm cursor-pointer">
-             <Search className="w-4 h-4 text-slate-600" />
+          <div className="absolute right-1 top-1 bottom-1 w-10 flex items-center justify-center bg-stone-100 rounded-full border border-stone-200 shadow-sm cursor-pointer">
+             <Search className="w-4 h-4 text-stone-600" />
           </div>
         </div>
       </div>
 
       {/* Clean Main Navigation Menu Bar */}
-      <nav className="hidden lg:block bg-white border-t border-slate-200 relative shadow-sm">
-        <div className="max-w-7xl mx-auto flex items-center justify-center gap-6 xl:gap-8 py-3 text-[14px] font-heading font-medium text-slate-700">
+      <nav className="hidden lg:block bg-white border-t border-stone-200 relative shadow-sm">
+        <div className="max-w-7xl mx-auto flex items-center justify-center gap-6 xl:gap-8 py-3 text-[14px] font-heading font-medium text-stone-700">
           
-          <div className="flex items-center group relative cursor-pointer hover:text-[#0052FF]">
+          <div className="flex items-center group relative cursor-pointer hover:text-[#C2410C]">
              <a href="/buy" onClick={(e) => handleNavClick(e, 'buy')} className="flex items-center gap-1 transition-colors">
                Buy Refurbished
                <ChevronDown className="w-3.5 h-3.5" />
              </a>
              
              {/* Submenu for Brands */}
-             <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+             <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-stone-200 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
                <ul className="py-2">
                  {['Apple', 'Samsung', 'Vivo', 'Oppo', 'OnePlus', 'Google', 'Poco', 'Realme', 'Redmi', 'Xiaomi', 'Motorola', 'Nothing', 'Infinix'].map(brand => (
                    <li key={brand}>
@@ -216,7 +216,7 @@ export const Header: React.FC<HeaderProps> = ({
                        onClick={() => {
                          onOpenBrand(brand);
                        }}
-                       className="w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#0052FF] transition-colors"
+                       className="w-full text-left px-4 py-2 text-sm text-stone-700 hover:bg-stone-50 hover:text-[#C2410C] transition-colors"
                      >
                        {brand}
                      </button>
@@ -226,31 +226,31 @@ export const Header: React.FC<HeaderProps> = ({
              </div>
           </div>
 
-          <div className="flex items-center group cursor-pointer hover:text-[#0052FF]">
+          <div className="flex items-center group cursor-pointer hover:text-[#C2410C]">
              <a href="/sell" onClick={(e) => handleNavClick(e, 'sell')} className="flex items-center transition-colors">
                Sell Your Phone <span className="ml-1.5 bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-sm shadow-sm">NEW</span>
              </a>
           </div>
 
-          <div className="flex items-center group cursor-pointer hover:text-[#0052FF]">
+          <div className="flex items-center group cursor-pointer hover:text-[#C2410C]">
              <a href="/open-box" onClick={(e) => handleNavClick(e, 'open-box')} className="flex items-center transition-colors">
                Open Box Category <span className="ml-1.5 bg-green-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-sm shadow-sm">HOT</span>
              </a>
           </div>
 
-          <div className="flex items-center group cursor-pointer hover:text-[#0052FF]">
+          <div className="flex items-center group cursor-pointer hover:text-[#C2410C]">
              <a href="/repair" onClick={(e) => handleNavClick(e, 'repair')} className="transition-colors">
                Doorstep Repair
              </a>
           </div>
 
-          <div className="flex items-center group cursor-pointer hover:text-[#0052FF]">
+          <div className="flex items-center group cursor-pointer hover:text-[#C2410C]">
              <a href="/track" onClick={(e) => handleNavClick(e, 'track')} className="transition-colors">
                Track Order
              </a>
           </div>
 
-          <div className="flex items-center group relative cursor-pointer hover:text-[#0052FF]">
+          <div className="flex items-center group relative cursor-pointer hover:text-[#C2410C]">
              <a href="/about" onClick={(e) => handleNavClick(e, 'about')} className="flex items-center gap-1 transition-colors">
                About Us
              </a>
@@ -271,8 +271,8 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Side Drawer */}
           <div className="relative w-[85%] max-w-sm h-full bg-white flex flex-col shadow-2xl animate-in slide-in-from-left duration-300 z-10">
             {/* Header of Sidebar */}
-            <div className="flex items-center justify-between p-5 border-b border-slate-200 bg-slate-50">
-              <h2 className="font-heading font-bold text-xl text-slate-900">Menu</h2>
+            <div className="flex items-center justify-between p-5 border-b border-stone-200 bg-stone-50">
+              <h2 className="font-heading font-bold text-xl text-stone-900">Menu</h2>
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 className="p-1.5 rounded-md border border-amber-500 text-amber-500 hover:bg-amber-50 transition-colors shadow-sm bg-white cursor-pointer"
@@ -284,12 +284,12 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Scrollable Content */}
             <div className="flex-1 overflow-y-auto font-heading bg-white">
               
-              <div className="p-5 border-b border-slate-100">
-                <h3 className="text-xs text-slate-500 font-medium mb-4">Categories</h3>
-                <ul className="space-y-4 text-[15px] text-slate-800">
+              <div className="p-5 border-b border-stone-100">
+                <h3 className="text-xs text-stone-500 font-medium mb-4">Categories</h3>
+                <ul className="space-y-4 text-[15px] text-stone-800">
                    <li>
-                     <a href="/buy" onClick={(e) => handleNavClick(e, 'buy')} className="block py-1 hover:text-[#0052FF] transition-colors cursor-pointer">Buy Refurbished Phones</a>
-                     <ul className="pl-4 mt-2 space-y-2 border-l-2 border-slate-100">
+                     <a href="/buy" onClick={(e) => handleNavClick(e, 'buy')} className="block py-1 hover:text-[#C2410C] transition-colors cursor-pointer">Buy Refurbished Phones</a>
+                     <ul className="pl-4 mt-2 space-y-2 border-l-2 border-stone-100">
                        {['Apple', 'Samsung', 'Vivo', 'Oppo', 'OnePlus', 'Google', 'Poco', 'Realme', 'Redmi', 'Xiaomi', 'Motorola', 'Nothing', 'Infinix'].map(brand => (
                          <li key={`mobile-${brand}`}>
                            <button
@@ -297,7 +297,7 @@ export const Header: React.FC<HeaderProps> = ({
                                onOpenBrand(brand);
                                 
                              }}
-                             className="block py-1 text-[14px] text-slate-600 hover:text-[#0052FF] transition-colors cursor-pointer text-left w-full"
+                             className="block py-1 text-[14px] text-stone-600 hover:text-[#C2410C] transition-colors cursor-pointer text-left w-full"
                            >
                              {brand}
                            </button>
@@ -306,51 +306,51 @@ export const Header: React.FC<HeaderProps> = ({
                      </ul>
                    </li>
                    <li>
-                     <a href="/open-box" onClick={(e) => handleNavClick(e, 'open-box')} className="flex items-center justify-between py-1 hover:text-[#0052FF] transition-colors cursor-pointer">
+                     <a href="/open-box" onClick={(e) => handleNavClick(e, 'open-box')} className="flex items-center justify-between py-1 hover:text-[#C2410C] transition-colors cursor-pointer">
                        <span>Open Box Category</span>
                        <span className="bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">HOT</span>
                      </a>
                    </li>
                    <li>
-                     <a href="/repair" onClick={(e) => handleNavClick(e, 'repair')} className="block py-1 hover:text-[#0052FF] transition-colors cursor-pointer">Doorstep Repair</a>
+                     <a href="/repair" onClick={(e) => handleNavClick(e, 'repair')} className="block py-1 hover:text-[#C2410C] transition-colors cursor-pointer">Doorstep Repair</a>
                    </li>
                 </ul>
               </div>
 
-              <div className="p-5 border-b border-slate-100">
-                <h3 className="text-xs text-slate-500 font-medium mb-4">Quick Links</h3>
-                <ul className="space-y-4 text-[15px] text-slate-800">
+              <div className="p-5 border-b border-stone-100">
+                <h3 className="text-xs text-stone-500 font-medium mb-4">Quick Links</h3>
+                <ul className="space-y-4 text-[15px] text-stone-800">
                    <li>
-                     <a href="/sell" onClick={(e) => handleNavClick(e, 'sell')} className="flex items-center justify-between py-1 hover:text-[#0052FF] transition-colors cursor-pointer">
+                     <a href="/sell" onClick={(e) => handleNavClick(e, 'sell')} className="flex items-center justify-between py-1 hover:text-[#C2410C] transition-colors cursor-pointer">
                        <span>Sell Your Phone</span>
                        <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">NEW</span>
                      </a>
                    </li>
                    <li>
-                     <a href="/track" onClick={(e) => handleNavClick(e, 'track')} className="block py-1 hover:text-[#0052FF] transition-colors cursor-pointer">Track Order</a>
+                     <a href="/track" onClick={(e) => handleNavClick(e, 'track')} className="block py-1 hover:text-[#C2410C] transition-colors cursor-pointer">Track Order</a>
                    </li>
                    <li>
-                     <a href="/about" onClick={(e) => handleNavClick(e, 'about')} className="block py-1 hover:text-[#0052FF] transition-colors cursor-pointer">About Us</a>
+                     <a href="/about" onClick={(e) => handleNavClick(e, 'about')} className="block py-1 hover:text-[#C2410C] transition-colors cursor-pointer">About Us</a>
                    </li>
                    <li>
-                     <a href="/contact" onClick={(e) => handleNavClick(e, 'contact')} className="block py-1 hover:text-[#0052FF] transition-colors cursor-pointer">Contact Us</a>
+                     <a href="/contact" onClick={(e) => handleNavClick(e, 'contact')} className="block py-1 hover:text-[#C2410C] transition-colors cursor-pointer">Contact Us</a>
                    </li>
                 </ul>
               </div>
 
               <div className="p-5">
-                <h3 className="text-xs text-slate-500 font-medium mb-4">Account</h3>
+                <h3 className="text-xs text-stone-500 font-medium mb-4">Account</h3>
                 {user ? (
                    <button 
                      onClick={() => { setMobileMenuOpen(false); if (onOpenProfile) onOpenProfile(); else onOpenAuth(); }}
-                     className="flex items-center gap-3 text-[15px] text-slate-800 hover:text-[#0052FF] py-1 transition-colors cursor-pointer"
+                     className="flex items-center gap-3 text-[15px] text-stone-800 hover:text-[#C2410C] py-1 transition-colors cursor-pointer"
                    >
                      <User className="w-5 h-5" /> View Profile
                    </button>
                 ) : (
                    <button 
                      onClick={() => { setMobileMenuOpen(false); onOpenAuth(); }}
-                     className="flex items-center gap-3 text-[15px] text-slate-800 hover:text-[#0052FF] py-1 transition-colors cursor-pointer"
+                     className="flex items-center gap-3 text-[15px] text-stone-800 hover:text-[#C2410C] py-1 transition-colors cursor-pointer"
                    >
                      <User className="w-5 h-5" /> Login
                    </button>
