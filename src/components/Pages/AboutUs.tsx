@@ -90,6 +90,18 @@ export const AboutUs: React.FC<{ onStartSelling: () => void }> = ({ onStartSelli
           Check My Phone Price
         </button>
       </div>
+
+      <p className="text-center text-[11px] text-stone-400 pt-2">
+        Website built and maintained by{' '}
+        <a
+          href="https://risedigitalindia.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-orange-600 hover:text-orange-700 hover:underline underline-offset-2 transition-colors"
+        >
+          risedigitalindia.com
+        </a>
+      </p>
     </div>
   );
 };

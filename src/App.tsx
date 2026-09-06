@@ -781,7 +781,7 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
             {/* Col 1: Brand Info */}
             <div className="lg:col-span-2 space-y-4">
-              <RecellLogo variant="badge" />
+              <RecellLogo variant="mark" />
               <p className="text-xs sm:text-sm text-stone-300 leading-relaxed max-w-sm font-sans font-medium">
                 India's transparent mobile ReCommerce platform. Get 60-second AI trade-in quotes, instant doorstep spot UPI cash, 32-point diagnostic checks, and 3-Month warranted certified pre-owned devices.
               </p>
@@ -859,20 +859,6 @@ export default function App() {
             <div className="text-stone-300 font-mono">
               &copy; 2026 Recell Mobile Solutions by ALM_TECH &bull; Recell store, Pathsala road, Khekra, Baghpat, U.P., 250101 &bull; Helpline: 9310552055
             </div>
-          </div>
-
-          <div className="border-t border-stone-900 pt-4 flex justify-center sm:justify-end">
-            <span className="text-[10px] text-stone-400 font-medium">
-              Built and maintained by{' '}
-              <a
-                href="https://risedigitalindia.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-orange-400 hover:text-orange-300 hover:underline underline-offset-2 transition-colors"
-              >
-                risedigitalindia.com
-              </a>
-            </span>
           </div>
         </div>
       </motion.footer>
