@@ -8,15 +8,18 @@ service cloud.firestore {
 
     // Admin-ness is checked directly against the Firebase Auth token, not
     // against any client-writable data. request.auth.token.email is only
-    // ever populated after a real Firebase email/password sign-in, and
-    // request.auth.token.phone_number is only ever populated after a real,
-    // freshly-verified SMS OTP confirmation - neither can be forged by
-    // typing a value into a form. Keep this in sync with the two admin
-    // identities configured in the app (see src/components/AuthModal.tsx).
+    // ever populated after a real Firebase email/password sign-in.
+    // request.auth.token.admin is a custom claim stamped onto the token by
+    // the verifyOtpCode Cloud Function (Admin SDK) ONLY for the one known
+    // admin phone number, immediately after a real, freshly-verified SMS
+    // OTP confirmation - a client can never set this claim itself. Keep
+    // this in sync with ADMIN_PHONE_UID in functions/src/index.ts and the
+    // two admin identities configured in the app (see
+    // src/components/AuthModal.tsx).
     function isAdmin() {
       return isSignedIn() && (
         request.auth.token.email == 'admin@recell.in' ||
-        request.auth.token.phone_number == '+919310552055'
+        request.auth.token.admin == true
       );
     }
 
@@ -118,6 +121,14 @@ service cloud.firestore {
     match /payments/{paymentId} {
       allow read: if isAdmin();
       allow write: if false;
+    }
+
+    // --- Login OTP codes ---
+    // Written and read ONLY by the sendOtpCode / verifyOtpCode Cloud
+    // Functions (Admin SDK, bypasses these rules). A client must never be
+    // able to read another number's code or plant its own "verified" entry.
+    match /otp_codes/{phone} {
+      allow read, write: if false;
     }
 
     // Deny everything else by default.

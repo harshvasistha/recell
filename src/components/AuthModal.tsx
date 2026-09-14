@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { RecellLogo } from './RecellLogo';
 import { X, CheckCircle2, ArrowRight, Smartphone, Mail, Lock, User, ShieldCheck, MapPin, LogOut, Package } from 'lucide-react';
 import { resolveUserProfile, UserProfile } from '../lib/dbService';
 import { auth } from '../lib/firebase';
-import { RecaptchaVerifier, signInWithPhoneNumber, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithCustomToken, signInWithEmailAndPassword } from 'firebase/auth';
 import { sendEmailSignInLink } from '../lib/emailLinkAuth';
+import { sendOtpCode, verifyOtpCode } from '../lib/smsAuth';
 
 // Local-dev-only OTP shortcut so you can test the phone flow without live SMS
 // billing enabled. import.meta.env.DEV is always false in a production build
@@ -50,23 +51,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
-  
-  const [confirmationResult, setConfirmationResult] = useState<any>(null);
-
-  useEffect(() => {
-    if (isOpen) {
-      // Cleanup recaptcha on open
-      if (!(window as any).recaptchaVerifier) {
-        try {
-          (window as any).recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-            'size': 'invisible'
-          });
-        } catch (e) {
-          console.warn("Recaptcha init error", e);
-        }
-      }
-    }
-  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -80,23 +64,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     setStep('form');
     setErrorMsg('');
     setSuccessMsg('');
-    setConfirmationResult(null);
-    // An invisible reCAPTCHA's challenge response gets consumed by the one
-    // signInWithPhoneNumber call it backed - reusing the same verifier
-    // instance for a later attempt (e.g. the user closes the modal after a
-    // failed/abandoned attempt and reopens it) can silently fail with a
-    // stale/expired captcha response. Clearing it here means a fresh
-    // verifier - and a fresh challenge - gets created next time the modal
-    // opens, instead of a single global instance living for the whole tab
-    // session.
-    if ((window as any).recaptchaVerifier) {
-      try {
-        (window as any).recaptchaVerifier.clear();
-      } catch (e) {
-        // ignore - best-effort cleanup
-      }
-      delete (window as any).recaptchaVerifier;
-    }
     onClose();
   };
 
@@ -133,13 +100,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
     try {
       if (authMethod === 'phone') {
-        // Phone always requires a real, freshly-verified Firebase SMS OTP -
-        // for both signup AND signin. Possession of the device (i.e.
-        // receiving the OTP) is the credential.
-        const formattedPhone = phone.trim().startsWith('+') ? phone.trim() : `+91${phone.trim()}`;
-        const appVerifier = (window as any).recaptchaVerifier;
-        const confirmation = await signInWithPhoneNumber(auth, formattedPhone, appVerifier);
-        setConfirmationResult(confirmation);
+        // Phone always requires a real, freshly-verified SMS OTP - for both
+        // signup AND signin. Possession of the device (i.e. receiving the
+        // OTP) is the credential. The OTP itself is generated and sent
+        // server-side (sendOtpCode Cloud Function, via the HMI Media SMS
+        // gateway) rather than through Firebase's native phone auth, which
+        // is blocked for Indian numbers by Firebase's own SMS region policy.
+        await sendOtpCode(phone.trim());
         setSuccessMsg('OTP sent to your phone.');
         setIsSubmitting(false);
         setStep('otp');
@@ -301,14 +268,17 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       const isDevBypass = DEV_OTP_BYPASS !== null && otpInput === DEV_OTP_BYPASS;
 
       if (!isDevBypass) {
-        if (!confirmationResult) {
-          throw new Error('OTP session expired. Please request a new code.');
-        }
+        let customToken: string;
         try {
-          await confirmationResult.confirm(otpInput);
-        } catch (e) {
-          throw new Error('Invalid SMS OTP.');
+          customToken = await verifyOtpCode(phone.trim(), otpInput.trim());
+        } catch (e: any) {
+          // Cloud Functions HttpsError messages here are already
+          // user-friendly ("Incorrect OTP.", "This OTP has expired...",
+          // "Too many incorrect attempts...") - surface them directly
+          // instead of a generic fallback.
+          throw new Error(e?.message || 'Invalid SMS OTP.');
         }
+        await signInWithCustomToken(auth, customToken);
       }
 
       const cleanPhone = phone.trim().startsWith('+') ? phone.trim() : `+91 ${phone.trim()}`;
@@ -323,7 +293,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/70 backdrop-blur-sm animate-fade-in">
       <div className="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border border-stone-200">
-        <div id="recaptcha-container"></div>
         {/* LOGGED IN USER VIEW */}
         {user ? (
           <div>
