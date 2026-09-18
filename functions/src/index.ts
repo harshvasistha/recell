@@ -36,7 +36,7 @@ async function sendHmiSms(params: {
   entityId: string; // DLT principal entity id (e_id)
   templateId: string; // DLT-approved template id (t_id)
 }): Promise<void> {
-  const url = new URL('https://hmimedia.in/pushsms.php');
+  const url = new URL('http://hmimedia.in/pushsms.php');
   url.searchParams.set('username', HMI_SMS_USERNAME.value());
   url.searchParams.set('api_password', HMI_SMS_API_PASSWORD.value());
   url.searchParams.set('sender', HMI_SENDER_ID);
