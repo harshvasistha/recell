@@ -105,7 +105,12 @@ export interface Order {
   state: string;
   items: OrderItem[];
   totalAmount: number;
-  paymentMethod: 'Razorpay UPI' | 'Razorpay Card' | 'COD (Deposit Paid)';
+  // 'Razorpay UPI' / 'Razorpay Card' / 'COD (Deposit Paid)' are kept in the
+  // type only because older orders in Firestore already carry those values -
+  // no online payment gateway is live right now, so every new order is
+  // created as 'Cash on Delivery' (see CheckoutModal.tsx) until a gateway is
+  // wired back in.
+  paymentMethod: 'Razorpay UPI' | 'Razorpay Card' | 'COD (Deposit Paid)' | 'Cash on Delivery';
   paymentStatus: 'Paid' | 'Pending Token';
   orderStatus: 'Confirmed' | 'Packed' | 'In Transit' | 'Out for Delivery' | 'Delivered' | 'Returned';
   courierPartner: 'Delhivery Express' | 'Shiprocket' | 'BlueDart';

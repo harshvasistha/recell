@@ -190,7 +190,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({
 
               <h3 className="font-bold text-stone-900 text-sm">3. Refund Processing</h3>
               <p>
-                Refunds are credited back to your original payment method (Razorpay UPI / Card) within 3-5 business days following physical inspection at our central hub.
+                For Cash on Delivery orders, refunds are processed via UPI/bank transfer to your provided details within 3-5 business days following physical inspection at our central hub. For orders paid online, refunds go back to the original payment method within the same window.
               </p>
             </div>
           )}

@@ -110,9 +110,9 @@ export const HowItWorks: React.FC<{ onNavigate: (tab: 'sell' | 'buy' | 'track') 
               <div className="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 font-mono font-black text-lg flex items-center justify-center">
                 02
               </div>
-              <h3 className="font-bold text-stone-900 text-base">Secure Razorpay UPI / Card Checkout</h3>
+              <h3 className="font-bold text-stone-900 text-base">Simple Cash on Delivery Checkout</h3>
               <p className="text-xs text-stone-500 leading-relaxed">
-                Pay safely via Razorpay UPI, Credit/Debit cards, Netbanking, or partial COD deposit. Your order is instantly logged for express packing.
+                Confirm your order in a few taps and pay the full amount in cash or UPI directly to our courier at delivery. Your order is instantly logged for express packing.
               </p>
             </div>
 

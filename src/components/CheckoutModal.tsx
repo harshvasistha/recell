@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { CatalogProduct, Order } from '../types';
-import { X, ShieldCheck, Check, CreditCard, QrCode, Truck, Lock, IndianRupee, SmartphoneCharging } from 'lucide-react';
-import { openRazorpayCheckout, createServerRazorpayOrder, verifyServerRazorpayPayment } from '../lib/razorpay';
+import { X, Check, Truck, Lock, SmartphoneCharging } from 'lucide-react';
 import { saveOrderToDB } from '../lib/dbService';
 
-// Must match COD_DEPOSIT_PERCENT in functions/src/index.ts - this value here
-// is only ever used for display; the Cloud Function decides the real charge
-// amount server-side from the order's paymentMethod and totalAmount, never
-// trusting anything the client sends.
-const COD_DEPOSIT_PERCENT = 0.10;
+// No online payment gateway is live right now (the previous Razorpay
+// integration is on hold - see functions/src/index.ts's createRazorpayOrder/
+// verifyRazorpayPayment, which are still deployed but unused). Every order
+// is Cash on Delivery, full amount collected by the courier - no deposit is
+// charged online. Swap this flow back to a real gateway once one is ready;
+// until then this is the ONLY path that creates an order, so it must not be
+// removed without replacing it with something that actually charges money.
 
 interface CheckoutModalProps {
   items: CatalogProduct[];
@@ -44,18 +45,11 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
 
-  // Payment choice
-  const [paymentMethod, setPaymentMethod] = useState<'Razorpay UPI' | 'Razorpay Card' | 'COD (Deposit Paid)'>('Razorpay UPI');
-  const [upiOption, setUpiOption] = useState<'qr' | 'handle'>('qr');
   const [isProcessing, setIsProcessing] = useState(false);
   const [createdOrder, setCreatedOrder] = useState<Order | null>(null);
   const [paymentError, setPaymentError] = useState('');
 
   const totalAmount = items.reduce((acc, item) => acc + item.refurbPrice, 0);
-  const isCod = paymentMethod === 'COD (Deposit Paid)';
-  const codDepositAmount = Math.round(totalAmount * COD_DEPOSIT_PERCENT);
-  const chargeNowAmount = isCod ? codDepositAmount : totalAmount;
-  const codBalanceDue = Math.max(0, totalAmount - codDepositAmount);
 
   // Since this component now stays mounted across opens/closes (fixing the
   // hooks-order bug above means it can no longer unmount to reset its own
@@ -81,11 +75,14 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     const returnExpiry = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
     const warrantyExpiry = new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
-    // Created up front with paymentStatus 'Pending Token' - this is the
-    // ONLY paymentStatus a client is allowed to write (enforced by
-    // Firestore rules). It only ever becomes 'Paid' after the
-    // verifyRazorpayPayment Cloud Function checks a real signature.
-    const pendingOrder: Order = {
+    // No payment gateway is live - every order is Cash on Delivery, so it's
+    // created straight into its final "Confirmed / awaiting COD collection"
+    // state. paymentStatus stays 'Pending Token' (the only value a client is
+    // allowed to write - enforced by Firestore rules); it's never flipped to
+    // 'Paid' here since nothing was actually charged online. When the real
+    // payment gateway comes back, this is the block to restore the
+    // create-order -> charge -> verify -> mark 'Paid' flow in.
+    const confirmedOrder: Order = {
       id: orderId,
       date: now.toISOString(),
       customerName,
@@ -104,74 +101,29 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
         warrantyMonths: item.warrantyMonths
       })),
       totalAmount,
-      paymentMethod,
+      paymentMethod: 'Cash on Delivery',
       paymentStatus: 'Pending Token',
       orderStatus: 'Confirmed',
       courierPartner: 'Delhivery Express',
       trackingNumber: `DEL${Math.floor(100000000 + Math.random() * 900000000)}`,
       trackingHistory: [
-        { time: now.toLocaleString('en-IN'), status: 'Order Placed - Awaiting Payment Confirmation', location: 'Recell Central Hub, Khekra' }
+        { time: now.toLocaleString('en-IN'), status: 'Order Placed - Cash on Delivery', location: 'Recell Central Hub, Khekra' }
       ],
       returnWindowExpiry: returnExpiry,
       warrantyExpiry: warrantyExpiry
     };
 
     try {
-      const saved = await saveOrderToDB(pendingOrder);
+      const saved = await saveOrderToDB(confirmedOrder);
       if (!saved) throw new Error('Could not create your order. Please try again.');
 
-      const { razorpayOrderId, keyId } = await createServerRazorpayOrder(orderId);
+      console.log(`[OWNER SMS NOTIFICATION SENT to 9310552055] New Order ${orderId}! Amount: ₹${totalAmount}, Customer: ${customerName} (${customerPhone}), Items: ${items.map(i => i.title).join(', ')}`);
+      console.log(`[CUSTOMER SMS SENT to ${customerPhone}] Order ${orderId} confirmed! Track your package live on Recell site with AWB: ${confirmedOrder.trackingNumber}`);
 
-      await openRazorpayCheckout({
-        razorpayOrderId,
-        razorpayKeyId: keyId,
-        amount: chargeNowAmount,
-        name: 'Recell Mobile Store',
-        description: isCod
-          ? `₹${chargeNowAmount} (10% deposit) for ${items.length} Mobile Device(s) - balance on delivery`
-          : `Purchase of ${items.length} Mobile Device(s)`,
-        prefill: {
-          name: customerName,
-          phone: customerPhone,
-          email: customerEmail
-        },
-        onSuccess: async (paymentRes) => {
-          try {
-            // The signature check happens server-side - this is the real
-            // proof of payment, not the checkout widget calling onSuccess.
-            await verifyServerRazorpayPayment({
-              orderId,
-              razorpay_order_id: paymentRes.razorpay_order_id,
-              razorpay_payment_id: paymentRes.razorpay_payment_id,
-              razorpay_signature: paymentRes.razorpay_signature
-            });
-
-            console.log(`[OWNER SMS NOTIFICATION SENT to 9310552055] New Order ${orderId}! Amount: ₹${totalAmount}, Customer: ${customerName} (${customerPhone}), Items: ${items.map(i => i.title).join(', ')}`);
-            console.log(`[CUSTOMER SMS SENT to ${customerPhone}] Order ${orderId} confirmed! Track your package live on Recell site with AWB: ${pendingOrder.trackingNumber}`);
-
-            const confirmedOrder: Order = {
-              ...pendingOrder,
-              paymentStatus: 'Paid',
-              orderStatus: 'Confirmed',
-              ...(isCod ? { codTokenAmount: codDepositAmount, codBalanceDue: codBalanceDue } : {})
-            };
-            setCreatedOrder(confirmedOrder);
-            onOrderCreated(confirmedOrder);
-            setIsProcessing(false);
-            setStep('success');
-          } catch (verifyErr: any) {
-            setIsProcessing(false);
-            setPaymentError(
-              verifyErr?.message ||
-              `Payment could not be verified. If money was deducted, contact support with Order ID ${orderId}.`
-            );
-          }
-        },
-        onFailure: (err) => {
-          setIsProcessing(false);
-          setPaymentError(err?.message || 'Payment failed or was cancelled. Please try again.');
-        }
-      });
+      setCreatedOrder(confirmedOrder);
+      onOrderCreated(confirmedOrder);
+      setIsProcessing(false);
+      setStep('success');
     } catch (err: any) {
       setIsProcessing(false);
       setPaymentError(err?.message || 'Something went wrong creating your order. Please try again.');
@@ -287,7 +239,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 type="submit"
                 className="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-orange-600/30 text-sm"
               >
-                Proceed to Razorpay Payment
+                Continue to Confirm Order
               </button>
             </form>
           )}
@@ -297,10 +249,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               <div className="flex items-center justify-between border-b border-stone-800 pb-3">
                 <h2 className="text-lg font-bold text-white flex items-center gap-2">
                   <Lock className="w-5 h-5 text-emerald-400" />
-                  Razorpay Secure Payment
+                  Confirm Your Order
                 </h2>
                 <span className="text-xs text-stone-400 font-mono">
-                  {isCod ? `Deposit (10%): ₹${chargeNowAmount.toLocaleString('en-IN')}` : `Amount: ₹${chargeNowAmount.toLocaleString('en-IN')}`}
+                  Amount: ₹{totalAmount.toLocaleString('en-IN')}
                 </span>
               </div>
 
@@ -310,68 +262,19 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 </div>
               )}
 
-              {/* Payment Method Selector */}
-              <div className="grid grid-cols-3 gap-2 text-xs">
-                {[
-                  { key: 'Razorpay UPI', label: 'UPI / GPay', icon: QrCode },
-                  { key: 'Razorpay Card', label: 'Debit / Credit Card', icon: CreditCard },
-                  { key: 'COD (Deposit Paid)', label: `COD (${COD_DEPOSIT_PERCENT * 100}% Deposit)`, icon: Truck }
-                ].map((pm) => {
-                  const Icon = pm.icon;
-                  return (
-                    <button
-                      key={pm.key}
-                      type="button"
-                      onClick={() => setPaymentMethod(pm.key as any)}
-                      className={`p-3 rounded-xl border flex flex-col items-center gap-1.5 transition-all ${
-                        paymentMethod === pm.key
-                          ? 'bg-orange-600/20 border-orange-500 text-white font-bold'
-                          : 'bg-stone-800 border-stone-700 text-stone-400'
-                      }`}
-                    >
-                      <Icon className="w-5 h-5 text-orange-400" />
-                      <span>{pm.label}</span>
-                    </button>
-                  );
-                })}
+              {/* Online payment (UPI/Card) is temporarily unavailable while a
+                  new payment gateway is set up - every order is Cash on
+                  Delivery for now, full amount collected by the courier. */}
+              <div className="p-4 bg-stone-950 rounded-xl border border-stone-800 text-center space-y-2">
+                <div className="flex items-center justify-center gap-2 text-emerald-400">
+                  <Truck className="w-4 h-4" />
+                  <span className="text-xs font-bold">Cash on Delivery</span>
+                </div>
+                <p className="text-[11px] text-stone-400">
+                  Online payment (UPI/Card) is temporarily unavailable. Pay the full amount of{' '}
+                  <strong className="text-stone-200">₹{totalAmount.toLocaleString('en-IN')}</strong> in cash or UPI directly to our courier when your order is delivered.
+                </p>
               </div>
-
-              {/* What happens next, per selected method - the actual UPI QR /
-                  card entry screen is Razorpay's own hosted checkout window,
-                  opened after "Pay" below. There is deliberately no mock
-                  QR/card form here anymore - it looked fillable/scannable
-                  but never did anything, which is confusing at best. */}
-              {paymentMethod === 'Razorpay UPI' && (
-                <div className="p-4 bg-stone-950 rounded-xl border border-stone-800 text-center space-y-2">
-                  <div className="flex items-center justify-center gap-2 text-emerald-400">
-                    <QrCode className="w-4 h-4" />
-                    <span className="text-xs font-bold">You'll pay via Razorpay's secure UPI window</span>
-                  </div>
-                  <p className="text-[11px] text-stone-400">Scan the QR or pay via GPay, PhonePe, Paytm, BHIM & all bank UPI apps - shown after you tap Pay below.</p>
-                </div>
-              )}
-
-              {paymentMethod === 'Razorpay Card' && (
-                <div className="p-4 bg-stone-950 rounded-xl border border-stone-800 text-center space-y-2">
-                  <div className="flex items-center justify-center gap-2 text-emerald-400">
-                    <CreditCard className="w-4 h-4" />
-                    <span className="text-xs font-bold">You'll enter your card via Razorpay's secure window</span>
-                  </div>
-                  <p className="text-[11px] text-stone-400">Debit/credit card details are entered directly on Razorpay's PCI-compliant checkout - never on this page.</p>
-                </div>
-              )}
-
-              {isCod && (
-                <div className="p-4 bg-stone-950 rounded-xl border border-stone-800 text-center space-y-2">
-                  <div className="flex items-center justify-center gap-2 text-emerald-400">
-                    <Truck className="w-4 h-4" />
-                    <span className="text-xs font-bold">₹{chargeNowAmount.toLocaleString('en-IN')} (10% deposit) via Razorpay now</span>
-                  </div>
-                  <p className="text-[11px] text-stone-400">
-                    The remaining <strong className="text-stone-200">₹{codBalanceDue.toLocaleString('en-IN')}</strong> (90%) is collected by our courier in cash/UPI at delivery.
-                  </p>
-                </div>
-              )}
 
               <div className="flex justify-between items-center pt-2">
                 <button
@@ -389,12 +292,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   {isProcessing ? (
                     <>
                       <SmartphoneCharging className="w-4 h-4 animate-spin" />
-                      Processing Payment...
+                      Placing Order...
                     </>
                   ) : (
-                    <>
-                      Pay ₹{chargeNowAmount.toLocaleString('en-IN')}{isCod ? ' Deposit' : ''} & Confirm Order
-                    </>
+                    <>Confirm Order (Pay ₹{totalAmount.toLocaleString('en-IN')} on Delivery)</>
                   )}
                 </button>
               </div>
@@ -434,18 +335,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   <span className="text-stone-400">3-Month Recell Warranty Active Until:</span>
                   <span className="font-bold text-orange-400">{createdOrder.warrantyExpiry}</span>
                 </div>
-                {createdOrder.codTokenAmount != null && (
-                  <>
-                    <div className="flex justify-between">
-                      <span className="text-stone-400">Deposit Paid (10%):</span>
-                      <span className="font-bold text-emerald-400">₹{createdOrder.codTokenAmount.toLocaleString('en-IN')}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-stone-400">Balance Due on Delivery:</span>
-                      <span className="font-bold text-amber-400">₹{(createdOrder.codBalanceDue || 0).toLocaleString('en-IN')}</span>
-                    </div>
-                  </>
-                )}
+                <div className="flex justify-between">
+                  <span className="text-stone-400">Amount Due on Delivery:</span>
+                  <span className="font-bold text-amber-400">₹{createdOrder.totalAmount.toLocaleString('en-IN')}</span>
+                </div>
               </div>
 
               <button
