@@ -119,7 +119,7 @@ export const Storefront: React.FC<StorefrontProps> = ({
           </div>
 
           <div className="flex items-center justify-between text-xs text-orange-100 font-medium pt-2 border-t border-orange-500/50">
-            <span>Razorpay Secure Checkout</span>
+            <span>PayU Secure Checkout</span>
             <span className="bg-white text-orange-900 font-bold px-3 py-1 rounded-full text-[11px]">
               UPI / Cards / COD
             </span>
