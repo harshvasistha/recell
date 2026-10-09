@@ -766,6 +766,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   <span className="bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold text-[10px]">{order.orderStatus}</span>
                 </div>
                 <p className="font-bold text-stone-900">{order.customerName} ({order.customerPhone})</p>
+                <p className="text-stone-500">Payment method: {order.paymentMethod} · {order.paymentStatus}</p>
+                {order.upiReference && <p className="text-orange-700 font-semibold">Manual UPI: {order.upiAddress} · Reference: {order.upiReference} · Verify receipt before confirming payment.</p>}
                 <p className="text-stone-500">Tracking: {order.courierPartner} - {order.trackingNumber}</p>
                 <p className="text-stone-500">Address: {order.shippingAddress}, {order.city} ({order.pincode})</p>
               </div>

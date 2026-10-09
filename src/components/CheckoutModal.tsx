@@ -38,9 +38,12 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
 
-  const [paymentMethod, setPaymentMethod] = useState<'PayU' | 'Cash on Delivery'>('PayU');
+  const [paymentMethod, setPaymentMethod] = useState<'PayU' | 'Cash on Delivery' | 'UPI Canara Bank' | 'UPI PayU Address'>('PayU');
   const [isProcessing, setIsProcessing] = useState(false);
   const [createdOrder, setCreatedOrder] = useState<Order | null>(null);
+  const [upiReference, setUpiReference] = useState('');
+  const isManualUpi = paymentMethod === 'UPI Canara Bank' || paymentMethod === 'UPI PayU Address';
+  const upiAddress = paymentMethod === 'UPI Canara Bank' ? '120039128600@cnrb' : 'atul.rathore@payu.in';
   const [paymentError, setPaymentError] = useState('');
 
   const totalAmount = items.reduce((acc, item) => acc + item.refurbPrice, 0);
@@ -56,6 +59,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       setPaymentError('');
       setIsProcessing(false);
       setCreatedOrder(null);
+      setUpiReference('');
     }
   }, [isOpen]);
 
@@ -74,7 +78,12 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       return;
     }
 
-    const orderId = `ORD-IN-${Math.floor(80000 + Math.random() * 9999)}`;
+    if (isManualUpi && !/^[0-9]{12}$/.test(upiReference.trim())) {
+      setPaymentError('Enter the 12-digit UPI transaction reference from your payment app.');
+      setIsProcessing(false);
+      return;
+    }
+    const orderId = `ORD-IN-${crypto.randomUUID()}`;
     const now = new Date();
     const returnExpiry = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
     const warrantyExpiry = new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
@@ -99,16 +108,17 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
         warrantyMonths: item.warrantyMonths
       })),
       totalAmount,
-      paymentMethod: 'Cash on Delivery',
+      paymentMethod,
+      ...(isManualUpi ? { upiAddress, upiReference: upiReference.trim() } : {}),
       paymentStatus: 'Pending Token',
-      orderStatus: 'Confirmed',
+      orderStatus: isManualUpi ? 'Awaiting Payment' : 'Confirmed',
       courierPartner: 'Delhivery Express',
       trackingNumber: '',
       trackingHistory: [
-        { time: now.toLocaleString('en-IN'), status: 'Order Placed - Cash on Delivery', location: 'Recell Central Hub, Khekra' }
+        { time: now.toLocaleString('en-IN'), status: isManualUpi ? 'UPI reference submitted - awaiting merchant verification' : 'Order Placed - Cash on Delivery', location: 'Recell Central Hub, Khekra' }
       ],
-      returnWindowExpiry: returnExpiry,
-      warrantyExpiry: warrantyExpiry
+      returnWindowExpiry: isManualUpi ? '' : returnExpiry,
+      warrantyExpiry: isManualUpi ? '' : warrantyExpiry
     };
 
     try {
@@ -265,8 +275,20 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               <div className="p-4 bg-stone-950 rounded-xl border border-stone-800 space-y-3 text-sm">
                 <label className="flex items-center gap-2"><input type="radio" name="paymentMethod" checked={paymentMethod === 'PayU'} onChange={() => setPaymentMethod('PayU')} />Pay online securely with PayU</label>
                 <p className="text-xs text-stone-400">Choose UPI, cards or net banking on PayU’s hosted checkout. Your order is confirmed after payment verification.</p>
+                <label className="flex items-center gap-2"><input type="radio" name="paymentMethod" checked={paymentMethod === 'UPI Canara Bank'} onChange={() => { setPaymentMethod('UPI Canara Bank'); setUpiReference(''); }} />UPI — Canara Bank QR</label>
+                <label className="flex items-center gap-2"><input type="radio" name="paymentMethod" checked={paymentMethod === 'UPI PayU Address'} onChange={() => { setPaymentMethod('UPI PayU Address'); setUpiReference(''); }} />UPI — atul.rathore@payu.in</label>
                 <label className="flex items-center gap-2"><input type="radio" name="paymentMethod" checked={paymentMethod === 'Cash on Delivery'} onChange={() => setPaymentMethod('Cash on Delivery')} />Cash on Delivery</label>
               </div>
+
+              {isManualUpi && (
+                <div className="rounded-xl border border-orange-500/40 bg-stone-950 p-4 space-y-3">
+                  {paymentMethod === 'UPI Canara Bank' && <a href="/payments/canara-upi-qr.jpeg" target="_blank" rel="noreferrer"><img src="/payments/canara-upi-qr.jpeg" alt="Canara Bank UPI payment QR for 120039128600@cnrb" className="mx-auto w-full max-w-xs rounded-lg" /></a>}
+                  <p className="text-xs text-stone-300">UPI ID: <strong className="break-all text-white select-all">{upiAddress}</strong></p>
+                  <a href={`upi://pay?pa=${encodeURIComponent(upiAddress)}&pn=Recell&am=${totalAmount.toFixed(2)}&cu=INR`} className="inline-block rounded-lg bg-orange-700 px-4 py-2 text-sm font-bold">Open UPI app</a>
+                  <p className="text-xs text-stone-300">Pay ₹{totalAmount.toLocaleString('en-IN')} to the selected UPI ID, then enter your transaction reference. Your order will remain awaiting payment verification until we confirm receipt.</p>
+                  <label className="block text-xs text-stone-300">12-digit UPI transaction reference<input required inputMode="numeric" pattern="[0-9]{12}" maxLength={12} value={upiReference} onChange={e => setUpiReference(e.target.value.replace(/[^0-9]/g, ''))} className="mt-1 block w-full rounded-lg border border-stone-700 bg-stone-800 p-3 text-white" /></label>
+                </div>
+              )}
 
               <div className="flex justify-between items-center pt-2">
                 <button
@@ -287,7 +309,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       {paymentMethod === 'PayU' ? 'Opening PayU...' : 'Placing Order...'}
                     </>
                   ) : (
-                    <>{paymentMethod === 'PayU' ? 'Pay with PayU' : `Confirm COD Order (₹${totalAmount.toLocaleString('en-IN')})`}</>
+                    <>{paymentMethod === 'PayU' ? 'Pay with PayU' : isManualUpi ? 'Submit UPI payment reference' : `Confirm COD Order (₹${totalAmount.toLocaleString('en-IN')})`}</>
                   )}
                 </button>
               </div>
@@ -304,9 +326,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 <span className="bg-emerald-500/20 text-emerald-300 text-xs font-mono font-bold px-3 py-1 rounded-full border border-emerald-500/30">
                   Order ID: {createdOrder.id}
                 </span>
-                <h2 className="text-2xl font-black text-white mt-3">Order Confirmed!</h2>
+                <h2 className="text-2xl font-black text-white mt-3">{createdOrder.orderStatus === 'Awaiting Payment' ? 'Payment Reference Submitted' : 'Order Confirmed!'}</h2>
                 <p className="text-xs text-stone-300 mt-1">
-                  Thank you, <strong>{createdOrder.customerName}</strong>! Your order has been placed successfully. Shipping details will appear after dispatch.
+                  Thank you, <strong>{createdOrder.customerName}</strong>! {createdOrder.orderStatus === 'Awaiting Payment' ? 'Your order is awaiting merchant payment verification. Submitting a reference does not confirm payment.' : 'Your order has been placed successfully. Shipping details will appear after dispatch.'}
                 </p>
               </div>
 
@@ -321,10 +343,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 </div>
                 <div className="flex justify-between">
                   <span className="text-stone-400">3-Month Recell Warranty Active Until:</span>
-                  <span className="font-bold text-orange-400">{createdOrder.warrantyExpiry}</span>
+                  <span className="font-bold text-orange-400">{createdOrder.warrantyExpiry || 'Awaiting payment verification'}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-stone-400">Amount Due on Delivery:</span>
+                  <span className="text-stone-400">{createdOrder.upiReference ? 'UPI amount awaiting verification:' : 'Amount Due on Delivery:'}</span>
                   <span className="font-bold text-amber-400">₹{createdOrder.totalAmount.toLocaleString('en-IN')}</span>
                 </div>
               </div>

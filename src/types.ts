@@ -106,7 +106,7 @@ export interface Order {
   items: OrderItem[];
   totalAmount: number;
   // Retain legacy method values for historical orders.
-  paymentMethod: 'PayU' | 'Razorpay UPI' | 'Razorpay Card' | 'COD (Deposit Paid)' | 'Cash on Delivery';
+  paymentMethod: 'UPI Canara Bank' | 'UPI PayU Address' | 'PayU' | 'Razorpay UPI' | 'Razorpay Card' | 'COD (Deposit Paid)' | 'Cash on Delivery';
   paymentStatus: 'Paid' | 'Pending Token';
   orderStatus: 'Awaiting Payment' | 'Confirmed' | 'Packed' | 'In Transit' | 'Out for Delivery' | 'Delivered' | 'Returned';
   courierPartner: 'Delhivery Express' | 'Shiprocket' | 'BlueDart';
@@ -114,6 +114,8 @@ export interface Order {
   trackingHistory: { time: string; status: string; location: string }[];
   returnWindowExpiry: string; // ISO date
   warrantyExpiry: string; // ISO date
+  upiAddress?: string;
+  upiReference?: string; // Customer-provided reference; never proof of payment.
   codTokenAmount?: number; // Set once payment is verified, for COD orders only
   codBalanceDue?: number; // totalAmount - codTokenAmount, collected by the courier on delivery
 }

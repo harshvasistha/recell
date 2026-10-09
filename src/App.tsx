@@ -467,8 +467,7 @@ export default function App() {
 
   const handleOrderCreated = (order: Order) => {
     setOrders([order, ...orders]);
-    setCart([]);
-    saveOrderToDB(order);
+    setCart([]); // Checkout has already saved the order; avoid a duplicate client write.
   };
 
   const handleNewReturn = (req: ReturnRequest) => {

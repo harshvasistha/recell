@@ -66,7 +66,15 @@ service cloud.firestore {
       allow read: if true;
       allow create: if isSignedIn() &&
         request.resource.data.paymentStatus != 'Paid' &&
-        request.resource.data.paymentMethod == 'Cash on Delivery';
+        (request.resource.data.paymentMethod == 'Cash on Delivery' || (
+          request.resource.data.paymentMethod in ['UPI Canara Bank', 'UPI PayU Address'] &&
+          request.resource.data.paymentStatus == 'Pending Token' &&
+          request.resource.data.orderStatus == 'Awaiting Payment' &&
+          request.resource.data.upiReference is string &&
+          request.resource.data.upiReference.matches('^[0-9]{12}$') &&
+          ((request.resource.data.paymentMethod == 'UPI Canara Bank' && request.resource.data.upiAddress == '120039128600@cnrb') ||
+           (request.resource.data.paymentMethod == 'UPI PayU Address' && request.resource.data.upiAddress == 'atul.rathore@payu.in'))
+        ));
       allow update: if isAdmin();
       allow delete: if isAdmin();
     }
