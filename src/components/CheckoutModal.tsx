@@ -2,14 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { CatalogProduct, Order } from '../types';
 import { X, Check, Truck, Lock, SmartphoneCharging } from 'lucide-react';
 import { saveOrderToDB } from '../lib/dbService';
-
-// No online payment gateway is live right now (the previous Razorpay
-// integration is on hold - see functions/src/index.ts's createRazorpayOrder/
-// verifyRazorpayPayment, which are still deployed but unused). Every order
-// is Cash on Delivery, full amount collected by the courier - no deposit is
-// charged online. Swap this flow back to a real gateway once one is ready;
-// until then this is the ONLY path that creates an order, so it must not be
-// removed without replacing it with something that actually charges money.
+import { startPayuCheckout } from '../lib/payu';
 
 interface CheckoutModalProps {
   items: CatalogProduct[];
@@ -45,6 +38,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
 
+  const [paymentMethod, setPaymentMethod] = useState<'PayU' | 'Cash on Delivery'>('PayU');
   const [isProcessing, setIsProcessing] = useState(false);
   const [createdOrder, setCreatedOrder] = useState<Order | null>(null);
   const [paymentError, setPaymentError] = useState('');
@@ -70,18 +64,22 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     setIsProcessing(true);
     setPaymentError('');
 
+    if (paymentMethod === 'PayU') {
+      try {
+        await startPayuCheckout({ productIds: items.map(item => item.id), customerName, customerPhone, customerEmail, shippingAddress: address, pincode, city, state });
+      } catch (err: any) {
+        setPaymentError(err?.message || 'Could not open PayU. Please try again.');
+        setIsProcessing(false);
+      }
+      return;
+    }
+
     const orderId = `ORD-IN-${Math.floor(80000 + Math.random() * 9999)}`;
     const now = new Date();
     const returnExpiry = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
     const warrantyExpiry = new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
-    // No payment gateway is live - every order is Cash on Delivery, so it's
-    // created straight into its final "Confirmed / awaiting COD collection"
-    // state. paymentStatus stays 'Pending Token' (the only value a client is
-    // allowed to write - enforced by Firestore rules); it's never flipped to
-    // 'Paid' here since nothing was actually charged online. When the real
-    // payment gateway comes back, this is the block to restore the
-    // create-order -> charge -> verify -> mark 'Paid' flow in.
+    // COD orders stay unpaid until the courier collects payment.
     const confirmedOrder: Order = {
       id: orderId,
       date: now.toISOString(),
@@ -105,7 +103,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       paymentStatus: 'Pending Token',
       orderStatus: 'Confirmed',
       courierPartner: 'Delhivery Express',
-      trackingNumber: `DEL${Math.floor(100000000 + Math.random() * 900000000)}`,
+      trackingNumber: '',
       trackingHistory: [
         { time: now.toLocaleString('en-IN'), status: 'Order Placed - Cash on Delivery', location: 'Recell Central Hub, Khekra' }
       ],
@@ -116,9 +114,6 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     try {
       const saved = await saveOrderToDB(confirmedOrder);
       if (!saved) throw new Error('Could not create your order. Please try again.');
-
-      console.log(`[OWNER SMS NOTIFICATION SENT to 9310552055] New Order ${orderId}! Amount: ₹${totalAmount}, Customer: ${customerName} (${customerPhone}), Items: ${items.map(i => i.title).join(', ')}`);
-      console.log(`[CUSTOMER SMS SENT to ${customerPhone}] Order ${orderId} confirmed! Track your package live on Recell site with AWB: ${confirmedOrder.trackingNumber}`);
 
       setCreatedOrder(confirmedOrder);
       onOrderCreated(confirmedOrder);
@@ -150,7 +145,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
         <div className="p-6">
           {step === 'shipping' && (
-            <form onSubmit={() => setStep('payment')} className="space-y-4">
+            <form onSubmit={(e) => { e.preventDefault(); setStep('payment'); }} className="space-y-4">
               <h2 className="text-lg font-bold text-white flex items-center gap-2">
                 <Truck className="w-5 h-5 text-orange-400" />
                 Shipping & Delivery Address
@@ -172,6 +167,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   <input
                     type="tel"
                     required
+                    pattern="[0-9]{10}"
+                    maxLength={10}
                     value={customerPhone}
                     onChange={(e) => setCustomerPhone(e.target.value)}
                     className="w-full bg-stone-800 border border-stone-700 rounded-xl p-2.5 text-white"
@@ -203,6 +200,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     type="text"
                     required
                     maxLength={6}
+                    pattern="[0-9]{6}"
                     value={pincode}
                     onChange={(e) => setPincode(e.target.value)}
                     className="w-full bg-stone-800 border border-stone-700 rounded-xl p-2.5 text-white font-mono"
@@ -219,6 +217,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   />
                 </div>
               </div>
+
+              <div><label className="block text-stone-300 mb-1 text-xs">State</label><input required value={state} onChange={e => setState(e.target.value)} className="w-full bg-stone-800 border border-stone-700 rounded-xl p-2.5 text-white" /></div>
 
               {/* Order Summary Box */}
               <div className="p-4 bg-stone-950 rounded-xl border border-stone-800 space-y-2 text-xs">
@@ -239,7 +239,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 type="submit"
                 className="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-orange-600/30 text-sm"
               >
-                Continue to Confirm Order
+                Continue to Payment
               </button>
             </form>
           )}
@@ -262,18 +262,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 </div>
               )}
 
-              {/* Online payment (UPI/Card) is temporarily unavailable while a
-                  new payment gateway is set up - every order is Cash on
-                  Delivery for now, full amount collected by the courier. */}
-              <div className="p-4 bg-stone-950 rounded-xl border border-stone-800 text-center space-y-2">
-                <div className="flex items-center justify-center gap-2 text-emerald-400">
-                  <Truck className="w-4 h-4" />
-                  <span className="text-xs font-bold">Cash on Delivery</span>
-                </div>
-                <p className="text-[11px] text-stone-400">
-                  Online payment (UPI/Card) is temporarily unavailable. Pay the full amount of{' '}
-                  <strong className="text-stone-200">₹{totalAmount.toLocaleString('en-IN')}</strong> in cash or UPI directly to our courier when your order is delivered.
-                </p>
+              <div className="p-4 bg-stone-950 rounded-xl border border-stone-800 space-y-3 text-sm">
+                <label className="flex items-center gap-2"><input type="radio" name="paymentMethod" checked={paymentMethod === 'PayU'} onChange={() => setPaymentMethod('PayU')} />Pay online securely with PayU</label>
+                <p className="text-xs text-stone-400">Choose UPI, cards or net banking on PayU’s hosted checkout. Your order is confirmed after payment verification.</p>
+                <label className="flex items-center gap-2"><input type="radio" name="paymentMethod" checked={paymentMethod === 'Cash on Delivery'} onChange={() => setPaymentMethod('Cash on Delivery')} />Cash on Delivery</label>
               </div>
 
               <div className="flex justify-between items-center pt-2">
@@ -292,10 +284,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   {isProcessing ? (
                     <>
                       <SmartphoneCharging className="w-4 h-4 animate-spin" />
-                      Placing Order...
+                      {paymentMethod === 'PayU' ? 'Opening PayU...' : 'Placing Order...'}
                     </>
                   ) : (
-                    <>Confirm Order (Pay ₹{totalAmount.toLocaleString('en-IN')} on Delivery)</>
+                    <>{paymentMethod === 'PayU' ? 'Pay with PayU' : `Confirm COD Order (₹${totalAmount.toLocaleString('en-IN')})`}</>
                   )}
                 </button>
               </div>
@@ -314,18 +306,14 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 </span>
                 <h2 className="text-2xl font-black text-white mt-3">Order Confirmed!</h2>
                 <p className="text-xs text-stone-300 mt-1">
-                  Thank you, <strong>{createdOrder.customerName}</strong>! Your order has been placed successfully and dispatched via <strong>{createdOrder.courierPartner}</strong>.
+                  Thank you, <strong>{createdOrder.customerName}</strong>! Your order has been placed successfully. Shipping details will appear after dispatch.
                 </p>
               </div>
 
               <div className="p-4 bg-stone-950 rounded-xl border border-stone-800 text-left text-xs space-y-2">
-                <div className="p-2.5 bg-emerald-950/60 border border-emerald-500/40 rounded-lg text-emerald-300 text-[11px] font-mono flex items-center justify-between">
-                  <span>📱 SMS Alert Dispatched:</span>
-                  <span className="font-bold">Sent to Owner (+91 9310552055) &amp; Customer ({createdOrder.customerPhone})</span>
-                </div>
                 <div className="flex justify-between">
                   <span className="text-stone-400">Tracking AWB Number:</span>
-                  <span className="font-mono font-bold text-emerald-400">{createdOrder.trackingNumber}</span>
+                  <span className="font-mono font-bold text-emerald-400">{createdOrder.trackingNumber || 'Awaiting dispatch'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-stone-400">Shipping Address:</span>

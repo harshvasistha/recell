@@ -1,3 +1,4 @@
+import { PayuReturn } from './components/PayuReturn';
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { parseRouteFromLocation, syncUrlWithRoute, buildRouteUrl } from './utils/routing';
@@ -850,7 +851,7 @@ export default function App() {
 
           <div className="border-t border-stone-800 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-stone-300 font-semibold">
             <div className="flex flex-wrap items-center gap-4">
-              <span>Razorpay Payments</span>
+              <span>PayU Payments</span>
               <span className="text-stone-600">&bull;</span>
               <span>Delhivery Express</span>
               <span className="text-stone-600">&bull;</span>
@@ -880,7 +881,8 @@ export default function App() {
 
       {/* Product Detail Modal */}
 
-      {/* Checkout Razorpay Modal */}
+      {/* Checkout Modal */}
+      <PayuReturn />
       <CheckoutModal
         items={checkoutItems}
         isOpen={isCheckoutOpen}

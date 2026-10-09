@@ -31,6 +31,7 @@ function matchesUser(order: Order, user: { phone: string; email?: string }): boo
 }
 
 const STATUS_STYLES: Record<Order['orderStatus'], string> = {
+  'Awaiting Payment': 'bg-stone-50 text-stone-700 border-stone-200',
   'Confirmed': 'bg-orange-50 text-orange-700 border-orange-100',
   'Packed': 'bg-amber-50 text-amber-700 border-amber-100',
   'In Transit': 'bg-amber-50 text-amber-700 border-amber-100',
