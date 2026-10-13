@@ -38,12 +38,12 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
 
-  const [paymentMethod, setPaymentMethod] = useState<'PayU' | 'Cash on Delivery' | 'UPI Canara Bank' | 'UPI PayU Address'>('PayU');
+  const [paymentMethod, setPaymentMethod] = useState<'PayU' | 'Cash on Delivery' | 'UPI Canara Bank'>('PayU');
   const [isProcessing, setIsProcessing] = useState(false);
   const [createdOrder, setCreatedOrder] = useState<Order | null>(null);
   const [upiReference, setUpiReference] = useState('');
-  const isManualUpi = paymentMethod === 'UPI Canara Bank' || paymentMethod === 'UPI PayU Address';
-  const upiAddress = paymentMethod === 'UPI Canara Bank' ? '120039128600@cnrb' : 'atul.rathore@payu.in';
+  const isManualUpi = paymentMethod === 'UPI Canara Bank';
+  const upiAddress = '120039128600@cnrb';
   const [paymentError, setPaymentError] = useState('');
 
   const totalAmount = items.reduce((acc, item) => acc + item.refurbPrice, 0);
@@ -276,7 +276,6 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 <label className="flex items-center gap-2"><input type="radio" name="paymentMethod" checked={paymentMethod === 'PayU'} onChange={() => setPaymentMethod('PayU')} />Pay online securely with PayU</label>
                 <p className="text-xs text-stone-400">Choose UPI, cards or net banking on PayU’s hosted checkout. Your order is confirmed after payment verification.</p>
                 <label className="flex items-center gap-2"><input type="radio" name="paymentMethod" checked={paymentMethod === 'UPI Canara Bank'} onChange={() => { setPaymentMethod('UPI Canara Bank'); setUpiReference(''); }} />UPI — Canara Bank QR</label>
-                <label className="flex items-center gap-2"><input type="radio" name="paymentMethod" checked={paymentMethod === 'UPI PayU Address'} onChange={() => { setPaymentMethod('UPI PayU Address'); setUpiReference(''); }} />UPI — atul.rathore@payu.in</label>
                 <label className="flex items-center gap-2"><input type="radio" name="paymentMethod" checked={paymentMethod === 'Cash on Delivery'} onChange={() => setPaymentMethod('Cash on Delivery')} />Cash on Delivery</label>
               </div>
 
