@@ -1,4 +1,7 @@
+import { applyCatalogEdits } from '../utils/catalogEdits';
 import {
+  onSnapshot,
+  runTransaction,
   collection,
   doc,
   setDoc,
@@ -407,10 +410,14 @@ function stripUndefinedDeep<T>(value: T): T {
   return value;
 }
 
-export async function saveCatalogToDB(catalog: CatalogProduct[]): Promise<boolean> {
+export async function saveCatalogToDB(catalog: CatalogProduct[], before: CatalogProduct[]): Promise<boolean> {
   try {
     const docRef = doc(db, 'system', 'catalog');
-    await setDoc(docRef, { products: stripUndefinedDeep(catalog) });
+    await runTransaction(db, async transaction => {
+      const latest = await transaction.get(docRef);
+      const current = (latest.data()?.products || []) as CatalogProduct[];
+      transaction.set(docRef, { products: stripUndefinedDeep(applyCatalogEdits(current, before, catalog)) }, { merge: true });
+    });
     console.log('[Firestore] Catalog saved successfully.');
     return true;
   } catch (err) {
@@ -446,4 +453,10 @@ export async function fetchCatalogFromDB(): Promise<CatalogFetchResult> {
     console.error('[Firestore] Error fetching catalog:', err);
     return { status: 'error' };
   }
+}
+
+export function watchCatalog(onProducts: (products: CatalogProduct[]) => void, onError: () => void) {
+  return onSnapshot(doc(db, 'system', 'catalog'), snapshot => {
+    onProducts(snapshot.exists() ? (snapshot.data().products || []) as CatalogProduct[] : []);
+  }, onError);
 }

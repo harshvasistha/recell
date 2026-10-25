@@ -27,3 +27,10 @@ test('only captured, matching transactions can mark an order paid', () => {
     assert.equal(capturedPayment({ ...detail, ...override }, 'transaction', '499.00'), false);
   }
 });
+test('new checkout IDs respect PayU 25-character limit; old 32-character returns still verify', () => {
+  const { newTransactionId, validTransactionId } = require('../lib/payuProtocol');
+  const ids = new Set(Array.from({length:100},newTransactionId)); assert.equal(ids.size,100);
+  for (const id of ids) { assert.equal(id.length,24); assert.equal(validTransactionId(id),true); }
+  assert.equal(validTransactionId('a'.repeat(32)),true);
+  for(const id of ['../order','a'.repeat(26),'',null]) assert.equal(validTransactionId(id),false);
+});

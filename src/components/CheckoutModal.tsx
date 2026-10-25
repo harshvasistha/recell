@@ -167,6 +167,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   <input
                     type="text"
                     required
+                    maxLength={60}
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
                     className="w-full bg-stone-800 border border-stone-700 rounded-xl p-2.5 text-white"
@@ -189,6 +190,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   <input
                     type="email"
                     required
+                    maxLength={50}
                     value={customerEmail}
                     onChange={(e) => setCustomerEmail(e.target.value)}
                     className="w-full bg-stone-800 border border-stone-700 rounded-xl p-2.5 text-white"

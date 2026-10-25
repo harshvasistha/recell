@@ -114,6 +114,7 @@ export interface Order {
   trackingHistory: { time: string; status: string; location: string }[];
   returnWindowExpiry: string; // ISO date
   warrantyExpiry: string; // ISO date
+  inventoryStatus?: 'Allocated' | 'Review Required';
   upiAddress?: string;
   upiReference?: string; // Customer-provided reference; never proof of payment.
   codTokenAmount?: number; // Set once payment is verified, for COD orders only

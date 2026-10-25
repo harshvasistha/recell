@@ -3,7 +3,7 @@
   "private": true,
   "description": "Server-side backend for recell.co.in - PayU Hosted Checkout and server-side payment verification. Runs with the Firebase Admin SDK, which bypasses Firestore security rules, so it is the only code allowed to mark an order as Paid.",
   "engines": {
-    "node": "20"
+    "node": "22"
   },
   "main": "lib/index.js",
   "type": "commonjs",

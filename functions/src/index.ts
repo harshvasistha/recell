@@ -216,3 +216,5 @@ export const notifyOrderPlaced = onDocumentCreated(
 );
 
 export { createPayuCheckout, verifyPayuPayment, payuCallback, payuWebhook } from './payu';
+
+export { syncSoldInventory } from './inventory';
