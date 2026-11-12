@@ -1,6 +1,8 @@
 import { httpsCallable } from 'firebase/functions';
-import { functions } from './firebase';
+import { auth, functions } from './firebase';
 export async function startPayuCheckout(data: Record<string, unknown>): Promise<void> {
+  await auth.authStateReady();
+  if (!auth.currentUser) throw new Error('Your sign-in session has expired. Sign out and sign in again before paying.');
   const result = await httpsCallable<Record<string, unknown>, { action: string; fields: Record<string, string> }>(functions, 'createPayuCheckout')(data);
   if (result.data.action !== 'https://secure.payu.in/_payment') throw new Error('Unexpected payment destination.');
   const form = document.createElement('form');
@@ -13,5 +15,5 @@ export async function startPayuCheckout(data: Record<string, unknown>): Promise<
   form.submit();
 }
 export async function checkPayuPayment(txnid: string) {
-  return (await httpsCallable<{ txnid: string }, { status: string; orderId: string }>(functions, 'verifyPayuPayment')({ txnid })).data;
+  return (await httpsCallable<{ txnid: string }, { status: string; orderId: string; inventoryStatus?: string }>(functions, 'verifyPayuPayment')({ txnid })).data;
 }

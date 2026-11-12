@@ -14,3 +14,7 @@ Manual payment confirmation requires matching bank receipt; a customer reference
 
 ## Removed manual PayU-address UPI option — 2026-10-13
 Removed `atul.rathore@payu.in` from checkout. Canara QR, PayU Hosted Checkout and COD remain available. Legacy order type retained for historical records. Deploy rules to reject new submissions using the removed manual address: `firebase deploy --only firestore:rules --project recell-new`.
+
+## Payment failure and automatic sold inventory — 2026-10-25
+Prepared on `codex/payment-inventory-fix`; NOT deployed yet. Fixed PayU v1 transaction IDs (32 → 24 characters), SPA return-reference loss, auth-restoration timing and customer field limits. Added atomic/idempotent stock allocation on captured payment, confirmed COD and trusted manual payment confirmation, live catalog subscriptions, sold-out filtering, and stale-admin-edit protection. Preserves sold device/order history. Node runtime updated to 22.
+See [PAYMENT_INVENTORY_FIX.md](PAYMENT_INVENTORY_FIX.md) for backend-first deployment, validation, live acceptance steps and historical-stock review limitations. Successful live payment still requires customer authorization and merchant-side confirmation; endpoint availability alone is not a completed payment test.

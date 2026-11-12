@@ -1,4 +1,4 @@
-import { createHash, timingSafeEqual } from 'crypto';
+import { randomBytes, createHash, timingSafeEqual } from 'crypto';
 export const sha512 = (value: string) => createHash('sha512').update(value).digest('hex');
 export function requestHash(fields: Record<string, string>, salt: string): string {
   return sha512([fields.key, fields.txnid, fields.amount, fields.productinfo, fields.firstname, fields.email,
@@ -17,3 +17,7 @@ export function capturedPayment(detail: Record<string, unknown>, txnid: string, 
     detail.txnid === txnid && Number(detail.amt ?? detail.amount) === Number(amount) &&
     typeof detail.mihpayid !== 'undefined' && /^\d+$/.test(String(detail.mihpayid));
 }
+
+// PayU v1 accepts at most 25 characters; retain 32-char legacy IDs for verification only.
+export const newTransactionId = () => randomBytes(12).toString('hex');
+export const validTransactionId = (value: unknown): value is string => typeof value === 'string' && /^(?:[a-f0-9]{24}|[a-f0-9]{32})$/.test(value);

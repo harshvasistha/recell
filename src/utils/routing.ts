@@ -110,7 +110,13 @@ export function syncUrlWithRoute(
 ) {
   if (typeof window === 'undefined') return;
   
-  const targetUrl = buildRouteUrl(tab, searchQuery, legalTab, productId);
+  let targetUrl = buildRouteUrl(tab, searchQuery, legalTab, productId);
+  // Keep the signed-in payment verification reference across SPA navigation.
+  // The reference is only an identifier; the server still verifies payment.
+  const paymentRef = new URLSearchParams(window.location.search).get('payu_txn');
+  if (paymentRef && /^(?:[a-f0-9]{24}|[a-f0-9]{32})$/.test(paymentRef)) {
+    targetUrl += `${targetUrl.includes('?') ? '&' : '?'}payu_txn=${paymentRef}`;
+  }
   const currentUrl = window.location.pathname + window.location.search;
   
   if (currentUrl !== targetUrl || window.location.hash) {

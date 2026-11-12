@@ -1,11 +1,10 @@
 import { PayuReturn } from './components/PayuReturn';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import { parseRouteFromLocation, syncUrlWithRoute, buildRouteUrl } from './utils/routing';
 import {
   SEED_DEVICE_MODELS,
   DEFAULT_PRICING_RULES,
-  SEED_CATALOG,
   SEED_BUY_REQUESTS,
   SEED_ORDERS,
   SEED_REPAIR_JOBS,
@@ -41,10 +40,10 @@ import { ProductDetailsPage } from './components/Pages/ProductDetailsPage';
 import { AuthModal } from './components/AuthModal';
 import { ProfilePage } from './components/Pages/ProfilePage';
 import {
-  saveOrderToDB,
   saveSellRequestToDB,
   fetchCatalogFromDB,
   saveCatalogToDB,
+  watchCatalog,
   resolveUserProfile,
   fetchOrdersFromDB,
   fetchSellRequestsFromDB,
@@ -225,65 +224,40 @@ export default function App() {
   }, []);
 
   // App Master Data State
-  const [catalog, setCatalog] = useState<CatalogProduct[]>(SEED_CATALOG);
-  // Guards against the persistence effect below firing (and stomping real
-  // Firestore data) before the initial load below has actually resolved.
+  const [catalog, setCatalog] = useState<CatalogProduct[]>([]);
+  // Public stock is shown only after the server catalog has loaded.
   const [catalogLoaded, setCatalogLoaded] = useState(false);
 
-  useEffect(() => {
-    // Firestore is the source of truth. Admin catalog edits must survive a
-    // page reload, so seed/localStorage data is ONLY ever used - and ONLY
-    // ever persisted back to Firestore - when the catalog doc genuinely
-    // doesn't exist yet (a brand-new deployment). A fetch ERROR (network
-    // blip, transient auth/rules hiccup) must NEVER flip catalogLoaded to
-    // true, because that would arm the persistence effect below and it
-    // would immediately overwrite the real Firestore catalog with stale
-    // local data - this previously caused real admin-imported products to
-    // be silently wiped. On error we show cached localStorage data
-    // read-only (persistence stays disarmed) and keep retrying the fetch
-    // until it actually succeeds.
-    let cancelled = false;
-    const attemptLoad = () => {
-      fetchCatalogFromDB().then(result => {
-        if (cancelled) return;
-        if (result.status === 'ok') {
-          setCatalog(result.products);
-          setCatalogLoaded(true);
-        } else if (result.status === 'not-found') {
-          setCatalog(SEED_CATALOG);
-          setCatalogLoaded(true);
-        } else {
-          // 'error': show cached data if we have it, but do NOT arm
-          // persistence, and retry shortly instead of giving up.
-          const stored = localStorage.getItem('recellCatalog');
-          if (stored) {
-            try {
-              const parsed = JSON.parse(stored);
-              setCatalog(Array.isArray(parsed) ? parsed : SEED_CATALOG);
-            } catch {
-              // keep whatever is currently rendered
-            }
-          }
-          setTimeout(attemptLoad, 8000);
-        }
-      });
-    };
-    attemptLoad();
-    return () => { cancelled = true; };
-  }, []);
-
-  // Surfaces a visible warning when a catalog save is rejected (e.g. the
-  // admin's Firestore write permission failing) instead of failing
-  // completely silently - this used to mean products the admin "published"
-  // only ever existed in local browser state and vanished on next reload,
-  // with zero indication anything had gone wrong.
+  const catalogRef = useRef(catalog);
+  const catalogWrites = useRef(Promise.resolve());
   const [catalogSaveError, setCatalogSaveError] = useState(false);
-
+  useEffect(() => { catalogRef.current = catalog; }, [catalog]);
+  useEffect(() => watchCatalog(products => {
+    catalogRef.current = products;
+    setCatalog(products);
+    setCatalogLoaded(true);
+  }, () => { setCatalogSaveError(true); setCatalogLoaded(false); }), []);
   useEffect(() => {
-    if (!catalogLoaded) return;
-    localStorage.setItem('recellCatalog', JSON.stringify(catalog));
-    saveCatalogToDB(catalog).then(success => setCatalogSaveError(!success));
+    if (catalogLoaded) localStorage.setItem('recellCatalog', JSON.stringify(catalog));
   }, [catalog, catalogLoaded]);
+  const updateCatalog: React.Dispatch<React.SetStateAction<CatalogProduct[]>> = update => {
+    if (!catalogLoaded) { setCatalogSaveError(true); return; }
+    const before = catalogRef.current;
+    const next = typeof update === 'function' ? update(before) : update;
+    catalogRef.current = next;
+    setCatalog(next);
+    // Persistence is explicit, not an effect on server snapshots. A listener
+    // update must never write an old catalog back over a completed sale.
+    catalogWrites.current = catalogWrites.current.then(async () => {
+      const saved = await saveCatalogToDB(next, before);
+      setCatalogSaveError(!saved);
+      if (!saved) {
+        const latest = await fetchCatalogFromDB();
+        if (latest.status === 'ok') { catalogRef.current = latest.products; setCatalog(latest.products); }
+      }
+    });
+  };
+  const availableCatalog = catalogLoaded ? catalog.filter(product => product.inStock && product.stockCount > 0) : [];
 
   const [buyRequests, setBuyRequests] = useState<BuyQuoteRequest[]>(SEED_BUY_REQUESTS);
   const [orders, setOrders] = useState<Order[]>(SEED_ORDERS);
@@ -351,6 +325,7 @@ export default function App() {
 
   // Cart operations
   const handleAddToCart = (product: CatalogProduct) => {
+    if (!product.inStock || product.stockCount < 1) return;
     if (!cart.some(item => item.id === product.id)) {
       setCart([...cart, product]);
     }
@@ -370,6 +345,7 @@ export default function App() {
       setIsAuthOpen(true);
       return;
     }
+    if (!product.inStock || product.stockCount < 1) return;
     setCheckoutItems([product]);
     setIsCheckoutOpen(true);
   };
@@ -380,7 +356,10 @@ export default function App() {
       setIsAuthOpen(true);
       return;
     }
-    setCheckoutItems(cart);
+    const available = cart.filter(item => availableCatalog.some(p => p.id === item.id));
+    setCart(available);
+    if (!available.length) return;
+    setCheckoutItems(available);
     setIsCartOpen(false);
     setIsCheckoutOpen(true);
   };
@@ -460,7 +439,7 @@ export default function App() {
             camera: 'Multi Camera System'
           }
         };
-        setCatalog([newCatProduct, ...catalog]);
+        updateCatalog([newCatProduct, ...catalog]);
       }
     }
   };
@@ -508,7 +487,7 @@ export default function App() {
   const renderMainContent = () => (
     <main className="pb-16">
       {currentTab === 'landing' && (
-        <LandingPage catalog={catalog}
+        <LandingPage catalog={availableCatalog}
           onSelectProduct={handleSelectProduct}
           onStartSell={() => setCurrentTab('sell')}
           onStartBuy={() => setCurrentTab('buy')}
@@ -532,7 +511,7 @@ export default function App() {
 
       {currentTab === 'buy' && (
         <Storefront
-          catalog={catalog}
+          catalog={availableCatalog}
           searchQuery={searchQuery}
           onSelectProduct={handleSelectProduct}
           onAddToCart={handleAddToCart}
@@ -542,7 +521,7 @@ export default function App() {
 
       {currentTab === 'open-box' && (
         <OpenBoxMobiles
-          catalog={catalog}
+          catalog={availableCatalog}
           onSelectProduct={handleSelectProduct}
              
 
@@ -595,7 +574,7 @@ export default function App() {
       )}
 
       {currentTab === 'product' && currentProductId && catalogLoaded && (() => {
-        const viewedProduct = catalog.find(p => p.id === currentProductId);
+        const viewedProduct = availableCatalog.find(p => p.id === currentProductId);
         if (!viewedProduct) {
           // Genuinely missing (bad/stale link) - never silently fall back
           // to catalog[0], which showed a random, wrong product.
@@ -614,7 +593,7 @@ export default function App() {
         return (
           <ProductDetailsPage
             product={viewedProduct}
-            catalog={catalog}
+            catalog={availableCatalog}
             onSelectProduct={handleSelectProduct}
             onAddToCart={handleAddToCart}
             onBuyNow={handleQuickBuy}
@@ -637,7 +616,7 @@ export default function App() {
       {currentTab === 'admin' && (
         <AdminDashboard
           catalog={catalog}
-          setCatalog={setCatalog}
+          setCatalog={updateCatalog}
           buyRequests={buyRequests}
           orders={orders}
           repairJobs={repairJobs}

@@ -663,7 +663,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     <td className="p-3 font-mono text-emerald-600 font-bold">₹{item.refurbPrice.toLocaleString('en-IN')}</td>
                     <td className="p-3">
                       <span className="text-[10px] bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">
-                        In Stock ({item.stockCount})
+                        {item.inStock && item.stockCount > 0 ? `In Stock (${item.stockCount})` : 'Sold / Out of Stock'}
                       </span>
                     </td>
                     <td className="p-3 text-right">
@@ -766,6 +766,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   <span className="bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold text-[10px]">{order.orderStatus}</span>
                 </div>
                 <p className="font-bold text-stone-900">{order.customerName} ({order.customerPhone})</p>
+                {order.inventoryStatus && <p className={order.inventoryStatus === 'Review Required' ? 'text-rose-700 font-bold' : 'text-stone-500'}>Inventory: {order.inventoryStatus}{order.inventoryStatus === 'Review Required' ? ' — do not dispatch; reconcile stock first.' : ''}</p>}
                 <p className="text-stone-500">Payment method: {order.paymentMethod} · {order.paymentStatus}</p>
                 {order.upiReference && <p className="text-orange-700 font-semibold">Manual UPI: {order.upiAddress} · Reference: {order.upiReference} · Verify receipt before confirming payment.</p>}
                 <p className="text-stone-500">Tracking: {order.courierPartner} - {order.trackingNumber}</p>
